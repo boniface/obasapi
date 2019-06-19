@@ -1,5 +1,7 @@
 package domain.users
 
+import play.api.libs.json.Json
+
 case class UserContacts(
                         userContactId:String,
                         cellNumber:String,
@@ -7,5 +9,5 @@ case class UserContacts(
                         alternativeEmail:String
                        )
 object UserContacts{
-  implicit val UserContactsFmt =Json.format[UserContacts]
+  implicit val userContactsFmt =Json.format[UserContacts]
 }

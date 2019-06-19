@@ -9,6 +9,6 @@ case class School(
                   schoolState:String
                  )
 object School{
-  implicit val SchoolFmt = Json.format[School]
+  implicit val schoolFmt = Json.format[School]
 
 }

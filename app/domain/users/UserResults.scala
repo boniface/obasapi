@@ -7,5 +7,5 @@ case class UserResults(
                        description:String
                       )
 object UserResults{
-implicit val UserResultsFmt = Json.format[UserResults]
+implicit val userResultsFmt = Json.format[UserResults]
 }

@@ -9,5 +9,5 @@ case class MatricSubjects(
                           Term:String
                          )
 object MatricSubjects{
-  implicit val MatricSubjectsFmt = Json.format[MatricSubjects]
+  implicit val matricSubjectsFmt = Json.format[MatricSubjects]
 }

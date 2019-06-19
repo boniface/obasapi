@@ -10,5 +10,5 @@ case class UniverityCourses(
                              Term:String
                            )
 object UniverityCourses{
-  implicit val UniverityCoursesFmt = Json.format[UniverityCourses]
+  implicit val univerityCoursesFmt = Json.format[UniverityCourses]
 }

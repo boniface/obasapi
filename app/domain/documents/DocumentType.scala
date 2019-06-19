@@ -4,9 +4,9 @@ import play.api.libs.json.Json
 
 class DocumentType(
                    documentTypeId:String,
-                   name:String
+                   documentTypename:String
                   )
 object DocumentType{
-  implicit val DocumentTypeFmt =Json.format[DocumentType]
+  implicit val documentTypeFmt =Json.format[DocumentType]
 
 }

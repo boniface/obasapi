@@ -7,6 +7,6 @@ case class ApplicantType(
                          name:String
                          )
 object ApplicantType{
-  implicit val ApplicantTypeFmt = Json.format[ApplicantType]
+  implicit val applicantTypeFmt = Json.format[ApplicantType]
 
 }

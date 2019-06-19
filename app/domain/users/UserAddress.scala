@@ -9,7 +9,7 @@ case class UserAddress(
                       )
 
 object UserAddress{
-  implicit val UserAddressFmt = Json.format[UserAddress]
+  implicit val userAddressFmt = Json.format[UserAddress]
 }
 
 

@@ -8,5 +8,5 @@ case class UserDemographics(
                             raceId:String
                            )
 object UserDemographics{
-  implicit val UserDemographicsFmt =Json.format[UserDemographics]
+  implicit val userDemographicsFmt =Json.format[UserDemographics]
 }

@@ -9,5 +9,5 @@ case class UserRole(
                    )
 
 object UserRole {
-  implicit val UserRoleFmt = Json.format[UserRole]
+  implicit val userRoleFmt = Json.format[UserRole]
 }

@@ -9,6 +9,6 @@ case class ApplicationResult(
                              date:DateTime
                              )
 object ApplicationResult{
-  implicit val ApplicationResultFmt = Json.format[ApplicationResult]
+  implicit val applicationResultFmt = Json.format[ApplicationResult]
 
 }

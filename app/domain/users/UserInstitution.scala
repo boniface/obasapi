@@ -7,6 +7,6 @@ case class UserInstitution(
                       name:String
                      )
 object UserInstitution {
-  implicit val UserInstitutionFmt = Json.format[UserInstitution]
+  implicit val userInstitutionFmt = Json.format[UserInstitution]
 }
 

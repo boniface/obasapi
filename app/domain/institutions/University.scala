@@ -9,7 +9,7 @@ class University(
                   UniversityState:String
                 )
 object University {
-  implicit val UniversityFmt = Json.format[University]
+  implicit val universityFmt = Json.format[University]
 
 }
 

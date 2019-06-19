@@ -7,5 +7,5 @@ case class UserApplicationResult(
                                  description:String
                                 )
 object UserApplicationResult{
-  implicit val UserApplicationResultFmt = Json.format[UserApplicationResult]
+  implicit val userApplicationResultFmt = Json.format[UserApplicationResult]
 }

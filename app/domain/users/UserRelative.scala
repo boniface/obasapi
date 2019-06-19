@@ -5,10 +5,10 @@ import play.api.libs.json.Json
 case class UserRelative(
                         userRelativeId:String,
                         name:String,
-                        celphone:String,
+                        cellphone:String,
                         relationship:String,
                         email:String
                        )
 object UserRelative{
-  implicit val UserRelativeFmt = Json.format[UserRelative]
+  implicit val userRelativeFmt = Json.format[UserRelative]
 }

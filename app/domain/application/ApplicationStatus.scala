@@ -9,7 +9,7 @@ class ApplicationStatus (
                           date:DateTime,
                         )
 object ApplicationStatus{
-  implicit val ApplicationStatusFmt = Json.format[ApplicationStatus]
+  implicit val applicationStatusFmt = Json.format[ApplicationStatus]
 
 }
 

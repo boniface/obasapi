@@ -7,6 +7,6 @@ case class UserPassword(
                         password:String
                        )
 object UserPassword{
-  implicit val UserPasswordFmt =Json.format[UserPassword]
+  implicit val userPasswordFmt =Json.format[UserPassword]
 
 }

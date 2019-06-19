@@ -11,9 +11,9 @@ case class Document(
                     url: String,
                     mime: String,
                     date: DateTime,
-                    permission: Set[String],
+                    permission: Set[String]
                     )
 object Document{
-  implicit val DocumentFmt = Json.format[Document]
+  implicit val documentFmt = Json.format[Document]
 
 }

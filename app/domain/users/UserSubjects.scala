@@ -9,5 +9,5 @@ case class UserSubjects(
                    term:String
                   )
 object UserSubjects{
-  implicit val UserSubjectsFmt = Json.format[UserSubjects]
+  implicit val userSubjectsFmt = Json.format[UserSubjects]
 }

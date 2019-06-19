@@ -4,7 +4,7 @@ import play.api.libs.json.Json
 
 case class AddressType(
                   addressTypeID: String,
-                  name: String
+                  addressName: String
                  )
 object AddressType{
   implicit val addressTypeFmt = Json.format[AddressType]

@@ -1,9 +1,11 @@
 package domain.users
 
+import play.api.libs.json.Json
+
 case class UserCommunication(
                             communicationId:String,
-                            description:sting
+                            description:String
                             )
 object UserCommunication{
- implicit val UserCommunicationFmt = Json.format[UserCommunication]
+ implicit val userCommunicationFmt = Json.format[UserCommunication]
 }
