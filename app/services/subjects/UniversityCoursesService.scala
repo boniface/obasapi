@@ -1,5 +1,13 @@
 package services.subjects
 
-trait UniversityCoursesService {
+import domain.subjects.UniversityCourses
+import services.CrudService
+import services.subjects.Impl.UniversityCoursesServiceImpl
 
+trait UniversityCoursesService extends CrudService[UniversityCourses]{
+
+}
+
+object UniversityCoursesService {
+  def apply: UniversityCoursesServiceImpl = new UniversityCoursesServiceImpl()
 }
