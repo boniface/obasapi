@@ -1,24 +1,23 @@
-package controllers.demographics
-
+package controllers.users
 
 import controllers.ApiResponse
-import domain.demographics.Roles
+import domain.users.UserPassword
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.demographics.RoleService
+import services.users.UserPasswordService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RolesController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
-  type DomainObject = Roles
+class UserPasswordController @Inject()
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc){
+  type DomainObject = UserPassword
 
-  def className: String = "SchoolController"
+  def className: String = "UserPasswordController"
 
-  def domainService: RoleService = RoleService.apply
+  def domainService: UserPasswordService = UserPasswordService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
@@ -33,8 +32,7 @@ class RolesController @Inject()
       }
   }
 
-
-  def getRoleById(id: String): Action[AnyContent] = Action.async {
+  def getUserPasswordById(id: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
         results <- domainService.getEntity(id)
@@ -42,7 +40,7 @@ class RolesController @Inject()
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getAllRoles: Action[AnyContent] = Action.async {
+  def getAllUserPassword: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
@@ -50,7 +48,7 @@ class RolesController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteRole: Action[JsValue] = Action.async(parse.json) {
+  def deleteUserPassword: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
