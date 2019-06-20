@@ -1,5 +1,12 @@
 package domain.users
 
-class UserInstitution {
+import play.api.libs.json.Json
 
+case class UserInstitution(
+                      userInstitutionId:String,
+                      name:String
+                     )
+object UserInstitution {
+  implicit val userInstitutionFmt = Json.format[UserInstitution]
 }
+

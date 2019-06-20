@@ -2,7 +2,7 @@ package domain.demographics
 
 import play.api.libs.json.Json
 
-case class Roles(id: String, rolename: String)
+case class Roles(id: String, roleName: String)
 
 object Roles {
 

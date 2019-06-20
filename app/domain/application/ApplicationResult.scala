@@ -1,5 +1,14 @@
 package domain.application
 
-class ApplicationResult {
+import akka.http.javadsl.model.DateTime
+import play.api.libs.json.Json
+
+case class ApplicationResult(
+                             applicationResultId:String,
+                             description:String,
+                             date:DateTime
+                             )
+object ApplicationResult{
+  implicit val applicationResultFmt = Json.format[ApplicationResult]
 
 }
