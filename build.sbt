@@ -48,6 +48,15 @@ libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.7"
 libraryDependencies += "org.apache.commons" % "commons-email" % "1.5"
 libraryDependencies += "commons-io" % "commons-io" % "2.6"
+libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "3.12.1"
+
+
+libraryDependencies ++= Seq(
+  "com.typesafe.slick" %% "slick" % "3.3.1",
+  "org.slf4j" % "slf4j-nop" % "1.7.26",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.1",
+  "org.postgresql" % "postgresql" % "42.2.5" //org.postgresql.ds.PGSimpleDataSource dependency
+)
 
 
 // Adds additional packages into Twirl
