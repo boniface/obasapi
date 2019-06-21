@@ -1,24 +1,29 @@
-package controllers.demographics
+package controllers.application
 
 
 import controllers.ApiResponse
-import domain.demographics.Roles
+import domain.application.ApplicationStatus
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import services.address.AddressTypeService
+import services.application.{ApplicantTypeService, ApplicationStatusService}
+import services.application.Impl.{ApplicantTypeServiceImpl, ApplicationStatusServiceImpl}
 import services.demographics.RoleService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RolesController @Inject()
+
+
+class ApplicationStatusController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
-  type DomainObject = Roles
+  type DomainObject = ApplicationStatus
 
-  def className: String = "SchoolController"
+  def className: String = "ApplicationStatusController"
 
-  def domainService: RoleService = RoleService.apply
+  def domainService: ApplicationStatusServiceImpl = ApplicationStatusService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
