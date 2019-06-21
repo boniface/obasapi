@@ -1,14 +1,12 @@
 package controllers.address
 
-import javax.inject.Inject
 import controllers.ApiResponse
 import domain.address.AddressType
-import javax.inject.Inject
 import io.circe.generic.auto._
+import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import play.api.mvc._
 import services.address.AddressTypeService
-import services.demographics.RoleService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
