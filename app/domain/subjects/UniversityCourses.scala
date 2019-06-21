@@ -2,13 +2,13 @@ package domain.subjects
 
 import play.api.libs.json.Json
 
-case class UniverityCourses(
+case class UniversityCourses(
                              courseCode:String,
                              description:Option[String],
                              name:String,
                              Type:String,
                              Term:String
                            )
-object UniverityCourses{
-  implicit val univerityCoursesFmt = Json.format[UniverityCourses]
+object UniversityCourses{
+  implicit val univerityCoursesFmt = Json.format[UniversityCourses]
 }
