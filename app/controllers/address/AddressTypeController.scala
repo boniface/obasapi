@@ -1,24 +1,27 @@
-package controllers.demographics
+package controllers.address
 
-
+import javax.inject.Inject
 import controllers.ApiResponse
-import domain.demographics.Roles
+import domain.address.AddressType
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import services.address.AddressTypeService
 import services.demographics.RoleService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RolesController @Inject()
+
+
+class AddressTypeController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
-  type DomainObject = Roles
+  type DomainObject = AddressType
 
-  def className: String = "SchoolController"
+  def className: String = "AddressTypeController"
 
-  def domainService: RoleService = RoleService.apply
+  def domainService: AddressTypeService = AddressTypeService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
