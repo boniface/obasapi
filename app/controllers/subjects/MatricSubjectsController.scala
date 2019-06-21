@@ -1,25 +1,35 @@
-package controllers.demographics
+package controllers.subjects
 
 
 
 import controllers.ApiResponse
-import domain.demographics.Roles
+import domain.subjects.MatricSubjects
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.demographics.RoleService
+import services.address.AddressTypeService
+import services.application.ApplicantTypeService
+import services.application.Impl.ApplicantTypeServiceImpl
+import services.demographics.Impl.RaceServiceImpl
+import services.demographics.{RaceService, RoleService}
+import services.documents.DocumentService
+import services.documents.Impl.DocumentServiceImpl
+import services.subjects.Impl.MatricSubjectsServiceImpl
+import services.subjects.MatricSubjectsService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RolesController @Inject()
+
+
+class MatricSubjectsController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
-  type DomainObject = Roles
+  type DomainObject = MatricSubjects
 
-  def className: String = "ZoneController"
+  def className: String = "MatricSubjectsController"
 
-  def domainService: RoleService = RoleService.apply
+  def domainService: MatricSubjectsServiceImpl = MatricSubjectsService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

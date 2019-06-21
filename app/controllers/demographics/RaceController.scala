@@ -3,23 +3,29 @@ package controllers.demographics
 
 
 import controllers.ApiResponse
-import domain.demographics.Roles
+import domain.demographics.Race
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.demographics.RoleService
+import services.address.AddressTypeService
+import services.application.ApplicantTypeService
+import services.application.Impl.ApplicantTypeServiceImpl
+import services.demographics.Impl.RaceServiceImpl
+import services.demographics.{RaceService, RoleService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RolesController @Inject()
+
+
+class RaceController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
-  type DomainObject = Roles
+  type DomainObject = Race
 
-  def className: String = "ZoneController"
+  def className: String = "RaceController"
 
-  def domainService: RoleService = RoleService.apply
+  def domainService: RaceServiceImpl = RaceService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
