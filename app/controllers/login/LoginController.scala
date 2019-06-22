@@ -73,7 +73,6 @@ class LoginController @Inject()
       }
   }
 
-
   def resetPasswordRequest(resetKey: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[MessageResponse] = for {
