@@ -6,6 +6,7 @@ import io.circe.generic.auto._
 import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import services.login.LoginService
 import services.mail.MailConfigService
 
 import scala.concurrent.ExecutionContext.Implicits.global

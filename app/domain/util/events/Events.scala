@@ -15,4 +15,5 @@ object Events {
   def TOKENINVALID = "TOKEN_INVALID"
   def RESPONSE="RESPONSE"
   def JASONPARSE = "JASON PARSE"
+  def BROWSER_AGENT="User-Agent"
 }

@@ -6,6 +6,7 @@ import io.circe.generic.auto._
 import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import services.login.LoginService
 import services.mail.{MailApiService, MailService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -30,7 +31,7 @@ class MailApiController @Inject()
             _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className))
+          api.requestResponse[Boolean](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -73,7 +74,7 @@ class MailApiController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            _ <- loginService.checkLoginStatus(request, className)
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.deleteEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)

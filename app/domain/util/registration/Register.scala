@@ -1,11 +1,12 @@
 package domain.util.registration
 
-import play.api.libs.json.{JsObject, Json}
+import play.api.libs.json.Json
 
 case class Register(
-                   email:String
+                     email: String
                    )
-object Register{
+
+object Register {
   implicit val registFmt = Json.format[Register]
 
 }
