@@ -4,6 +4,9 @@ import domain.subjects.MatricSubjects
 import repository.Repository
 import repository.subjects.Impl.cassandra.MatricSubjectsRepositoryImpl
 
-trait MatricSubjectsRepository {
+trait MatricSubjectsRepository extends Repository [MatricSubjects]{
 
+}
+object MatricSubjectsRepository{
+  def apply: MatricSubjectsRepositoryImpl = new MatricSubjectsRepositoryImpl()
 }

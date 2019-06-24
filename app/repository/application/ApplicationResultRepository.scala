@@ -4,6 +4,12 @@ import domain.application.ApplicationResult
 import repository.Repository
 import repository.application.Impl.cassandra.ApplicationResultRepositoryImpl
 
-trait ApplicationResultRepository {
+trait ApplicationResultRepository extends Repository [ApplicationResult]{
+
+
+}
+object ApplicationResultRepository{
+
+  def apply: ApplicationResultRepositoryImpl = new ApplicationResultRepositoryImpl()
 
 }

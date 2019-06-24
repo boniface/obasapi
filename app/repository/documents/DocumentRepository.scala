@@ -4,6 +4,10 @@ import domain.documents.Document
 import repository.Repository
 import repository.documents.Impl.cassandra.DocumentRepositoryImpl
 
-trait DocumentRepository {
+trait DocumentRepository extends Repository [Document]{
 
+}
+object DocumentRepository{
+
+  def apply: DocumentRepositoryImpl = new DocumentRepositoryImpl()
 }

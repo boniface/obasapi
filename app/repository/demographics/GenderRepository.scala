@@ -4,6 +4,11 @@ import domain.demographics.Gender
 import repository.Repository
 import repository.demographics.Impl.cassandra.GenderRepositoryImpl
 
-trait GenderRepository {
+trait GenderRepository extends Repository [Gender]{
+
+}
+object GenderRepository{
+
+  def apply: GenderRepositoryImpl = new GenderRepositoryImpl()
 
 }
