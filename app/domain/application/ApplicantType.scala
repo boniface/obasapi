@@ -3,7 +3,7 @@ package domain.application
 import play.api.libs.json.Json
 
 case class ApplicantType(
-                         ApplicantTypeId:String,
+                         applicantTypeId:String,
                          name:String
                          )
 object ApplicantType{

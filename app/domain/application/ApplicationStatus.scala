@@ -4,7 +4,7 @@ import akka.http.javadsl.model.DateTime
 import play.api.libs.json.Json
 
 class ApplicationStatus (
-                          ApplicationStatusId:String,
+                          applicationStatusId:String,
                           description:String,
                           date:DateTime,
                         )

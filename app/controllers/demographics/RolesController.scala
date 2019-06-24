@@ -16,7 +16,7 @@ class RolesController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
   type DomainObject = Roles
 
-  def className: String = "SchoolController"
+  def className: String = "RolesController"
 
   def domainService: RoleService = RoleService.apply
 

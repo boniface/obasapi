@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 
 case class Document(
                     email:String,
-                    DocumentsId: String,
+                    documentsId: String,
                     documentTypeId:String,
                     description:String,
                     url: String,
