@@ -1,6 +1,6 @@
 package domain.application
 
-import akka.http.javadsl.model.DateTime
+import akka.http.scaladsl.model.DateTime
 import play.api.libs.json.Json
 
 case class ApplicationResult(
@@ -10,5 +10,4 @@ case class ApplicationResult(
                              )
 object ApplicationResult{
   implicit val applicationResultFmt = Json.format[ApplicationResult]
-
 }
