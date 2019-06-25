@@ -1,21 +1,51 @@
 package repository.application.Impl.cassandra.tables
 
-import com.datastax.driver.core.Session
-import com.outworkers.phantom.Table
-import com.outworkers.phantom.connectors.KeySpace
-import com.outworkers.phantom.keys.PartitionKey
+import com.outworkers.phantom.dsl._
+import com.outworkers.phantom.streams._
 import domain.application.ApplicantType
+
+//.address.ApplicantType
 
 import scala.concurrent.Future
 
-abstract class ApplicantTypeTable extends Table[ApplicantTypeTable,ApplicantType]{
+abstract class ApplicantTypeTable extends Table[ApplicantTypeTable ,ApplicantType]{
 
-  object id extends StringColumn with PartitionKey
+  object applicantTypeId extends StringColumn with PartitionKey
 
-  object key extends StringColumn
+  object name extends StringColumn
 
-  object sender extends StringColumn
 
 }
 
-  
+abstract class ApplicantTypeTableImpl extends ApplicantTypeTable with RootConnector{
+
+  override  lazy val tableName ="ApplicantType"
+
+
+  def saveEntity(entity:ApplicantType): Future[ResultSet] ={
+    insert
+      .value(_.applicantTypeId, entity.applicantTypeId)
+      .value(_.name, entity.name)
+      .future()
+
+  }
+
+  def getEntity(applicantTypeId: String): Future[Option[ApplicantType]] = {
+    select
+      .where(_.applicantTypeId eqs applicantTypeId)
+      .one()
+  }
+
+  def getEntities: Future[Seq[ApplicantType]] = {
+    select
+      .fetchEnumerator() run Iteratee.collect()
+  }
+
+  def deleteEntity(applicantTypeId: String): Future[ResultSet] = {
+    delete
+      .where(_.applicantTypeId eqs applicantTypeId)
+      .future()
+  }
+
+
+}

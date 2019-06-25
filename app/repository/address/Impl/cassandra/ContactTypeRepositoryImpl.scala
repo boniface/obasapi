@@ -20,8 +20,8 @@ class ContactTypeRepositoryImpl extends ContactTypeRepository {
     ContactTypeDatabase.ContactTypeTable.getEntities
   }
 
-  override def getEntity(id: String): Future[Option[ContactType]] = {
-    ContactTypeDatabase.ContactTypeTable.getEntity(id)
+  override def getEntity(ContactType: String): Future[Option[ContactType]] = {
+    ContactTypeDatabase.ContactTypeTable.getEntity(ContactType)
   }
 
   override def deleteEntity(entity: ContactType): Future[Boolean] = {
@@ -36,9 +36,6 @@ class ContactTypeRepositoryImpl extends ContactTypeRepository {
 
   }
 }
-
-
-
 
 class ContactTypeDatabase(override val connector: KeySpaceDef) extends Database[ContactTypeDatabase](connector) {
   object ContactTypeTable extends ContactTypeTableImpl with connector.Connector

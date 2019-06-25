@@ -12,7 +12,6 @@ abstract class AddressTypeTable extends Table[AddressTypeTable ,AddressType]{
 
   object addressName extends StringColumn
 
-
 }
 
 abstract class AddressTypeTableImpl extends AddressTypeTable with RootConnector{
