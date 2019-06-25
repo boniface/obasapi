@@ -32,10 +32,10 @@ class UserDemographicsController @Inject()
       }
   }
 
-  def getUserDemographicsById(id: String): Action[AnyContent] = Action.async {
+  def getUserDemographicsById(userDemographicsId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(userDemographicsId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

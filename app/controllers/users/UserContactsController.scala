@@ -32,10 +32,10 @@ class UserContactsController @Inject()
       }
   }
 
-  def getUserContactsById(id: String): Action[AnyContent] = Action.async {
+  def getUserContactsById(userContactId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(userContactId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
