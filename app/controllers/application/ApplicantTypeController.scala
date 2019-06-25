@@ -39,10 +39,10 @@ class ApplicantTypeController @Inject()
   }
 
 
-  def getApplicantTypeById(id: String): Action[AnyContent] = Action.async {
+  def getApplicantTypeById(applicantTypeId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(applicantTypeId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

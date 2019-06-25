@@ -32,10 +32,10 @@ class UserController @Inject()
       }
   }
 
-  def getUserById(id: String): Action[AnyContent] = Action.async {
+  def getUserById(email: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(email)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

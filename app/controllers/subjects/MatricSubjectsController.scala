@@ -45,10 +45,10 @@ class MatricSubjectsController @Inject()
   }
 
 
-  def getMatricSubjectsById(id: String): Action[AnyContent] = Action.async {
+  def getMatricSubjectsById(subjectCode: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(subjectCode)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

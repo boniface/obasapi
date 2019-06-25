@@ -39,10 +39,10 @@ class ApplicationStatusController @Inject()
   }
 
 
-  def getApplicationStatusById(id: String): Action[AnyContent] = Action.async {
+  def getApplicationStatusById(applicationStatusId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(applicationStatusId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

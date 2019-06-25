@@ -39,10 +39,10 @@ class ApplicationResultController @Inject()
   }
 
 
-  def getApplicationResultById(id: String): Action[AnyContent] = Action.async {
+  def getApplicationResultById(applicationResultId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(applicationResultId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

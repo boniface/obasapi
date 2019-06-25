@@ -43,10 +43,10 @@ class DocumentTypeController @Inject()
   }
 
 
-  def getDocumentTypeById(id: String): Action[AnyContent] = Action.async {
+  def getDocumentTypeById(documentTypeId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(documentTypeId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

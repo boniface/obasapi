@@ -41,10 +41,10 @@ class  GenderController @Inject()
   }
 
 
-  def getGenderById(id: String): Action[AnyContent] = Action.async {
+  def getGenderById(genderId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(genderId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
