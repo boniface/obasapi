@@ -36,7 +36,7 @@ class AddressTypeController @Inject()
   }
 
 
-  def getRoleById(id: String): Action[AnyContent] = Action.async {
+  def getAddressTypeById(id: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
         results <- domainService.getEntity(id)
@@ -44,7 +44,7 @@ class AddressTypeController @Inject()
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getAllRoles: Action[AnyContent] = Action.async {
+  def getAllAddressType: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
@@ -52,7 +52,7 @@ class AddressTypeController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteRole: Action[JsValue] = Action.async(parse.json) {
+  def deleteAddressType: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {

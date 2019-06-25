@@ -1,5 +1,13 @@
 package repository.users
 
-class UserPasswordRepository {
+import domain.users.UserPassword
+import repository.Repository
+import repository.users.Impl.cassandra.UserPasswordRepositoryImpl
 
+trait UserPasswordRepository extends Repository[UserPassword]{
+
+}
+
+object UserPasswordRepository{
+  def apply: UserPasswordRepository = new UserPasswordRepositoryImpl()
 }
