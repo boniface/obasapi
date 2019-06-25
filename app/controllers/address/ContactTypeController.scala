@@ -37,10 +37,10 @@ class ContactTypeController @Inject()
   }
 
 
-  def getContactTypeById(id: String): Action[AnyContent] = Action.async {
+  def getContactTypeById(ContactType: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(ContactType)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

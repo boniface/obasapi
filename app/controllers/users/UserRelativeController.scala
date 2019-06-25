@@ -32,10 +32,10 @@ class UserRelativeController @Inject()
       }
   }
 
-  def getUserRelativeById(id: String): Action[AnyContent] = Action.async {
+  def getUserRelativeById(userRelativeId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(userRelativeId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
