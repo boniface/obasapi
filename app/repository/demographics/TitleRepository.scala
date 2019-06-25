@@ -2,7 +2,7 @@ package repository.demographics
 
 import domain.demographics.Title
 import repository.Repository
-import repository.demographics.Impl.cassandra.TitleRepositoryImpl
+import repository.demographics.Impl.TitleRepositoryImpl
 
 trait TitleRepository extends Repository [Title]{
 

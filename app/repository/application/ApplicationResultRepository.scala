@@ -2,7 +2,7 @@ package repository.application
 
 import domain.application.ApplicationResult
 import repository.Repository
-import repository.application.Impl.cassandra.ApplicationResultRepositoryImpl
+import repository.application.Impl.ApplicationResultRepositoryImpl
 
 trait ApplicationResultRepository extends Repository [ApplicationResult]{
 

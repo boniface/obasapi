@@ -6,6 +6,8 @@ import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.keys.PartitionKey
 import domain.application.ApplicantType
 
+import scala.concurrent.Future
+
 abstract class ApplicantTypeTable extends Table[ApplicantTypeTable,ApplicantType]{
 
   object id extends StringColumn with PartitionKey
@@ -13,8 +15,6 @@ abstract class ApplicantTypeTable extends Table[ApplicantTypeTable,ApplicantType
   object key extends StringColumn
 
   object sender extends StringColumn
-
-
 
 }
 
