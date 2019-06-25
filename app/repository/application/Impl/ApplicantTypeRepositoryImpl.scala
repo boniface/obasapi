@@ -22,8 +22,8 @@ class ApplicantTypeRepositoryImpl extends ApplicantTypeRepository{
     ApplicantTypeDatabase.ApplicantTypeTable.getEntities
   }
 
-  override def getEntity(id: String): Future[Option[ApplicantType]] = {
-    ApplicantTypeDatabase.ApplicantTypeTable.getEntity(id)
+  override def getEntity(applicantTypeId: String): Future[Option[ApplicantType]] = {
+    ApplicantTypeDatabase.ApplicantTypeTable.getEntity(applicantTypeId)
   }
 
   override def deleteEntity(entity: ApplicantType): Future[Boolean] = {
