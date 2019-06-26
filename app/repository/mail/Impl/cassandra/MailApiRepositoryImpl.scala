@@ -6,13 +6,14 @@ import com.outworkers.phantom.dsl._
 import domain.mail.MailApi
 import repository.mail.Impl.cassandra.tables.MailApiTableImpl
 import repository.mail.MailApiRepository
-import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBComponent}
 
 import scala.concurrent.Future
 
 class MailApiRepositoryImpl extends MailApiRepository{
   override def saveEntity(entity: MailApi): Future[Boolean] = {
     MailApiDatabase.mailApiTable.saveEntity(entity) map (result => result.isExhausted())
+
   }
 
   override def getEntities: Future[Seq[MailApi]] = {
