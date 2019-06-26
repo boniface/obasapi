@@ -12,7 +12,7 @@ class ContactTypeServiceImpl extends CrudService[ContactType]{
 
   override def getEntities: Future[Seq[ContactType]] = ???
 
-  override def getEntity(id: String): Future[Option[ContactType]] = ???
+  override def getEntity(ContactType: String): Future[Option[ContactType]] = ???
 
   override def deleteEntity(entity: ContactType): Future[Boolean] = ???
 

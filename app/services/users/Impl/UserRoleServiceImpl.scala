@@ -11,7 +11,7 @@ class UserRoleServiceImpl extends UserRoleService {
 
   override def getEntities: Future[Seq[UserRole]] = ???
 
-  override def getEntity(id: String): Future[Option[UserRole]] = ???
+  override def getEntity(userRoleId: String): Future[Option[UserRole]] = ???
 
   override def deleteEntity(entity: UserRole): Future[Boolean] = ???
 

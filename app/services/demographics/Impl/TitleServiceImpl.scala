@@ -12,7 +12,7 @@ class TitleServiceImpl extends CrudService[Title]{
 
   override def getEntities: Future[Seq[Title]] = ???
 
-  override def getEntity(id: String): Future[Option[Title]] = ???
+  override def getEntity(titleId: String): Future[Option[Title]] = ???
 
   override def deleteEntity(entity: Title): Future[Boolean] = ???
 

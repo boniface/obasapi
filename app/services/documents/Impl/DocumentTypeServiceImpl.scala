@@ -11,7 +11,7 @@ class DocumentTypeServiceImpl extends CrudService[DocumentType]{
 
   override def getEntities: Future[Seq[DocumentType]] = ???
 
-  override def getEntity(id: String): Future[Option[DocumentType]] = ???
+  override def getEntity(documentTypeId: String): Future[Option[DocumentType]] = ???
 
   override def deleteEntity(entity: DocumentType): Future[Boolean] = ???
 

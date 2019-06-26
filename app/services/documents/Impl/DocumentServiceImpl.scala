@@ -11,7 +11,7 @@ class DocumentServiceImpl extends CrudService[Document]{
 
   override def getEntities: Future[Seq[Document]] = ???
 
-  override def getEntity(id: String): Future[Option[Document]] = ???
+  override def getEntity(email: String): Future[Option[Document]] = ???
 
   override def deleteEntity(entity: Document): Future[Boolean] = ???
 

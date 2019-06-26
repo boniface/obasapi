@@ -1,4 +1,4 @@
-package repository.demographics.Impl
+package repository.demographics.Impl.cassandra
 
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
