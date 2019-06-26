@@ -32,10 +32,10 @@ class UserPasswordController @Inject()
       }
   }
 
-  def getUserPasswordById(id: String): Action[AnyContent] = Action.async {
+  def getUserPasswordById(userPasswordId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(userPasswordId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

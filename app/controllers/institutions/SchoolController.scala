@@ -32,10 +32,10 @@ class SchoolController @Inject()
       }
   }
 
-  def getSchoolById(id: String): Action[AnyContent] = Action.async {
+  def getSchoolById(schoolId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(schoolId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

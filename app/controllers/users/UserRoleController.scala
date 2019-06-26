@@ -32,10 +32,10 @@ class UserRoleController @Inject()
       }
   }
 
-  def getUserRoleById(id: String): Action[AnyContent] = Action.async {
+  def getUserRoleById(userRoleId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(userRoleId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

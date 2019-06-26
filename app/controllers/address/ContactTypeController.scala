@@ -3,13 +3,12 @@ package controllers.address
 
 import controllers.ApiResponse
 import domain.address.ContactType
-import javax.inject.Inject
 import io.circe.generic.auto._
+import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import play.api.mvc._
+import services.address.ContactTypeService
 import services.address.Impl.ContactTypeServiceImpl
-import services.address.{AddressTypeService, ContactTypeService}
-import services.demographics.RoleService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -20,7 +19,7 @@ class ContactTypeController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
   type DomainObject = ContactType
 
-  def className: String = "ContantTypeController"
+  def className: String = "ContactTypeController"
 
   def domainService: ContactTypeServiceImpl = ContactTypeService.apply
 
@@ -38,15 +37,15 @@ class ContactTypeController @Inject()
   }
 
 
-  def getRoleById(id: String): Action[AnyContent] = Action.async {
+  def getContactTypeById(ContactType: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(ContactType)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getAllRoles: Action[AnyContent] = Action.async {
+  def getAllContactType: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
@@ -54,7 +53,7 @@ class ContactTypeController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteRole: Action[JsValue] = Action.async(parse.json) {
+  def deleteContactType: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {

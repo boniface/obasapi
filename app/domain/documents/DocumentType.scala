@@ -2,7 +2,7 @@ package domain.documents
 
 import play.api.libs.json.Json
 
-class DocumentType(
+case class DocumentType(
                    documentTypeId:String,
                    documentTypename:String
                   )
