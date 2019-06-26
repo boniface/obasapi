@@ -6,8 +6,11 @@ import services.address.Impl.AddressTypeServiceImpl
 
 trait AddressTypeService extends CrudService[AddressType] {
 
+
 }
 
-object AddressTypeService{
-  def apply: AddressTypeService =new  AddressTypeServiceImpl()
-}
+  object AddressTypeService{
+
+    def apply: AddressTypeService = new AddressTypeServiceImpl()
+
+  }

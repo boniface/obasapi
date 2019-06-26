@@ -34,7 +34,7 @@ object DataConnection {
   lazy val connector: CassandraConnection = testingConnector
   val keySpaceQuery: KeySpaceSerializer = testingKeySpaceQuery
 
-//======== For Local Development ============
+  //======== For Local Development ============
   def testingKeySpaceQuery: KeySpaceSerializer = KeySpace(keySpace).ifNotExists()
     .`with`(replication eqs SimpleStrategy.replication_factor(1))
     .and(durable_writes eqs true)
@@ -51,14 +51,14 @@ object DataConnection {
 
   // == For Production Deployment
 
-  def  productionKeySpaceQuery: KeySpaceSerializer = KeySpace(keySpace).ifNotExists()
+  def productionKeySpaceQuery: KeySpaceSerializer = KeySpace(keySpace).ifNotExists()
     .`with`(replication eqs NetworkTopologyStrategy
       .data_center(dataCenter1, 3)
       .data_center(dataCenter2, 2)
     ).and(durable_writes eqs true)
 
 
- def  productionConnector: CassandraConnection = ContactPoints(hosts, PORT)
+  def productionConnector: CassandraConnection = ContactPoints(hosts, PORT)
     .withClusterBuilder(
       _.withClusterName(clusterName)
         .withSocketOptions(new SocketOptions()
@@ -74,6 +74,13 @@ object DataConnection {
         )
     ).noHeartbeat().keySpace(keySpaceQuery)
 
+
 }
+
+
+
+
+
+
 
 

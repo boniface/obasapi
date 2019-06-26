@@ -9,6 +9,6 @@ trait RolesRepository extends Repository [Roles]{
 }
 object RolesRepository{
 
-  def apply: RolesRepositoryImpl = new RolesRepositoryImpl()
+  def apply: RolesRepository = new RolesRepositoryImpl()
 
 }
