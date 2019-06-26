@@ -9,5 +9,5 @@ trait MatricSubjectsService extends CrudService[MatricSubjects]{
 }
 
 object MatricSubjectsService{
-  def apply: MatricSubjectsServiceImpl = new MatricSubjectsServiceImpl()
+  def apply: MatricSubjectsService = new MatricSubjectsServiceImpl()
 }
