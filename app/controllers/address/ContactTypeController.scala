@@ -21,7 +21,7 @@ class ContactTypeController @Inject()
 
   def className: String = "ContactTypeController"
 
-  def domainService: ContactTypeServiceImpl = ContactTypeService.apply
+  def domainService: ContactTypeService = ContactTypeService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

@@ -10,8 +10,7 @@ trait ContactTypeService extends CrudService [ContactType ]{
 
 }
 
-  object ContactTypeService{
-
+object ContactTypeService{
     def apply: ContactTypeService = new ContactTypeServiceImpl()
 
   }
