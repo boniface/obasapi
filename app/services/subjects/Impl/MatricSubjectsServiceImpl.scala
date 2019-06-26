@@ -12,7 +12,7 @@ class MatricSubjectsServiceImpl extends CrudService[MatricSubjects]{
 
   override def getEntities: Future[Seq[MatricSubjects]] = ???
 
-  override def getEntity(id: String): Future[Option[MatricSubjects]] = ???
+  override def getEntity(subjectCode: String): Future[Option[MatricSubjects]] = ???
 
   override def deleteEntity(entity: MatricSubjects): Future[Boolean] = ???
 

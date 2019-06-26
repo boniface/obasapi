@@ -14,7 +14,7 @@ class AddressTypeServiceImpl extends CrudService[AddressType ]{
 
   override def getEntities: Future[Seq[AddressType]] = ???
 
-  override def getEntity(id: String): Future[Option[AddressType]] = ???
+  override def getEntity(addressTypeID: String): Future[Option[AddressType]] = ???
 
   override def deleteEntity(entity: AddressType): Future[Boolean] = ???
 

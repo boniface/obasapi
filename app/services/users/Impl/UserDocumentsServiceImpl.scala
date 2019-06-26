@@ -11,7 +11,7 @@ class UserDocumentsServiceImpl extends UserDocumentsService {
 
   override def getEntities: Future[Seq[UserDocuments]] = ???
 
-  override def getEntity(id: String): Future[Option[UserDocuments]] = ???
+  override def getEntity(userDocumentsId: String): Future[Option[UserDocuments]] = ???
 
   override def deleteEntity(entity: UserDocuments): Future[Boolean] = ???
 

@@ -11,7 +11,7 @@ class UserSubjectsServiceImpl extends UserSubjectsService {
 
   override def getEntities: Future[Seq[UserSubjects]] = ???
 
-  override def getEntity(id: String): Future[Option[UserSubjects]] = ???
+  override def getEntity(userSubjectId: String): Future[Option[UserSubjects]] = ???
 
   override def deleteEntity(entity: UserSubjects): Future[Boolean] = ???
 

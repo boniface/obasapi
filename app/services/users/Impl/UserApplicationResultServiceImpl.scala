@@ -11,7 +11,7 @@ class UserApplicationResultServiceImpl extends  UserApplicationResultService {
 
   override def getEntities: Future[Seq[UserApplicationResult]] = ???
 
-  override def getEntity(id: String): Future[Option[UserApplicationResult]] = ???
+  override def getEntity(userApplicationResultId: String): Future[Option[UserApplicationResult]] = ???
 
   override def deleteEntity(entity: UserApplicationResult): Future[Boolean] = ???
 

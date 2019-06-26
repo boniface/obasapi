@@ -11,7 +11,7 @@ class RaceServiceImpl extends CrudService[Race]{
 
   override def getEntities: Future[Seq[Race]] = ???
 
-  override def getEntity(id: String): Future[Option[Race]] = ???
+  override def getEntity(raceId: String): Future[Option[Race]] = ???
 
   override def deleteEntity(entity: Race): Future[Boolean] = ???
 
