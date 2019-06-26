@@ -10,13 +10,10 @@ import scala.concurrent.Future
 
 trait AddressTypeService extends CrudService[AddressType] {
 
-
-
-
 }
 
   object AddressTypeService{
 
-    def apply: AddressTypeService = new AddressTypeServiceImpl()
+    def apply: AddressTypeService= new AddressTypeServiceImpl()
 
   }
