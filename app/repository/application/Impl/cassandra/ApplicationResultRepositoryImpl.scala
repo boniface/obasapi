@@ -1,11 +1,10 @@
-package repository.application.Impl
+package repository.application.Impl.cassandra
 
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl._
 import domain.application.ApplicationResult
 import repository.application.ApplicationResultRepository
-import repository.application.Impl.cassandra.tables
 import repository.application.Impl.cassandra.tables.ApplicationResultTableImpl
 import util.connections.DataConnection
 

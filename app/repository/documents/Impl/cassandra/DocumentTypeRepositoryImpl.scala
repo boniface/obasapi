@@ -1,8 +1,8 @@
 package repository.documents.Impl.cassandra
-import com.outworkers.phantom.dsl._
+
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
-import com.outworkers.phantom.database.Database
+import com.outworkers.phantom.dsl._
 import domain.documents.DocumentType
 import repository.documents.DocumentTypeRepository
 import repository.documents.Impl.cassandra.tables.DocumentTypeTableImpl
