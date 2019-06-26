@@ -11,7 +11,7 @@ class LocationServiceImpl extends LocationService {
 
   override def getEntities: Future[Seq[Location]] = ???
 
-  override def getEntity(id: String): Future[Option[Location]] = ???
+  override def getEntity(locationId: String): Future[Option[Location]] = ???
 
   override def deleteEntity(entity: Location): Future[Boolean] = ???
 

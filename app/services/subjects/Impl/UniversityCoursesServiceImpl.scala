@@ -11,7 +11,7 @@ class UniversityCoursesServiceImpl extends CrudService[UniversityCourses]{
 
   override def getEntities: Future[Seq[UniversityCourses]] = ???
 
-  override def getEntity(id: String): Future[Option[UniversityCourses]] = ???
+  override def getEntity(courseCode: String): Future[Option[UniversityCourses]] = ???
 
   override def deleteEntity(entity: UniversityCourses): Future[Boolean] = ???
 

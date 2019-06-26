@@ -11,7 +11,7 @@ class UserCommunicationServiceImpl extends UserCommunicationService {
 
   override def getEntities: Future[Seq[UserCommunication]] = ???
 
-  override def getEntity(id: String): Future[Option[UserCommunication]] = ???
+  override def getEntity(communicationId: String): Future[Option[UserCommunication]] = ???
 
   override def deleteEntity(entity: UserCommunication): Future[Boolean] = ???
 

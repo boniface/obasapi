@@ -11,7 +11,7 @@ class ApplicantTypeServiceImpl extends CrudService[ApplicantType]{
 
   override def getEntities: Future[Seq[ApplicantType]] = ???
 
-  override def getEntity(id: String): Future[Option[ApplicantType]] = ???
+  override def getEntity(applicantTypeId: String): Future[Option[ApplicantType]] = ???
 
   override def deleteEntity(entity: ApplicantType): Future[Boolean] = ???
 

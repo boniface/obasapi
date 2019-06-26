@@ -12,7 +12,7 @@ class ApplicationResultServiceImpl extends CrudService[ApplicationResult]{
 
   override def getEntities: Future[Seq[ApplicationResult]] = ???
 
-  override def getEntity(id: String): Future[Option[ApplicationResult]] = ???
+  override def getEntity(applicationResultId: String): Future[Option[ApplicationResult]] = ???
 
   override def deleteEntity(entity: ApplicationResult): Future[Boolean] = ???
 

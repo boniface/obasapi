@@ -12,7 +12,7 @@ class GenderServiceImpl extends CrudService[Gender]{
 
   override def getEntities: Future[Seq[Gender]] = ???
 
-  override def getEntity(id: String): Future[Option[Gender]] = ???
+  override def getEntity(genderId: String): Future[Option[Gender]] = ???
 
   override def deleteEntity(entity: Gender): Future[Boolean] = ???
 
