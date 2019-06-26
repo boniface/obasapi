@@ -41,15 +41,15 @@ class TitleController @Inject()
   }
 
 
-  def getRoleById(id: String): Action[AnyContent] = Action.async {
+  def getTitleById(titleId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+        results <- domainService.getEntity(titleId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getAllRoles: Action[AnyContent] = Action.async {
+  def getAllTitle: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
@@ -57,7 +57,7 @@ class TitleController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteRole: Action[JsValue] = Action.async(parse.json) {
+  def deleteTitle: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {

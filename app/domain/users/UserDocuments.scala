@@ -3,7 +3,7 @@ package domain.users
 import play.api.libs.json.Json
 
 case class UserDocuments(
-                         UserDocumentsId:String,
+                         userDocumentsId:String,
                          documentId:String
                         )
 object UserDocuments{

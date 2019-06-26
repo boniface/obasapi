@@ -1,6 +1,8 @@
 package services.mail.Impl
 
 import com.sendgrid._
+import com.sendgrid.helpers.mail.Mail
+import com.sendgrid.helpers.mail.objects.{Content, Email}
 import domain.mail.{EmailMessage, MailApi, MessageResponse}
 import services.mail.{MailApiService, MailService}
 

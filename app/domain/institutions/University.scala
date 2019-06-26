@@ -2,11 +2,11 @@ package domain.institutions
 
 import play.api.libs.json.Json
 
-class University(
-                  UniversityId:String,
-                  UniversityName:String,
-                  UniversityDetails:Map[String, String],
-                  UniversityState:String
+case class University(
+                  universityId:String,
+                  universityName:String,
+                  universityDetails:Map[String, String],
+                  universityState:String
                 )
 object University {
   implicit val universityFmt = Json.format[University]
