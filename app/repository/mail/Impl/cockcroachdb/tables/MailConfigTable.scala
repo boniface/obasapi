@@ -13,7 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class MailConfigTable(tag: Tag) extends Table[MailConfigTable](tag,"MAILCONFIG") {
+class MailConfigTable(tag: Tag) extends Table[MailConfig](tag,"MAILCONFIG") {
 
   def id: Rep[String] = column[String]("MAILCONFIG_ID",O.PrimaryKey)
 
@@ -41,8 +41,8 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(mailConfig: MailConfig): Future[MailConfig] ={
-    db.run(this returning this.map(_.id) into ((acc, id)=> acc.copy(id = id)) += mailConfig)
+  def saveEntity(mailConfig: MailConfig): Future[MailConfig] = {
+    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += mailConfig)
   }
 
   def getEntities: Future[Seq[MailConfig]] = {
@@ -58,5 +58,6 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
       MailConfigTable.schema.createIfNotExists
     ).isCompleted
   }
+}
 
 
