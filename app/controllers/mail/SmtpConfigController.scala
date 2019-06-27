@@ -2,13 +2,11 @@ package controllers.mail
 
 import controllers.ApiResponse
 import domain.mail.SmtpConfig
-import io.circe.Encoder
 import io.circe.generic.auto._
-import io.circe.syntax._
 import javax.inject.Inject
-import play.api.http.ContentTypes
-import play.api.libs.json.{JsPath, JsValue, Json, JsonValidationError}
+import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import services.login.LoginService
 import services.mail.SmtpConfigService
 
 import scala.concurrent.ExecutionContext.Implicits.global
