@@ -9,6 +9,6 @@ trait AddressTypeRepository extends Repository [AddressType]{
 
 object AddressTypeRepository{
 
-  def apply: AddressTypeRepositoryImpl = new AddressTypeRepositoryImpl()
+  def apply: AddressTypeRepository = new AddressTypeRepositoryImpl()
 
 }

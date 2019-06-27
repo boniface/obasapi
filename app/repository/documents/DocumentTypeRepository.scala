@@ -9,5 +9,5 @@ trait DocumentTypeRepository extends Repository [DocumentType]{
 
 }
 object DocumentTypeRepository{
-  def apply: DocumentTypeRepositoryImpl = new DocumentTypeRepositoryImpl()
+  def apply: DocumentTypeRepository = new DocumentTypeRepositoryImpl()
 }

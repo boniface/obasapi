@@ -9,6 +9,6 @@ trait GenderRepository extends Repository [Gender]{
 }
 object GenderRepository{
 
-  def apply: GenderRepositoryImpl = new GenderRepositoryImpl()
+  def apply: GenderRepository = new GenderRepositoryImpl()
 
 }

@@ -8,5 +8,5 @@ trait RaceRepository extends Repository [Race]{
 
 }
 object RaceRepository{
-  def apply: RaceRepositoryImpl = new RaceRepositoryImpl()
+  def apply: RaceRepository = new RaceRepositoryImpl()
 }

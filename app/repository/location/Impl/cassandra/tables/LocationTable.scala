@@ -22,6 +22,7 @@ abstract class LocationTable extends Table[LocationTable, Location] {
 
 }
 
+
 abstract class LocationTableImpl extends LocationTable with RootConnector {
 
   override lazy val tableName = "location"
@@ -36,6 +37,7 @@ abstract class LocationTableImpl extends LocationTable with RootConnector {
       .value(_.locationTypeId, entity.locationTypeId)
       .future()
   }
+
 
   def getEntity(locationId: String): Future[Option[Location]] = {
     select
