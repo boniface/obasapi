@@ -11,5 +11,5 @@ trait ApplicantTypeRepository extends Repository [ApplicantType]{
 }
 object ApplicantTypeRepository{
 
-  def apply: ApplicantTypeRepositoryImpl = new ApplicantTypeRepositoryImpl()
+  def apply: ApplicantTypeRepository= new ApplicantTypeRepositoryImpl()
 }

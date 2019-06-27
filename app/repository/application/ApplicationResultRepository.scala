@@ -10,6 +10,6 @@ trait ApplicationResultRepository extends Repository [ApplicationResult]{
 }
 object ApplicationResultRepository{
 
-  def apply: ApplicationResultRepositoryImpl = new ApplicationResultRepositoryImpl()
+  def apply: ApplicationResultRepository= new ApplicationResultRepositoryImpl()
 
 }

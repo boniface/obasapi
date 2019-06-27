@@ -1,5 +1,7 @@
 package util.connections
 
+import okhttp3.{MediaType, OkHttpClient, Request, RequestBody}
+
 object NetConnection {
 
 

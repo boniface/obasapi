@@ -10,6 +10,6 @@ trait TitleRepository extends Repository [Title]{
 
 object TitleRepository{
 
-  def apply: TitleRepositoryImpl = new TitleRepositoryImpl()
+  def apply: TitleRepository = new TitleRepositoryImpl()
 
 }
