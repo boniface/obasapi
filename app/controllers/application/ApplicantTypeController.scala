@@ -23,7 +23,7 @@ class ApplicantTypeController @Inject()
 
   def className: String = "AddressTypeController"
 
-  def domainService: ApplicantTypeServiceImpl = ApplicantTypeService.apply
+  def domainService: ApplicantTypeService = ApplicantTypeService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
