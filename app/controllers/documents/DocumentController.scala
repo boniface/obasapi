@@ -7,13 +7,8 @@ import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.address.AddressTypeService
-import services.application.ApplicantTypeService
-import services.application.Impl.ApplicantTypeServiceImpl
-import services.demographics.Impl.RaceServiceImpl
-import services.demographics.{RaceService, RoleService}
 import services.documents.DocumentService
-import services.documents.Impl.DocumentServiceImpl
+
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -26,7 +21,7 @@ class DocumentController @Inject()
 
   def className: String = "DocumentController"
 
-  def domainService: DocumentServiceImpl = DocumentService.apply
+  def domainService: DocumentService = DocumentService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

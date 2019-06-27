@@ -6,7 +6,8 @@ import com.outworkers.phantom.dsl._
 import domain.demographics.Race
 import repository.demographics.Impl.cassandra.tables.RaceTableImpl
 import repository.demographics.RaceRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

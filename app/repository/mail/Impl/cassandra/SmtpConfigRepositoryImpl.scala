@@ -6,7 +6,8 @@ import com.outworkers.phantom.dsl._
 import domain.mail.SmtpConfig
 import repository.mail.Impl.cassandra.tables.SmtpConfigTableImpl
 import repository.mail.SmtpConfigRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBComponent}
 
 import scala.concurrent.Future
 

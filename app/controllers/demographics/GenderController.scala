@@ -25,7 +25,7 @@ class  GenderController @Inject()
 
   def className: String = "GenderController"
 
-  def domainService: GenderServiceImpl = GenderService.apply
+  def domainService: GenderService = GenderService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

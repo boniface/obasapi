@@ -10,5 +10,5 @@ trait GenderService extends CrudService[Gender]{
 
 object GenderService
 {
-  def apply: GenderServiceImpl = new GenderServiceImpl()
+  def apply: GenderService = new GenderServiceImpl()
 }

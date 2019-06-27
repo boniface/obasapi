@@ -1,11 +1,10 @@
 package services.subjects.Impl
 
 import domain.subjects.MatricSubjects
-import services.CrudService
-
+import services.subjects.MatricSubjectsService
 import scala.concurrent.Future
 
-class MatricSubjectsServiceImpl extends CrudService[MatricSubjects]{
+class MatricSubjectsServiceImpl extends MatricSubjectsService{
 
 
   override def saveEntity(entity: MatricSubjects): Future[Boolean] = ???

@@ -12,5 +12,5 @@ trait ApplicationStatusService extends CrudService[ApplicationStatus]{
 
 object ApplicationStatusService{
 
-  def apply: ApplicationStatusServiceImpl = new ApplicationStatusServiceImpl()
+  def apply: ApplicationStatusService = new ApplicationStatusServiceImpl()
 }
