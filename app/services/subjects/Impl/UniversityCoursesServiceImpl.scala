@@ -1,11 +1,11 @@
 package services.subjects.Impl
 
 import domain.subjects.UniversityCourses
-import services.CrudService
+import services.subjects.UniversityCoursesService
 
 import scala.concurrent.Future
 
-class UniversityCoursesServiceImpl extends CrudService[UniversityCourses]{
+class UniversityCoursesServiceImpl extends UniversityCoursesService{
 
   override def saveEntity(entity: UniversityCourses): Future[Boolean] = ???
 

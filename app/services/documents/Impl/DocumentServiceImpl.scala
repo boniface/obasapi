@@ -1,11 +1,11 @@
 package services.documents.Impl
 
 import domain.documents.Document
-import services.CrudService
+import services.documents.DocumentService
 
 import scala.concurrent.Future
 
-class DocumentServiceImpl extends CrudService[Document]{
+class DocumentServiceImpl extends DocumentService{
 
   override def saveEntity(entity: Document): Future[Boolean] = ???
 
