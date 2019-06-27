@@ -6,7 +6,8 @@ import com.outworkers.phantom.dsl._
 import domain.demographics.Gender
 import repository.demographics.GenderRepository
 import repository.demographics.Impl.cassandra.tables.GenderTableImpl
-import util.connections.DataConnection
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

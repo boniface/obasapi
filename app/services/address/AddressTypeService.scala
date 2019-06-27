@@ -11,6 +11,6 @@ trait AddressTypeService extends CrudService[AddressType] {
 
   object AddressTypeService{
 
-    def apply: AddressTypeServiceImpl = new AddressTypeServiceImpl()
+    def apply: AddressTypeService = new AddressTypeServiceImpl()
 
   }

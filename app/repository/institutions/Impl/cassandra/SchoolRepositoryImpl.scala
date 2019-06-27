@@ -6,7 +6,9 @@ import com.outworkers.phantom.dsl._
 import domain.institutions.School
 import repository.institutions.Impl.cassandra.tables.SchoolTableImpl
 import repository.institutions.SchoolRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

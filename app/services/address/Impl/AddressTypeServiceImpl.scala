@@ -1,13 +1,12 @@
 package services.address.Impl
 
-import services.CrudService
-import domain.address.AddressType
-import javax.swing.text.html.parser.Entity
 import services.address.AddressTypeService
+import domain.address.AddressType
+
 
 import scala.concurrent.Future
 
-class AddressTypeServiceImpl extends CrudService[AddressType ]{
+class AddressTypeServiceImpl extends AddressTypeService{
 
 
   override def saveEntity(entity: AddressType): Future[Boolean] = ???

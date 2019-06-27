@@ -1,11 +1,12 @@
 package services.demographics.Impl
 
 import domain.demographics.Title
-import services.CrudService
+import services.demographics.TitleService
 
 import scala.concurrent.Future
 
-class TitleServiceImpl extends CrudService[Title]{
+class TitleServiceImpl extends TitleService
+{
 
 
   override def saveEntity(entity: Title): Future[Boolean] = ???

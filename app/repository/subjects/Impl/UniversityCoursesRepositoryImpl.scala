@@ -8,7 +8,8 @@ import repository.subjects.Impl.cassandra.tables.{UniversityCourseTable, Univers
 //.mail.Impl.cassandra.tables.SmtpConfigTableImpl
 import repository.subjects.UniversityCoursesRepository
 //.mail.SmtpConfigRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

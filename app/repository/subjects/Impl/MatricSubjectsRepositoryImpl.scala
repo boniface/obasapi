@@ -6,7 +6,9 @@ import com.outworkers.phantom.dsl._
 import domain.subjects.MatricSubjects
 import repository.subjects.Impl.cassandra.tables.{MatricSubjectsTable, MatricSubjectsTableImpl}
 import repository.subjects.MatricSubjectsRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 
