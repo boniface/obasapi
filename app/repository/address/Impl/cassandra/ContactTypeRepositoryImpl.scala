@@ -6,7 +6,8 @@ import com.outworkers.phantom.dsl._
 import domain.address.ContactType
 import repository.address.Impl.cassandra.tables.ContactTypeTableImpl
 import repository.address.ContactTypeRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 
