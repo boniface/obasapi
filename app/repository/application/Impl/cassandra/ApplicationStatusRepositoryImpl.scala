@@ -6,7 +6,8 @@ import com.outworkers.phantom.dsl._
 import domain.application.ApplicationStatus
 import repository.application.ApplicationStatusRepository
 import repository.application.Impl.cassandra.tables.ApplicationStatusTableImpl
-import util.connections.DataConnection
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

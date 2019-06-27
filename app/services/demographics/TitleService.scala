@@ -12,5 +12,5 @@ trait TitleService extends CrudService[Title]{
 
 object TitleService{
 
-  def apply: TitleServiceImpl = new TitleServiceImpl()
+  def apply: TitleService = new TitleServiceImpl()
 }

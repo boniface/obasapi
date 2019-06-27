@@ -6,7 +6,9 @@ import com.outworkers.phantom.dsl._
 import domain.users.UserDocuments
 import repository.users.Impl.cassandra.tables.UserDocumentsTableImpl
 import repository.users.UserDocumentsRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

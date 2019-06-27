@@ -1,11 +1,11 @@
 package services.demographics.Impl
 
 import domain.demographics.Gender
-import services.CrudService
+import services.demographics.GenderService
 
 import scala.concurrent.Future
 
-class GenderServiceImpl extends CrudService[Gender]{
+class GenderServiceImpl extends GenderService{
 
 
   override def saveEntity(entity: Gender): Future[Boolean] = ???

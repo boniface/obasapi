@@ -1,11 +1,11 @@
 package services.application.Impl
 
 import domain.application.ApplicationStatus
-import services.CrudService
+import services.application.ApplicationStatusService
 
 import scala.concurrent.Future
 
-class ApplicationStatusServiceImpl extends CrudService[ApplicationStatus]{
+class ApplicationStatusServiceImpl extends ApplicationStatusService{
 
 
 

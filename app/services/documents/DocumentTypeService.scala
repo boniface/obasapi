@@ -10,5 +10,5 @@ trait DocumentTypeService extends CrudService[DocumentType]{
 
 object DocumentTypeService
 {
-  def apply: DocumentTypeServiceImpl = new DocumentTypeServiceImpl()
+  def apply: DocumentTypeService = new DocumentTypeServiceImpl()
 }

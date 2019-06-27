@@ -29,7 +29,7 @@ class UniversityCoursesController @Inject()
 
   def className: String = "UniversityCoursesController"
 
-  def domainService: UniversityCoursesServiceImpl = UniversityCoursesService.apply
+  def domainService: UniversityCoursesService = UniversityCoursesService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

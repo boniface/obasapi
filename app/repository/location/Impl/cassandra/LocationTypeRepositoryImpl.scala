@@ -6,7 +6,9 @@ import com.outworkers.phantom.dsl._
 import domain.location.LocationType
 import repository.location.Impl.cassandra.tables.LocationTypeTableImpl
 import repository.location.LocationTypeRepository
-import util.connections.DataConnection
+//import util.connections.DataConnection
+
+import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 

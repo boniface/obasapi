@@ -5,7 +5,7 @@ import domain.address.ContactType
 
 import scala.concurrent.Future
 
-class ContactTypeServiceImpl extends ContactTypeService {
+class ContactTypeServiceImpl extends ContactTypeService{
 
 
   override def saveEntity(entity: ContactType): Future[Boolean] = ???

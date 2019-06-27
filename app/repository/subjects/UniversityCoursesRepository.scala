@@ -8,5 +8,5 @@ trait UniversityCoursesRepository extends Repository [UniversityCourses]{
 
 }
 object UniversityCoursesRepository{
-  def apply: UniversityCoursesRepositoryImpl = new UniversityCoursesRepositoryImpl()
+  def apply: UniversityCoursesRepository = new UniversityCoursesRepositoryImpl()
 }
