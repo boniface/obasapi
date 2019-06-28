@@ -2,7 +2,8 @@ package domain.documents
 
 
 
-import akka.http.javadsl.model.DateTime
+import akka.http.javadsl.model
+import akka.http.scaladsl.model.DateTime
 import play.api.libs.json.Json
 
 case class Document(
