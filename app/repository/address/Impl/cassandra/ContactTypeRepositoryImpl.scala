@@ -14,32 +14,32 @@ import scala.concurrent.Future
 
 class ContactTypeRepositoryImpl extends ContactTypeRepository {
   override def saveEntity(entity: ContactType): Future[Boolean] = {
-    ContactTypeDatabase.ContactTypeTable.saveEntity(entity) map (result => result.isExhausted())
+    ContactTypeDatabase.mailApiTable.saveEntity(entity) map (result => result.isExhausted())
+
   }
 
   override def getEntities: Future[Seq[ContactType]] = {
-    ContactTypeDatabase.ContactTypeTable.getEntities
+    ContactTypeDatabase.mailApiTable.getEntities
   }
 
-  override def getEntity(ContactType: String): Future[Option[ContactType]] = {
-    ContactTypeDatabase.ContactTypeTable.getEntity(ContactType)
+  override def getEntity(contactTypeId: String): Future[Option[ContactType]] = {
+    ContactTypeDatabase.mailApiTable.getEntity(contactTypeId)
   }
 
   override def deleteEntity(entity: ContactType): Future[Boolean] = {
-    ContactTypeDatabase.ContactTypeTable.deleteEntity(entity.ContactType) map (result => result.isExhausted())
+    ContactTypeDatabase.mailApiTable.deleteEntity(entity.contactTypeId) map (result => result.isExhausted())
   }
 
-  override def createTable: Future[Boolean] =
-  {
+  override def createTable: Future[Boolean] = {
     implicit def keyspace: KeySpace = DataConnection.keySpaceQuery.keySpace
     implicit def session: Session = DataConnection.connector.session
-    ContactTypeDatabase.ContactTypeTable.create.ifNotExists().future().map(result => result.head.isExhausted())
+    ContactTypeDatabase.mailApiTable.create.ifNotExists().future().map(result => result.head.isExhausted())
 
   }
 }
 
 class ContactTypeDatabase(override val connector: KeySpaceDef) extends Database[ContactTypeDatabase](connector) {
-  object ContactTypeTable extends ContactTypeTableImpl with connector.Connector
+  object mailApiTable extends ContactTypeTableImpl with connector.Connector
 
 }
 
