@@ -13,8 +13,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class MailConfigTable(tag: Tag) extends Table[MailConfigTable](tag,"MAILCONFIG") {
-
+class MailConfigTable(tag: Tag) extends Table[MailConfig](tag, "MAILAPI") {
   def id: Rep[String] = column[String]("MAILCONFIG_ID",O.PrimaryKey)
 
   def siteId: Rep[String] = column[String]("SITE_ID")
@@ -31,7 +30,7 @@ class MailConfigTable(tag: Tag) extends Table[MailConfigTable](tag,"MAILCONFIG")
 
   def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
 
-  def * : ProvenShape[MailConfig] = (siteId,id,key, value, host,port,state,date) <> ((MailConfig.apply _).tupled, MailConfig.unapply)
+  def * : ProvenShape[MailConfig] = (siteId,id, key, value,host,port,state,date) <> ((MailConfig.apply _).tupled, MailConfig.unapply)
 }
 
 object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
@@ -41,8 +40,8 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(mailConfig: MailConfig): Future[MailConfig] ={
-    db.run(this returning this.map(_.id) into ((acc, id)=> acc.copy(id = id)) += mailConfig)
+  def saveEntity(mailConfig: MailConfig): Future[MailConfig] = {
+    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += mailConfig)
   }
 
   def getEntities: Future[Seq[MailConfig]] = {
@@ -58,5 +57,8 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
       MailConfigTable.schema.createIfNotExists
     ).isCompleted
   }
+
+}
+
 
 
