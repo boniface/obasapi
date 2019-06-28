@@ -4,7 +4,6 @@ import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection
 import util.connections.PgDBConnection.driver
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import domain.address.ContactType

@@ -25,9 +25,9 @@ class DocumentTable(tag:Tag) extends Table[Document](tag, _tableName = "DOCUMENT
 
   def mime: Rep[String] = column[String]("MIME")
 
-  def date: Rep[DateTime] = column[DateTime]("DATE")
+  def date: Rep[Long] = column[Long]("DATE")
 
-  def permission: Rep[Set[String]] = column[Set[String]]("PERMISSION")
+  def permission: Rep[String] = column[String]("PERMISSION")
 
   def * : ProvenShape[Document] = (email, documentsId, documentTypeId,description,url,mime,date,permission) <> ((Document.apply _).tupled)
   
