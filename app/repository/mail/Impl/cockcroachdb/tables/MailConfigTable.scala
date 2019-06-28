@@ -58,5 +58,6 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
       MailConfigTable.schema.createIfNotExists
     ).isCompleted
   }
+}
 
 }

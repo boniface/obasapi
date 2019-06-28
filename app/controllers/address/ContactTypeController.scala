@@ -8,7 +8,6 @@ import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import services.address.ContactTypeService
-import services.address.Impl.ContactTypeServiceImpl
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
