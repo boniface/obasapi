@@ -13,7 +13,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class MailConfigTable(tag: Tag) extends Table[MailConfig](tag, "MAILAPI") {
+class MailConfigTable(tag: Tag) extends Table[MailConfig](tag,"MAILCONFIG") {
+
+
   def id: Rep[String] = column[String]("MAILCONFIG_ID",O.PrimaryKey)
 
   def siteId: Rep[String] = column[String]("SITE_ID")
@@ -57,6 +59,7 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
       MailConfigTable.schema.createIfNotExists
     ).isCompleted
   }
+}
 
 }
 
