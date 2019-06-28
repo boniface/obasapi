@@ -30,14 +30,14 @@ class SmtpConfigTable(tag: Tag) extends Table[SmtpConfig](tag, "SMTPCONFIG") {
 
   def host: Rep[String] = column[String]("HOST")
 
-  def port: Rep[String] = column[String]("PORT")
+  def port: Rep[Int] = column[Int]("PORT")
 
   def username: Rep[String] = column[String]("USERNAME")
 
   def password: Rep[String] = column[String]("PASSWORD")
 
- // def * : ProvenShape[SmtpConfig] = (id, host, port, username,password) <> ((SmtpConfig.apply _).tupled, SmtpConfig.unapply)
-  def * : ProvenShape[SmtpConfig] = (id, host, port, username,password) <> ((SmtpConfig.apply _).tupled, SmtpConfig.unapply)
+
+  def * : ProvenShape[SmtpConfig] = (id, port, host,  username,password) <> ((SmtpConfig.apply _).tupled, SmtpConfig.unapply)
 }
 
 object SmtpConfigTable extends TableQuery(new MailApiTable(_)) {
