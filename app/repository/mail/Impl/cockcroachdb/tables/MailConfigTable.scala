@@ -15,6 +15,7 @@ import scala.concurrent.Future
 
 class MailConfigTable(tag: Tag) extends Table[MailConfig](tag,"MAILCONFIG") {
 
+
   def id: Rep[String] = column[String]("MAILCONFIG_ID",O.PrimaryKey)
 
   def siteId: Rep[String] = column[String]("SITE_ID")
@@ -31,7 +32,7 @@ class MailConfigTable(tag: Tag) extends Table[MailConfig](tag,"MAILCONFIG") {
 
   def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
 
-  def * : ProvenShape[MailConfig] = (siteId,id,key, value, host,port,state,date) <> ((MailConfig.apply _).tupled, MailConfig.unapply)
+  def * : ProvenShape[MailConfig] = (siteId,id, key, value,host,port,state,date) <> ((MailConfig.apply _).tupled, MailConfig.unapply)
 }
 
 object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
@@ -59,5 +60,8 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
     ).isCompleted
   }
 }
+
+}
+
 
 
