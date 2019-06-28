@@ -1,14 +1,14 @@
-package repository.subjects.Impl
+package repository.subjects.Impl.cassandra
 
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl._
 import domain.subjects.MatricSubjects
-import repository.subjects.Impl.cassandra.tables.{MatricSubjectsTable, MatricSubjectsTableImpl}
+import repository.subjects.Impl.cassandra.tables.MatricSubjectsTableImpl
 import repository.subjects.MatricSubjectsRepository
 //import util.connections.DataConnection
 
-import util.connections.{DataConnection, PgDBConnection}
+import util.connections.DataConnection
 
 import scala.concurrent.Future
 
