@@ -15,7 +15,6 @@ class  DocumentTypeTable(tag: Tag) extends Table[DocumentType](tag, _tableName =
   def documentTypename: Rep[String] = column[String]("MAIL_KEY")
 
 
-
   def * : ProvenShape[DocumentType] = (documentTypeId, documentTypename) <> ((DocumentType.apply _).tupled, DocumentType.unapply)
 }
 
