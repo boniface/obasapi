@@ -1,7 +1,10 @@
 package repository.application.Impl.cockcroachdb.tables
 
-import akka.http.scaladsl.model.DateTime
+//import akka.http.scaladsl.model.DateTime
+import java.time.LocalDateTime
+
 import domain.application.ApplicationResult
+import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection
@@ -16,7 +19,7 @@ class ApplicationResultTable(tag: Tag) extends Table[ApplicationResult] (tag, _t
 
   def description: Rep[String] = column[String]("DESCRIPTION")
 
-  def date: Rep[DateTime] = column[DateTime]("DATE")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
 
   def * : ProvenShape[ApplicationResult] = (applicationResultId, description, date) <> ((ApplicationResult.apply _).tupled, ApplicationResult.unapply)
 }

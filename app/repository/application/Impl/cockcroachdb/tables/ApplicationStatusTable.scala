@@ -1,5 +1,7 @@
 package repository.application.Impl.cockcroachdb.tables
 
+import java.time.LocalDateTime
+
 import akka.http.javadsl.model.DateTime
 import domain.application.ApplicationStatus
 import slick.jdbc.PostgresProfile.api._
@@ -16,7 +18,7 @@ class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _t
 
   def description: Rep[String] = column[String]("DESCRIPTION")
 
-  def date: Rep[DateTime] = column[DateTime]("DATETIME")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATETIME")
 
   override def * : ProvenShape[ApplicationStatus] = (applicationStatusId,description,date) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
 }
