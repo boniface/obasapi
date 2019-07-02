@@ -51,3 +51,4 @@ object SmtpConfigTable extends TableQuery(new SmtpConfigTable(_)) {
   }
 
 }
+

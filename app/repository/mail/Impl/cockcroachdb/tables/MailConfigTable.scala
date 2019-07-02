@@ -62,6 +62,3 @@ object MailConfigTable extends TableQuery(new MailConfigTable(_)) {
 }
 
 
-
-
-
