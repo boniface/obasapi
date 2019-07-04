@@ -15,7 +15,7 @@ class SchoolTable(tag: Tag) extends Table[School](tag, "SCHOOL") {
 
   def schoolName: Rep[String] = column[String]("SCHOOL_NAME")
 
-  def schoolDetails: Rep[Map[String, String]] = column[String]("SCHOOL_DETAILS")
+  def schoolDetails: Rep[String] = column[String]("SCHOOL_DETAILS")
 
   def schoolState: Rep[String] = column[String]("SCHOOL_STATE")
 

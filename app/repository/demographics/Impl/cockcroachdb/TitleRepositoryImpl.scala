@@ -16,12 +16,12 @@ class TitleRepositoryImpl extends TitleRepository {
     TitleTable.getEntities
   }
 
-  override def getEntity(id: String): Future[Option[Title]] = {
-    TitleTable.getEntity(id)
+  override def getEntity(titleId: String): Future[Option[Title]] = {
+    TitleTable.getEntity(titleId)
   }
 
   override def deleteEntity(entity: Title): Future[Boolean] = {
-    Future.successful(TitleTable.deleteEntity(entity.id).isCompleted)
+    Future.successful(TitleTable.deleteEntity(entity.titleId).isCompleted)
   }
 
   override def createTable: Future[Boolean] = {

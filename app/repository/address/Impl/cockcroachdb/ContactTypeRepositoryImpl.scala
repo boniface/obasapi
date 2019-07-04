@@ -15,12 +15,12 @@ class ContactTypeRepositoryImpl extends ContactTypeRepository{
     ContactTypeTable.getEntities
   }
 
-  override def getEntity(ContactType: String): Future[Option[ContactType]] = {
-    ContactTypeTable.getEntity(ContactType)
+  override def getEntity(contactTypeId: String): Future[Option[ContactType]] = {
+    ContactTypeTable.getEntity(contactTypeId)
   }
 
   override def deleteEntity(entity: ContactType): Future[Boolean] = {
-    Future.successful(ContactTypeTable.deleteEntity(entity.ContactType).isCompleted)
+    Future.successful(ContactTypeTable.deleteEntity(entity.contactTypeId).isCompleted)
   }
 
   override def createTable: Future[Boolean] = {
