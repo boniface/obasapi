@@ -11,10 +11,9 @@ abstract class UniversityCourseTable extends Table[UniversityCourseTable,Univers
 
   object courseCode extends StringColumn with PartitionKey
 
-  object description extends StringColumn
+  object description extends OptionalStringColumn
 
   object name extends StringColumn
-
 
   object Type extends StringColumn
 

@@ -1,4 +1,4 @@
-package services.mail.Impl
+package services.mail.impl.cockcroachdb
 
 import domain.mail.SmtpConfig
 import repository.mail.SmtpConfigRepository

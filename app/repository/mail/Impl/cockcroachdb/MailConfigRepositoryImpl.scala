@@ -6,7 +6,7 @@ import repository.mail.MailConfigRepository
 
 import scala.concurrent.Future
 
-abstract class MailConfigRepositoryImpl extends MailConfigRepository {
+class MailConfigRepositoryImpl extends MailConfigRepository {
 
   override def saveEntity(entity: MailConfig): Future[Boolean] = {
     Future.successful(MailConfigTable.saveEntity(entity).isCompleted)
@@ -28,4 +28,5 @@ abstract class MailConfigRepositoryImpl extends MailConfigRepository {
     Future.successful(MailConfigTable.createTable)
   }
 
+  override def getSiteMailConfigurations(siteId: String): Future[Seq[MailConfig]] = ???
 }
