@@ -2,12 +2,12 @@ package services.location
 
 import domain.location.LocationType
 import services.CrudService
-import services.location.Impl.LocationTypeServiceImpl
+import services.location.Impl.cockroachdb
 
 trait LocationTypeService extends CrudService[LocationType]{
 
 }
 
 object LocationTypeService{
-  def apply: LocationTypeService = new LocationTypeServiceImpl()
+  def roach: LocationTypeService = new cockroachdb.LocationTypeServiceImpl()
 }

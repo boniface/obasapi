@@ -2,12 +2,12 @@ package services.users
 
 import domain.users.UserRole
 import services.CrudService
-import services.users.Impl.UserRoleServiceImpl
+import services.users.Impl.cockroachdb
 
 trait UserRoleService extends CrudService[UserRole]{
 
 }
 
 object UserRoleService{
-  def apply: UserRoleService = new UserRoleServiceImpl()
+  def roach: UserRoleService = new cockroachdb.UserRoleServiceImpl()
 }

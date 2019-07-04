@@ -17,7 +17,7 @@ class LocationController @Inject()
 
   def className: String = "LocationController"
 
-  def domainService: LocationService = LocationService.apply
+  def domainService: LocationService = LocationService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

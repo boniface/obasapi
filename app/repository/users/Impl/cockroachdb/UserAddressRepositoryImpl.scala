@@ -1,7 +1,6 @@
 package repository.users.Impl.cockroachdb
 
 import domain.users.UserAddress
-import repository.users.Impl.cockroachdb.tables.UserAddressTable
 import repository.users.UserAddressRepository
 
 import scala.concurrent.Future
@@ -9,22 +8,22 @@ import scala.concurrent.Future
 class UserAddressRepositoryImpl  extends UserAddressRepository{
 
   override def saveEntity(entity: UserAddress): Future[Boolean] = {
-    Future.successful(UserAddressTable.saveEntity(entity).isCompleted)
+    UserAddressRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserAddress]] = {
-    UserAddressTable.getEntities
+    UserAddressRepository.roach.getEntities
   }
 
-  override def getEntity(userAddressId: String): Future[Option[UserAddress]] = {
-    UserAddressTable.getEntity(userAddressId)
+  override def getEntity(userContactId: String): Future[Option[UserAddress]] = {
+    UserAddressRepository.roach.getEntity(userContactId)
   }
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] = {
-    Future.successful(UserAddressTable.deleteEntity(entity.userAddressId).isCompleted)
+    UserAddressRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(UserAddressTable.createTable)
+    UserAddressRepository.roach.createTable
   }
 }

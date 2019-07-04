@@ -2,7 +2,7 @@ package repository.institutions
 
 import domain.institutions.University
 import repository.Repository
-import repository.institutions.Impl.cassandra.UniversityRepositoryImpl
+import repository.institutions.Impl.cockroachdb
 
 
 trait UniversityRepository extends Repository[University]{
@@ -10,5 +10,5 @@ trait UniversityRepository extends Repository[University]{
 }
 
 object UniversityRepository{
-  def apply: UniversityRepository = new UniversityRepositoryImpl()
+  def roach: UniversityRepository = new cockroachdb.UniversityRepositoryImpl()
 }
