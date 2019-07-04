@@ -17,7 +17,7 @@ class UserDemographicsController @Inject()
 
   def className: String = "UserDemographicsController"
 
-  def domainService: UserDemographicsService = UserDemographicsService.apply
+  def domainService: UserDemographicsService = UserDemographicsService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

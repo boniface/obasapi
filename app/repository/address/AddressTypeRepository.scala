@@ -1,7 +1,7 @@
 package repository.address
 import domain.address.AddressType
 import repository.Repository
-import repository.address.Impl.cassandra.AddressTypeRepositoryImpl
+import repository.address.Impl.cockcroachdb
 
 trait  AddressTypeRepository extends Repository [AddressType]{
 
@@ -9,6 +9,6 @@ trait  AddressTypeRepository extends Repository [AddressType]{
 
 object AddressTypeRepository{
 
-  def apply: AddressTypeRepository = new AddressTypeRepositoryImpl()
+  def roach: AddressTypeRepository = new cockcroachdb.AddressTypeRepositoryImpl()
 
 }

@@ -4,6 +4,7 @@ import play.api.libs.json.Json
 
 case class UniversityCourses(
                              courseCode:String,
+                            //subjectCode?
                              description:Option[String],
                              name:String,
                              Type:String,

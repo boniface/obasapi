@@ -2,12 +2,12 @@ package repository.users
 
 import domain.users.UserDemographics
 import repository.Repository
-import repository.users.Impl.cassandra.UserDemographicsRepositoryImpl
+import repository.users.Impl.cockroachdb
 
 trait UserDemographicsRepository extends Repository[UserDemographics]{
 
 }
 
 object UserDemographicsRepository{
-  def apply: UserDemographicsRepository = new UserDemographicsRepositoryImpl()
+  def roach: UserDemographicsRepository = new cockroachdb.UserDemographicsRepositoryImpl()
 }

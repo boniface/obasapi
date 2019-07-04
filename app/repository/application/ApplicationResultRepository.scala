@@ -2,7 +2,7 @@ package repository.application
 
 import domain.application.ApplicationResult
 import repository.Repository
-import repository.application.Impl.cassandra.ApplicationResultRepositoryImpl
+import repository.application.Impl.cockcroachdb
 
 trait ApplicationResultRepository extends Repository [ApplicationResult]{
 
@@ -10,6 +10,6 @@ trait ApplicationResultRepository extends Repository [ApplicationResult]{
 }
 object ApplicationResultRepository{
 
-  def apply: ApplicationResultRepository= new ApplicationResultRepositoryImpl()
+  def apply: ApplicationResultRepository= new cockcroachdb.ApplicationResultRepositoryImpl()
 
 }
