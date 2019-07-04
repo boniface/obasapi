@@ -7,7 +7,7 @@ import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import services.address.AddressTypeService
-import services.address.Impl.AddressTypeServiceImpl
+import services.address.Impl.cockroachdb.AddressTypeServiceImpl
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
