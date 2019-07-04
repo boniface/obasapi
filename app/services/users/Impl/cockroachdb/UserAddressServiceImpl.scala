@@ -1,13 +1,15 @@
-package services.users.Impl
+package services.users.Impl.cockroachdb
 
 import domain.users.UserAddress
+import repository.users.UserAddressRepository
 import services.users.UserAddressService
 
 import scala.concurrent.Future
 
 class UserAddressServiceImpl extends UserAddressService {
 
-  override def saveEntity(entity: UserAddress): Future[Boolean] = ???
+  override def saveEntity(entity: UserAddress): Future[Boolean] =
+    UserAddressRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[UserAddress]] = ???
 
