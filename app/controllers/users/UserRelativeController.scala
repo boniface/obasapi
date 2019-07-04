@@ -17,7 +17,7 @@ class UserRelativeController @Inject()
 
   def className: String = "UserRelativeController"
 
-  def domainService: UserRelativeService = UserRelativeService.apply
+  def domainService: UserRelativeService = UserRelativeService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

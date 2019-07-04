@@ -5,7 +5,7 @@ import domain.mail.MessageResponse
 import domain.users.{User, UserRole}
 import domain.util.registration.Register
 import services.CrudService
-import services.users.Impl.UserServiceImpl
+import services.users.Impl.cockroachdb
 
 import scala.concurrent.Future
 
@@ -25,5 +25,5 @@ trait UserService extends CrudService[User]{
 }
 
 object UserService{
-  def apply: UserService = new UserServiceImpl()
+  def roach: UserService = new cockroachdb.UserServiceImpl()
 }

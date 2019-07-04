@@ -2,12 +2,12 @@ package repository.institutions
 
 import domain.institutions.School
 import repository.Repository
-import repository.institutions.Impl.cassandra.SchoolRepositoryImpl
+import repository.institutions.Impl.cockroachdb
 
 trait SchoolRepository extends Repository[School] {
 
 }
 
 object SchoolRepository{
-  def apply: SchoolRepository = new SchoolRepositoryImpl()
+  def roach: SchoolRepository = new cockroachdb.SchoolRepositoryImpl()
 }
