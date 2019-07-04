@@ -1,4 +1,4 @@
-package services.mail.Impl
+package services.mail.impl.cockcroachdb
 
 import domain.mail.MailConfig
 import repository.mail.MailConfigRepository
@@ -8,26 +8,26 @@ import scala.concurrent.Future
 
 class MailConfigServiceImpl extends MailConfigService{
   override def saveEntity(entity: MailConfig): Future[Boolean] = {
-    MailConfigRepository.apply.saveEntity(entity)
+    MailConfigRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[MailConfig]] = {
-    MailConfigRepository.apply.getEntities
+    MailConfigRepository.roach.getEntities
   }
 
   override def getEntity(id: String): Future[Option[MailConfig]] = {
-    MailConfigRepository.apply.getEntity(id)
+    MailConfigRepository.roach.getEntity(id)
   }
 
   override def deleteEntity(entity: MailConfig): Future[Boolean] = {
-    MailConfigRepository.apply.deleteEntity(entity)
+    MailConfigRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    MailConfigRepository.apply.createTable
+    MailConfigRepository.roach.createTable
   }
 
   override def getSiteMailConfigurations(siteId: String): Future[Seq[MailConfig]] = {
-    MailConfigRepository.apply.getSiteMailConfigurations(siteId)
+    MailConfigRepository.roach.getSiteMailConfigurations(siteId)
   }
 }

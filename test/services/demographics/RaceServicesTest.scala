@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 class RaceServicesTest extends FunSuite {
 
-  val entity = Race("1","Male")
+  val entity = Race("48","Black")
   val service = RaceService
   test("createEntity"){
     val result = Await.result(service.apply.saveEntity(entity), 2 minutes)
@@ -27,7 +27,7 @@ class RaceServicesTest extends FunSuite {
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(raceName = "Female")
+    val updatedEntity=entity.copy(raceName = "African")
     Await.result(service.apply.saveEntity(updatedEntity), 2 minutes)
     val result = Await.result(service.apply.getEntity(entity.raceId), 2 minutes)
     assert(result.head.raceName==updatedEntity.raceName)

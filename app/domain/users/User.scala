@@ -1,8 +1,7 @@
 package domain.users
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
-import akka.http.javadsl.model.DateTime
 import play.api.libs.json.Json
 
 case class User(
@@ -10,7 +9,7 @@ case class User(
                firstName:String,
                middleName:String,
                lastName:String,
-               dateOfBirth:LocalDateTime
+               dateOfBirth:LocalDate
                )
 object User{
   implicit val userFmt = Json.format[User]

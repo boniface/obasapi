@@ -40,7 +40,6 @@ class AddressTypeRepositoryTest extends FunSuite {
     Await.result(repository.apply.deleteEntity(entity), 2 minutes)
     val result = Await.result(repository.apply.getEntity(entity.addressTypeID), 2 minutes)
     assert(result.isEmpty)
-
   }
   
 }
