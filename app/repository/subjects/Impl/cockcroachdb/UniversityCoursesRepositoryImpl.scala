@@ -1,29 +1,29 @@
 package repository.subjects.Impl.cockcroachdb
 
 import domain.subjects.UniversityCourses
-import repository.subjects.Impl.cockcroachdb.tables.UniversityCoursesTable
+
 import repository.subjects.UniversityCoursesRepository
 
 import scala.concurrent.Future
 
 class UniversityCoursesRepositoryImpl extends UniversityCoursesRepository {
   override def saveEntity(entity: UniversityCourses): Future[Boolean] ={
-    Future.successful(UniversityCoursesTable.saveEntity(entity).isCompleted)
+   UniversityCoursesRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UniversityCourses]] = {
-    UniversityCoursesTable.getEntities
+   UniversityCoursesRepository.roach.getEntities
   }
 
   override def getEntity(courseCode: String): Future[Option[UniversityCourses]] ={
-    UniversityCoursesTable.getEntity(courseCode)
+   UniversityCoursesRepository.roach.getEntity(courseCode)
   }
 
   override def deleteEntity(entity: UniversityCourses): Future[Boolean] = {
-    Future.successful(UniversityCoursesTable.deleteEntity(entity.courseCode).isCompleted)
+    UniversityCoursesRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(UniversityCoursesTable.createTable)
+    UniversityCoursesRepository.roach.createTable
   }
 }

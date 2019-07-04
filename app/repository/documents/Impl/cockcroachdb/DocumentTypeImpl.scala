@@ -2,28 +2,28 @@ package repository.documents.Impl.cockcroachdb
 
 import domain.documents.DocumentType
 import repository.documents.DocumentTypeRepository
-import repository.documents.Impl.cockcroachdb.tables.DocumentTypeTable
+
 
 import scala.concurrent.Future
 
 class DocumentTypeImpl extends DocumentTypeRepository{
   override def saveEntity(entity: DocumentType): Future[Boolean] ={
-    Future.successful(DocumentTypeTable.saveEntity(entity).isCompleted)
+    DocumentTypeRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[DocumentType]] = {
-    DocumentTypeTable.getEntities
+   DocumentTypeRepository.roach.getEntities
   }
 
   override def getEntity(documentTypeId: String): Future[Option[DocumentType]] = {
-    DocumentTypeTable.getEntity(documentTypeId)
+   DocumentTypeRepository.roach.getEntity(documentTypeId)
   }
 
   override def deleteEntity(entity: DocumentType): Future[Boolean] = {
-    Future.successful(DocumentTypeTable.deleteEntity(entity.documentTypeId).isCompleted)
+    DocumentTypeRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(DocumentTypeTable.createTable)
+   DocumentTypeRepository.roach.createTable
   }
 }

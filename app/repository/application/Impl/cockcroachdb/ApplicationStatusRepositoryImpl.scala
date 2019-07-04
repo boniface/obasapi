@@ -8,22 +8,22 @@ import scala.concurrent.Future
 
 class ApplicationStatusRepositoryImpl extends ApplicationStatusRepository{
   override def saveEntity(entity: ApplicationStatus): Future[Boolean] ={
-    Future.successful(ApplicationStatusTable.saveEntity(entity).isCompleted)
+    ApplicationStatusRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ApplicationStatus]] = {
-    ApplicationStatusTable.getEntities
+   ApplicationStatusRepository.roach.getEntities
   }
 
   override def getEntity(applicationStatusId: String): Future[Option[ApplicationStatus]] = {
-    ApplicationStatusTable.getEntity(applicationStatusId)
+    ApplicationStatusRepository.roach.getEntity(applicationStatusId)
   }
 
   override def deleteEntity(entity: ApplicationStatus): Future[Boolean] = {
-    Future.successful(ApplicationStatusTable.deleteEntity(entity.applicationStatusId).isCompleted)
+    ApplicationStatusRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(ApplicationStatusTable.createTable)
+    ApplicationStatusRepository.roach.createTable
   }
 }

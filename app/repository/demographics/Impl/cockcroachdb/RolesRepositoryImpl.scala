@@ -1,29 +1,29 @@
 package repository.demographics.Impl.cockcroachdb
 
 import domain.demographics.Roles
-import repository.demographics.Impl.cockcroachdb.tables.RolesTable
+
 import repository.demographics.RolesRepository
 
 import scala.concurrent.Future
 
 class RolesRepositoryImpl extends RolesRepository {
   override def saveEntity(entity: Roles): Future[Boolean] ={
-    Future.successful( RolesTable.saveEntity(entity).isCompleted)
+    RolesRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Roles]] = {
-     RolesTable.getEntities
+     RolesRepository.roach.getEntities
   }
 
   override def getEntity(id: String): Future[Option[Roles]] ={
-     RolesTable.getEntity(id)
+    RolesRepository.roach.getEntity(id)
   }
 
   override def deleteEntity(entity: Roles): Future[Boolean] = {
-    Future.successful( RolesTable.deleteEntity(entity.id).isCompleted)
+    RolesRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful( RolesTable.createTable)
+    RolesRepository.roach.createTable
   }
 }

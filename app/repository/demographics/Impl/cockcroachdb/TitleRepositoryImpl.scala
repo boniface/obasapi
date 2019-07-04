@@ -9,22 +9,22 @@ import scala.concurrent.Future
 
 class TitleRepositoryImpl extends TitleRepository {
   override def saveEntity(entity: Title): Future[Boolean] = {
-    Future.successful(TitleTable.saveEntity(entity).isCompleted)
+    TitleRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Title]] = {
-    TitleTable.getEntities
+    TitleRepository.roach.getEntities
   }
 
   override def getEntity(titleId: String): Future[Option[Title]] = {
-    TitleTable.getEntity(titleId)
+    TitleRepository.roach.getEntity(titleId)
   }
 
   override def deleteEntity(entity: Title): Future[Boolean] = {
-    Future.successful(TitleTable.deleteEntity(entity.titleId).isCompleted)
+    TitleRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(TitleTable.createTable)
+   TitleRepository.roach.createTable
   }
 }

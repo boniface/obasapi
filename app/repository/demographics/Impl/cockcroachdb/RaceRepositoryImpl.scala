@@ -1,29 +1,28 @@
 package repository.demographics.Impl.cockcroachdb
 
 import domain.demographics.Race
-import repository.demographics.Impl.cockcroachdb.tables.RaceTable
 import repository.demographics.RaceRepository
 
 import scala.concurrent.Future
 
 class RaceRepositoryImpl extends RaceRepository {
   override def saveEntity(entity: Race): Future[Boolean] = {
-    Future.successful(RaceTable.saveEntity(entity).isCompleted)
+   RaceRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Race]] = {
-    RaceTable.getEntities
+    RaceRepository.roach.getEntities
   }
 
   override def getEntity(raceId: String): Future[Option[Race]] = {
-    RaceTable.getEntity(raceId)
+    RaceRepository.roach.getEntity(raceId)
   }
 
   override def deleteEntity(entity: Race): Future[Boolean] = {
-    Future.successful(RaceTable.deleteEntity(entity.raceId).isCompleted)
+    RaceRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(RaceTable.createTable)
+    RaceRepository.roach.createTable
   }
 }
