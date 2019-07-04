@@ -3,7 +3,7 @@ package domain.address
 import play.api.libs.json.Json
 
 case class ContactType(
-                       ContactType:String,
+                       contactTypeId:String,
                        name:String
                       )
 object ContactType{

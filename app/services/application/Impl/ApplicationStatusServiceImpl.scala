@@ -1,11 +1,11 @@
 package services.application.Impl
 
 import domain.application.ApplicationStatus
-import services.CrudService
+import services.application.ApplicationStatusService
 
 import scala.concurrent.Future
 
-class ApplicationStatusServiceImpl extends CrudService[ApplicationStatus]{
+class ApplicationStatusServiceImpl extends ApplicationStatusService{
 
 
 
@@ -13,7 +13,7 @@ class ApplicationStatusServiceImpl extends CrudService[ApplicationStatus]{
 
   override def getEntities: Future[Seq[ApplicationStatus]] = ???
 
-  override def getEntity(id: String): Future[Option[ApplicationStatus]] = ???
+  override def getEntity(applicationStatusId: String): Future[Option[ApplicationStatus]] = ???
 
   override def deleteEntity(entity: ApplicationStatus): Future[Boolean] = ???
 

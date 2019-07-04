@@ -3,12 +3,12 @@ import domain.address.AddressType
 import repository.Repository
 import repository.address.Impl.cassandra.AddressTypeRepositoryImpl
 
-trait AddressTypeRepository extends Repository [AddressType]{
+trait  AddressTypeRepository extends Repository [AddressType]{
 
 }
 
 object AddressTypeRepository{
 
-  def apply: AddressTypeRepositoryImpl = new AddressTypeRepositoryImpl()
+  def apply: AddressTypeRepository = new AddressTypeRepositoryImpl()
 
 }

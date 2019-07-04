@@ -6,8 +6,8 @@ import com.outworkers.phantom.dsl._
 import domain.address.AddressType
 import repository.address.AddressTypeRepository
 import repository.address.Impl.cassandra.tables.AddressTypeTableImpl
-import util.connections.DataConnection
-
+//import util.connections.DataConnection
+import util.connections.{DataConnection, PgDBConnection}
 //import repository.mail.Impl.cassandra.tables.AddressTypeTableImpl
 //import repository.mail.MailApiRepository
 //import util.connections.DataConnection

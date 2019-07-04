@@ -11,5 +11,5 @@ trait ApplicationResultService extends CrudService[ApplicationResult]{
 
  object ApplicationResultService
 {
-  def apply: ApplicationResultServiceImpl = new ApplicationResultServiceImpl()
+  def apply: ApplicationResultService = new ApplicationResultServiceImpl()
 }
