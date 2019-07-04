@@ -18,6 +18,12 @@ class CockroachSetupController @Inject()
     implicit request: Request[AnyContent] =>
       val tablesCreation = roachService.createTables
       tablesCreation.map(result => Ok("Tables created: " + result))
+        .recover{
+          case exception: Exception => {
+            println(exception.getMessage)
+            InternalServerError(exception.getMessage)
+          }
+        }
   }
 
 }
