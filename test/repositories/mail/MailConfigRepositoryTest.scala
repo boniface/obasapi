@@ -10,7 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 
 class MailConfigRepositoryTest extends FunSuite {
-  val entity = MailConfig("1", "1", "11", "eeee", "host", "908", "active", LocalDateTime.now)
+  val entity = MailConfig("1", "1", "11", "eeee", "host", "908", "active", LocalDateTime.of(1989))
   val repository = MailConfigRepository
 
   test("createEntity") {
