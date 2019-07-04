@@ -1,4 +1,4 @@
-package repositories.mail
+package repository.mail
 
 import java.time.LocalDateTime
 

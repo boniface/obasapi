@@ -1,16 +1,15 @@
-package repositories.mail
+package repository.demographics
 
-import domain.mail.SmtpConfig
+import domain.demographics.Roles
 import org.scalatest.FunSuite
-import repository.mail.SmtpConfigRepository
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
+class RolesRepositoryTest extends FunSuite {
 
-class SmtpConfigRepositoryTest extends FunSuite{
-  val entity = SmtpConfig("1",20,"test","hello","hest")
-  val repository = SmtpConfigRepository
+  val entity = Roles("1","Male")
+  val repository = RolesRepository
   test("createEntity"){
     val result = Await.result(repository.apply.saveEntity(entity), 2 minutes)
     assert(result)
@@ -28,10 +27,10 @@ class SmtpConfigRepositoryTest extends FunSuite{
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(port = 2018)
+    val updatedEntity=entity.copy(roleName = "6 Browning RD")
     Await.result(repository.apply.saveEntity(updatedEntity), 2 minutes)
     val result = Await.result(repository.apply.getEntity(entity.id), 2 minutes)
-    assert(result.head.port==updatedEntity.port)
+    assert(result.head.roleName==updatedEntity.roleName)
   }
 
 
@@ -39,6 +38,7 @@ class SmtpConfigRepositoryTest extends FunSuite{
     Await.result(repository.apply.deleteEntity(entity), 2 minutes)
     val result = Await.result(repository.apply.getEntity(entity.id), 2 minutes)
     assert(result.isEmpty)
-
   }
+
+
 }

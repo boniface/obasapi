@@ -2,11 +2,11 @@ package repository.address
 
 import domain.address.ContactType
 import repository.Repository
-import repository.address.Impl.cassandra.ContactTypeRepositoryImpl
+import repository.address.Impl.cockcroachdb
 
 trait ContactTypeRepository extends Repository [ContactType]{
 
 }
 object ContactTypeRepository{
-  def apply: ContactTypeRepository = new ContactTypeRepositoryImpl()
+  def roach: ContactTypeRepository = new cockcroachdb.ContactTypeRepositoryImpl()
 }
