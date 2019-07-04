@@ -1,7 +1,10 @@
 package repository.documents.Impl.cassandra.tables
 
+import java.time.LocalDateTime
+
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.streams._
+import com.outworkers.phantom.jdk8._
 import domain.documents.Document
 
 import scala.concurrent.Future
@@ -20,7 +23,7 @@ abstract class DocumentTable extends Table[DocumentTable, Document]{
 
   object mime extends StringColumn
 
-  object date extends StringColumn
+  object date extends Col[LocalDateTime]
 
   object permission extends StringColumn
 }

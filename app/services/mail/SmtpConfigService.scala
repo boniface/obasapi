@@ -2,7 +2,7 @@ package services.mail
 
 import domain.mail.SmtpConfig
 import services.CrudService
-import services.mail.Impl.SmtpConfigServiceImpl
+import services.mail.impl.cockcroachdb.SmtpConfigServiceImpl
 
 trait SmtpConfigService extends CrudService[SmtpConfig]{
 

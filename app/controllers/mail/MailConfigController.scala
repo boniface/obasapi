@@ -17,7 +17,7 @@ class MailConfigController @Inject()
 ( api: ApiResponse,cc: ControllerComponents) extends AbstractController(cc) {
   def className: String = "MailConfigController"
 
-  def domainService: MailConfigService = MailConfigService.apply
+  def domainService: MailConfigService = MailConfigService.roach
 
   def loginService: LoginService = LoginService.apply
 
@@ -55,7 +55,7 @@ class MailConfigController @Inject()
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
         _ <- loginService.checkLoginStatus(request)
-        results <- MailConfigService.apply.getEntity(id)
+        results <- domainService.getEntity(id)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
@@ -64,7 +64,7 @@ class MailConfigController @Inject()
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[MailConfig]] = for {
         _ <- loginService.checkLoginStatus(request)
-        results: Seq[MailConfig] <- MailConfigService.apply.getEntities
+        results: Seq[MailConfig] <- domainService.getEntities
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }
