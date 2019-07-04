@@ -6,10 +6,9 @@ import services.demographics.Impl.RaceServiceImpl
 
 trait RaceService extends CrudService[Race]{
 
-
 }
 
 object RaceService{
 
-  def apply: RaceServiceImpl = new RaceServiceImpl()
+  def apply: RaceService = new RaceServiceImpl()
 }

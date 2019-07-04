@@ -11,7 +11,7 @@ class UserAddressServiceImpl extends UserAddressService {
 
   override def getEntities: Future[Seq[UserAddress]] = ???
 
-  override def getEntity(id: String): Future[Option[UserAddress]] = ???
+  override def getEntity(userAddressId: String): Future[Option[UserAddress]] = ???
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] = ???
 

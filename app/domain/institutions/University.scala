@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 case class University(
                   universityId:String,
                   universityName:String,
-                  universityDetails:Map[String, String],
+                  universityDetails:String,
                   universityState:String
                 )
 object University {

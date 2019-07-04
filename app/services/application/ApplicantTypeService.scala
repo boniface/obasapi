@@ -12,5 +12,5 @@ trait ApplicantTypeService extends CrudService[ApplicantType] {
 
 object ApplicantTypeService
 {
-  def apply: ApplicantTypeServiceImpl = new ApplicantTypeServiceImpl()
+  def apply: ApplicantTypeService = new ApplicantTypeServiceImpl()
 }

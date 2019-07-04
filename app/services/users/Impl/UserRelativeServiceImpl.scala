@@ -11,7 +11,7 @@ class UserRelativeServiceImpl extends UserRelativeService {
 
   override def getEntities: Future[Seq[UserRelative]] = ???
 
-  override def getEntity(id: String): Future[Option[UserRelative]] = ???
+  override def getEntity(userRelativeId: String): Future[Option[UserRelative]] = ???
 
   override def deleteEntity(entity: UserRelative): Future[Boolean] = ???
 

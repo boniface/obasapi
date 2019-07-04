@@ -9,5 +9,5 @@ trait UniversityCoursesService extends CrudService[UniversityCourses]{
 }
 
 object UniversityCoursesService {
-  def apply: UniversityCoursesServiceImpl = new UniversityCoursesServiceImpl()
+  def apply: UniversityCoursesService = new UniversityCoursesServiceImpl()
 }

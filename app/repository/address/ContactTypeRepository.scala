@@ -8,5 +8,5 @@ trait ContactTypeRepository extends Repository [ContactType]{
 
 }
 object ContactTypeRepository{
-  def apply: ContactTypeRepositoryImpl = new ContactTypeRepositoryImpl()
+  def apply: ContactTypeRepository = new ContactTypeRepositoryImpl()
 }

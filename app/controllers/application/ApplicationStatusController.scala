@@ -23,7 +23,7 @@ class ApplicationStatusController @Inject()
 
   def className: String = "ApplicationStatusController"
 
-  def domainService: ApplicationStatusServiceImpl = ApplicationStatusService.apply
+  def domainService: ApplicationStatusService = ApplicationStatusService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
