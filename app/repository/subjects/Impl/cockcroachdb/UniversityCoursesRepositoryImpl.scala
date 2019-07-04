@@ -1,6 +1,7 @@
 package repository.subjects.Impl.cockcroachdb
 
 import domain.subjects.UniversityCourses
+import repository.subjects.Impl.cockcroachdb.tables.UniversityCoursesTable
 import repository.subjects.UniversityCoursesRepository
 
 import scala.concurrent.Future

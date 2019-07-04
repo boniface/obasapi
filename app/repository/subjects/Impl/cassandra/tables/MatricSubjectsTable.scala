@@ -11,7 +11,7 @@ abstract class MatricSubjectsTable extends Table[MatricSubjectsTable, MatricSubj
 
   object subjectCode extends StringColumn with PartitionKey
 
-  object description extends StringColumn
+  object description extends OptionalStringColumn
 
   object name extends StringColumn
 

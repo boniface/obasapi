@@ -7,6 +7,6 @@ object PgDBConnection {
   def cokdb = config.getString("cockroachdb")
   val driver = PostgresProfile
   import driver.api._
-  val db: Database = Database.forConfig(cokdb)
+  val db: Database = null//Database.forConfig(cokdb)
 
 }
