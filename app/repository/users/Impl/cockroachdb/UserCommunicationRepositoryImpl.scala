@@ -1,7 +1,6 @@
 package repository.users.Impl.cockroachdb
 
 import domain.users.UserCommunication
-import repository.users.Impl.cockroachdb.tables.UserCommunicationTable
 import repository.users.UserCommunicationRepository
 
 import scala.concurrent.Future
@@ -9,22 +8,22 @@ import scala.concurrent.Future
 class UserCommunicationRepositoryImpl  extends UserCommunicationRepository{
 
   override def saveEntity(entity: UserCommunication): Future[Boolean] = {
-    Future.successful(UserCommunicationTable.saveEntity(entity).isCompleted)
+    UserCommunicationRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserCommunication]] = {
-    UserCommunicationTable.getEntities
+    UserCommunicationRepository.roach.getEntities
   }
 
-  override def getEntity(communicationId: String): Future[Option[UserCommunication]] = {
-    UserCommunicationTable.getEntity(communicationId)
+  override def getEntity(userContactId: String): Future[Option[UserCommunication]] = {
+    UserCommunicationRepository.roach.getEntity(userContactId)
   }
 
   override def deleteEntity(entity: UserCommunication): Future[Boolean] = {
-    Future.successful(UserCommunicationTable.deleteEntity(entity.communicationId).isCompleted)
+    UserCommunicationRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(UserCommunicationTable.createTable)
+    UserCommunicationRepository.roach.createTable
   }
 }

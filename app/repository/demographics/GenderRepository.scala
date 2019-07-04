@@ -2,13 +2,13 @@ package repository.demographics
 
 import domain.demographics.Gender
 import repository.Repository
-import repository.demographics.Impl.cassandra.GenderRepositoryImpl
+import repository.demographics.Impl.cockcroachdb
 
 trait GenderRepository extends Repository [Gender]{
 
 }
 object GenderRepository{
 
-  def apply: GenderRepository = new GenderRepositoryImpl()
+  def roach: GenderRepository = new cockcroachdb.GenderRepositoryImpl()
 
 }

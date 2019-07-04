@@ -2,12 +2,12 @@ package services.users
 
 import domain.users.UserCommunication
 import services.CrudService
-import services.users.Impl.UserCommunicationServiceImpl
+import services.users.Impl.cockroachdb
 
 trait UserCommunicationService extends CrudService[UserCommunication]{
 
 }
 
 object UserCommunicationService{
-  def apply: UserCommunicationService = new UserCommunicationServiceImpl()
+  def roach: UserCommunicationService = new cockroachdb.UserCommunicationServiceImpl()
 }

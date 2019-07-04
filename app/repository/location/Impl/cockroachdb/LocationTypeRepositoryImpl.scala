@@ -1,7 +1,6 @@
 package repository.location.Impl.cockroachdb
 
 import domain.location.LocationType
-import repository.location.Impl.cockroachdb.tables.LocationTypeTable
 import repository.location.LocationTypeRepository
 
 import scala.concurrent.Future
@@ -9,22 +8,22 @@ import scala.concurrent.Future
 class LocationTypeRepositoryImpl  extends LocationTypeRepository{
 
   override def saveEntity(entity: LocationType): Future[Boolean] = {
-    Future.successful(LocationTypeTable.saveEntity(entity).isCompleted)
+    LocationTypeRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[LocationType]] = {
-    LocationTypeTable.getEntities
+    LocationTypeRepository.roach.getEntities
   }
 
-  override def getEntity(locationTypeId: String): Future[Option[LocationType]] = {
-    LocationTypeTable.getEntity(locationTypeId)
+  override def getEntity(userContactId: String): Future[Option[LocationType]] = {
+    LocationTypeRepository.roach.getEntity(userContactId)
   }
 
   override def deleteEntity(entity: LocationType): Future[Boolean] = {
-    Future.successful(LocationTypeTable.deleteEntity(entity.locationTypeId).isCompleted)
+    LocationTypeRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(LocationTypeTable.createTable)
+    LocationTypeRepository.roach.createTable
   }
 }
