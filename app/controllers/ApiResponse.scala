@@ -16,7 +16,7 @@ import scala.concurrent.Future
 class ApiResponse @Inject()(cc: ControllerComponents) extends AbstractController(cc) {
 
   def errorResponse(error: Seq[(JsPath, Seq[JsonValidationError])], className: String): Future[Status] = {
-    Future {
+    Future successful {
       val log = LogEvent(eventName = Events.RESPONSE, eventType = className, message = error.seq.toString())
       //      LogEventService.apply.saveEntity(log)
       InternalServerError
