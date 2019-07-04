@@ -2,12 +2,12 @@ package services.mail
 
 import domain.mail.MailApi
 import services.CrudService
-import services.mail.Impl.MailApiServiceImpl
+import services.mail.impl.cockcroachdb
 
 trait MailApiService extends CrudService[MailApi]{
 
 }
 
 object MailApiService{
-  def apply: MailApiService = new MailApiServiceImpl()
+  def roach: MailApiService = new cockcroachdb.MailApiServiceImpl
 }
