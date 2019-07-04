@@ -2,12 +2,12 @@ package repository.users
 
 import domain.users.UserDocuments
 import repository.Repository
-import repository.users.Impl.cassandra.UserDocumentsRepositoryImpl
+import repository.users.Impl.cockroachdb
 
 trait UserDocumentsRepository extends Repository[UserDocuments]{
 
 }
 
 object UserDocumentsRepository{
-  def apply: UserDocumentsRepository = new UserDocumentsRepositoryImpl()
+  def roach: UserDocumentsRepository = new cockroachdb.UserDocumentsRepositoryImpl()
 }

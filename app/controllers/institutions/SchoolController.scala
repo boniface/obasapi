@@ -17,7 +17,7 @@ class SchoolController @Inject()
 
   def className: String = "SchoolController"
 
-  def domainService: SchoolService = SchoolService.apply
+  def domainService: SchoolService = SchoolService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

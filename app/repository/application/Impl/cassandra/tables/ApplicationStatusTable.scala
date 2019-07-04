@@ -1,7 +1,10 @@
 package repository.application.Impl.cassandra.tables
 
+import java.time.LocalDateTime
+
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.streams._
+import com.outworkers.phantom.jdk8._
 import domain.application.ApplicationStatus
 
 import scala.concurrent.Future
@@ -13,7 +16,7 @@ abstract class ApplicationStatusTable extends Table[ApplicationStatusTable,Appli
 
   object description extends StringColumn
 
-  object date extends StringColumn
+  object date extends Col[LocalDateTime]
 
 }
 

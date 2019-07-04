@@ -2,12 +2,12 @@ package services.institutions
 
 import domain.institutions.School
 import services.CrudService
-import services.institutions.Impl.SchoolServiceImpl
+import services.institutions.Impl.cockroachdb
 
 trait SchoolService extends CrudService[School]{
 
 }
 
 object SchoolService{
-  def apply: SchoolService = new SchoolServiceImpl()
+  def roach: SchoolService = new cockroachdb.SchoolServiceImpl()
 }

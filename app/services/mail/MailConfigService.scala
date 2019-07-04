@@ -2,7 +2,7 @@ package services.mail
 
 import domain.mail.MailConfig
 import services.CrudService
-import services.mail.Impl.MailConfigServiceImpl
+import services.mail.impl.cockcroachdb
 
 import scala.concurrent.Future
 
@@ -12,6 +12,6 @@ trait MailConfigService extends CrudService[MailConfig] {
 }
 
 object MailConfigService {
-  def apply: MailConfigService = new MailConfigServiceImpl()
+  def roach: MailConfigService = new cockcroachdb.MailConfigServiceImpl()
 }
 

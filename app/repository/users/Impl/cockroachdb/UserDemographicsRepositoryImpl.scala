@@ -9,22 +9,22 @@ import scala.concurrent.Future
 class UserDemographicsRepositoryImpl  extends UserDemographicsRepository{
 
   override def saveEntity(entity: UserDemographics): Future[Boolean] = {
-    Future.successful(UserDemographicsTable.saveEntity(entity).isCompleted)
+    UserDemographicsRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserDemographics]] = {
-    UserDemographicsTable.getEntities
+    UserDemographicsRepository.roach.getEntities
   }
 
-  override def getEntity(userDemographicsId: String): Future[Option[UserDemographics]] = {
-    UserDemographicsTable.getEntity(userDemographicsId)
+  override def getEntity(userContactId: String): Future[Option[UserDemographics]] = {
+    UserDemographicsRepository.roach.getEntity(userContactId)
   }
 
   override def deleteEntity(entity: UserDemographics): Future[Boolean] = {
-    Future.successful(UserDemographicsTable.deleteEntity(entity.userDemographicsId).isCompleted)
+    UserDemographicsRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(UserDemographicsTable.createTable)
+    UserDemographicsRepository.roach.createTable
   }
 }
