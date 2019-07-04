@@ -1,7 +1,7 @@
 package repository.subjects.Impl.cockcroachdb
 
 import domain.subjects.MatricSubjects
-
+import repository.subjects.Impl.cockcroachdb.tables.MatricSubjectsTable
 import repository.subjects.MatricSubjectsRepository
 
 import scala.concurrent.Future
