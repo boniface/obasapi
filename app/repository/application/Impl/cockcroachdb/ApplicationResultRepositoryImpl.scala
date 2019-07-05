@@ -8,22 +8,22 @@ import scala.concurrent.Future
 
 class ApplicationResultRepositoryImpl extends ApplicationResultRepository{
   override def saveEntity(entity: ApplicationResult): Future[Boolean] = {
-    Future.successful(ApplicationResultTable.saveEntity(entity).isCompleted)
+    ApplicationResultRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ApplicationResult]] = {
-    ApplicationResultTable.getEntities
+    ApplicationResultRepository.roach.getEntities
   }
 
   override def getEntity(applicationResultId: String): Future[Option[ApplicationResult]] = {
-    ApplicationResultTable.getEntity(applicationResultId)
+    ApplicationResultRepository.roach.getEntity(applicationResultId)
   }
 
   override def deleteEntity(entity: ApplicationResult): Future[Boolean] = {
-    Future.successful(ApplicationResultTable.deleteEntity(entity.applicationResultId).isCompleted)
+    ApplicationResultRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(ApplicationResultTable.createTable)
+    ApplicationResultRepository.roach.createTable
   }
 }

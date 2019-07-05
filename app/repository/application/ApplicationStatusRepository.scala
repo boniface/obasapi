@@ -8,5 +8,5 @@ trait ApplicationStatusRepository extends Repository[ApplicationStatus]{
 
 }
 object ApplicationStatusRepository{
-  def apply: ApplicationStatusRepository = new cockcroachdb.ApplicationStatusRepositoryImpl()
+  def roach: ApplicationStatusRepository = new cockcroachdb.ApplicationStatusRepositoryImpl()
 }

@@ -10,12 +10,13 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.address.AddressTypeService
 import services.application.ApplicantTypeService
-import services.application.Impl.ApplicantTypeServiceImpl
-import services.demographics.Impl.RaceServiceImpl
+import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
+import services.demographics.Impl.cockroachdb.RaceServiceImpl
 import services.demographics.{RaceService, RoleService}
 import services.documents.DocumentService
-import services.documents.Impl.DocumentServiceImpl
-import services.subjects.Impl.MatricSubjectsServiceImpl
+import services.documents.Impl.cockroachdb.DocumentServiceImpl
+import services.login.LoginService
+import services.subjects.Impl.cockroachdb.MatricSubjectsServiceImpl
 import services.subjects.MatricSubjectsService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -29,7 +30,9 @@ class MatricSubjectsController @Inject()
 
   def className: String = "MatricSubjectsController"
 
-  def domainService: MatricSubjectsService = MatricSubjectsService.apply
+  def domainService: MatricSubjectsService = MatricSubjectsService.roach
+
+  def loginService: LoginService = LoginService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
@@ -37,6 +40,20 @@ class MatricSubjectsController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
+            results: Boolean <- domainService.saveEntity(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
+
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)

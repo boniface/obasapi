@@ -2,7 +2,7 @@ package services.address
 
 import domain.address.ContactType
 import services.CrudService
-import services.address.Impl.ContactTypeServiceImpl
+import services.address.Impl.cockroachdb
 
 trait ContactTypeService extends CrudService [ContactType ]{
 
@@ -10,6 +10,6 @@ trait ContactTypeService extends CrudService [ContactType ]{
 }
 
 object ContactTypeService{
-    def apply: ContactTypeService = new ContactTypeServiceImpl()
+    def roach: ContactTypeService = new cockroachdb.ContactTypeServiceImpl()
 
   }

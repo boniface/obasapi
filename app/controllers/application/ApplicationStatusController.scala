@@ -8,8 +8,8 @@ import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.address.AddressTypeService
+import services.application.Impl.cockroachdb.ApplicationStatusServiceImpl
 import services.application.{ApplicantTypeService, ApplicationStatusService}
-import services.application.Impl.{ApplicantTypeServiceImpl, ApplicationStatusServiceImpl}
 import services.demographics.RoleService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -23,7 +23,7 @@ class ApplicationStatusController @Inject()
 
   def className: String = "ApplicationStatusController"
 
-  def domainService: ApplicationStatusService = ApplicationStatusService.apply
+  def domainService: ApplicationStatusService = ApplicationStatusService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

@@ -2,7 +2,8 @@ package services.application
 
 import domain.application.ApplicantType
 import services.CrudService
-import services.application.Impl.ApplicantTypeServiceImpl
+import services.application.Impl.cockroachdb
+
 
 trait ApplicantTypeService extends CrudService[ApplicantType] {
 
@@ -11,5 +12,5 @@ trait ApplicantTypeService extends CrudService[ApplicantType] {
 
 object ApplicantTypeService
 {
-  def apply: ApplicantTypeService = new ApplicantTypeServiceImpl()
+  def roach: ApplicantTypeService = new cockroachdb.ApplicantTypeServiceImpl()
 }
