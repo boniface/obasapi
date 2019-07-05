@@ -9,7 +9,7 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.address.AddressTypeService
 import services.application.ApplicantTypeService
-import services.application.Impl.ApplicantTypeServiceImpl
+import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
 import services.demographics.RoleService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -23,7 +23,7 @@ class ApplicantTypeController @Inject()
 
   def className: String = "AddressTypeController"
 
-  def domainService: ApplicantTypeService = ApplicantTypeService.apply
+  def domainService: ApplicantTypeService = ApplicantTypeService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

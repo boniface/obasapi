@@ -8,22 +8,22 @@ import scala.concurrent.Future
 
 class AddressTypeRepositoryImpl extends AddressTypeRepository{
   override def saveEntity(entity: AddressType): Future[Boolean] ={
-    Future.successful(AddressTypeTable.saveEntity(entity).isCompleted)
+   AddressTypeRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[AddressType]] = {
-    AddressTypeTable.getEntities
+    AddressTypeRepository.roach.getEntities
   }
 
   override def getEntity(addressTypeID: String): Future[Option[AddressType]] = {
-    AddressTypeTable.getEntity(addressTypeID)
+    AddressTypeRepository.roach.getEntity(addressTypeID)
   }
 
   override def deleteEntity(entity: AddressType): Future[Boolean] = {
-    Future.successful(AddressTypeTable.deleteEntity(entity.addressTypeID).isCompleted)
+    AddressTypeRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(AddressTypeTable.createTable)
+    AddressTypeRepository.roach.createTable
   }
 }

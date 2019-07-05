@@ -10,6 +10,6 @@ trait ApplicationResultRepository extends Repository [ApplicationResult]{
 }
 object ApplicationResultRepository{
 
-  def apply: ApplicationResultRepository= new cockcroachdb.ApplicationResultRepositoryImpl()
+  def roach: ApplicationResultRepository= new cockcroachdb.ApplicationResultRepositoryImpl()
 
 }

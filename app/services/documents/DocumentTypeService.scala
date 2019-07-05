@@ -2,7 +2,7 @@ package services.documents
 
 import domain.documents.DocumentType
 import services.CrudService
-import services.documents.Impl.DocumentTypeServiceImpl
+import services.documents.Impl.cockroachdb
 
 trait DocumentTypeService extends CrudService[DocumentType]{
 
@@ -10,5 +10,5 @@ trait DocumentTypeService extends CrudService[DocumentType]{
 
 object DocumentTypeService
 {
-  def apply: DocumentTypeService = new DocumentTypeServiceImpl()
+  def roach: DocumentTypeService = new cockroachdb.DocumentTypeServiceImpl()
 }

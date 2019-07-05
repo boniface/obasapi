@@ -2,7 +2,8 @@ package services.demographics
 
 import domain.demographics.Race
 import services.CrudService
-import services.demographics.Impl.RaceServiceImpl
+import services.demographics.Impl.cockroachdb
+
 
 trait RaceService extends CrudService[Race]{
 
@@ -10,5 +11,5 @@ trait RaceService extends CrudService[Race]{
 
 object RaceService{
 
-  def apply: RaceService = new RaceServiceImpl()
+  def roach: RaceService = new cockroachdb.RaceServiceImpl()
 }

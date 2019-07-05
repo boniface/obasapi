@@ -8,5 +8,5 @@ trait MatricSubjectsRepository extends Repository [MatricSubjects]{
 
 }
 object MatricSubjectsRepository{
-  def apply: MatricSubjectsRepository = new cockcroachdb.MatricSubjectsRepositoryImpl()
+  def roach: MatricSubjectsRepository = new cockcroachdb.MatricSubjectsRepositoryImpl()
 }

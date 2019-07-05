@@ -11,32 +11,32 @@ class RaceServicesTest extends FunSuite {
   val entity = Race("48","Black")
   val service = RaceService
   test("createEntity"){
-    val result = Await.result(service.apply.saveEntity(entity), 2 minutes)
+    val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
     assert(result)
 
   }
 
   test("readEntity"){
-    val result = Await.result(service.apply.getEntity(entity.raceId), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.raceId), 2 minutes)
     assert(result.head.raceId==entity.raceId)
   }
 
   test("createEntities"){
-    val result = Await.result(service.apply.getEntities, 2 minutes)
+    val result = Await.result(service.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
 
   test("updateEntities"){
     val updatedEntity=entity.copy(raceName = "African")
-    Await.result(service.apply.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(service.apply.getEntity(entity.raceId), 2 minutes)
+    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.raceId), 2 minutes)
     assert(result.head.raceName==updatedEntity.raceName)
   }
 
 
   test("deleteEntities"){
-    Await.result(service.apply.deleteEntity(entity), 2 minutes)
-    val result = Await.result(service.apply.getEntity(entity.raceId), 2 minutes)
+    Await.result(service.roach.deleteEntity(entity), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.raceId), 2 minutes)
     assert(result.isEmpty)
 
   }

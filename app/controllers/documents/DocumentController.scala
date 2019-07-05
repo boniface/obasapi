@@ -21,7 +21,7 @@ class DocumentController @Inject()
 
   def className: String = "DocumentController"
 
-  def domainService: DocumentService = DocumentService.apply
+  def domainService: DocumentService = DocumentService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

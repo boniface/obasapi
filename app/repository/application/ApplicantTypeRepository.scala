@@ -11,5 +11,5 @@ trait ApplicantTypeRepository extends Repository [ApplicantType]{
 }
 object ApplicantTypeRepository{
 
-  def apply: ApplicantTypeRepository= new cockcroachdb.ApplicantTypeRepositoryImpl()
+  def roach: ApplicantTypeRepository= new cockcroachdb.ApplicantTypeRepositoryImpl()
 }
