@@ -1,16 +1,16 @@
-package repositories.users
+package repository.users
 
-import domain.users.UserResults
+import domain.users.UserCommunication
 import org.scalatest.FunSuite
-import repository.users.UserResultsRepository
+import repository.users.UserCommunicationRepository
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 
-class UserResultsRepositoryTest extends FunSuite{
-  val entity = UserResults("1","failed")
-  val repository = UserResultsRepository
+class UserCommunicationRepositoryTest extends FunSuite{
+  val entity = UserCommunication("1","test")
+  val repository = UserCommunicationRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
     assert(result)
@@ -18,8 +18,8 @@ class UserResultsRepositoryTest extends FunSuite{
   }
 
   test("readEntity"){
-    val result = Await.result(repository.roach.getEntity(entity.userResultsId), 2 minutes)
-    assert(result.head.userResultsId==entity.userResultsId)
+    val result = Await.result(repository.roach.getEntity(entity.communicationId), 2 minutes)
+    assert(result.head.communicationId==entity.communicationId)
   }
 
   test("createEntities"){
@@ -28,16 +28,16 @@ class UserResultsRepositoryTest extends FunSuite{
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(description = "passed")
+    val updatedEntity=entity.copy(description = "testing")
     Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.userResultsId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.communicationId), 2 minutes)
     assert(result.head.description==updatedEntity.description)
   }
 
 
   test("deleteEntities"){
     Await.result(repository.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.userResultsId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.communicationId), 2 minutes)
     assert(result.isEmpty)
 
   }

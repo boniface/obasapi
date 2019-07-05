@@ -1,4 +1,4 @@
-package repositories.institutions
+package repository.institutions
 
 import domain.institutions.School
 import org.scalatest.FunSuite

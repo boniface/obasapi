@@ -1,4 +1,4 @@
-package repositories.location
+package repository.location
 
 import domain.location.LocationType
 import org.scalatest.FunSuite
