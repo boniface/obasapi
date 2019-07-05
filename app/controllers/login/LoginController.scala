@@ -20,7 +20,7 @@ class LoginController @Inject()
 (cc: ControllerComponents,api: ApiResponse) extends AbstractController(cc) {
   def className: String = "LoginController"
   def domainService: LoginService = LoginService.apply
-  def userService: UserService = UserService.apply
+  def userService: UserService = UserService.roach
 
   type DomainObject = MessageResponse
 
@@ -40,7 +40,7 @@ class LoginController @Inject()
   def isUserAvailable(siteId: String, email:String) :Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent]=>
       val response: Future[Boolean] = for {
-        results <- UserService.apply.isUserAvailable(siteId,email)
+        results <- userService.isUserAvailable(siteId,email)
       } yield results
       api.requestResponse[Boolean](response, className)
   }

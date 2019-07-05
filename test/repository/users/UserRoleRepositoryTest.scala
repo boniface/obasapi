@@ -1,16 +1,16 @@
-package repositories.users
+package repository.users
 
-import domain.users.UserCommunication
+import domain.users.UserRole
 import org.scalatest.FunSuite
-import repository.users.UserCommunicationRepository
+import repository.users.UserRoleRepository
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 
-class UserCommunicationRepositoryTest extends FunSuite{
-  val entity = UserCommunication("1","test")
-  val repository = UserCommunicationRepository
+class UserRoleRepositoryTest extends FunSuite{
+  val entity = UserRole("1","aj","desc test")
+  val repository = UserRoleRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
     assert(result)
@@ -18,8 +18,8 @@ class UserCommunicationRepositoryTest extends FunSuite{
   }
 
   test("readEntity"){
-    val result = Await.result(repository.roach.getEntity(entity.communicationId), 2 minutes)
-    assert(result.head.communicationId==entity.communicationId)
+    val result = Await.result(repository.roach.getEntity(entity.userRoleId), 2 minutes)
+    assert(result.head.userRoleId==entity.userRoleId)
   }
 
   test("createEntities"){
@@ -28,16 +28,16 @@ class UserCommunicationRepositoryTest extends FunSuite{
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(description = "testing")
+    val updatedEntity=entity.copy(description = "desc tested")
     Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.communicationId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.userRoleId), 2 minutes)
     assert(result.head.description==updatedEntity.description)
   }
 
 
   test("deleteEntities"){
     Await.result(repository.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.communicationId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.userRoleId), 2 minutes)
     assert(result.isEmpty)
 
   }
