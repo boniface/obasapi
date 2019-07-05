@@ -15,6 +15,7 @@ import services.demographics.Impl.cockroachdb.RaceServiceImpl
 import services.demographics.{RaceService, RoleService}
 import services.documents.Impl.cockroachdb.DocumentTypeServiceImpl
 import services.documents.{DocumentService, DocumentTypeService}
+import services.login.LoginService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -29,12 +30,28 @@ class DocumentTypeController @Inject()
 
   def domainService: DocumentTypeService = DocumentTypeService.roach
 
+  def loginService: LoginService = LoginService.apply
+
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
+            results: Boolean <- domainService.saveEntity(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
+
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)
