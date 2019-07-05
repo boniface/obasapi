@@ -11,3 +11,4 @@ GET        /assets/*file        controllers.Assets.versioned(path="/public", fil
 
 ->         /setup/db            controllers.setup.db.DBSetupRouter
 ->         /mail                controllers.mail.MailRouter
+->         /users               controllers.users.UserRouter

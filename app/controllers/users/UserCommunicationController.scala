@@ -6,6 +6,7 @@ import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import services.login.LoginService
 import services.users.UserCommunicationService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,8 +17,9 @@ class UserCommunicationController @Inject()
   type DomainObject = UserCommunication
 
   def className: String = "UserCommunicationController"
-
   def domainService: UserCommunicationService = UserCommunicationService.roach
+  def loginService: LoginService = LoginService.apply
+
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
@@ -25,6 +27,20 @@ class UserCommunicationController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
+            results: Boolean <- domainService.saveEntity(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
+
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)
