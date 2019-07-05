@@ -40,7 +40,7 @@ class LoginController @Inject()
   def isUserAvailable(siteId: String, email:String) :Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent]=>
       val response: Future[Boolean] = for {
-        results <- UserService.roach.isUserAvailable(siteId,email)
+
       } yield results
       api.requestResponse[Boolean](response, className)
   }
