@@ -10,7 +10,6 @@ class DBSetupRouter @Inject() (cockroachSetupController: CockroachSetupControlle
 
     // Routers for Cockroach setup
     case GET(p"/cockroach/tables/create") =>
-      println("creating tables...")
       cockroachSetupController.createTables
   }
 }
