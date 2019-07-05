@@ -29,7 +29,7 @@ class MatricSubjectsController @Inject()
 
   def className: String = "MatricSubjectsController"
 
-  def domainService: MatricSubjectsService = MatricSubjectsService.apply
+  def domainService: MatricSubjectsService = MatricSubjectsService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

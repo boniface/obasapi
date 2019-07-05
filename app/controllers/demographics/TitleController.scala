@@ -25,7 +25,7 @@ class TitleController @Inject()
 
   def className: String = "TitleController"
 
-  def domainService: TitleService = TitleService.apply
+  def domainService: TitleService = TitleService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>

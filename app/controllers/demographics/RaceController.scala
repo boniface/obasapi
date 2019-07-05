@@ -25,7 +25,7 @@ class RaceController @Inject()
 
   def className: String = "RaceController"
 
-  def domainService: RaceService = RaceService.apply
+  def domainService: RaceService = RaceService.roach
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
