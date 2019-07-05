@@ -1,4 +1,4 @@
-package repositories.users
+package repository.users
 
 import domain.users.UserSubjects
 import org.scalatest.FunSuite

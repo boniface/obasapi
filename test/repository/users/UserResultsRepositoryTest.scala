@@ -1,16 +1,16 @@
-package repositories.users
+package repository.users
 
-import domain.users.UserRole
+import domain.users.UserResults
 import org.scalatest.FunSuite
-import repository.users.UserRoleRepository
+import repository.users.UserResultsRepository
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 
-class UserRoleRepositoryTest extends FunSuite{
-  val entity = UserRole("1","aj","desc test")
-  val repository = UserRoleRepository
+class UserResultsRepositoryTest extends FunSuite{
+  val entity = UserResults("1","failed")
+  val repository = UserResultsRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
     assert(result)
@@ -18,8 +18,8 @@ class UserRoleRepositoryTest extends FunSuite{
   }
 
   test("readEntity"){
-    val result = Await.result(repository.roach.getEntity(entity.userRoleId), 2 minutes)
-    assert(result.head.userRoleId==entity.userRoleId)
+    val result = Await.result(repository.roach.getEntity(entity.userResultsId), 2 minutes)
+    assert(result.head.userResultsId==entity.userResultsId)
   }
 
   test("createEntities"){
@@ -28,16 +28,16 @@ class UserRoleRepositoryTest extends FunSuite{
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(description = "desc tested")
+    val updatedEntity=entity.copy(description = "passed")
     Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.userRoleId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.userResultsId), 2 minutes)
     assert(result.head.description==updatedEntity.description)
   }
 
 
   test("deleteEntities"){
     Await.result(repository.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.userRoleId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.userResultsId), 2 minutes)
     assert(result.isEmpty)
 
   }
