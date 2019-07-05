@@ -2,6 +2,7 @@ package services.address
 
 import domain.address.ContactType
 import services.CrudService
+import services.address.Impl.cockroachdb
 
 trait ContactTypeService extends CrudService [ContactType ]{
 
