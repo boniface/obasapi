@@ -15,6 +15,7 @@ import services.demographics.Impl.cockroachdb.RaceServiceImpl
 import services.demographics.{RaceService, RoleService}
 import services.documents.DocumentService
 import services.documents.Impl.cockroachdb.DocumentServiceImpl
+import services.login.LoginService
 import services.subjects.Impl.cockroachdb.UniversityCoursesServiceImpl
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
 
@@ -29,7 +30,9 @@ class UniversityCoursesController @Inject()
 
   def className: String = "UniversityCoursesController"
 
-  def domainService: UniversityCoursesService = UniversityCoursesService.roach
+  def domainService : UniversityCoursesService = UniversityCoursesService.roach
+
+  def loginService: LoginService = LoginService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
@@ -44,8 +47,22 @@ class UniversityCoursesController @Inject()
       }
   }
 
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            _ <- loginService.checkLoginStatus(request)
+            results: Boolean <- domainService.saveEntity(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
 
-  def getRoleById(courseCode: String): Action[AnyContent] = Action.async {
+
+  def getUniversityCoursesById(courseCode: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Option[DomainObject]] = for {
         results <- domainService.getEntity(courseCode)
@@ -53,7 +70,7 @@ class UniversityCoursesController @Inject()
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getAllRoles: Action[AnyContent] = Action.async {
+  def getAllUniversityCourses: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
@@ -61,7 +78,7 @@ class UniversityCoursesController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteRole: Action[JsValue] = Action.async(parse.json) {
+  def deleteUniversityCourses: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {

@@ -10,3 +10,7 @@ GET     /                           controllers.HomeController.index
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
 
 ->      /setup/db                   controllers.setup.db.DBSetupRouter
+->     /address                     controllers.address.AddressRouter
+->    /demographics                 controllers.demographics.DemographicsRouter
+->    /documents                     controllers.documents.DocumentsRouter
+->    /subjects                      controllers.subjects.SubjectsRouter

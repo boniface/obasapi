@@ -13,6 +13,7 @@ import services.application.ApplicantTypeService
 import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
 import services.demographics.Impl.cockroachdb.RaceServiceImpl
 import services.demographics.{RaceService, RoleService}
+import services.login.LoginService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -27,6 +28,8 @@ class RaceController @Inject()
 
   def domainService: RaceService = RaceService.roach
 
+  def loginService: LoginService = LoginService.apply
+
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
@@ -40,6 +43,19 @@ class RaceController @Inject()
       }
   }
 
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            _ <- loginService.checkLoginStatus(request)
+            results: Boolean <- domainService.saveEntity(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
 
   def getRaceById(raceId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
