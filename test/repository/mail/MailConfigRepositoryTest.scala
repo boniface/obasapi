@@ -4,7 +4,6 @@ import java.time.LocalDateTime
 
 import domain.mail.MailConfig
 import org.scalatest.FunSuite
-import repository.mail.MailConfigRepository
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

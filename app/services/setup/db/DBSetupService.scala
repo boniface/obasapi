@@ -1,6 +1,6 @@
 package services.setup.db
 
-import services.setup.db.impl.cockroachdb.DBSetupServiceImpl
+import services.setup.db.impl.cockroachdb
 
 import scala.concurrent.Future
 
@@ -12,5 +12,5 @@ trait DBSetupService {
 }
 
 object DBSetupService {
-  def roachImpl: DBSetupService = new DBSetupServiceImpl()
+  def roachImpl: DBSetupService = new cockroachdb.DBSetupServiceImpl()
 }

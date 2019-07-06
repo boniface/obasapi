@@ -2,7 +2,7 @@ package repository.documents
 
 import domain.documents.DocumentType
 import repository.Repository
-import repository.documents.Impl.cockcroachdb
+import repository.documents.impl.cockcroachdb
 
 trait DocumentTypeRepository extends Repository [DocumentType]{
 
