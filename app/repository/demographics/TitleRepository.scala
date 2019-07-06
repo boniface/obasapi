@@ -2,7 +2,7 @@ package repository.demographics
 
 import domain.demographics.Title
 import repository.Repository
-import repository.demographics.Impl.cockcroachdb
+import repository.demographics.impl.cockcroachdb
 
 trait TitleRepository extends Repository [Title]{
 

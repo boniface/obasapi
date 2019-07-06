@@ -2,7 +2,7 @@ package repository.users
 
 import domain.users.UserResults
 import repository.Repository
-import repository.users.Impl.cockroachdb
+import repository.users.impl.cockroachdb
 
 trait UserResultsRepository extends Repository[UserResults]{
 

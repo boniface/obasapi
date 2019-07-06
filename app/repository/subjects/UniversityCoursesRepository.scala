@@ -2,7 +2,7 @@ package repository.subjects
 
 import domain.subjects.UniversityCourses
 import repository.Repository
-import repository.subjects.Impl.cockcroachdb
+import repository.subjects.impl.cockcroachdb
 
 trait UniversityCoursesRepository extends Repository [UniversityCourses]{
 
