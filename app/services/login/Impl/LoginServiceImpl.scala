@@ -10,7 +10,6 @@ import services.login.LoginService
 import scala.concurrent.Future
 
 class LoginServiceImpl extends LoginService {
-  override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
 
   override def isUserRegistered(entity: User): Future[Boolean] = ???
 
@@ -19,6 +18,8 @@ class LoginServiceImpl extends LoginService {
   override def getLoginToken(credential: LoginCredential, agent: String): Future[UserGeneratedToken] = ???
 
   override def checkLoginStatus[A](request: Request[A]): Future[LoginStatus] = ???
+
+  override def resetPasswordRequest(resetKey: String): Future[MessageResponse] = ???
 }
 
 
