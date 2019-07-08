@@ -1,6 +1,7 @@
 package services.demographics.Impl.cockroachdb
 
 import domain.demographics.Race
+import repository.demographics.RaceRepository
 import services.demographics.RaceService
 
 import scala.concurrent.Future
@@ -8,22 +9,22 @@ import scala.concurrent.Future
 class RaceServiceImpl extends RaceService{
 
   override def saveEntity(entity: Race): Future[Boolean] = {
-    RaceService.roach.saveEntity(entity)
+    RaceRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Race]] = {
-    RaceService.roach.getEntities
+    RaceRepository.roach.getEntities
   }
 
   override def getEntity(raceId: String): Future[Option[Race]] = {
-    RaceService.roach.getEntity(raceId)
+    RaceRepository.roach.getEntity(raceId)
   }
 
   override def deleteEntity(entity: Race): Future[Boolean] = {
-    RaceService.roach.deleteEntity(entity)
+    RaceRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    RaceService.roach.createTable
+    RaceRepository.roach.createTable
   }
 }

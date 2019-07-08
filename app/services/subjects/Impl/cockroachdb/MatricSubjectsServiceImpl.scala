@@ -1,6 +1,7 @@
 package services.subjects.Impl.cockroachdb
 
 import domain.subjects.MatricSubjects
+import repository.subjects.MatricSubjectsRepository
 import services.subjects.MatricSubjectsService
 
 import scala.concurrent.Future
@@ -9,22 +10,22 @@ class MatricSubjectsServiceImpl extends MatricSubjectsService{
 
 
   override def saveEntity(entity: MatricSubjects): Future[Boolean] = {
-    MatricSubjectsService.roach.saveEntity(entity)
+    MatricSubjectsRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[MatricSubjects]] = {
-    MatricSubjectsService.roach.getEntities
+    MatricSubjectsRepository.roach.getEntities
   }
 
-  override def getEntity(subjectCode: String): Future[Option[MatricSubjects]] = {
-    MatricSubjectsService.roach.getEntity(subjectCode)
+  override def getEntity(courseCode: String): Future[Option[MatricSubjects]] = {
+    MatricSubjectsRepository.roach.getEntity(courseCode)
   }
 
   override def deleteEntity(entity: MatricSubjects): Future[Boolean] = {
-    MatricSubjectsService.roach.deleteEntity(entity)
+    MatricSubjectsRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    MatricSubjectsService.roach.createTable
+    MatricSubjectsRepository.roach.createTable
   }
 }
