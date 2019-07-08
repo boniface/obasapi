@@ -12,4 +12,3 @@ object University {
   implicit val universityFmt = Json.format[University]
 
 }
-
