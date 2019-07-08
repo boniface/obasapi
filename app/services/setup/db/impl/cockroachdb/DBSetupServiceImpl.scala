@@ -10,7 +10,7 @@ import services.location.{LocationService, LocationTypeService}
 import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
-import services.users.{UserAddressService, UserApplicationResultService, UserCommunicationService, UserContactsService, UserDemographicsService, UserDocumentsService, UserInstitutionService, UserPasswordService, UserRelativeService, UserRoleService, UserSubjectsService}
+import services.users.{UserAddressService, UserApplicationResultService, UserCommunicationService, UserContactsService, UserDemographicsService, UserDocumentsService, UserInstitutionService, UserPasswordService, UserRelativeService, UserResultsService, UserRoleService, UserService, UserSubjectsService}
 
 import scala.concurrent.Future
 
@@ -72,6 +72,8 @@ class DBSetupServiceImpl extends DBSetupService {
     UserRelativeService.roach.createTable
     UserRoleService.roach.createTable
     UserSubjectsService.roach.createTable
+    UserResultsService.roach.createTable
+    UserService.roach.createTable
 
     //TODO: Add table creation for UserResultsTable and UserTable
   }

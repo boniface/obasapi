@@ -9,6 +9,7 @@ import scala.concurrent.Future
 class UserAddressRepositoryImpl  extends UserAddressRepository{
 
   override def saveEntity(entity: UserAddress): Future[Boolean] = {
+    println("Did i get jere?",  entity)
     Future.successful(UserAddressTable.saveEntity(entity).isCompleted)
   }
 
