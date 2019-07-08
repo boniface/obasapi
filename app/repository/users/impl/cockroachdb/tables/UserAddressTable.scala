@@ -28,6 +28,7 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
   }
 
   def saveEntity(userAddress: UserAddress): Future[UserAddress] = {
+    println(" In tahble", userAddress)
     db.run(this returning this.map(_.userAddressId) into ((acc, userAddressId) => acc.copy(userAddressId = userAddressId)) += userAddress)
   }
 
