@@ -1,6 +1,6 @@
 package repository.users
 
-import java.time.LocalDateTime
+import java.time.LocalDate
 
 import domain.users.User
 import org.scalatest.FunSuite
@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 
 
 class UserRepositoryTest extends FunSuite{
-  val entity = User("ajwiese@gmail.com","Abraham","Jabobus","Wiese", LocalDateTime.of(1989,1,6,1600,32,44))
+  val entity = User("ajwiese@gmail.com","Abraham","Jabobus","Wiese", LocalDate.now)
   val repository = UserRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)

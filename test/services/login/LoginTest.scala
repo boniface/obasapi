@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 class LoginTest extends FunSuite{
 
-  val service = LoginService
+  /*val service = LoginService
   test("Get Accounts "){
     val email = "boniface@kabaso.com"
 
@@ -16,6 +16,6 @@ class LoginTest extends FunSuite{
 
     println(" The Accounts are ", result)
 
-  }
+  }*/
 
 }

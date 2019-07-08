@@ -1,5 +1,6 @@
 package controllers.mail
 
+import domain.mail.SmtpConfig
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
@@ -7,14 +8,14 @@ import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Injecting}
 
 class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with Injecting {
-  val entity = Role("1", "TEST", "This is a Test Role")
+  val entity = SmtpConfig("1", 587, "smtp@gmail.com","username","password")
   val token = "eyJsDbNTlcQag"
 
 
   "EntityController " should {
 
     "Create Entity " in {
-      val request = route(app, FakeRequest(POST, "/roles/userSubscriptionUpdate")
+      val request = route(app, FakeRequest(POST, "/smtp/create")
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -25,7 +26,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
     }
 
     "Read Entity " in {
-      val request = route(app, FakeRequest(GET, "/roles/get/" + entity.id)
+      val request = route(app, FakeRequest(GET, "/smtp/get/" + entity.id)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -36,7 +37,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
     }
 
     "Read Entities" in {
-      val request = route(app, FakeRequest(GET, "/roles/getall")
+      val request = route(app, FakeRequest(GET, "/smtp/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -47,7 +48,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
     }
 
     "Update Entity" in {
-      val updatedEntity = entity.copy(roleName = "Updated")
+      val updatedEntity = entity.copy(username = "Updated")
       val request = route(app, FakeRequest(POST, "/roles/update")
         .withJsonBody(Json.toJson(updatedEntity))
         .withHeaders(AUTHORIZATION -> token)
