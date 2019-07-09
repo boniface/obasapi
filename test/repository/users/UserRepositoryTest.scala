@@ -4,7 +4,7 @@ import java.time.LocalDate
 
 import domain.users.User
 import org.scalatest.FunSuite
-import repository.users.UserRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

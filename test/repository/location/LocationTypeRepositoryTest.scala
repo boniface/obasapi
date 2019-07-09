@@ -2,7 +2,7 @@ package repository.location
 
 import domain.location.LocationType
 import org.scalatest.FunSuite
-import repository.location.LocationTypeRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
