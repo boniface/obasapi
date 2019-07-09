@@ -2,7 +2,7 @@ package repository.institutions
 
 import domain.institutions.University
 import org.scalatest.FunSuite
-import repository.institutions.UniversityRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

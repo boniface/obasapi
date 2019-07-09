@@ -2,7 +2,7 @@ package repository.users
 
 import domain.users.UserResults
 import org.scalatest.FunSuite
-import repository.users.UserResultsRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

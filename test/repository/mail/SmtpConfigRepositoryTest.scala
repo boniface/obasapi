@@ -2,7 +2,7 @@ package repository.mail
 
 import domain.mail.SmtpConfig
 import org.scalatest.FunSuite
-import repository.mail.SmtpConfigRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
