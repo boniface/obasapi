@@ -5,10 +5,11 @@ import repository.documents.DocumentTypeRepository
 import repository.documents.impl.cockcroachdb.tables.DocumentTypeTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class DocumentTypeImpl extends DocumentTypeRepository{
   override def saveEntity(entity: DocumentType): Future[Boolean] ={
-    Future.successful(DocumentTypeTable.saveEntity(entity).isCompleted)
+    DocumentTypeTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[DocumentType]] = {
@@ -20,10 +21,11 @@ class DocumentTypeImpl extends DocumentTypeRepository{
   }
 
   override def deleteEntity(entity: DocumentType): Future[Boolean] = {
-    Future.successful(DocumentTypeTable.deleteEntity(entity.documentTypeId).isCompleted)
+    DocumentTypeTable.deleteEntity(entity.documentTypeId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(DocumentTypeTable.createTable)
   }
 }
+

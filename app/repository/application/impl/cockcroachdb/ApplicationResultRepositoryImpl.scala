@@ -5,10 +5,11 @@ import repository.application.ApplicationResultRepository
 import repository.application.impl.cockcroachdb.tables.ApplicationResultTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class ApplicationResultRepositoryImpl extends ApplicationResultRepository{
   override def saveEntity(entity: ApplicationResult): Future[Boolean] = {
-    Future.successful(ApplicationResultTable.saveEntity(entity).isCompleted)
+    ApplicationResultTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[ApplicationResult]] = {
@@ -20,7 +21,7 @@ class ApplicationResultRepositoryImpl extends ApplicationResultRepository{
   }
 
   override def deleteEntity(entity: ApplicationResult): Future[Boolean] = {
-    Future.successful(ApplicationResultTable.deleteEntity(entity.applicationResultId).isCompleted)
+    ApplicationResultTable.deleteEntity(entity.applicationResultId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {

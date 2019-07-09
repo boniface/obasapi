@@ -5,26 +5,29 @@ import repository.location.LocationRepository
 import repository.location.impl.cockroachdb.tables.LocationTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class LocationRepositoryImpl  extends LocationRepository{
 
   override def saveEntity(entity: Location): Future[Boolean] = {
-    Future.successful(LocationTable.saveEntity(entity).isCompleted)
+    LocationTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[Location]] = {
     LocationTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[Location]] = {
-    LocationTable.getEntity(userContactId)
+  override def getEntity(locationId: String): Future[Option[Location]] = {
+    LocationTable.getEntity(locationId)
   }
 
   override def deleteEntity(entity: Location): Future[Boolean] = {
-    Future.successful(LocationTable.deleteEntity(entity.locationId).isCompleted)
+    LocationTable.deleteEntity(entity.locationId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(LocationTable.createTable)
   }
 }
+
+

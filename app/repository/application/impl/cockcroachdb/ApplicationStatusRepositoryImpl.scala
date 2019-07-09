@@ -5,10 +5,11 @@ import repository.application.ApplicationStatusRepository
 import repository.application.impl.cockcroachdb.tables.ApplicationStatusTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class ApplicationStatusRepositoryImpl extends ApplicationStatusRepository{
   override def saveEntity(entity: ApplicationStatus): Future[Boolean] ={
-    Future.successful(ApplicationStatusTable.saveEntity(entity).isCompleted)
+    ApplicationStatusTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[ApplicationStatus]] = {
@@ -20,10 +21,11 @@ class ApplicationStatusRepositoryImpl extends ApplicationStatusRepository{
   }
 
   override def deleteEntity(entity: ApplicationStatus): Future[Boolean] = {
-    Future.successful(ApplicationStatusTable.deleteEntity(entity.applicationStatusId).isCompleted)
+    ApplicationStatusTable.deleteEntity(entity.applicationStatusId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(ApplicationStatusTable.createTable)
   }
 }
+

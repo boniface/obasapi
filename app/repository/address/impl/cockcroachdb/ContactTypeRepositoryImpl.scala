@@ -5,10 +5,11 @@ import repository.address.ContactTypeRepository
 import repository.address.impl.cockcroachdb.tables.ContactTypeTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class ContactTypeRepositoryImpl extends ContactTypeRepository{
   override def saveEntity(entity: ContactType): Future[Boolean] = {
-    Future.successful(ContactTypeTable.saveEntity(entity).isCompleted)
+    ContactTypeTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[ContactType]] = {
@@ -20,7 +21,7 @@ class ContactTypeRepositoryImpl extends ContactTypeRepository{
   }
 
   override def deleteEntity(entity: ContactType): Future[Boolean] = {
-    Future.successful(ContactTypeTable.deleteEntity(entity.contactTypeId).isCompleted)
+    ContactTypeTable.deleteEntity(entity.contactTypeId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
