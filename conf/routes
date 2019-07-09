@@ -14,6 +14,5 @@ GET        /assets/*file        controllers.Assets.versioned(path="/public", fil
 ->         /mail                controllers.mail.MailRouter
 ->         /users               controllers.users.UserRouter
 ->         /address             controllers.address.AddressRouter
-->         /application         controllers.application.ApplicationRouter
 ->         /demographics        controllers.demographics.DemographicsRouter
 
