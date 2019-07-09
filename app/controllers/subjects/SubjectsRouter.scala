@@ -4,7 +4,6 @@ import javax.inject.Inject
 import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
-import play.routing.Router
 
 class SubjectsRouter@Inject()
 (matricSubjectsController: MatricSubjectsController,
@@ -26,15 +25,15 @@ class SubjectsRouter@Inject()
       matricSubjectsController.deleteMatricSubjects
 
     //University
-    case GET(p"/uni/all") =>
+    case GET(p"/university/all") =>
       universityCoursesController.getAllUniversityCourses
-    case GET(p"/uni/get/$courseCode") =>
+    case GET(p"/university/get/$courseCode") =>
       universityCoursesController.getUniversityCoursesById(courseCode)
-    case POST(p"/uni/create") =>
+    case POST(p"/university/create") =>
       universityCoursesController.create
-    case POST(p"/uni/update") =>
+    case POST(p"/university/update") =>
       universityCoursesController.update
-    case POST(p"/uni/delete") =>
+    case POST(p"/university/delete") =>
       universityCoursesController.deleteUniversityCourses
 
 

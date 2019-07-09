@@ -17,10 +17,5 @@ class LoginRouter@Inject()
       loginController.getLoginToken
     case GET(p"/reset/$resetkey") =>
       loginController.resetPasswordRequest(resetkey)
-//    case GET(p"/isavailable/$siteId/$email") =>
-//      loginController.isUserAvailable(siteId,email)
-
-
-
   }
 }

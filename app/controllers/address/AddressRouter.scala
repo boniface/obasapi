@@ -5,42 +5,34 @@ import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
-class AddressRouter@Inject ()
+class AddressRouter @Inject()
 (addressTypeController: AddressTypeController,
- contactTypeController: ContactTypeController)extends SimpleRouter{
-  override def routes: Routes ={
+ contactTypeController: ContactTypeController) extends SimpleRouter {
+  override def routes: Routes = {
 
     //ADDRESSTYPE
-    case GET(p"/addr/all") =>
+    case GET(p"/all ") =>
       addressTypeController.getAllAddressType
-    case GET(p"/addr/get/$addressTypeID") =>
+    case GET(p"/get/$addressTypeID ") =>
       addressTypeController.getAddressTypeById(addressTypeID)
-    case POST(p"/addr/create") =>
+    case POST(p"/create ") =>
       addressTypeController.create
-    case POST(p"/addr/update") =>
+    case POST(p"/update ") =>
       addressTypeController.update
-    case POST(p"/addr/delete") =>
+    case POST(p"/delete ") =>
       addressTypeController.deleteAddressType
 
-      //CONTACT
-    case GET(p"/cont/all") =>
+    //CONTACT
+    case GET(p"/contact/all ") =>
       contactTypeController.getAllContactType
-    case GET(p"/cont/get/$contactTypeId") =>
+    case GET(p"/contact/get/$contactTypeId ") =>
       contactTypeController.getContactTypeById(contactTypeId)
-    case POST(p"/cont/create") =>
+    case POST(p"/contact/create ") =>
       contactTypeController.create
-    case POST(p"/cont/update") =>
+    case POST(p"/contact/update ") =>
       contactTypeController.update
-    case POST(p"/cont/delete") =>
+    case POST(p"/contact/delete ") =>
       contactTypeController.deleteContactType
-
-
-
-
-
-
-
-
 
 
   }

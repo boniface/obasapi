@@ -8,7 +8,8 @@ case class Location(
                      latitude:String,
                      longitude:String,
                      code:String,
-                     locationTypeId:String
+                     locationTypeId:String,
+                     parentId:Option[String]
                    )
 object Location{
   implicit val locationFmt = Json.format[Location]

@@ -20,6 +20,8 @@ abstract class LocationTable extends Table[LocationTable, Location] {
 
   object locationTypeId extends StringColumn
 
+  object  parentId extends OptionalStringColumn
+
 }
 
 
@@ -31,6 +33,7 @@ abstract class LocationTableImpl extends LocationTable with RootConnector {
     insert
       .value(_.locationId, entity.locationId)
       .value(_.name, entity.name)
+      .value(_.parentId, entity.parentId)
       .value(_.latitude, entity.latitude)
       .value(_.longitude, entity.longitude)
       .value(_.code, entity.code)

@@ -10,13 +10,14 @@ import scala.concurrent.duration._
 
 class AddressTypeRepositoryTest extends FunSuite {
 
-  val entity = AddressType("1","6 Browning RD")
+  val entity = AddressType("5","9 Browning RD")
   val repository = AddressTypeRepository
-//  test("createEntity"){
-//    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-//    assert(result)
-//
-//  }
+  test("createEntity"){
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    println("The Oupt Result ")
+    assert(result)
+
+  }
 
 //  test("readEntity"){
 //    val result = Await.result(repository.roach.getEntity(entity.addressTypeID), 2 minutes)

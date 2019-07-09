@@ -2,14 +2,13 @@ package repository.location
 
 import domain.location.Location
 import org.scalatest.FunSuite
-import repository.location.LocationRepository
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 
 class LocationRepositoryTest extends FunSuite{
-  val entity = Location("1","Cape Town","33.9249","18.4241","12345","Western Cape")
+  val entity = Location("1","Cape Town","33.9249","18.4241","12345","Western Cape",Some("1"))
   val repository = LocationRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
