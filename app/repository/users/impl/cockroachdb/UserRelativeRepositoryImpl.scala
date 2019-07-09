@@ -17,8 +17,8 @@ class UserRelativeRepositoryImpl  extends UserRelativeRepository{
     UserRelativeTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserRelative]] = {
-    UserRelativeTable.getEntity(userContactId)
+  override def getEntity(userRelativeId: String): Future[Option[UserRelative]] = {
+    UserRelativeTable.getEntity(userRelativeId)
   }
 
   override def deleteEntity(entity: UserRelative): Future[Boolean] = {

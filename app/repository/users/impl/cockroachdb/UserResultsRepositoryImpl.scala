@@ -17,8 +17,8 @@ class UserResultsRepositoryImpl  extends UserResultsRepository{
     UserResultsTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserResults]] = {
-    UserResultsTable.getEntity(userContactId)
+  override def getEntity(userResultsId: String): Future[Option[UserResults]] = {
+    UserResultsTable.getEntity(userResultsId)
   }
 
   override def deleteEntity(entity: UserResults): Future[Boolean] = {

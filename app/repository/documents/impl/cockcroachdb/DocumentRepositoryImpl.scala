@@ -16,8 +16,8 @@ class DocumentRepositoryImpl extends DocumentRepository{
     DocumentTable.getEntities
   }
 
-  override def getEntity(email: String): Future[Option[Document]] = {
-    DocumentTable.getEntity(email)
+  override def getEntity(documentsId: String): Future[Option[Document]] = {
+    DocumentTable.getEntity(documentsId)
   }
 
   override def deleteEntity(entity: Document): Future[Boolean] = {

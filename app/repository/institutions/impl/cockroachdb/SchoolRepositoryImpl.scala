@@ -17,8 +17,8 @@ class SchoolRepositoryImpl  extends SchoolRepository{
     SchoolTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[School]] = {
-    SchoolTable.getEntity(userContactId)
+  override def getEntity(schoolId: String): Future[Option[School]] = {
+    SchoolTable.getEntity(schoolId)
   }
 
   override def deleteEntity(entity: School): Future[Boolean] = {

@@ -17,8 +17,8 @@ class LocationRepositoryImpl  extends LocationRepository{
     LocationTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[Location]] = {
-    LocationTable.getEntity(userContactId)
+  override def getEntity(locationId: String): Future[Option[Location]] = {
+    LocationTable.getEntity(locationId)
   }
 
   override def deleteEntity(entity: Location): Future[Boolean] = {

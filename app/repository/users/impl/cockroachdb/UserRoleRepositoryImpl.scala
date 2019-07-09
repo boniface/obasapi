@@ -17,8 +17,8 @@ class UserRoleRepositoryImpl  extends UserRoleRepository{
     UserRoleTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserRole]] = {
-    UserRoleTable.getEntity(userContactId)
+  override def getEntity(userRoleId: String): Future[Option[UserRole]] = {
+    UserRoleTable.getEntity(userRoleId)
   }
 
   override def deleteEntity(entity: UserRole): Future[Boolean] = {

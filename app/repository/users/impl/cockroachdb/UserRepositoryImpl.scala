@@ -17,10 +17,10 @@ class UserRepositoryImpl  extends UserRepository{
   }
 
   override def getEntity(userContactId: String): Future[Option[User]] = {
-    UserTable.getEntity(userContactId)
+    UserTable.getEntity(email)
   }
 
-  override def deleteEntity(entity: User): Future[Boolean] = {
+  override def deleteEntity(email: String): Future[Boolean] = {
     UserTable.deleteEntity(entity.email)map(value=> value.isValidInt)
   }
 

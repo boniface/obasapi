@@ -18,8 +18,8 @@ class UserAddressRepositoryImpl  extends UserAddressRepository{
     UserAddressTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserAddress]] = {
-    UserAddressTable.getEntity(userContactId)
+  override def getEntity(userAddressId: String): Future[Option[UserAddress]] = {
+    UserAddressTable.getEntity(userAddressId)
   }
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] = {

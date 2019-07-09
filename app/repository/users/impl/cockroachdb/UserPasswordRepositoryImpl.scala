@@ -17,8 +17,8 @@ class UserPasswordRepositoryImpl  extends UserPasswordRepository{
     UserPasswordTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserPassword]] = {
-    UserPasswordTable.getEntity(userContactId)
+  override def getEntity(userPasswordId: String): Future[Option[UserPassword]] = {
+    UserPasswordTable.getEntity(userPasswordId)
   }
 
   override def deleteEntity(entity: UserPassword): Future[Boolean] = {

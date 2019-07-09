@@ -17,8 +17,8 @@ class UserDemographicsRepositoryImpl  extends UserDemographicsRepository{
     UserDemographicsTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserDemographics]] = {
-    UserDemographicsTable.getEntity(userContactId)
+  override def getEntity(userDemographicsId: String): Future[Option[UserDemographics]] = {
+    UserDemographicsTable.getEntity(userDemographicsId)
   }
 
   override def deleteEntity(entity: UserDemographics): Future[Boolean] = {

@@ -17,8 +17,8 @@ class UserDocumentsRepositoryImpl  extends UserDocumentsRepository{
     UserDocumentsTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserDocuments]] = {
-    UserDocumentsTable.getEntity(userContactId)
+  override def getEntity(userDocumentsId: String): Future[Option[UserDocuments]] = {
+    UserDocumentsTable.getEntity(userDocumentsId)
   }
 
   override def deleteEntity(entity: UserDocuments): Future[Boolean] = {

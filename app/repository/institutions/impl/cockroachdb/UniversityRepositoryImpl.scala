@@ -17,8 +17,8 @@ class UniversityRepositoryImpl  extends UniversityRepository{
     UniversityTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[University]] = {
-    UniversityTable.getEntity(userContactId)
+  override def getEntity(universityId: String): Future[Option[University]] = {
+    UniversityTable.getEntity(universityId)
   }
 
   override def deleteEntity(entity: University): Future[Boolean] = {

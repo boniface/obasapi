@@ -17,8 +17,8 @@ class UserCommunicationRepositoryImpl  extends UserCommunicationRepository{
     UserCommunicationTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserCommunication]] = {
-    UserCommunicationTable.getEntity(userContactId)
+  override def getEntity(communicationId: String): Future[Option[UserCommunication]] = {
+    UserCommunicationTable.getEntity(communicationId)
   }
 
   override def deleteEntity(entity: UserCommunication): Future[Boolean] = {
