@@ -6,3 +6,9 @@ target
 /.project
 /.settings
 /RUNNING_PID
+
+build.gradle
+obasapi.iml
+gradlew
+gradlew.bat
+/.gradle
