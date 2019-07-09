@@ -5,12 +5,13 @@ import repository.users.UserAddressRepository
 import repository.users.impl.cockroachdb.tables.UserAddressTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserAddressRepositoryImpl  extends UserAddressRepository{
 
   override def saveEntity(entity: UserAddress): Future[Boolean] = {
     println("Did i get jere?",  entity)
-    Future.successful(UserAddressTable.saveEntity(entity).isCompleted)
+    UserAddressTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[UserAddress]] = {
@@ -22,10 +23,12 @@ class UserAddressRepositoryImpl  extends UserAddressRepository{
   }
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] = {
-    Future.successful(UserAddressTable.deleteEntity(entity.userAddressId).isCompleted)
+    UserAddressTable.deleteEntity(entity.userAddressId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UserAddressTable.createTable)
   }
 }
+
+

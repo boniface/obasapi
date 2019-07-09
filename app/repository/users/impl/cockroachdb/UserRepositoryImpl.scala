@@ -9,7 +9,7 @@ import scala.concurrent.Future
 class UserRepositoryImpl  extends UserRepository{
 
   override def saveEntity(entity: User): Future[Boolean] = {
-    Future.successful(UserTable.saveEntity(entity).isCompleted)
+    UserTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[User]] = {
@@ -21,11 +21,10 @@ class UserRepositoryImpl  extends UserRepository{
   }
 
   override def deleteEntity(entity: User): Future[Boolean] = {
-    Future.successful(UserTable.deleteEntity(entity.email).isCompleted)
+    UserTable.deleteEntity(entity.email)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UserTable.createTable)
   }
 }
-

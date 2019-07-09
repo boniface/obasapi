@@ -5,11 +5,12 @@ import repository.institutions.impl.cockroachdb.tables.UniversityTable
 import repository.institutions.UniversityRepository
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class UniversityRepositoryImpl  extends UniversityRepository{
 
   override def saveEntity(entity: University): Future[Boolean] = {
-    Future.successful(UniversityTable.saveEntity(entity).isCompleted)
+    UniversityTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[University]] = {
@@ -21,10 +22,11 @@ class UniversityRepositoryImpl  extends UniversityRepository{
   }
 
   override def deleteEntity(entity: University): Future[Boolean] = {
-    Future.successful(UniversityTable.deleteEntity(entity.universityId).isCompleted)
+    UniversityTable.deleteEntity(entity.universityId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UniversityTable.createTable)
   }
 }
+

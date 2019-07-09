@@ -5,11 +5,12 @@ import repository.users.UserCommunicationRepository
 import repository.users.impl.cockroachdb.tables.UserCommunicationTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserCommunicationRepositoryImpl  extends UserCommunicationRepository{
 
   override def saveEntity(entity: UserCommunication): Future[Boolean] = {
-    Future.successful(UserCommunicationTable.saveEntity(entity).isCompleted)
+    UserCommunicationTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[UserCommunication]] = {
@@ -21,10 +22,12 @@ class UserCommunicationRepositoryImpl  extends UserCommunicationRepository{
   }
 
   override def deleteEntity(entity: UserCommunication): Future[Boolean] = {
-    Future.successful(UserCommunicationTable.deleteEntity(entity.communicationId).isCompleted)
+    UserCommunicationTable.deleteEntity(entity.communicationId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UserCommunicationTable.createTable)
   }
 }
+
+

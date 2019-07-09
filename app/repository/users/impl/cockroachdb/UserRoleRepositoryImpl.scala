@@ -5,11 +5,12 @@ import repository.users.impl.cockroachdb.tables.UserRoleTable
 import repository.users.UserRoleRepository
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserRoleRepositoryImpl  extends UserRoleRepository{
 
   override def saveEntity(entity: UserRole): Future[Boolean] = {
-    Future.successful(UserRoleTable.saveEntity(entity).isCompleted)
+    UserRoleTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[UserRole]] = {
@@ -21,10 +22,13 @@ class UserRoleRepositoryImpl  extends UserRoleRepository{
   }
 
   override def deleteEntity(entity: UserRole): Future[Boolean] = {
-    Future.successful(UserRoleTable.deleteEntity(entity.userRoleId).isCompleted)
+    UserRoleTable.deleteEntity(entity.userRoleId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UserRoleTable.createTable)
   }
 }
+
+
+

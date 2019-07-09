@@ -5,11 +5,12 @@ import repository.mail.impl.cockcroachdb.tables.MailConfigTable
 import repository.mail.MailConfigRepository
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class MailConfigRepositoryImpl extends MailConfigRepository {
 
   override def saveEntity(entity: MailConfig): Future[Boolean] = {
-    Future.successful(MailConfigTable.saveEntity(entity).isCompleted)
+    MailConfigTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[MailConfig]] = {
@@ -21,7 +22,7 @@ class MailConfigRepositoryImpl extends MailConfigRepository {
   }
 
   override def deleteEntity(entity: MailConfig): Future[Boolean] = {
-    Future.successful(MailConfigTable.deleteEntity(entity.id).isCompleted)
+    MailConfigTable.deleteEntity(entity.id)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
@@ -30,3 +31,5 @@ class MailConfigRepositoryImpl extends MailConfigRepository {
 
   override def getSiteMailConfigurations(siteId: String): Future[Seq[MailConfig]] = ???
 }
+
+
