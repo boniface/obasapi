@@ -14,6 +14,7 @@ class AddressTypeServiceImpl extends AddressTypeService{
   }
 
   override def getEntities: Future[Seq[AddressType]] = {
+    println(" The Address Type is Requested Here ")
     AddressTypeRepository.roach.getEntities
   }
 

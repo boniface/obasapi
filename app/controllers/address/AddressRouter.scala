@@ -33,7 +33,5 @@ class AddressRouter @Inject()
       contactTypeController.update
     case POST(p"/contact/delete ") =>
       contactTypeController.deleteContactType
-
-
   }
 }
