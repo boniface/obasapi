@@ -9,8 +9,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class AddressTypeRepositoryImpl extends AddressTypeRepository{
   override def saveEntity(entity: AddressType): Future[Boolean] ={
-    val result = AddressTypeTable.saveEntity(entity)
-    result.map(value=> value.equals(entity))
+    AddressTypeTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[AddressType]] = {
@@ -22,7 +21,7 @@ class AddressTypeRepositoryImpl extends AddressTypeRepository{
   }
 
   override def deleteEntity(entity: AddressType): Future[Boolean] = {
-    Future.successful(AddressTypeTable.deleteEntity(entity.addressTypeID).isCompleted)
+    AddressTypeTable.deleteEntity(entity.addressTypeID)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
