@@ -2,7 +2,7 @@ package repository.location
 
 import repository.Repository
 import domain.location.Location
-import repository.location.Impl.cockroachdb
+import repository.location.impl.cockroachdb
 
 trait LocationRepository extends Repository[Location] {
 

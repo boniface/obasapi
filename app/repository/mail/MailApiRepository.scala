@@ -2,8 +2,8 @@ package repository.mail
 
 import domain.mail.MailApi
 import repository.Repository
-import repository.mail.Impl.cockcroachdb
-import repository.mail.Impl.cassandra
+import repository.mail.impl.cockcroachdb
+import repository.mail.impl.cassandra
 
 trait MailApiRepository extends Repository[MailApi] {
 

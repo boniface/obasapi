@@ -2,7 +2,7 @@ package repository.application
 
 import domain.application.ApplicationStatus
 import repository.Repository
-import repository.application.Impl.cockcroachdb
+import repository.application.impl.cockcroachdb
 
 trait ApplicationStatusRepository extends Repository[ApplicationStatus]{
 

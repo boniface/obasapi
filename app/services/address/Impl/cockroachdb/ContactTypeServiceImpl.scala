@@ -1,7 +1,9 @@
 package services.address.Impl.cockroachdb
 
 import domain.address.ContactType
+import repository.address.ContactTypeRepository
 import services.address.ContactTypeService
+
 
 import scala.concurrent.Future
 
@@ -9,22 +11,23 @@ class ContactTypeServiceImpl extends ContactTypeService{
 
 
   override def saveEntity(entity: ContactType): Future[Boolean] = {
-    ContactTypeService.roach.saveEntity(entity)
+    ContactTypeRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ContactType]] = {
-    ContactTypeService.roach.getEntities
+    ContactTypeRepository.roach.getEntities
   }
 
   override def getEntity(contactTypeId: String): Future[Option[ContactType]] = {
-    ContactTypeService.roach.getEntity(contactTypeId)
+    ContactTypeRepository.roach.getEntity(contactTypeId)
   }
 
   override def deleteEntity(entity: ContactType): Future[Boolean] = {
-    ContactTypeService.roach.deleteEntity(entity)
+    ContactTypeRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    ContactTypeService.roach.createTable
+    ContactTypeRepository.roach.createTable
   }
 }
+

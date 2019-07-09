@@ -2,7 +2,7 @@ package repository.institutions
 
 import domain.institutions.School
 import repository.Repository
-import repository.institutions.Impl.cockroachdb
+import repository.institutions.impl.cockroachdb
 
 trait SchoolRepository extends Repository[School] {
 

@@ -15,7 +15,7 @@ import scala.concurrent.Future
 class SmtpConfigController @Inject()
 ( api: ApiResponse, cc: ControllerComponents) extends AbstractController(cc)  {
   def className: String ="SmtpConfigController"
-  def domainService: SmtpConfigService = SmtpConfigService.apply
+  def domainService: SmtpConfigService = SmtpConfigService.roach
   def loginService: LoginService = LoginService.apply
   type DomainObject = SmtpConfig
 
@@ -51,7 +51,7 @@ class SmtpConfigController @Inject()
     implicit request: Request[AnyContent]=>
       val response: Future[Option[DomainObject]] = for {
         _ <- loginService.checkLoginStatus(request)
-        results <- SmtpConfigService.apply.getEntity(id)
+        results <- domainService.getEntity(id)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
@@ -60,7 +60,7 @@ class SmtpConfigController @Inject()
     implicit request: Request[AnyContent]=>
       val response: Future[Seq[DomainObject]] = for {
         _ <- loginService.checkLoginStatus(request)
-        results <- SmtpConfigService.apply.getEntities
+        results <- domainService.getEntities
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }

@@ -12,7 +12,7 @@ class CockroachSetupController @Inject()
 
   def className: String = "CockroachSetupController"
 
-  def roachService = DBSetupService.roachImpl
+  def roachService: DBSetupService = DBSetupService.roachImpl
 
   def createTables: Action[AnyContent] = Action.async{
     implicit request: Request[AnyContent] =>

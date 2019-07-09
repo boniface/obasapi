@@ -1,6 +1,7 @@
 package services.location.Impl.cockroachdb
 
 import domain.location.Location
+import repository.location.LocationRepository
 import services.location.LocationService
 
 import scala.concurrent.Future
@@ -8,18 +9,18 @@ import scala.concurrent.Future
 class LocationServiceImpl extends LocationService {
 
   override def saveEntity(entity: Location): Future[Boolean] =
-    LocationService.roach.saveEntity(entity)
+    LocationRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[Location]] =
-    LocationService.roach.getEntities
+    LocationRepository.roach.getEntities
 
-  override def getEntity(userAddressId: String): Future[Option[Location]] =
-    LocationService.roach.getEntity(userAddressId)
+  override def getEntity(locationId: String): Future[Option[Location]] =
+    LocationRepository.roach.getEntity(locationId)
 
   override def deleteEntity(entity: Location): Future[Boolean] =
-    LocationService.roach.deleteEntity(entity)
+    LocationRepository.roach.deleteEntity(entity)
 
   override def createTable: Future[Boolean] =
-    LocationService.roach.createTable
+    LocationRepository.roach.createTable
 
 }

@@ -2,6 +2,7 @@ package domain.users
 
 import java.time.LocalDate
 
+import org.joda.time.LocalDateTime
 import play.api.libs.json.Json
 
 case class User(

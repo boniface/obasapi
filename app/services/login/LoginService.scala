@@ -15,6 +15,7 @@ trait LoginService {
   def forgotPassword(profile:Profile): Future[MessageResponse]
   def getLoginToken(credential: LoginCredential, agent: String): Future[UserGeneratedToken]
   def checkLoginStatus[A](request: Request[A]): Future[LoginStatus]
+  //def getUserAccounts(profile: Profile): Future[MessageResponse]
 }
 
 object LoginService{

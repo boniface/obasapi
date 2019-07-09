@@ -2,7 +2,7 @@ package repository.demographics
 
 import domain.demographics.Race
 import repository.Repository
-import repository.demographics.Impl.cockcroachdb
+import repository.demographics.impl.cockcroachdb
 
 trait RaceRepository extends Repository [Race]{
 

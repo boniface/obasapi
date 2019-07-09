@@ -8,22 +8,22 @@ import scala.concurrent.Future
 
 class SmtpConfigServiceImpl extends SmtpConfigService{
   override def saveEntity(entity: SmtpConfig): Future[Boolean] = {
-    SmtpConfigRepository.apply.saveEntity(entity)
+    SmtpConfigRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[SmtpConfig]] = {
-    SmtpConfigRepository.apply.getEntities
+    SmtpConfigRepository.roach.getEntities
   }
 
   override def getEntity(id: String): Future[Option[SmtpConfig]] = {
-    SmtpConfigRepository.apply.getEntity(id)
+    SmtpConfigRepository.roach.getEntity(id)
   }
 
   override def deleteEntity(entity: SmtpConfig): Future[Boolean] = {
-    SmtpConfigRepository.apply.deleteEntity(entity)
+    SmtpConfigRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    SmtpConfigRepository.apply.createTable
+    SmtpConfigRepository.roach.createTable
   }
 }

@@ -1,6 +1,7 @@
 package services.users.Impl.cockroachdb
 
 import domain.users.UserRelative
+import repository.users.UserRelativeRepository
 import services.users.UserRelativeService
 
 import scala.concurrent.Future
@@ -8,18 +9,18 @@ import scala.concurrent.Future
 class UserRelativeServiceImpl extends UserRelativeService {
 
   override def saveEntity(entity: UserRelative): Future[Boolean] =
-    UserRelativeService.roach.saveEntity(entity)
+    UserRelativeRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[UserRelative]] =
-    UserRelativeService.roach.getEntities
+    UserRelativeRepository.roach.getEntities
 
-  override def getEntity(userAddressId: String): Future[Option[UserRelative]] =
-    UserRelativeService.roach.getEntity(userAddressId)
+  override def getEntity(userRelativeId: String): Future[Option[UserRelative]] =
+    UserRelativeRepository.roach.getEntity(userRelativeId)
 
   override def deleteEntity(entity: UserRelative): Future[Boolean] =
-    UserRelativeService.roach.deleteEntity(entity)
+    UserRelativeRepository.roach.deleteEntity(entity)
 
   override def createTable: Future[Boolean] =
-    UserRelativeService.roach.createTable
+    UserRelativeRepository.roach.createTable
 
 }

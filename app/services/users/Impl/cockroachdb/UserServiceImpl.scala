@@ -4,6 +4,7 @@ import domain.login.PasswordChangeCredentials
 import domain.mail.MessageResponse
 import domain.users.{User, UserRole}
 import domain.util.registration.Register
+import repository.users.UserRepository
 import services.users.UserService
 
 import scala.concurrent.Future
@@ -11,44 +12,35 @@ import scala.concurrent.Future
 class UserServiceImpl extends UserService {
 
   override def saveEntity(entity: User): Future[Boolean] =
-    UserService.roach.saveEntity(entity)
+    UserRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[User]] =
-    UserService.roach.getEntities
+    UserRepository.roach.getEntities
 
   override def getEntity(id: String): Future[Option[User]] =
-    UserService.roach.getEntity(id)
+    UserRepository.roach.getEntity(id)
 
   override def deleteEntity(entity: User): Future[Boolean] =
-    UserService.roach.deleteEntity(entity)
+    UserRepository.roach.deleteEntity(entity)
 
   override def createTable: Future[Boolean] =
-    UserService.roach.createTable
+    UserRepository.roach.createTable
 
-  override def getSiteUsers(siteId: String): Future[Seq[User]] =
-    UserService.roach.getSiteUsers(siteId)
+  override def getSiteUsers(siteId: String): Future[Seq[User]] = ???
 
-  override def getUserByEmail(email: String): Future[Seq[User]] =
-    UserService.roach.getUserByEmail(email)
+  override def getUserByEmail(email: String): Future[Seq[User]] = ???
 
-  override def isUserAvailable(siteId: String, email: String): Future[Boolean] =
-    UserService.roach.isUserAvailable(siteId,email)
+  override def isUserAvailable(siteId: String, email: String): Future[Boolean] = ???
 
-  override def registerUser(registration: Register): Future[MessageResponse] =
-    UserService.roach.registerUser(registration)
+  override def registerUser(registration: Register): Future[MessageResponse] = ???
 
-  override def createUser(user: User, userRole: UserRole): Future[MessageResponse] =
-    UserService.roach.createUser(user,userRole)
+  override def createUser(user: User, userRole: UserRole): Future[MessageResponse] = ???
 
-  override def createSiteAdmin(siteAdmin: User): Future[MessageResponse] =
-    UserService.roach.createSiteAdmin(siteAdmin)
+  override def createSiteAdmin(siteAdmin: User): Future[MessageResponse] = ???
 
-  override def resetAccount(user: User): Future[MessageResponse] =
-    UserService.roach.resetAccount(user)
+  override def resetAccount(user: User): Future[MessageResponse] = ???
 
-  override def changePassword(credentials: PasswordChangeCredentials): Future[Boolean] =
-    UserService.roach.changePassword(credentials)
+  override def changePassword(credentials: PasswordChangeCredentials): Future[Boolean] = ???
 
-  override def requestNewPassword(token: String): Future[MessageResponse] =
-    UserService.roach.requestNewPassword(token)
+  override def requestNewPassword(token: String): Future[MessageResponse] = ???
 }
