@@ -20,8 +20,9 @@ class TitleRepositoryImpl extends TitleRepository {
     TitleTable.getEntity(titleId)
   }
 
-  override def deleteEntity(entity: titleId): Future[Boolean] = {
+  override def deleteEntity(entity: Title): Future[Boolean] = {
     TitleTable.deleteEntity(entity.titleId)map(value=> value.isValidInt)
+
   }
 
   override def createTable: Future[Boolean] = {
