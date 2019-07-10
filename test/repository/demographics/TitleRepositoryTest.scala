@@ -22,7 +22,7 @@ class TitleRepositoryTest extends FunSuite {
     assert(result.head.titleId==entity.titleId)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

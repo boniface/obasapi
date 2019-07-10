@@ -8,12 +8,11 @@ import scala.concurrent.duration._
 
 
 class SmtpConfigServiceTest extends FunSuite{
-  val entity = SmtpConfig("1",20,"test","hello","hest")
+  val entity = SmtpConfig("1",20,"test","hello","host")
   val service = SmtpConfigService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
     assert(result)
-
   }
 
   test("readEntity"){
@@ -21,8 +20,9 @@ class SmtpConfigServiceTest extends FunSuite{
     assert(result.head.id==entity.id)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(service.roach.getEntities, 2 minutes)
+    println(result)
     assert(result.nonEmpty)
   }
 
@@ -38,6 +38,5 @@ class SmtpConfigServiceTest extends FunSuite{
     Await.result(service.roach.deleteEntity(entity), 2 minutes)
     val result = Await.result(service.roach.getEntity(entity.id), 2 minutes)
     assert(result.isEmpty)
-
   }
 }

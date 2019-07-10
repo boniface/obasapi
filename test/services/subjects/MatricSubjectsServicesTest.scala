@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 class MatricSubjectsServicesTest extends FunSuite {
 
-  val entity = MatricSubjects("123",null,"Bachelor","Term 4 2020")
+  val entity = MatricSubjects("124",null,"Bachelor","Term 5 2020")
   val service = MatricSubjectsService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
@@ -17,11 +17,13 @@ class MatricSubjectsServicesTest extends FunSuite {
 
   test("readEntity"){
     val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
+    print(result)
     assert(result.head.subjectCode==entity.subjectCode)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(service.roach.getEntities, 2 minutes)
+    print(result)
     assert(result.nonEmpty)
   }
 

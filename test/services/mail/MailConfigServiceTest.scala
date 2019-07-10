@@ -15,7 +15,6 @@ class MailConfigServiceTest extends FunSuite {
   test("createEntity") {
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
     assert(result)
-
   }
 
   test("readEntity") {
@@ -23,7 +22,7 @@ class MailConfigServiceTest extends FunSuite {
     assert(result.head.id == entity.id)
   }
 
-  test("readEntities") {
+  test("getEntities") {
     val result = Await.result(service.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

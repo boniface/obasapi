@@ -22,7 +22,7 @@ class SmtpConfigRepositoryTest extends FunSuite{
     assert(result.head.id==entity.id)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(repository.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
