@@ -7,10 +7,10 @@ import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Injecting}
 
 class MailConfigControllerTest extends PlaySpec with GuiceOneAppPerTest with Injecting {
-//  val entity = Role("1", "TEST", "This is a Test Role")
-//  val token = "eyJsDbNTlcQag"
-//
-//
+  // val entity = Role("1", "TEST", "This is a Test Role")
+  // val token = "eyJsDbNTlcQag"
+
+
 //  "EntityController " should {
 //
 //    "Create Entity " in {
