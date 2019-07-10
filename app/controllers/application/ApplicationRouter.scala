@@ -16,40 +16,40 @@ class ApplicationRouter @Inject()(applicationStatusController: ApplicationStatus
 
 
     //APPLICANTTYPE
-    case GET(p"/atype/all") =>
+    case GET(p"/type/all") =>
       applicantTypeController.getAllApplicantType
-    case GET(p"/atype/get/$applicantTypeId") =>
+    case GET(p"/type/get/$applicantTypeId") =>
       applicantTypeController.getApplicantTypeById(applicantTypeId)
-    case POST(p"/atype/create") =>
+    case POST(p"/type/create") =>
       applicantTypeController.create
-    case POST(p"/atype/update") =>
+    case POST(p"/type/update") =>
       applicantTypeController.update
-    case POST(p"/atype/delete") =>
+    case POST(p"/type/delete") =>
       applicantTypeController.deleteApplicantType
 
     //APPLICATIONRESULT
-    case GET(p"/aresult/all") =>
+    case GET(p"/result/all") =>
       applicationResultController.getAllApplicationResult
-    case GET(p"/aresult/get/$applicationResultId") =>
+    case GET(p"/result/get/$applicationResultId") =>
       applicationResultController.getApplicationResultById(applicationResultId)
-    case POST(p"/aresult/create") =>
+    case POST(p"/result/create") =>
       applicationResultController.create
-    case POST(p"/aresult/update") =>
+    case POST(p"/result/update") =>
       applicationResultController.update
-    case POST(p"/aresult/delete") =>
+    case POST(p"/result/delete") =>
       applicationResultController.deleteApplicationResult
 
 
       //APPLICATIONSTATUS
-    case GET(p"/astatus/all") =>
+    case GET(p"/status/all") =>
       applicationStatusController.getAllApplicationStatus
-    case GET(p"/astatus/get/$applicationStatusId") =>
+    case GET(p"/status/get/$applicationStatusId") =>
       applicationStatusController.getApplicationStatusById(applicationStatusId)
-    case POST(p"/astatus/create") =>
+    case POST(p"/status/create") =>
       applicationStatusController.create
-    case POST(p"/astatus/update") =>
+    case POST(p"/status/update") =>
       applicationStatusController.update
-    case POST(p"/astatus/delete") =>
+    case POST(p"/status/delete") =>
       applicationStatusController.deleteApplicationStatus
 
 
