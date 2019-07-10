@@ -21,6 +21,7 @@ class LocationRepositoryTest extends FunSuite{
     assert(result.head.locationId==entity.locationId)
   }
 
+
   test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)

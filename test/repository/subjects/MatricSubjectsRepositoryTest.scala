@@ -21,7 +21,7 @@ class MatricSubjectsRepositoryTest extends FunSuite {
     assert(result.head.subjectCode==entity.subjectCode)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

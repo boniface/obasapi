@@ -7,15 +7,22 @@ import scala.concurrent.Await
 import scala.concurrent.duration._
 
 class AddressTypeServicesTest extends FunSuite {
+
   val entity = AddressType("5", "81258")
   val service = AddressTypeService
-
   test("createEntity") {
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
     assert(result)
 
   }
 
+  test("readEntity"){
+    val result = Await.result(service.roach.getEntity(entity.addressTypeID), 2 minutes)
+    print(result)
+    assert(result.head.addressTypeID==entity.addressTypeID)
+  }
+
+  
   test("readEntity") {
     val result = Await.result(service.roach.getEntity(entity.addressTypeID), 2 minutes)
     print(result)

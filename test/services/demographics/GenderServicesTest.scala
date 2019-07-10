@@ -21,6 +21,7 @@ class GenderServicesTest extends FunSuite {
     assert(result.head.genderId==entity.genderId)
   }
 
+
   test("getEntities") {
     val result = Await.result(service.roach.getEntities, 2 minutes)
     println(result)
