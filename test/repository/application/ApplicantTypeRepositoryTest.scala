@@ -22,7 +22,7 @@ class ApplicantTypeRepositoryTest extends FunSuite {
     assert(result.head.applicantTypeId==entity.applicantTypeId)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

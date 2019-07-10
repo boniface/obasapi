@@ -14,32 +14,32 @@ class MatricSubjectsServicesTest extends FunSuite {
     assert(result)
 
   }
-//
-//  test("readEntity"){
-//    val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
-//    print(result)
-//    assert(result.head.subjectCode==entity.subjectCode)
-//  }
-//
-//  test("getEntities"){
-//    val result = Await.result(service.roach.getEntities, 2 minutes)
-//    print(result)
-//    assert(result.nonEmpty)
-//  }
-//
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(name = "Female")
-//    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
-//    assert(result.head.name==updatedEntity.name)
-//  }
-//
-//
-//  test("deleteEntities"){
-//    Await.result(service.roach.deleteEntity(entity), 2 minutes)
-//    val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
-//    assert(result.isEmpty)
-//
-//  }
+
+  test("readEntity"){
+    val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
+    print(result)
+    assert(result.head.subjectCode==entity.subjectCode)
+  }
+
+  test("getEntities"){
+    val result = Await.result(service.roach.getEntities, 2 minutes)
+    print(result)
+    assert(result.nonEmpty)
+  }
+
+  test("updateEntities"){
+    val updatedEntity=entity.copy(name = "Female")
+    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
+    assert(result.head.name==updatedEntity.name)
+  }
+
+
+  test("deleteEntities"){
+    Await.result(service.roach.deleteEntity(entity), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 
 }

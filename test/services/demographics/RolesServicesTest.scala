@@ -21,7 +21,7 @@ class RolesServicesTest extends FunSuite {
     assert(result.head.id==entity.id)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(service.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

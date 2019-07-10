@@ -23,7 +23,7 @@ class MailConfigRepositoryTest extends FunSuite {
     assert(result.head.id == entity.id)
   }
 
-  test("readEntities") {
+  test("getEntities") {
     val result = Await.result(roachRepository.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

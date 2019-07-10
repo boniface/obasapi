@@ -21,7 +21,7 @@ class ContactTypeRepositoryTest extends FunSuite {
 //    assert(result.head.contactTypeId==entity.contactTypeId)
 //  }
 //
-//  test("createEntities"){
+//  test("getEntities"){
 //    val result = Await.result(repository.roach.getEntities, 2 minutes)
 //      println(result)
 //    assert(result.nonEmpty)

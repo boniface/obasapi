@@ -21,7 +21,7 @@ class LocationServiceTest extends FunSuite{
     assert(result.head.locationId==entity.locationId)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(roachService.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
