@@ -22,7 +22,7 @@ class UserCommunicationRepositoryTest extends FunSuite{
     assert(result.head.communicationId==entity.communicationId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

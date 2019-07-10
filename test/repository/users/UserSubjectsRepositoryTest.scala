@@ -22,8 +22,9 @@ class UserSubjectsRepositoryTest extends FunSuite{
     assert(result.head.userSubjectId==entity.userSubjectId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
+    println(result)
     assert(result.nonEmpty)
   }
 

@@ -11,6 +11,7 @@ import services.address.AddressTypeService
 import services.application.ApplicantTypeService
 import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
 import services.demographics.RoleService
+import services.login.LoginService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -25,12 +26,27 @@ class ApplicantTypeController @Inject()
 
   def domainService: ApplicantTypeService = ApplicantTypeService.roach
 
+  def loginService: LoginService = LoginService.apply
+
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
+            results: Boolean <- domainService.saveEntity(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)

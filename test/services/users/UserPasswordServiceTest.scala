@@ -21,7 +21,7 @@ class UserPasswordServiceTest extends FunSuite{
     assert(result.head.userPasswordId==entity.userPasswordId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(roachService.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
