@@ -1,13 +1,13 @@
-package controllers.demographics
+package controllers.users
 
 
-import domain.demographics.Title
+import domain.users.UserContacts
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest,Injecting}
 
-class TitleControllerTest {
+class UserContactControllerTest {
 
 }

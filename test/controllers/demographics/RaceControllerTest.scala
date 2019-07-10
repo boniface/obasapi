@@ -1,5 +1,6 @@
 package controllers.demographics
 
+import domain.demographics.Race
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json

@@ -1,5 +1,6 @@
 package controllers.application
 
+import domain.application.ApplicationStatus
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json

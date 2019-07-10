@@ -1,5 +1,6 @@
 package controllers.subjects
 
+import domain.subjects.MatricSubjects
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
