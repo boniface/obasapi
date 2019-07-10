@@ -22,7 +22,7 @@ class ContactTypeServicesTest extends FunSuite {
     assert(result.head.contactTypeId==entity.contactTypeId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(service.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

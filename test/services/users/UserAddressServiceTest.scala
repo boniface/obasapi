@@ -18,11 +18,13 @@ class UserAddressServiceTest extends FunSuite{
 
   test("readEntity"){
     val result = Await.result(roachService.getEntity(entity.userAddressId), 2 minutes)
+    println(result)
     assert(result.head.userAddressId==entity.userAddressId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(roachService.getEntities, 2 minutes)
+    println(result)
     assert(result.nonEmpty)
   }
 
