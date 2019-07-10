@@ -22,7 +22,7 @@ class UserRelativeRepositoryTest extends FunSuite{
     assert(result.head.userRelativeId==entity.userRelativeId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
