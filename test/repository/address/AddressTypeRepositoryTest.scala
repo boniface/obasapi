@@ -19,11 +19,11 @@ class AddressTypeRepositoryTest extends FunSuite {
 //    assert(result.head.addressTypeID==entity.addressTypeID)
 //  }
 //
-  test("getEntities"){
-    val result = Await.result(repository.roach.getEntities, 2 minutes)
-    println(result)
-    assert(result.nonEmpty)
-  }
+//  test("getEntities"){
+//    val result = Await.result(repository.roach.getEntities, 2 minutes)
+//    println(result)
+//    assert(result.nonEmpty)
+//  }
 //
 //  test("updateEntities"){
 //    val updatedEntity=entity.copy(addressName = "6 Browning RD")

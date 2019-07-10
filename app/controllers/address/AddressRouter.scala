@@ -11,15 +11,15 @@ class AddressRouter @Inject()
   override def routes: Routes = {
 
     //ADDRESSTYPE
-    case GET(p"/get/all ") =>
+    case GET(p"/address/get/all ") =>
       addressTypeController.getAllAddressType
-    case GET(p"/get/$addressTypeID ") =>
+    case GET(p"/address/get/$addressTypeID ") =>
       addressTypeController.getAddressTypeById(addressTypeID)
-    case POST(p"/create ") =>
+    case POST(p"/address/create ") =>
       addressTypeController.create
-    case POST(p"/update ") =>
+    case POST(p"/address/update ") =>
       addressTypeController.update
-    case POST(p"/delete ") =>
+    case POST(p"/address/delete ") =>
       addressTypeController.deleteAddressType
 
     //CONTACT

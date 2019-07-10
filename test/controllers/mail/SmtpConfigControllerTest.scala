@@ -36,7 +36,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
 
     }
 
-    "Read Entities" in {
+    "Get Entities" in {
       val request = route(app, FakeRequest(GET, "/smtp/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get
