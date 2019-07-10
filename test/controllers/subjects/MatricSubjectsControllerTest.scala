@@ -7,6 +7,6 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest,Injecting}
 
-class MatricSubjectsControllerTest {
+class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
 }

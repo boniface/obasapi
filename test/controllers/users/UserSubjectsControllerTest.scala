@@ -7,6 +7,6 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest,Injecting}
 
-class UserSubjectsControllerTest {
+class UserSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
 }
