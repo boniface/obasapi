@@ -5,11 +5,12 @@ import repository.mail.MailApiRepository
 import repository.mail.impl.cockcroachdb.tables.MailApiTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class MailApiRepositoryImpl extends MailApiRepository{
 
   override def saveEntity(entity: MailApi): Future[Boolean] = {
-    Future.successful(MailApiTable.saveEntity(entity).isCompleted)
+    MailApiTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[MailApi]] = {
@@ -21,10 +22,11 @@ class MailApiRepositoryImpl extends MailApiRepository{
   }
 
   override def deleteEntity(entity: MailApi): Future[Boolean] = {
-    Future.successful(MailApiTable.deleteEntity(entity.id).isCompleted)
+    MailApiTable.deleteEntity(entity.id)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(MailApiTable.createTable)
   }
 }
+

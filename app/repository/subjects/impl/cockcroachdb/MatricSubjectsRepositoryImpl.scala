@@ -5,11 +5,12 @@ import repository.subjects.MatricSubjectsRepository
 import repository.subjects.impl.cockcroachdb.tables.MatricSubjectsTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 
 class MatricSubjectsRepositoryImpl extends MatricSubjectsRepository{
   override def saveEntity(entity: MatricSubjects): Future[Boolean] = {
-   Future.successful(MatricSubjectsTable.saveEntity(entity).isCompleted)
+    MatricSubjectsTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[MatricSubjects]] = {
@@ -21,10 +22,12 @@ class MatricSubjectsRepositoryImpl extends MatricSubjectsRepository{
   }
 
   override def deleteEntity(entity: MatricSubjects): Future[Boolean] = {
-    Future.successful(MatricSubjectsTable.deleteEntity(entity.subjectCode).isCompleted)
+    MatricSubjectsTable.deleteEntity(entity.subjectCode)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(MatricSubjectsTable.createTable)
   }
 }
+
+

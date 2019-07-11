@@ -21,7 +21,7 @@ class UserDocumentsServiceTest extends FunSuite{
     assert(result.head.userDocumentsId==entity.userDocumentsId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(roachService.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

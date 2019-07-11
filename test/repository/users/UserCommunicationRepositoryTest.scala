@@ -2,7 +2,7 @@ package repository.users
 
 import domain.users.UserCommunication
 import org.scalatest.FunSuite
-import repository.users.UserCommunicationRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -22,7 +22,7 @@ class UserCommunicationRepositoryTest extends FunSuite{
     assert(result.head.communicationId==entity.communicationId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

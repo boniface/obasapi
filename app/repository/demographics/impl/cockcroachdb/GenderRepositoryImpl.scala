@@ -5,10 +5,11 @@ import repository.demographics.GenderRepository
 import repository.demographics.impl.cockcroachdb.tables.GenderTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class GenderRepositoryImpl extends GenderRepository{
   override def saveEntity(entity: Gender): Future[Boolean] = {
-    Future.successful(GenderTable.saveEntity(entity).isCompleted)
+    GenderTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[Gender]] = {
@@ -20,10 +21,11 @@ class GenderRepositoryImpl extends GenderRepository{
   }
 
   override def deleteEntity(entity: Gender): Future[Boolean] = {
-    Future.successful(GenderTable.deleteEntity(entity.genderId).isCompleted)
+    GenderTable.deleteEntity(entity.genderId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(GenderTable.createTable)
   }
 }
+

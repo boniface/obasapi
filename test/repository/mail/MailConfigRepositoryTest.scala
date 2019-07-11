@@ -23,25 +23,26 @@ class MailConfigRepositoryTest extends FunSuite {
     assert(result.head.id == entity.id)
   }
 
-  test("readEntities") {
+
+  test("getEntities") {
     val result = Await.result(roachRepository.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
-
-  test("updateEntities") {
-    val updatedEntity = entity.copy(host = "Home")
-    Await.result(roachRepository.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(roachRepository.getEntity(entity.id), 2 minutes)
-    assert(result.head.host == updatedEntity.host)
-  }
-
-
-  test("deleteEntities") {
-    Await.result(roachRepository.deleteEntity(entity), 2 minutes)
-    val result = Await.result(roachRepository.getEntity(entity.id), 2 minutes)
-    assert(result.isEmpty)
-
-  }
-
-
+  //
+  //  test("updateEntities") {
+  //    val updatedEntity = entity.copy(host = "Home")
+  //    Await.result(roachRepository.saveEntity(updatedEntity), 2 minutes)
+  //    val result = Await.result(roachRepository.getEntity(entity.id), 2 minutes)
+  //    assert(result.head.host == updatedEntity.host)
+  //  }
+  //
+  //
+  //  test("deleteEntities") {
+  //    Await.result(roachRepository.deleteEntity(entity), 2 minutes)
+  //    val result = Await.result(roachRepository.getEntity(entity.id), 2 minutes)
+  //    assert(result.isEmpty)
+  //
+  //  }
+  //
+  //
 }

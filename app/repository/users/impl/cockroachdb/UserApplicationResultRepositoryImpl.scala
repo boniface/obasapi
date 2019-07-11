@@ -5,26 +5,29 @@ import repository.users.UserApplicationResultRepository
 import repository.users.impl.cockroachdb.tables.UserApplicationResultTable
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserApplicationResultRepositoryImpl  extends UserApplicationResultRepository{
 
   override def saveEntity(entity: UserApplicationResult): Future[Boolean] = {
-    Future.successful(UserApplicationResultTable.saveEntity(entity).isCompleted)
+    UserApplicationResultTable.saveEntity(entity).map(value=> value.equals(entity))
   }
 
   override def getEntities: Future[Seq[UserApplicationResult]] = {
     UserApplicationResultTable.getEntities
   }
 
-  override def getEntity(userContactId: String): Future[Option[UserApplicationResult]] = {
-    UserApplicationResultTable.getEntity(userContactId)
+  override def getEntity(userApplicationResultId: String): Future[Option[UserApplicationResult]] = {
+    UserApplicationResultTable.getEntity(userApplicationResultId)
   }
 
   override def deleteEntity(entity: UserApplicationResult): Future[Boolean] = {
-    Future.successful(UserApplicationResultTable.deleteEntity(entity.userApplicationResultId).isCompleted)
+    UserApplicationResultTable.deleteEntity(entity.userApplicationResultId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UserApplicationResultTable.createTable)
   }
 }
+
+

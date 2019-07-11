@@ -2,7 +2,7 @@ package repository.mail
 
 import domain.mail.SmtpConfig
 import org.scalatest.FunSuite
-import repository.mail.SmtpConfigRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -22,7 +22,7 @@ class SmtpConfigRepositoryTest extends FunSuite{
     assert(result.head.id==entity.id)
   }
 
-  test("createEntities"){
+  test("getEntities"){
     val result = Await.result(repository.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }
