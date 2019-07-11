@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class UserAddressControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =UserAddress("1","6 Browning Street","8989 Po Box")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

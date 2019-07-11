@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class RaceControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =Race("1","White")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

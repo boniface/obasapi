@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class UserRoleControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting{
 
   val entity =UserRole("1","Student delete,update,upload","Student Admin")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

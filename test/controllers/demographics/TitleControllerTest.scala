@@ -11,7 +11,7 @@ import play.api.test.{FakeRequest,Injecting}
 class TitleControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =Title("1","Mr")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

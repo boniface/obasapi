@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class SchoolControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =School("1","Qhayiya HighSchool","Hermanus Zwelihle 7200","Western Cape")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

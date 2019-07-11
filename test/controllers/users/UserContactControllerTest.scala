@@ -11,7 +11,7 @@ import play.api.test.{FakeRequest,Injecting}
 class UserContactControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =UserContacts("1","095 345 8976","084 367 4763","testEmail@usercont.com")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

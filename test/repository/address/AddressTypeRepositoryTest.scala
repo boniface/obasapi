@@ -14,10 +14,10 @@ class AddressTypeRepositoryTest extends FunSuite {
   val repository = AddressTypeRepository
 
 
-//  test("readEntity"){
-//    val result = Await.result(repository.roach.getEntity(entity.addressTypeID), 2 minutes)
-//    assert(result.head.addressTypeID==entity.addressTypeID)
-//  }
+  test("readEntity"){
+    val result = Await.result(repository.roach.getEntity(entity.addressTypeID), 2 minutes)
+    assert(result.head.addressTypeID==entity.addressTypeID)
+  }
 //
 //  test("getEntities"){
 //    val result = Await.result(repository.roach.getEntities, 2 minutes)

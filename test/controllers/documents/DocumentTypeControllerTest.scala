@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class DocumentTypeControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting{
 
   val entity =DocumentType("1","National Certificate")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

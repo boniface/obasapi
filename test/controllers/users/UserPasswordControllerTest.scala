@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class UserPasswordControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =UserPassword("1","Obasapi@3425")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

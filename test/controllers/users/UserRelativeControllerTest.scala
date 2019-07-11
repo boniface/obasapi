@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class UserRelativeControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =UserRelative("1","089 765 4755","Luwis","Father","parant@gmail.com")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

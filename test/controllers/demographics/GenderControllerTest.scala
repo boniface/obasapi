@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class GenderControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =Gender("1","Male")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

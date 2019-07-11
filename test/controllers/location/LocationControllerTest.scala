@@ -12,7 +12,7 @@ import play.api.test.{FakeRequest, Injecting}
 class LocationControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =Location("1","Hermanus","90,09,90","45Y","SOUTH","8905106792087",Option("Western Cape Un"))
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

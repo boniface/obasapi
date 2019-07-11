@@ -12,7 +12,7 @@ import play.api.test.{FakeRequest, Injecting}
 class DocumentControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =Document("cyfotyasi@gmail.com","Malusi","htpp://www.google.com/drive","Year 2017","National Certification","N",LocalDateTime.now(),"yes")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

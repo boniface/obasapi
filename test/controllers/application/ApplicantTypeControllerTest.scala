@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class ApplicantTypeControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =ApplicantType("1","ND:Application Development ")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

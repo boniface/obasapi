@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =MatricSubjects("1",Option("LO"),"Life Orientation","Term 2")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 

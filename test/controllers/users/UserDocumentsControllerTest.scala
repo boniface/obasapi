@@ -10,7 +10,7 @@ import play.api.test.{FakeRequest,Injecting}
 class UserDocumentsControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
   val entity =UserDocuments("1","i though we suppose to link the document id Here")
-  val token ="exkfJdDbnT1cQa"
+  val token ="eyJsDbNTlcQag"
 
 
 
