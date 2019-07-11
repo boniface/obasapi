@@ -4,15 +4,11 @@ package controllers.demographics
 
 import controllers.ApiResponse
 import domain.demographics.Gender
-import javax.inject.Inject
 import io.circe.generic.auto._
+import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.address.AddressTypeService
-import services.application.ApplicantTypeService
-import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
-import services.demographics.Impl.cockroachdb.GenderServiceImpl
-import services.demographics.{GenderService, RoleService}
+import play.api.mvc._
+import services.demographics.GenderService
 import services.login.LoginService
 
 import scala.concurrent.ExecutionContext.Implicits.global
