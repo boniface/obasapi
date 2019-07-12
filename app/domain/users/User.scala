@@ -1,8 +1,8 @@
 package domain.users
 
-import java.time.LocalDate
+import java.time.{LocalDate, LocalDateTime}
 
-import org.joda.time.LocalDateTime
+
 import play.api.libs.json.Json
 
 case class User(
@@ -10,7 +10,7 @@ case class User(
                firstName:String,
                middleName:String,
                lastName:String,
-               dateOfBirth:LocalDate
+               dateOfBirth:LocalDateTime
                )
 object User{
   implicit val userFmt = Json.format[User]
