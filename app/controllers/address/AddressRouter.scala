@@ -11,27 +11,27 @@ class AddressRouter @Inject()
   override def routes: Routes = {
 
     //ADDRESSTYPE
-    case GET(p"/address/get/all ") =>
+    case GET(p"/all") =>
       addressTypeController.getAllAddressType
-    case GET(p"/address/get/$addressTypeID ") =>
+    case GET(p"/get/$addressTypeID") =>
       addressTypeController.getAddressTypeById(addressTypeID)
-    case POST(p"/address/create ") =>
+    case POST(p"/create") =>
       addressTypeController.create
-    case POST(p"/address/update ") =>
+    case POST(p"/update") =>
       addressTypeController.update
-    case POST(p"/address/delete ") =>
+    case POST(p"/delete") =>
       addressTypeController.deleteAddressType
 
     //CONTACT
-    case GET(p"/contact/all ") =>
+    case GET(p"/contact/all") =>
       contactTypeController.getAllContactType
-    case GET(p"/contact/get/$contactTypeId ") =>
+    case GET(p"/contact/get/$contactTypeId") =>
       contactTypeController.getContactTypeById(contactTypeId)
-    case POST(p"/contact/create ") =>
+    case POST(p"/contact/create") =>
       contactTypeController.create
-    case POST(p"/contact/update ") =>
+    case POST(p"/contact/update") =>
       contactTypeController.update
-    case POST(p"/contact/delete ") =>
+    case POST(p"/contact/delete") =>
       contactTypeController.deleteContactType
   }
 }

@@ -1,25 +1,23 @@
 package services.login.Impl
 
-import domain.login.{LoginCredential, LoginStatus, Profile}
-import domain.mail.MessageResponse
-import domain.users.User
-import domain.util.login.UserGeneratedToken
+import domain.login.{Login, LoginToken, Register}
 import play.api.mvc.Request
 import services.login.LoginService
 
 import scala.concurrent.Future
 
 class LoginServiceImpl extends LoginService {
+  override def isUserRegistered(user: Register): Future[Boolean] = ???
 
-  override def isUserRegistered(entity: User): Future[Boolean] = ???
+  override def forgotPassword(register: Register): Future[Boolean] = ???
 
-  override def forgotPassword(profile: Profile): Future[MessageResponse] = ???
+  override def register(register: Register): Future[Boolean] = ???
 
-  override def getLoginToken(credential: LoginCredential, agent: String): Future[UserGeneratedToken] = ???
+  override def getLoginToken(login: Login): Future[Option[LoginToken]] = ???
 
-  override def checkLoginStatus[A](request: Request[A]): Future[LoginStatus] = ???
+  override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
 
-  override def resetPasswordRequest(resetKey: String): Future[MessageResponse] = ???
+  override def loginStatus[A](request: Request[A]): Future[Boolean] = ???
 }
 
 

@@ -176,7 +176,6 @@ class UserRouter @Inject()
     case POST(p"/subjects/delete") =>
       userSubjectsController.deleteUserSubjects
 
-
   }
 }
 

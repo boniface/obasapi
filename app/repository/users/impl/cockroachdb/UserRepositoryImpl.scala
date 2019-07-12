@@ -29,13 +29,4 @@ class UserRepositoryImpl extends UserRepository {
     Future.successful(UserTable.createTable)
   }
 
-  /* def createTable: scala.concurrent.Future[Boolean] = ???
-
-   def deleteEntity(entity: domain.users.User): scala.concurrent.Future[Boolean] = ???
-
-   def getEntities: scala.concurrent.Future[Seq[domain.users.User]] = ???
-
-   def getEntity(id: String): scala.concurrent.Future[Option[domain.users.User]] = ???
-
-   def saveEntity(entity: domain.users.User): scala.concurrent.Future[Boolean] = ???*/
 }

@@ -36,10 +36,6 @@ class SubjectsRouter@Inject()
     case POST(p"/university/delete") =>
       universityCoursesController.deleteUniversityCourses
 
-
-
-
-
   }
 
 
