@@ -2,7 +2,6 @@ package controllers.login
 
 import controllers.ApiResponse
 import domain.login.{Login, LoginToken, Register}
-import io.circe.generic.auto._
 import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
@@ -76,5 +75,19 @@ class LoginController @Inject()
       } yield results
       api.requestResponse[Boolean](response,className)
   }
+
+  def logout: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[Register](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            results <- domainService.logOut(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error,className)
+      }
+  }
+
 
 }

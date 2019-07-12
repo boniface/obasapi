@@ -6,7 +6,7 @@ import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
 
-class LoginRouter@Inject()
+class LoginRouter @Inject()
 (loginController: LoginController) extends SimpleRouter {
   override def routes: Routes = {
     case GET(p"/isregistered") =>
@@ -19,5 +19,7 @@ class LoginRouter@Inject()
       loginController.register
     case GET(p"/passwordreset/$resetkey") =>
       loginController.resetPassword(resetkey)
+    case GET(p"/logout") =>
+      loginController.logout
   }
 }
