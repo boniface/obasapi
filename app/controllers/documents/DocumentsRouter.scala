@@ -11,15 +11,15 @@ class DocumentsRouter@Inject()
   override def routes:Routes ={
 
     //DOCUMENT
-    case GET(p"/all") =>
+    case GET(p"/doc/all") =>
      documentController.getAllDocument
-    case GET(p"/get/$email") =>
+    case GET(p"/doc/get/$email") =>
       documentController.getDocumentById(email)
-    case POST(p"/create") =>
+    case POST(p"/doc/create") =>
       documentController.create
-    case POST(p"/update") =>
+    case POST(p"/doc/update") =>
       documentController.update
-    case POST(p"/delete") =>
+    case POST(p"/doc/delete") =>
       documentController.deleteDocument
 
 

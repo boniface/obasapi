@@ -1,6 +1,6 @@
 package repository.users.impl.cassandra.tables
 
-import java.time.LocalDate
+import java.time.{LocalDate, LocalDateTime}
 
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.streams._
@@ -19,7 +19,7 @@ abstract class UserTable extends Table[UserTable, User] {
 
   object lastName extends StringColumn
 
-  object dateOfBirth extends Col[LocalDate]
+  object dateOfBirth extends Col[LocalDateTime]
 
 }
 
