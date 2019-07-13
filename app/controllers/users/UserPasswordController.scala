@@ -17,7 +17,7 @@ class UserPasswordController @Inject()
   type DomainObject = UserPassword
 
   def className: String = "UserPasswordController"
-  def domainService: UserPasswordService = UserPasswordService.roach
+  def domainService: UserPasswordService = UserPasswordService.apply
   def loginService: LoginService = LoginService.apply
 
 
