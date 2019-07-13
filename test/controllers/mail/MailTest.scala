@@ -37,7 +37,7 @@ class MailTest  extends PlaySpec with GuiceOneAppPerTest with Injecting {
 
     }
 
-    "Read Entities" in {
+    "Get Entities" in {
       val request = route(app, FakeRequest(GET, "/mail/api/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get

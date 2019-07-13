@@ -1,16 +1,15 @@
-package controllers.address
+package controllers.users
 
-import domain.address.AddressType
+import domain.users.UserSubjects
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest,Injecting}
 
+class UserSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
-class AddressTypeControllerTest extends PlaySpec with GuiceOneAppPerTest with Injecting {
-
-  val entity =AddressType("1","1836 Tambosquare Zwelihle Hermanus 7200")
+  val entity =UserSubjects("1","Biographics","Life Science","term 4")
   val token ="eyJsDbNTlcQag"
 
 
@@ -19,30 +18,30 @@ class AddressTypeControllerTest extends PlaySpec with GuiceOneAppPerTest with In
 
     "Create Entity" in{
 
-     val request =route(app, FakeRequest(POST,"/address/create")
-     .withJsonBody(Json.toJson(entity))
-         .withHeaders(AUTHORIZATION-> token)
-     ).get
+      val request =route(app, FakeRequest(POST,"/subjects/create")
+        .withJsonBody(Json.toJson(entity))
+        .withHeaders(AUTHORIZATION-> token)
+      ).get
       status(request) mustBe OK
       contentType(request) mustBe Some("application/json")
       println("The Content is: ", contentAsString(request))
     }
   }
-
+//
 //  "Read Entity " in{
 //
-//     val request = route(app, FakeRequest(GET,"/address/get" +entity.addressTypeID)
-//         .withHeaders(AUTHORIZATION -> token)
-//     ).get
+//    val request = route(app, FakeRequest(GET,"/subjects/get" +entity.userSubjectId)
+//      .withHeaders(AUTHORIZATION -> token)
+//    ).get
 //    status(request) mustBe OK
 //    contentType(request)mustBe Some("application/Json")
 //    println("The Content is: ", contentAsString(request))
 //  }
 //
 //  "Get Entities" in{
-//      val request =route(app, FakeRequest(GET, "address/all")
+//    val request =route(app, FakeRequest(GET, "/subjects/all")
 //      .withHeaders(AUTHORIZATION -> token)
-//      ).get
+//    ).get
 //    status(request) mustBe OK
 //    contentType(request) mustBe Some("application/json")
 //    println("The Content is: ", contentAsString(request))
@@ -50,10 +49,10 @@ class AddressTypeControllerTest extends PlaySpec with GuiceOneAppPerTest with In
 //  }
 //
 //  "Update Entity" in{
-//    val updatedEntity =entity.copy(addressName ="updated")
-//    val request =route(app, FakeRequest(POST, "/address/update")
-//    .withJsonBody(Json.toJson(updatedEntity))
-//    .withHeaders(AUTHORIZATION -> token)
+//    val updatedEntity =entity.copy(description ="updated")
+//    val request =route(app, FakeRequest(POST, "/subjects/update")
+//      .withJsonBody(Json.toJson(updatedEntity))
+//      .withHeaders(AUTHORIZATION -> token)
 //    ).get
 //    status(request) mustBe OK
 //    contentType(request) mustBe Some("application/json")
@@ -61,9 +60,9 @@ class AddressTypeControllerTest extends PlaySpec with GuiceOneAppPerTest with In
 //  }
 //
 //  "Delete Entities" in {
-//    val request =route(app,FakeRequest(POST,"address/delete")
-//    .withJsonBody(Json.toJson(entity))
-//    .withHeaders(AUTHORIZATION ->token)
+//    val request =route(app,FakeRequest(POST,"/subjects/delete")
+//      .withJsonBody(Json.toJson(entity))
+//      .withHeaders(AUTHORIZATION ->token)
 //    ).get
 //    status(request) mustBe OK
 //    contentType(request) mustBe Some("application/json")

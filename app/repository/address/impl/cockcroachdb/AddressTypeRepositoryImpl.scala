@@ -8,6 +8,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class AddressTypeRepositoryImpl extends AddressTypeRepository{
+  //optical dispance
   override def saveEntity(entity: AddressType): Future[Boolean] ={
     AddressTypeTable.saveEntity(entity).map(value=> value.equals(entity))
   }

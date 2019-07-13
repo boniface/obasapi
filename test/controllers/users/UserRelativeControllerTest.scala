@@ -1,15 +1,15 @@
-package controllers.subjects
+package controllers.users
 
-import domain.subjects.MatricSubjects
+import domain.users.UserRelative
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest,Injecting}
 
-class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
+class UserRelativeControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
-  val entity =MatricSubjects("1",Option("LO"),"Life Orientation","Term 2")
+  val entity =UserRelative("1","089 765 4755","Luwis","Father","parant@gmail.com")
   val token ="eyJsDbNTlcQag"
 
 
@@ -18,7 +18,7 @@ class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  wit
 
     "Create Entity" in{
 
-      val request =route(app, FakeRequest(POST,"/matric/create")
+      val request =route(app, FakeRequest(POST,"/relative/create")
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION-> token)
       ).get
@@ -30,7 +30,7 @@ class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  wit
 
   "Read Entity " in{
 
-    val request = route(app, FakeRequest(GET,"/matric/get" +entity.subjectCode)
+    val request = route(app, FakeRequest(GET,"/relative/get" +entity.userRelativeId)
       .withHeaders(AUTHORIZATION -> token)
     ).get
     status(request) mustBe OK
@@ -39,7 +39,7 @@ class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  wit
   }
 
   "Get Entities" in{
-    val request =route(app, FakeRequest(GET, "/matric/all")
+    val request =route(app, FakeRequest(GET, "/relative/all")
       .withHeaders(AUTHORIZATION -> token)
     ).get
     status(request) mustBe OK
@@ -50,7 +50,7 @@ class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  wit
 
   "Update Entity" in{
     val updatedEntity =entity.copy(name ="updated")
-    val request =route(app, FakeRequest(POST, "/matric/update")
+    val request =route(app, FakeRequest(POST, "/relative/update")
       .withJsonBody(Json.toJson(updatedEntity))
       .withHeaders(AUTHORIZATION -> token)
     ).get
@@ -60,7 +60,7 @@ class MatricSubjectsControllerTest extends PlaySpec with GuiceOneAppPerTest  wit
   }
 
   "Delete Entities" in {
-    val request =route(app,FakeRequest(POST,"/matric/delete")
+    val request =route(app,FakeRequest(POST,"/relative/delete")
       .withJsonBody(Json.toJson(entity))
       .withHeaders(AUTHORIZATION ->token)
     ).get

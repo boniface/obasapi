@@ -10,11 +10,11 @@ class ContactTypeRepositoryTest extends FunSuite {
 
   val entity = ContactType("1","81258")
   val repository = ContactTypeRepository
-//  test("createEntity"){
-//    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-//    assert(result)
-//
-//  }
+  test("createEntity"){
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    assert(result)
+
+  }
 
 //  test("readEntity"){
 //    val result = Await.result(repository.roach.getEntity(entity.contactTypeId), 2 minutes)

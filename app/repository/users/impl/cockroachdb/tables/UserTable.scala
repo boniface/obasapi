@@ -1,6 +1,6 @@
 package repository.users.impl.cockroachdb.tables
 
-import java.time.LocalDate
+import java.time.{LocalDate, LocalDateTime}
 
 import domain.users.User
 import slick.jdbc.PostgresProfile.api._
@@ -21,7 +21,7 @@ class UserTable(tag: Tag) extends Table[User](tag, "USER") {
 
   def lastName: Rep[String] = column[String]("LAST_NAME")
 
-  def dateOfBirth: Rep[LocalDate] = column[LocalDate]("DATE_OF_BIRTH")
+  def dateOfBirth: Rep[LocalDateTime] = column[LocalDateTime]("DATE_OF_BIRTH")
 
   def * : ProvenShape[User] = (email, firstName, middleName, lastName, dateOfBirth) <> ((User.apply _).tupled, User.unapply)
 }
