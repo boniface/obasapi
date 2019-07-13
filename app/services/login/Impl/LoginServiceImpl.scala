@@ -28,18 +28,18 @@ class LoginServiceImpl extends LoginService {
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
     val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
     val email = LoginTokenService.apply.getUserEmail(token)
-    if (LoginTokenService.apply.isTokenValid(token) && isSecurityEnabled) {
-      for {
-        token <- LoginTokenService.apply.getEntity(email)
-        // Might need to create a cache if Speed become an Issue
-      } yield token.isDefined
-
-    } else Future.successful(false)
-
+    if (isSecurityEnabled) {
+      if (LoginTokenService.apply.isTokenValid(token)) {
+        for {
+          token <- LoginTokenService.apply.getEntity(email)
+          // Might need to create a cache if Speed become an Issue
+        } yield token.isDefined
+      } else Future.successful(false)
+    } else Future.successful(true)
   }
 
   override def logOut(register: Register): Future[Boolean] = {
-    val emailToken = LoginToken(register.email,"")
+    val emailToken = LoginToken(register.email, "")
 
     LoginTokenService.apply.deleteEntity(emailToken)
   }
