@@ -1,6 +1,7 @@
 package services.address.Impl.cockroachdb
 
 import domain.address.AddressType
+import repository.address.AddressTypeRepository
 import services.address.AddressTypeService
 
 import scala.concurrent.Future
@@ -9,22 +10,23 @@ class AddressTypeServiceImpl extends AddressTypeService{
 
 
   override def saveEntity(entity: AddressType): Future[Boolean] = {
-    AddressTypeService.roach.saveEntity(entity)
+    AddressTypeRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[AddressType]] = {
-    AddressTypeService.roach.getEntities
+    println(" The Address Type is Requested Here ")
+    AddressTypeRepository.roach.getEntities
   }
 
   override def getEntity(addressTypeID: String): Future[Option[AddressType]] = {
-    AddressTypeService.roach.getEntity(addressTypeID)
+    AddressTypeRepository.roach.getEntity(addressTypeID)
   }
 
   override def deleteEntity(entity: AddressType): Future[Boolean] = {
-    AddressTypeService.roach.deleteEntity(entity)
+    AddressTypeRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    AddressTypeService.roach.createTable
+    AddressTypeRepository.roach.createTable
   }
 }

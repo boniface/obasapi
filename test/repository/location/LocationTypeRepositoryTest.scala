@@ -2,7 +2,7 @@ package repository.location
 
 import domain.location.LocationType
 import org.scalatest.FunSuite
-import repository.location.LocationTypeRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -22,7 +22,8 @@ class LocationTypeRepositoryTest extends FunSuite{
     assert(result.head.locationTypeId==entity.locationTypeId)
   }
 
-  test("createEntities"){
+
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

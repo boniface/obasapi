@@ -8,8 +8,10 @@ import scala.concurrent.duration._
 
 
 class LocationServiceTest extends FunSuite{
-  val entity = Location("1","Cape Town","33.9249","18.4241","12345","Western Cape")
+  val entity = Location("3", "Cape Town", "33.9249", "18.4241", "12345", "Western Cape", Some("1"))
   val roachService = LocationService
+
+  // column "PARENT_ID" does not exist
   test("createEntity"){
     val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
     assert(result)
@@ -21,7 +23,7 @@ class LocationServiceTest extends FunSuite{
     assert(result.head.locationId==entity.locationId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(roachService.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

@@ -16,29 +16,31 @@ class UniversityCoursesServicesTest extends FunSuite {
 
   }
 
-  test("readEntity"){
-    val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
-    assert(result.head.courseCode==entity.courseCode)
-  }
+test("readEntity"){
+  val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
+  println(result)
+  assert(result.head.courseCode==entity.courseCode)
+}
 
-  test("createEntities"){
+
+  test("getEntities"){
     val result = Await.result(service.roach.getEntities, 2 minutes)
+      println(result)
     assert(result.nonEmpty)
   }
-
   test("updateEntities"){
-    val updatedEntity=entity.copy(name = "UCT")
-    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
-    assert(result.head.name==updatedEntity.name)
-  }
+  val updatedEntity=entity.copy(name = "UCT")
+  Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
+  val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
+  assert(result.head.name==updatedEntity.name)
+}
 
 
   test("deleteEntities"){
-    Await.result(service.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
-    assert(result.isEmpty)
+  Await.result(service.roach.deleteEntity(entity), 2 minutes)
+  val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
+  assert(result.isEmpty)
 
-  }
+}
   
 }

@@ -6,6 +6,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Injecting}
+import util.HashcodeKeys
 
 class MailTest  extends PlaySpec with GuiceOneAppPerTest with Injecting {
   val entity = MailApi(HashcodeKeys.SEDNGRID, "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", "do_not_reply@hashcode.zm")
@@ -15,7 +16,7 @@ class MailTest  extends PlaySpec with GuiceOneAppPerTest with Injecting {
   "EntityController " should {
 
     "Create Entity " in {
-      val request = route(app, FakeRequest(POST, "/mail/api/userSubscriptionUpdate")
+      val request = route(app, FakeRequest(POST, "/mail/api/create")
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -37,7 +38,7 @@ class MailTest  extends PlaySpec with GuiceOneAppPerTest with Injecting {
     }
 
     "Read Entities" in {
-      val request = route(app, FakeRequest(GET, "/mail/api/getall")
+      val request = route(app, FakeRequest(GET, "/mail/api/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK

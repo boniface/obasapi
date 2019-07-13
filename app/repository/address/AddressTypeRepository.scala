@@ -1,7 +1,7 @@
 package repository.address
 import domain.address.AddressType
 import repository.Repository
-import repository.address.Impl.cockcroachdb
+import repository.address.impl.cockcroachdb
 
 trait  AddressTypeRepository extends Repository [AddressType]{
 

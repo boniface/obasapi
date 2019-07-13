@@ -1,22 +1,26 @@
 package services.login
 
-import domain.login.{LoginCredential, LoginStatus, Profile}
-import domain.mail.MessageResponse
-import domain.users.User
-import domain.util.login.UserGeneratedToken
+import domain.login.{Login, LoginToken, Register}
 import play.api.mvc.Request
 import services.login.Impl.LoginServiceImpl
 
 import scala.concurrent.Future
 
 trait LoginService {
-  def resetPasswordRequest(resetKey: String):Future[MessageResponse]
-  def isUserRegistered(entity: User): Future[Boolean]
-  def forgotPassword(profile:Profile): Future[MessageResponse]
-  def getLoginToken(credential: LoginCredential, agent: String): Future[UserGeneratedToken]
-  def checkLoginStatus[A](request: Request[A]): Future[LoginStatus]
-}
+  def isUserRegistered(user: Register): Future[Boolean]
 
+  def forgotPassword(register: Register): Future[Boolean]
+
+  def register(register: Register): Future[Boolean]
+
+  def getLoginToken(login: Login): Future[Option[LoginToken]]
+
+  def resetPasswordRequest(resetKey: String): Future[Boolean]
+
+  def checkLoginStatus[A](request: Request[A]): Future[Boolean]
+
+  def logOut(register: Register): Future[Boolean]
+}
 object LoginService{
   def apply: LoginService = new LoginServiceImpl()
 }

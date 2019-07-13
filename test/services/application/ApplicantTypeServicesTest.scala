@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 class ApplicantTypeServicesTest extends FunSuite {
 
-  val entity = ApplicantType("1","81258")
+  val entity = ApplicantType("2", "81258")
   val service = ApplicantTypeService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
@@ -21,7 +21,8 @@ class ApplicantTypeServicesTest extends FunSuite {
     assert(result.head.applicantTypeId==entity.applicantTypeId)
   }
 
-  test("createEntities"){
+
+  test("getEntities") {
     val result = Await.result(service.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

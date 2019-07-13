@@ -2,7 +2,7 @@ package repository.application
 
 import domain.application.ApplicationResult
 import repository.Repository
-import repository.application.Impl.cockcroachdb
+import repository.application.impl.cockcroachdb
 
 trait ApplicationResultRepository extends Repository [ApplicationResult]{
 

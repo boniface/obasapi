@@ -13,4 +13,12 @@ GET        /assets/*file        controllers.Assets.versioned(path="/public", fil
 ->         /setup/db            controllers.setup.db.DBSetupRouter
 ->         /mail                controllers.mail.MailRouter
 ->         /users               controllers.users.UserRouter
+->         /address             controllers.address.AddressRouter
+->         /demographics        controllers.demographics.DemographicsRouter
+->         /application         controllers.application.ApplicationRouter
+->         /documents           controllers.documents.DocumentsRouter
+->         /subjects            controllers.subjects.SubjectsRouter
+->         /login               controllers.login.LoginRouter
+->         /institutions        controllers.institutions.InstitutionRouter
+->         /location            controllers.location.LocationRouter
 

@@ -1,17 +1,12 @@
 package controllers.login
 
 import controllers.ApiResponse
-import domain.login.{LoginCredential, Profile}
-import domain.mail.MessageResponse
-import domain.users.User
-import domain.util.events.Events
-import domain.util.login.UserGeneratedToken
-import io.circe.generic.auto._
+import domain.login.{Login, LoginToken, Register}
 import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
+import io.circe.generic.auto._
 import services.login.LoginService
-import services.users.UserService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -19,68 +14,79 @@ import scala.concurrent.Future
 class LoginController @Inject()
 (cc: ControllerComponents,api: ApiResponse) extends AbstractController(cc) {
   def className: String = "LoginController"
-  def domainService: LoginService = LoginService.apply
-  def userService: UserService = UserService.roach
 
-  type DomainObject = MessageResponse
+  def domainService: LoginService = LoginService.apply
+
+  def login: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[Login](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Option[LoginToken]] = for {
+            results <- domainService.getLoginToken(value)
+          } yield results
+          api.requestResponse[Option[LoginToken]](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
+  }
 
   def isUserRegistered: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
-      val entity = Json.fromJson[User](request.body).asEither
+      val entity = Json.fromJson[Register](request.body).asEither
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            results: Boolean <- domainService.isUserRegistered(value)
+            results <- domainService.isUserRegistered(value)
           } yield results
           api.requestResponse[Boolean](response, className)
-        case Left(error) => api.errorResponse(error, className)
+        case Left(error) => api.errorResponse(error,className)
       }
   }
-
-  // This was commented out because it is incomplete.
-  // Please clean your code before you send a PR to Isreal
-//  def isUserAvailable(siteId: String, email:String) :Action[AnyContent] = Action.async {
-//    implicit request: Request[AnyContent]=>
-//      val response: Future[Boolean] = for {
-//
-//      } yield results
-//      api.requestResponse[Boolean](response, className)
-//  }
 
   def forgotPassword: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
-      val entity = Json.fromJson[Profile](request.body).asEither
+      val entity = Json.fromJson[Register](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[DomainObject] = for {
+          val response: Future[Boolean] = for {
             results <- domainService.forgotPassword(value)
           } yield results
-          api.requestResponse[DomainObject](response, className)
-        case Left(error) => api.errorResponse(error, className)
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error,className)
       }
   }
 
-
-  def getLoginToken: Action[JsValue] = Action.async(parse.json) {
+  def register: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
-      val entity = Json.fromJson[LoginCredential](request.body).asEither
+      val entity = Json.fromJson[Register](request.body).asEither
       entity match {
         case Right(value) =>
-          val agent = request.headers.get(Events.BROWSER_AGENT).getOrElse("")
-          val response: Future[UserGeneratedToken] = for {
-            results <- domainService.getLoginToken(value, agent)
+          val response: Future[Boolean] = for {
+            results <- domainService.register(value)
           } yield results
-          api.requestResponse[UserGeneratedToken](response, className)
-        case Left(error) => api.errorResponse(error, className)
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error,className)
       }
   }
 
-  def resetPasswordRequest(resetKey: String): Action[AnyContent] = Action.async {
+  def resetPassword(resetKey: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
-      val response: Future[MessageResponse] = for {
-        results: MessageResponse <- domainService.resetPasswordRequest(resetKey)
+      val response= for {
+        results: Boolean <- domainService.resetPasswordRequest(resetKey)
       } yield results
-      api.requestResponse[MessageResponse](response, className)
+      api.requestResponse[Boolean](response,className)
   }
 
+  def logout: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[Register](request.body).asEither
+      entity match {
+        case Right(value) =>
+          val response: Future[Boolean] = for {
+            results <- domainService.logOut(value)
+          } yield results
+          api.requestResponse[Boolean](response, className)
+        case Left(error) => api.errorResponse(error,className)
+      }
+  }
 }

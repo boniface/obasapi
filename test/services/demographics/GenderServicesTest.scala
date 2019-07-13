@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 class GenderServicesTest extends FunSuite {
 
-  val entity = Gender("1","Male")
+  val entity = Gender("2", "Male")
   val service = GenderService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
@@ -21,8 +21,10 @@ class GenderServicesTest extends FunSuite {
     assert(result.head.genderId==entity.genderId)
   }
 
-  test("createEntities"){
+
+  test("getEntities") {
     val result = Await.result(service.roach.getEntities, 2 minutes)
+    println(result)
     assert(result.nonEmpty)
   }
 

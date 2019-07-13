@@ -2,7 +2,7 @@ package repository.users
 
 import domain.users.UserRole
 import org.scalatest.FunSuite
-import repository.users.UserRoleRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -22,7 +22,7 @@ class UserRoleRepositoryTest extends FunSuite{
     assert(result.head.userRoleId==entity.userRoleId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

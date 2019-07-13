@@ -10,7 +10,7 @@ import domain.application.ApplicationStatus
 
 class ApplicationStatusServicesTest extends FunSuite {
 
-  val entity = ApplicationStatus("1","Pending ",LocalDateTime.of(2000,5,6,1500,15,5))
+  val entity = ApplicationStatus("1", "Pending ", LocalDateTime.of(2000, 5, 6, 22, 15, 5))
   val service = ApplicationStatusService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
@@ -23,7 +23,8 @@ class ApplicationStatusServicesTest extends FunSuite {
     assert(result.head.applicationStatusId==entity.applicationStatusId)
   }
 
-  test("createEntities"){
+
+  test("getEntities") {
     val result = Await.result(service.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

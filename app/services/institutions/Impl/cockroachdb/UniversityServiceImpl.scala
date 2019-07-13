@@ -1,6 +1,7 @@
 package services.institutions.Impl.cockroachdb
 
 import domain.institutions.University
+import repository.institutions.UniversityRepository
 import services.institutions.UniversityService
 
 import scala.concurrent.Future
@@ -8,18 +9,18 @@ import scala.concurrent.Future
 class UniversityServiceImpl extends UniversityService {
 
   override def saveEntity(entity: University): Future[Boolean] =
-    UniversityService.roach.saveEntity(entity)
+    UniversityRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[University]] =
-    UniversityService.roach.getEntities
+    UniversityRepository.roach.getEntities
 
-  override def getEntity(userAddressId: String): Future[Option[University]] =
-    UniversityService.roach.getEntity(userAddressId)
+  override def getEntity(universityId: String): Future[Option[University]] =
+    UniversityRepository.roach.getEntity(universityId)
 
   override def deleteEntity(entity: University): Future[Boolean] =
-    UniversityService.roach.deleteEntity(entity)
+    UniversityRepository.roach.deleteEntity(entity)
 
   override def createTable: Future[Boolean] =
-    UniversityService.roach.createTable
+    UniversityRepository.roach.createTable
 
 }

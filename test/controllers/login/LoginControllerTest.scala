@@ -70,6 +70,6 @@ class LoginControllerTest extends PlaySpec with GuiceOneAppPerTest with Injectin
 //      println(" The Content is: ", contentAsString(request))
 //
 //    }
- // }
+//  }
 
 }

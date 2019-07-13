@@ -1,6 +1,7 @@
 package services.documents.Impl.cockroachdb
 
 import domain.documents.Document
+import repository.documents.DocumentRepository
 import services.documents.DocumentService
 
 import scala.concurrent.Future
@@ -8,22 +9,23 @@ import scala.concurrent.Future
 class DocumentServiceImpl extends DocumentService{
 
   override def saveEntity(entity: Document): Future[Boolean] = {
-    DocumentService.roach.saveEntity(entity)
+    DocumentRepository.roach.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Document]] = {
-    DocumentService.roach.getEntities
+    DocumentRepository.roach.getEntities
   }
 
-  override def getEntity(email: String): Future[Option[Document]] = {
-    DocumentService.roach.getEntity(email)
+  override def getEntity(documentsId: String): Future[Option[Document]] = {
+    DocumentRepository.roach.getEntity(documentsId)
   }
 
   override def deleteEntity(entity: Document): Future[Boolean] = {
-    DocumentService.roach.deleteEntity(entity)
+    DocumentRepository.roach.deleteEntity(entity)
   }
 
   override def createTable: Future[Boolean] = {
-    DocumentService.roach.createTable
+    DocumentRepository.roach.createTable
   }
 }
+

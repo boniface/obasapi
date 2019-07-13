@@ -2,7 +2,7 @@ package repository.users
 
 import domain.users.UserRelative
 import org.scalatest.FunSuite
-import repository.users.UserRelativeRepository
+
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
@@ -22,7 +22,7 @@ class UserRelativeRepositoryTest extends FunSuite{
     assert(result.head.userRelativeId==entity.userRelativeId)
   }
 
-  test("createEntities"){
+  test("getEntities") {
     val result = Await.result(repository.roach.getEntities, 2 minutes)
     assert(result.nonEmpty)
   }

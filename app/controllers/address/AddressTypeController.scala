@@ -7,7 +7,6 @@ import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import services.address.AddressTypeService
-import services.address.Impl.cockroachdb.AddressTypeServiceImpl
 import services.login.LoginService
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -61,6 +60,7 @@ class AddressTypeController @Inject()
   }
 
   def getAllAddressType: Action[AnyContent] = Action.async {
+        println(" End Point Accessed ")
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
