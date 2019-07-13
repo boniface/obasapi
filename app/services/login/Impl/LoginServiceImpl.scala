@@ -9,7 +9,7 @@ import scala.concurrent.Future
 
 class LoginServiceImpl extends LoginService {
   override def isUserRegistered(user: Register): Future[Boolean] = {
-    UserService.apply.
+    UserService.apply.isUserAvailable(user.email)
   }
 
   override def forgotPassword(register: Register): Future[Boolean] = ???

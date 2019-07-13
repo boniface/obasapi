@@ -10,6 +10,7 @@ import services.login.LoginTokenService
 import scala.concurrent.Future
 
 class LoginTokenServiceImpl extends LoginTokenService {
+
   lazy val jwtConsumer: JwtConsumer = new JwtConsumerBuilder()
     .setSkipAllValidators()
     .setDisableRequireSignature()

@@ -4,7 +4,7 @@ import domain.login.Register
 import domain.users.{User, UserPassword, UserRole}
 import repository.users.UserRepository
 import services.security.AuthenticationService
-import services.users.{UserPasswordService, UserService}
+import services.users.{UserPasswordService, UserRoleService, UserService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -24,8 +24,6 @@ class UserServiceImpl extends UserService {
     UserRepository.roach.deleteEntity(entity)
 
   override def createTable: Future[Boolean] = UserRepository.roach.createTable
-
-  override def getUserByRole(email: String): Future[Seq[User]] = ???
 
   override def isUserAvailable(email: String): Future[Boolean] = {
     getEntity(email).map(user=> user.isDefined)

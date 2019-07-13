@@ -5,7 +5,7 @@ import com.sendgrid.helpers.mail.Mail
 import com.sendgrid.helpers.mail.objects.{Content, Email}
 import domain.mail.{EmailMessage, MailApi, MessageResponse}
 import services.mail.{MailApiService, MailService}
-import util.HashcodeKeys
+import util.APPKeys
 
 import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -16,7 +16,7 @@ class SendGridMailImpl extends MailService{
   def sendMail(message:EmailMessage): Future[MessageResponse] = {
 
     for {
-      mailKey: Option[MailApi] <- MailApiService.roach.getEntity(HashcodeKeys.SEDNGRID)
+      mailKey: Option[MailApi] <- MailApiService.roach.getEntity(APPKeys.SEDNGRID)
     } yield {
       val mail: Mail = new Mail(new Email(getKey(mailKey).sender),
         message.subject, new Email(message.email),

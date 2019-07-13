@@ -6,10 +6,10 @@ import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Injecting}
-import util.HashcodeKeys
+import util.APPKeys
 
 class MAilApiControllerTest extends PlaySpec with GuiceOneAppPerTest with Injecting {
-  val entity = MailApi(HashcodeKeys.MAILKEY, "KEY", "SENDER")
+  val entity = MailApi(APPKeys.MAILKEY, "KEY", "SENDER")
   val token = "eyJsDbNTlcQag"
 
 
