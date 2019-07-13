@@ -1,13 +1,18 @@
 package services.login.Impl
 
+import com.typesafe.config.ConfigFactory
 import domain.login.{Login, LoginToken, Register}
 import play.api.mvc.Request
-import services.login.LoginService
+import services.login.{LoginService, LoginTokenService}
 import services.users.UserService
+import util.APPKeys
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class LoginServiceImpl extends LoginService {
+  def isSecurityEnabled: Boolean = ConfigFactory.load().getBoolean("token-security.enabled")
+
   override def isUserRegistered(user: Register): Future[Boolean] = {
     UserService.apply.isUserAvailable(user.email)
   }
@@ -20,9 +25,24 @@ class LoginServiceImpl extends LoginService {
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
 
-  override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = ???
+  override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
+    val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
+    val email = LoginTokenService.apply.getUserEmail(token)
+    if (LoginTokenService.apply.isTokenValid(token) && isSecurityEnabled) {
+      for {
+        token <- LoginTokenService.apply.getEntity(email)
+        // Might need to create a cache if Speed become an Issue
+      } yield token.isDefined
 
-  override def logOut(register: Register): Future[Boolean] = ???
+    } else Future.successful(false)
+
+  }
+
+  override def logOut(register: Register): Future[Boolean] = {
+    val emailToken = LoginToken(register.email,"")
+
+    LoginTokenService.apply.deleteEntity(emailToken)
+  }
 }
 
 
