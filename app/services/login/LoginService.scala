@@ -2,9 +2,9 @@ package services.login
 
 import domain.login.{Login, LoginCredential, LoginStatus, LoginToken, Profile, Register}
 import domain.mail.MessageResponse
-import domain.users.{LoginToken, User}
+import domain.users.User
 import domain.util.login.UserGeneratedToken
-import io.MetaHeaders
+//import io.MetaHeaders
 import play.api.mvc.Request
 import services.login.Impl.LoginServiceImpl
 

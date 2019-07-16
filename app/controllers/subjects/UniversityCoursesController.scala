@@ -53,7 +53,7 @@ class UniversityCoursesController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            _ <- loginService.checkLoginStatus(request)
+            _ <- loginService.loginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)
