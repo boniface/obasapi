@@ -17,7 +17,7 @@ class UserAddressController @Inject()
   type DomainObject = UserAddress
 
   def className: String = "UserAddressController"
-  def domainService: UserAddressService = UserAddressService.roach
+  def domainService: UserAddressService = UserAddressService.apply
   def loginService: LoginService = LoginService.apply
 
 

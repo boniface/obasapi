@@ -1,7 +1,7 @@
 package services.mail
 
 import domain.mail.{EmailMessage, MessageResponse}
-import services.mail.impl.cockcroachdb.SendGridMailImpl
+import services.mail.impl.SendGridMailImpl
 
 import scala.concurrent.Future
 
