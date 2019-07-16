@@ -8,6 +8,7 @@ import repository.login.LoginTokenRepository
 import services.login.LoginTokenService
 
 import scala.concurrent.Future
+import scala.util.Try
 
 class LoginTokenServiceImpl extends LoginTokenService {
 
@@ -17,11 +18,11 @@ class LoginTokenServiceImpl extends LoginTokenService {
     .setSkipSignatureVerification()
     .build()
 
-  override def isTokenValid(token: String): Boolean = {
+  override def isTokenValid(token: String): Either[Throwable,Boolean] = Try {
     def jwtContext: JwtContext = jwtConsumer.process(token)
 
     jwtContext.getJwtClaims.getExpirationTime.isAfter(NumericDate.now())
-  }
+  }.toEither
 
   override def getUserEmail(token: String): String = {
     def jwtContext: JwtContext = jwtConsumer.process(token)

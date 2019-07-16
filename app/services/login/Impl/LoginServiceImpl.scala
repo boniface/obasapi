@@ -19,9 +19,29 @@ class LoginServiceImpl extends LoginService {
 
   override def forgotPassword(register: Register): Future[Boolean] = ???
 
-  override def register(register: Register): Future[Boolean] = ???
+  override def register(register: Register): Future[Boolean] = {
+    //check if user is available
+    // generated password
+    // hash passwrd
+    // save the user
+    // create role
+    //save hashed
+    //save the role
+    // get Email Message
+    // send email
 
-  override def getLoginToken(login: Login): Future[Option[LoginToken]] = ???
+
+    true
+  }
+
+  override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
+
+    // //get hashpassword
+    // compare
+    // Get The User Role
+    // Generate the Token
+    // Save Token in LoginToken
+  }
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
 
@@ -29,7 +49,8 @@ class LoginServiceImpl extends LoginService {
     val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
     val email = LoginTokenService.apply.getUserEmail(token)
     if (isSecurityEnabled) {
-      if (LoginTokenService.apply.isTokenValid(token)) {
+
+      if (LoginTokenService.apply.isTokenValid(token).isRight) {
         for {
           token <- LoginTokenService.apply.getEntity(email)
           // Might need to create a cache if Speed become an Issue
