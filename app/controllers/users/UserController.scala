@@ -40,7 +40,7 @@ class UserController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            _ <- loginService.loginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)

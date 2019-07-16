@@ -25,7 +25,7 @@ class SmtpConfigController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            _ <- loginService.loginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)
@@ -39,7 +39,7 @@ class SmtpConfigController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            _ <- loginService.loginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)
@@ -50,7 +50,7 @@ class SmtpConfigController @Inject()
   def getEntity(id: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent]=>
       val response: Future[Option[DomainObject]] = for {
-        _ <- loginService.loginStatus(request)
+        _ <- loginService.checkLoginStatus(request)
         results <- domainService.getEntity(id)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
@@ -59,7 +59,7 @@ class SmtpConfigController @Inject()
   def getEntities: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent]=>
       val response: Future[Seq[DomainObject]] = for {
-        _ <- loginService.loginStatus(request)
+        _ <- loginService.checkLoginStatus(request)
         results <- domainService.getEntities
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
@@ -71,7 +71,7 @@ class SmtpConfigController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
-            _ <- loginService.loginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Boolean <- domainService.deleteEntity(value)
           } yield results
           api.requestResponse[Boolean](response, className)
