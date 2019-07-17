@@ -49,7 +49,7 @@ class LoginServiceImpl extends LoginService {
     // Get The User Role
     // Generate the Token
     // Save Token in LoginToken
-  }
+   }
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
 
