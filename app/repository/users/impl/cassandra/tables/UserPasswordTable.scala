@@ -6,7 +6,7 @@ import domain.users.UserPassword
 
 import scala.concurrent.Future
 
-abstract class ContactTypeTable extends Table[ContactTypeTable, UserPassword]{
+abstract class UserPasswordTable extends Table[UserPasswordTable, UserPassword]{
 
   object userId extends StringColumn with PartitionKey
 
@@ -16,7 +16,7 @@ abstract class ContactTypeTable extends Table[ContactTypeTable, UserPassword]{
 
 }
 
-abstract class ContactTypeTableImpl extends ContactTypeTable with RootConnector {
+abstract class UserPasswordTableImpl extends UserPasswordTable with RootConnector {
 
   override lazy val tableName = "mailapis"
 

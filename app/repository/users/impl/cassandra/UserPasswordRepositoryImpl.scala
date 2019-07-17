@@ -13,32 +13,35 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class UserPasswordRepositoryImpl extends UserPasswordRepository{
-  override def saveEntity(entity: UserPassword): Future[Boolean] = {
-    UserPasswordDatabase.userPasswordTable.saveEntity(entity) map (result => result.isExhausted())
+
+  override def saveEntity(entity: UserPassword): Future[Boolean] =
+  {
+    UserPasswordDatabse.UserPasswordTable.saveEntity(entity) map (result => result.isExhausted())
   }
 
   override def getEntities: Future[Seq[UserPassword]] = {
-    UserPasswordDatabase.userPasswordTable.getEntities
+    UserPasswordDatabse.UserPasswordTable.getEntities
   }
 
-  override def getEntity(userPasswordId: String): Future[Option[UserPassword]] = {
-    UserPasswordDatabase.userPasswordTable.getEntity(userPasswordId)
+  override def getEntity(addressTypeID: String): Future[Option[UserPassword]] =
+  {
+    UserPasswordDatabse.UserPasswordTable.getEntity(addressTypeID)
   }
 
   override def deleteEntity(entity: UserPassword): Future[Boolean] = {
-    UserPasswordDatabase.userPasswordTable.deleteEntity(entity.userId) map (result => result.isExhausted())
+    UserPasswordDatabse.UserPasswordTable.deleteEntity(entity.userId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {
     implicit def keyspace: KeySpace = DataConnection.keySpaceQuery.keySpace
     implicit def session: Session = DataConnection.connector.session
-    UserPasswordDatabase.userPasswordTable.create.ifNotExists().future().map(result => result.head.isExhausted())
-
+    UserPasswordDatabse.UserPasswordTable.create.ifNotExists().future().map(result => result.head.isExhausted())
   }
 }
-class UserPasswordDatabase(override val connector: KeySpaceDef) extends Database[UserPasswordDatabase](connector) {
-  object userPasswordTable extends UserPasswordTableImpl with connector.Connector
 
+class UserPasswordDatabse(override val connector:KeySpaceDef)extends Database[UserPasswordDatabse](connector){
+  object UserPasswordTable extends UserPasswordTableImpl with connector.Connector
 }
 
-object UserPasswordDatabase extends UserPasswordDatabase(DataConnection.connector)
+object UserPasswordDatabse extends UserPasswordDatabse(DataConnection.connector)
+
