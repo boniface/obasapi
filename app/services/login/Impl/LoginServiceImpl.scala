@@ -5,9 +5,10 @@ import domain.demographics.Roles
 import domain.login.{Login, LoginToken, Register}
 import domain.users.{User, UserPassword, UserRole}
 import play.api.mvc.Request
+import services.demographics.RoleService
 import services.login.{LoginService, LoginTokenService}
 import services.mail.{EmailCreationMessageService, MailService}
-import services.security.AuthenticationService
+import services.security.{AuthenticationService, TokenCreationService}
 import services.users.{UserPasswordService, UserRoleService, UserService}
 import util.APPKeys
 
@@ -27,28 +28,61 @@ class LoginServiceImpl extends LoginService {
     val tempPass = AuthenticationService.apply.generateRandomPassword() // generated password
     val hashedTempPass = AuthenticationService.apply.getHashedPassword(tempPass) // hash passwrd
     val user = User(register.email)
-    val role = Roles("1", "Student") // create role
-    val userRole = UserRole(user.email, role.id)
+    val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
     val userPassword = UserPassword(user.email, hashedTempPass)
     val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
     for {
       _ <- isUserRegistered(register) //check if user is available
-      newUser <- UserService.apply.saveEntity(user) // save the user
+      _ <- UserService.apply.saveEntity(user) // save the user
       _ <- UserPasswordService.apply.saveEntity(userPassword) //save hashed
-      newUserRole <- UserRoleService.roach.saveEntity(userRole) //save the role
+      _ <- UserRoleService.roach.saveEntity(userRole) //save the role
       sendEmail <- MailService.sendGrid.sendMail(emailMessage)
     } yield {
       sendEmail.statusCode == 202
     }
-
   }
 
-  override def getLoginToken(login: Login): Future[Option[LoginToken]] =
-  {
+  def getRoleId(userRole: Option[UserRole]) = {
+    userRole match {
+      case Some(value) => value.roleId
+      case None => ""
+    }
+  }
 
-    // //get hashpassword
+  def getRoleName(role: Option[Roles]) = role match {
+    case Some(value) => value.roleName
+    case None => ""
+  }
+
+  def getRoleFromOption(userRole: Option[UserRole]): Future[String] = {
+    if (userRole.isDefined) {
+      for {
+        role <- RoleService.roach.getEntity(userRole.get.roleId)
+      } yield {
+        val roleName = getRoleName(role)
+        roleName
+      }
+    } else Future.successful(null)
+  }
+
+  def getUser(user: Option[User]): User = user.getOrElse(null)
+
+  //TODO: Still in progress...
+  override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
+    val register = Register(login.email)
+    for {
+      _ <- isUserRegistered(register) //check if user is available
+      userPassword <- UserPasswordService.apply.getEntity(login.email) //get hashpassword
+      u <- UserService.apply.getEntity(login.email)
+      userRole <- UserRoleService.roach.getEntity(login.email) // Get The User Role
+      roleName <- getRoleFromOption(userRole)
+      token <- TokenCreationService.apply.generateLoginToken(getUser(u), roleName)
+    } yield {
+
+    }
+
+    Future.successful(null)
     // compare
-    // Get The User Role
     // Generate the Token
     // Save Token in LoginToken
   }
@@ -59,7 +93,6 @@ class LoginServiceImpl extends LoginService {
     val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
     val email = LoginTokenService.apply.getUserEmail(token)
     if (isSecurityEnabled) {
-
       if (LoginTokenService.apply.isTokenValid(token).isRight) {
         for {
           token <- LoginTokenService.apply.getEntity(email)
