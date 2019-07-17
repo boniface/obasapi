@@ -29,8 +29,6 @@ class LoginServiceImpl extends LoginService {
     //save the role
     // get Email Message
     // send email
-
-
     true
   }
 
