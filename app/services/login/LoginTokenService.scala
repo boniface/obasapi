@@ -6,7 +6,7 @@ import services.login.Impl.LoginTokenServiceImpl
 
 trait LoginTokenService extends CrudService[LoginToken]{
 
-  def isTokenValid(token: String): Boolean
+  def isTokenValid(token: String): Either[Throwable,Boolean]
 
   def getUserEmail(token: String): String
 

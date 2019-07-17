@@ -2,7 +2,7 @@ package controllers
 
 import domain.log.LogEvent
 import domain.util.events.Events
-import domain.util.exeptions.TokenFailExcerption
+import domain.util.exeptions.TokenFailException
 import io.circe.Encoder
 import io.circe.syntax._
 import javax.inject.Inject
@@ -28,7 +28,7 @@ class ApiResponse @Inject()(cc: ControllerComponents) extends AbstractController
       Ok(result.asJson.noSpaces)
         .as(ContentTypes.JSON)
     ).recover {
-      case exp: TokenFailExcerption =>
+      case exp: TokenFailException =>
         val log = LogEvent(eventName = Events.TOKENFAILED, eventType = className, message = exp.getMessage)
         //        LogEventService.apply.saveEntity(log)
         Unauthorized
