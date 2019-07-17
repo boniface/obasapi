@@ -14,8 +14,8 @@ class UserPasswordServiceImpl extends UserPasswordService {
   override def getEntities: Future[Seq[UserPassword]] =
     UserPasswordRepository.roach.getEntities
 
-  override def getEntity(userPasswordId: String): Future[Option[UserPassword]] =
-    UserPasswordRepository.roach.getEntity(userPasswordId)
+  override def getEntity(userId: String): Future[Option[UserPassword]] =
+    UserPasswordRepository.roach.getEntity(userId)
 
   override def deleteEntity(entity: UserPassword): Future[Boolean] =
     UserPasswordRepository.roach.deleteEntity(entity)

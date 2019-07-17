@@ -3,9 +3,8 @@ package domain.users
 import play.api.libs.json.Json
 
 case class UserRole(
-                     userRoleId: String,
-                     name: String,
-                     description: String
+                     userId: String,
+                     roleId: String
                    )
 
 object UserRole {
