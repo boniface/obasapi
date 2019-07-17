@@ -7,10 +7,10 @@ import play.api.libs.json.Json
 
 case class User(
                email:String,
-               firstName:String,
-               middleName:String,
-               lastName:String,
-               dateOfBirth:LocalDateTime
+               firstName:String = "",
+               middleName:String = "",
+               lastName:String = "",
+               dateOfBirth:LocalDateTime = LocalDateTime.now
                )
 object User{
   implicit val userFmt = Json.format[User]
