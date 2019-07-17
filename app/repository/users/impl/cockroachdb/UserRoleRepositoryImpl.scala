@@ -17,12 +17,12 @@ class UserRoleRepositoryImpl  extends UserRoleRepository{
     UserRoleTable.getEntities
   }
 
-  override def getEntity(userRoleId: String): Future[Option[UserRole]] = {
-    UserRoleTable.getEntity(userRoleId)
+  override def getEntity(userId: String): Future[Option[UserRole]] = {
+    UserRoleTable.getEntity(userId)
   }
 
   override def deleteEntity(entity: UserRole): Future[Boolean] = {
-    UserRoleTable.deleteEntity(entity.userRoleId)map(value=> value.isValidInt)
+    UserRoleTable.deleteEntity(entity.userId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
