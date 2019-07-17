@@ -44,7 +44,8 @@ class LoginServiceImpl extends LoginService {
 
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
 
-    // //get hashpassword
+    //get hashpassword
+
     // compare
     // Get The User Role
     // Generate the Token
