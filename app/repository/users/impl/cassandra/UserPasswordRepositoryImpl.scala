@@ -26,7 +26,7 @@ class UserPasswordRepositoryImpl extends UserPasswordRepository{
   }
 
   override def deleteEntity(entity: UserPassword): Future[Boolean] = {
-    UserPasswordDatabase.userPasswordTable.deleteEntity(entity.userPasswordId) map (result => result.isExhausted())
+    UserPasswordDatabase.userPasswordTable.deleteEntity(entity.userId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {
