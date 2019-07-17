@@ -2,7 +2,7 @@ package controllers.mail
 
 import java.time.LocalDateTime
 
-import domain.mail.SmtpConfig
+import domain.mail.{MailConfig, SmtpConfig}
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
@@ -50,7 +50,7 @@ class MailConfigControllerTest extends PlaySpec with GuiceOneAppPerTest with Inj
     }
 
     "Update Entity" in {
-      val updatedEntity = entity.copy(username = "Updated")
+      val updatedEntity = entity.copy(siteId = "Updated")
       val request = route(app, FakeRequest(POST, "/update")
         .withJsonBody(Json.toJson(updatedEntity))
         .withHeaders(AUTHORIZATION -> token)

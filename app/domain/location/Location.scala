@@ -10,6 +10,7 @@ case class Location(
                      code:String,
                      locationTypeId:String,
                      parentId:Option[String]
+                     //children[] Location
                    )
 object Location{
   implicit val locationFmt = Json.format[Location]
