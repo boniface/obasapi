@@ -1,10 +1,9 @@
 package services.users.Impl
 
-import domain.login.Register
-import domain.users.{User, UserPassword, UserRole}
+import domain.users.{User, UserPassword}
 import repository.users.UserRepository
 import services.security.AuthenticationService
-import services.users.{UserPasswordService, UserRoleService, UserService}
+import services.users.{UserPasswordService, UserService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -26,15 +25,11 @@ class UserServiceImpl extends UserService {
   override def createTable: Future[Boolean] = UserRepository.roach.createTable
 
   override def isUserAvailable(email: String): Future[Boolean] = {
-    getEntity(email).map(user=> user.isDefined)
+    getEntity(email).map(user => user.isDefined)
   }
 
-  override def registerUser(registration: Register): Future[Boolean] = ???
-
-  override def createUser(user: User, userRole: UserRole): Future[Boolean] = ???
-
   override def changePassword(credentials: UserPassword): Future[Boolean] = {
-  val hashedPassword = credentials.copy(password = AuthenticationService.apply.getHashedPassword(credentials.password))
+    val hashedPassword = credentials.copy(password = AuthenticationService.apply.getHashedPassword(credentials.password))
     UserPasswordService.apply.saveEntity(hashedPassword)
   }
 }

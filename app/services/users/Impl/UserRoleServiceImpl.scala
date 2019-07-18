@@ -14,8 +14,8 @@ class UserRoleServiceImpl extends UserRoleService {
   override def getEntities: Future[Seq[UserRole]] =
     UserRoleRepository.roach.getEntities
 
-  override def getEntity(userRoleId: String): Future[Option[UserRole]] =
-    UserRoleRepository.roach.getEntity(userRoleId)
+  override def getEntity(userId: String): Future[Option[UserRole]] =
+    UserRoleRepository.roach.getEntity(userId)
 
   override def deleteEntity(entity: UserRole): Future[Boolean] =
     UserRoleRepository.roach.deleteEntity(entity)
