@@ -2,6 +2,7 @@ package services.login.Impl
 
 import com.typesafe.config.ConfigFactory
 import domain.login.{Login, LoginToken, Register}
+import domain.util.exeptions.TokenFailException
 import play.api.mvc.Request
 import services.login.{LoginService, LoginTokenService}
 import services.users.UserService
@@ -47,15 +48,15 @@ class LoginServiceImpl extends LoginService {
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
     val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
-    val email = LoginTokenService.apply.getUserEmail(token)
+    val result = LoginTokenService.apply.isTokenValid(token).map(ans=> ans)
     if (isSecurityEnabled) {
-
-      if (LoginTokenService.apply.isTokenValid(token).isRight) {
+      if (result.isRight) {
+        val email = LoginTokenService.apply.getUserEmail(token)
         for {
           token <- LoginTokenService.apply.getEntity(email)
           // Might need to create a cache if Speed become an Issue
         } yield token.isDefined
-      } else Future.successful(false)
+      } else throw  TokenFailException("Authentication Required:")
     } else Future.successful(true)
   }
 
