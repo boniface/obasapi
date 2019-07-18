@@ -6,28 +6,30 @@ import domain.users.UserPassword
 
 import scala.concurrent.Future
 
-abstract class UserPasswordTable extends Table[UserPasswordTable, UserPassword] {
+abstract class UserPasswordTable extends Table[UserPasswordTable, UserPassword]{
 
-  object userPasswordId extends StringColumn with PartitionKey
+  object userId extends StringColumn with PartitionKey
 
   object password extends StringColumn
+
+
 
 }
 
 abstract class UserPasswordTableImpl extends UserPasswordTable with RootConnector {
 
-  override lazy val tableName = "userPassword"
+  override lazy val tableName = "mailapis"
 
   def saveEntity(entity: UserPassword): Future[ResultSet] = {
     insert
-      .value(_.userPasswordId, entity.userPasswordId)
+      .value(_.userId, entity.userId)
       .value(_.password, entity.password)
       .future()
   }
 
-  def getEntity(userPasswordId: String): Future[Option[UserPassword]] = {
+  def getEntity(userId: String): Future[Option[UserPassword]] = {
     select
-      .where(_.userPasswordId eqs userPasswordId)
+      .where(_.userId eqs userId)
       .one()
   }
 
@@ -36,9 +38,9 @@ abstract class UserPasswordTableImpl extends UserPasswordTable with RootConnecto
       .fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteEntity(userPasswordId: String): Future[ResultSet] = {
+  def deleteEntity(userId: String): Future[ResultSet] = {
     delete
-      .where(_.userPasswordId eqs userPasswordId)
+      .where(_.userId eqs userId)
       .future()
   }
 }
