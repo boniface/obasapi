@@ -18,7 +18,7 @@ abstract class UserPasswordTable extends Table[UserPasswordTable, UserPassword]{
 
 abstract class UserPasswordTableImpl extends UserPasswordTable with RootConnector {
 
-  override lazy val tableName = "mailapis"
+  override lazy val tableName = "UserPassword"
 
   def saveEntity(entity: UserPassword): Future[ResultSet] = {
     insert
