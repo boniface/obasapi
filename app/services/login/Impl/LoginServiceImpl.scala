@@ -45,7 +45,12 @@ class LoginServiceImpl extends LoginService {
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
 
     //get hashpassword
-
+    val tempPass = AuthenticationService.apply.generateRandomPassword()
+    val hashedTempPass = AuthenticationService.apply.getHashedPassword(tempPass)
+    val user = User(login.email)
+    val role =Roles("1","Studentpass")
+    val userRole = UserRole(user.email, role.id)
+    val userPassword
     // compare
     // Get The User Role
     // Generate the Token
