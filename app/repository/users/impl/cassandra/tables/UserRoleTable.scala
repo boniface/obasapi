@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 abstract class UserRoleTable extends Table[UserRoleTable, UserRole] {
 
-  object userRoleId extends StringColumn with PartitionKey
+  object userId extends StringColumn with PartitionKey
 
   object name extends StringColumn
 
@@ -22,15 +22,14 @@ abstract class UserRoleTableImpl extends UserRoleTable with RootConnector {
 
   def saveEntity(entity: UserRole): Future[ResultSet] = {
     insert
-      .value(_.userRoleId, entity.userRoleId)
-      .value(_.name, entity.name)
-      .value(_.description, entity.description)
+      .value(_.userId, entity.userId)
+      .value(_.name, entity.roleId)
       .future()
   }
 
-  def getEntity(userRoleId: String): Future[Option[UserRole]] = {
+  def getEntity(userId: String): Future[Option[UserRole]] = {
     select
-      .where(_.userRoleId eqs userRoleId)
+      .where(_.userId eqs userId)
       .one()
   }
 
@@ -39,9 +38,9 @@ abstract class UserRoleTableImpl extends UserRoleTable with RootConnector {
       .fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteEntity(userRoleId: String): Future[ResultSet] = {
+  def deleteEntity(userId: String): Future[ResultSet] = {
     delete
-      .where(_.userRoleId eqs userRoleId)
+      .where(_.userId eqs userId)
       .future()
   }
 }

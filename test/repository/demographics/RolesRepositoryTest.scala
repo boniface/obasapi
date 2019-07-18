@@ -27,7 +27,7 @@ class RolesRepositoryTest extends FunSuite {
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(roleName = "6 Browning RD")
+    val updatedEntity=entity.copy(roleName = "Female")
     Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
     val result = Await.result(repository.roach.getEntity(entity.id), 2 minutes)
     assert(result.head.roleName==updatedEntity.roleName)
