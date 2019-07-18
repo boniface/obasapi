@@ -21,12 +21,12 @@ class UserRoleRepositoryImpl extends UserRoleRepository{
     UserRoleDatabase.userRoleTable.getEntities
   }
 
-  override def getEntity(userRoleId: String): Future[Option[UserRole]] = {
-    UserRoleDatabase.userRoleTable.getEntity(userRoleId)
+  override def getEntity(userId: String): Future[Option[UserRole]] = {
+    UserRoleDatabase.userRoleTable.getEntity(userId)
   }
 
   override def deleteEntity(entity: UserRole): Future[Boolean] = {
-    UserRoleDatabase.userRoleTable.deleteEntity(entity.userRoleId) map (result => result.isExhausted())
+    UserRoleDatabase.userRoleTable.deleteEntity(entity.userId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {

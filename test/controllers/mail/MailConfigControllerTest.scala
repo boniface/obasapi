@@ -2,7 +2,7 @@ package controllers.mail
 
 import java.time.LocalDateTime
 
-import domain.mail.SmtpConfig
+import domain.mail.{MailConfig, SmtpConfig}
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.libs.json.Json
@@ -26,50 +26,50 @@ class MailConfigControllerTest extends PlaySpec with GuiceOneAppPerTest with Inj
       println(" The Content is: ", contentAsString(request))
 
     }
-
-    "Read Entity " in {
-      val request = route(app, FakeRequest(GET, "get//$id" + entity.id)
-        .withHeaders(AUTHORIZATION -> token)
-      ).get
-      status(request) mustBe OK
-      contentType(request) mustBe Some("application/json")
-      println(" The Content is: ", contentAsString(request))
-
-
-    }
-
-    "Read Entities" in {
-      val request = route(app, FakeRequest(GET, "/all")
-        .withHeaders(AUTHORIZATION -> token)
-      ).get
-      status(request) mustBe OK
-      contentType(request) mustBe Some("application/json")
-      println(" The Content is: ", contentAsString(request))
-
-
-    }
-
-    "Update Entity" in {
-      val updatedEntity = entity.copy(username = "Updated")
-      val request = route(app, FakeRequest(POST, "/update")
-        .withJsonBody(Json.toJson(updatedEntity))
-        .withHeaders(AUTHORIZATION -> token)
-      ).get
-      status(request) mustBe OK
-      contentType(request) mustBe Some("application/json")
-      println("The Content is: ", contentAsString(request))
-    }
-
-    "Delete Entities " in {
-      val request = route(app, FakeRequest(POST, "/delete" )
-        .withJsonBody(Json.toJson(entity))
-        .withHeaders(AUTHORIZATION -> token)
-      ).get
-      status(request) mustBe OK
-      contentType(request) mustBe Some("application/json")
-      println(" The Content is: ", contentAsString(request))
-
-    }
-  }
+//
+//    "Read Entity " in {
+//      val request = route(app, FakeRequest(GET, "get//$id" + entity.id)
+//        .withHeaders(AUTHORIZATION -> token)
+//      ).get
+//      status(request) mustBe OK
+//      contentType(request) mustBe Some("application/json")
+//      println(" The Content is: ", contentAsString(request))
+//
+//
+//    }
+//
+//    "Get Entities" in {
+//      val request = route(app, FakeRequest(GET, "/all")
+//        .withHeaders(AUTHORIZATION -> token)
+//      ).get
+//      status(request) mustBe OK
+//      contentType(request) mustBe Some("application/json")
+//      println(" The Content is: ", contentAsString(request))
+//
+//
+//    }
+//
+//    "Update Entity" in {
+//      val updatedEntity = entity.copy(host = "Updated")
+//      val request = route(app, FakeRequest(POST, "/update")
+//        .withJsonBody(Json.toJson(updatedEntity))
+//        .withHeaders(AUTHORIZATION -> token)
+//      ).get
+//      status(request) mustBe OK
+//      contentType(request) mustBe Some("application/json")
+//      println("The Content is: ", contentAsString(request))
+//    }
+//
+//    "Delete Entities " in {
+//      val request = route(app, FakeRequest(POST, "/delete" )
+//        .withJsonBody(Json.toJson(entity))
+//        .withHeaders(AUTHORIZATION -> token)
+//      ).get
+//      status(request) mustBe OK
+//      contentType(request) mustBe Some("application/json")
+//      println(" The Content is: ", contentAsString(request))
+//
+//    }
+}
 
 }
