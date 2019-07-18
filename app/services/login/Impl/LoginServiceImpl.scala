@@ -24,6 +24,7 @@ class LoginServiceImpl extends LoginService {
 
   override def forgotPassword(register: Register): Future[Boolean] = ???
 
+  //TODO: Write test case
   override def register(register: Register): Future[Boolean] = {
     val tempPass = AuthenticationService.apply.generateRandomPassword() // generated password
     val hashedTempPass = AuthenticationService.apply.getHashedPassword(tempPass) // hash passwrd
@@ -42,49 +43,45 @@ class LoginServiceImpl extends LoginService {
     }
   }
 
-  def getRoleId(userRole: Option[UserRole]) = {
-    userRole match {
-      case Some(value) => value.roleId
-      case None => ""
+  def extractUser(user: Option[User]): User = user.getOrElse(null)
+
+  def extractUserRoleId(userRole: Option[UserRole]): String = if (userRole.isDefined) userRole.get.roleId else null
+
+  def extractRoleName(role: Option[Roles]): String = if (role.isDefined) role.get.roleName else null
+
+  def extractUserPassword(userPassword: Option[UserPassword]) =
+    if (userPassword.isDefined) userPassword.get.password else null;
+
+  def authenticateUser(password: String, actualPass: String) : Future[Boolean] = {
+    Future {
+      AuthenticationService.apply.checkPassword(password, actualPass) // compare
     }
   }
 
-  def getRoleName(role: Option[Roles]) = role match {
-    case Some(value) => value.roleName
-    case None => ""
+  def saveLoginToken(email: String, token: String): Future[Option[LoginToken]] = {
+    val loginToken = LoginToken(email, token)
+    for {
+      _ <- LoginTokenService.apply.saveEntity(loginToken)
+    } yield {
+      Some(loginToken)
+    }
   }
 
-  def getRoleFromOption(userRole: Option[UserRole]): Future[String] = {
-    if (userRole.isDefined) {
-      for {
-        role <- RoleService.roach.getEntity(userRole.get.roleId)
-      } yield {
-        val roleName = getRoleName(role)
-        roleName
-      }
-    } else Future.successful(null)
-  }
-
-  def getUser(user: Option[User]): User = user.getOrElse(null)
-
-  //TODO: Still in progress...
+  //TODO: Write test case
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
     val register = Register(login.email)
     for {
       _ <- isUserRegistered(register) //check if user is available
       userPassword <- UserPasswordService.apply.getEntity(login.email) //get hashpassword
-      u <- UserService.apply.getEntity(login.email)
+      _ <- authenticateUser(login.password, extractUserPassword(userPassword))
+      user <- UserService.apply.getEntity(login.email)
       userRole <- UserRoleService.roach.getEntity(login.email) // Get The User Role
-      roleName <- getRoleFromOption(userRole)
-      token <- TokenCreationService.apply.generateLoginToken(getUser(u), roleName)
+      role <- RoleService.roach.getEntity(extractUserRoleId(userRole))
+      token <- TokenCreationService.apply.generateLoginToken(extractUser(user), extractRoleName(role)) // Generate the Token
+      saveToken <- saveLoginToken(login.email, token) // Save Token in LoginToken
     } yield {
-
+      saveToken
     }
-
-    Future.successful(null)
-    // compare
-    // Generate the Token
-    // Save Token in LoginToken
   }
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
