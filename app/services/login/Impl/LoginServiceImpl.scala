@@ -84,7 +84,15 @@ class LoginServiceImpl extends LoginService {
     }
   }
 
-  override def resetPasswordRequest(resetKey: String): Future[Boolean] = ???
+  override def resetPasswordRequest(resetKey: String): Future[Boolean] = ??? // {
+
+//     //request for email
+//     //check email saved
+//    //compare email entered email
+//    // send resent link to email
+//    // changed email
+//
+//  }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
     val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
