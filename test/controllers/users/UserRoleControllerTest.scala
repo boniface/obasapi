@@ -9,7 +9,7 @@ import play.api.test.{FakeRequest,Injecting}
 
 class UserRoleControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting{
 
-  val entity =UserRole("1","Student delete,update,upload","Student Admin")
+  val entity =UserRole("1","Student delete,update,upload")
   val token ="eyJsDbNTlcQag"
 
 
@@ -30,7 +30,7 @@ class UserRoleControllerTest extends PlaySpec with GuiceOneAppPerTest  with Inje
 
   "Read Entity " in{
 
-    val request = route(app, FakeRequest(GET,"/role/get" +entity.userRoleId)
+    val request = route(app, FakeRequest(GET,"/role/get" +entity.userId)
       .withHeaders(AUTHORIZATION -> token)
     ).get
     status(request) mustBe OK
@@ -49,7 +49,7 @@ class UserRoleControllerTest extends PlaySpec with GuiceOneAppPerTest  with Inje
   }
 
   "Update Entity" in{
-    val updatedEntity =entity.copy(description ="updated")
+    val updatedEntity =entity.copy(roleId ="updated")
     val request =route(app, FakeRequest(POST, "/role/update")
       .withJsonBody(Json.toJson(updatedEntity))
       .withHeaders(AUTHORIZATION -> token)

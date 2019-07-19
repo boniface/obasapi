@@ -22,7 +22,7 @@ class UserPasswordRepositoryImpl  extends UserPasswordRepository{
   }
 
   override def deleteEntity(entity: UserPassword): Future[Boolean] = {
-    UserPasswordTable.deleteEntity(entity.userPasswordId)map(value=> value.isValidInt)
+    UserPasswordTable.deleteEntity(entity.userId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {

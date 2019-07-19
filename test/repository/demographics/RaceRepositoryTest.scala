@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 class RaceRepositoryTest extends FunSuite {
 
-  val entity = Race("1","6 Browning RD")
+  val entity = Race("1","AFRICAN")
   val repository = RaceRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
@@ -28,7 +28,7 @@ class RaceRepositoryTest extends FunSuite {
   }
 
   test("updateEntities"){
-    val updatedEntity=entity.copy(raceName = "6 Browning RD")
+    val updatedEntity=entity.copy(raceName = "BLACK")
     Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
     val result = Await.result(repository.roach.getEntity(entity.raceId), 2 minutes)
     assert(result.head.raceName==updatedEntity.raceName)
