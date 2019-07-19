@@ -12,8 +12,6 @@ abstract class UserPasswordTable extends Table[UserPasswordTable, UserPassword]{
 
   object password extends StringColumn
 
-
-
 }
 
 abstract class UserPasswordTableImpl extends UserPasswordTable with RootConnector {
