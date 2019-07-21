@@ -20,7 +20,7 @@ abstract class UserPasswordTableImpl extends UserPasswordTable with RootConnecto
 
   def saveEntity(entity: UserPassword): Future[ResultSet] = {
     insert
-      .value(_.userId, entity.userId)
+      .value(_.userId, entity.email)
       .value(_.password, entity.password)
       .future()
   }

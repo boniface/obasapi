@@ -1,7 +1,7 @@
 package repository.security.impl.cockcroachdb.tables
 
 import java.time.LocalDateTime
-import akka.http.javadsl.model.DateTime
+
 import domain.security.ApiKeys
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape

@@ -30,7 +30,7 @@ class UserPasswordControllerTest extends PlaySpec with GuiceOneAppPerTest  with 
 
   "Read Entity " in{
 
-    val request = route(app, FakeRequest(GET,"/password/get" +entity.userId)
+    val request = route(app, FakeRequest(GET,"/password/get" +entity.email)
       .withHeaders(AUTHORIZATION -> token)
     ).get
     status(request) mustBe OK
