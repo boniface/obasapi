@@ -42,4 +42,6 @@ object APPKeys {
 
   def USERID = "USERID"
 
+  def STUDENTROLE = "ST001"
+
 }

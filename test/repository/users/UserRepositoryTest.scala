@@ -18,29 +18,29 @@ class UserRepositoryTest extends FunSuite{
     assert(result)
 
   }
-
-  test("readEntity") {
-    val result = Await.result(repository.roach.getEntity(entity.email), 2 minutes)
-    assert(result.head.email == entity.email)
-  }
-
-  test("getEntities") {
-    val result = Await.result(repository.roach.getEntities, 2 minutes)
-    assert(result.nonEmpty)
-  }
-
-  test("updateEntities") {
-    val updatedEntity = entity.copy(firstName = "JvR High")
-    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.email), 2 minutes)
-    assert(result.head.firstName == updatedEntity.firstName)
-  }
-
-
-  test("deleteEntities") {
-    Await.result(repository.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.email), 2 minutes)
-    assert(result.isEmpty)
-
-  }
+//
+//  test("readEntity") {
+//    val result = Await.result(repository.roach.getEntity(entity.email), 2 minutes)
+//    assert(result.head.email == entity.email)
+//  }
+//
+//  test("getEntities") {
+//    val result = Await.result(repository.roach.getEntities, 2 minutes)
+//    assert(result.nonEmpty)
+//  }
+//
+//  test("updateEntities") {
+//    val updatedEntity = entity.copy(firstName = "JvR High")
+//    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
+//    val result = Await.result(repository.roach.getEntity(entity.email), 2 minutes)
+//    assert(result.head.firstName == updatedEntity.firstName)
+//  }
+//
+//
+//  test("deleteEntities") {
+//    Await.result(repository.roach.deleteEntity(entity), 2 minutes)
+//    val result = Await.result(repository.roach.getEntity(entity.email), 2 minutes)
+//    assert(result.isEmpty)
+//
+//  }
 }
