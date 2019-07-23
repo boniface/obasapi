@@ -15,7 +15,9 @@ class LocationTypeTable(tag: Tag) extends Table[LocationType](tag, "LOCATION_TYP
 
   def name: Rep[String] = column[String]("NAME")
 
-  def * : ProvenShape[LocationType] = (locationTypeId, name) <> ((LocationType.apply _).tupled, LocationType.unapply)
+  def code: Rep[String] = column[String]("CODE")
+
+  def * : ProvenShape[LocationType] = (locationTypeId, name,code) <> ((LocationType.apply _).tupled, LocationType.unapply)
 }
 
 object LocationTypeTable extends TableQuery(new LocationTypeTable(_)) {

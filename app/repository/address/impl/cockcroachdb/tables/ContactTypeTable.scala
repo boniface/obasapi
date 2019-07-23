@@ -11,9 +11,9 @@ import domain.address.ContactType
 
 class ContactTypeTable(tag: Tag) extends Table[ContactType](tag, "CONTACT_TYPE") {
 
-  def contactTypeId: Rep[String] = column[String]("MAIL_ID", O.PrimaryKey)
+  def contactTypeId: Rep[String] = column[String]("CONTACTTYPE_ID", O.PrimaryKey)
 
-  def name: Rep[String] = column[String]("MAIL_KEY")
+  def name: Rep[String] = column[String]("NAME")
 
   def * : ProvenShape[ContactType] = (contactTypeId, name) <> ((ContactType.apply _).tupled, ContactType.unapply)
 }
