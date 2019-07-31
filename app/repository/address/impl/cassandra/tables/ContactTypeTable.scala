@@ -18,7 +18,7 @@ abstract class ContactTypeTable extends Table[ContactTypeTable, ContactType]{
 
 abstract class ContactTypeTableImpl extends ContactTypeTable with RootConnector {
 
-  override lazy val tableName = "mailapis"
+  override lazy val tableName = "ContactType"
 
   def saveEntity(entity: ContactType): Future[ResultSet] = {
     insert

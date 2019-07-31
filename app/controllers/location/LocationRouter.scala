@@ -14,15 +14,15 @@ class LocationRouter @Inject()
 
 
     //Location
-    case GET(p"/location/all") =>
+    case GET(p"/all") =>
       locationController.getAllLocation
-    case GET(p"/location/get/$locationId") =>
+    case GET(p"/get/$locationId") =>
       locationController.getLocationById(locationId)
-    case POST(p"/location/create") =>
+    case POST(p"/create") =>
       locationController.create
-    case POST(p"/location/update") =>
+    case POST(p"/update") =>
       locationController.update
-    case POST(p"/location/delete") =>
+    case POST(p"/delete") =>
       locationController.deleteLocation
 
     //LocationType

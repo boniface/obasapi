@@ -10,9 +10,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class  DocumentTypeTable(tag: Tag) extends Table[DocumentType](tag, _tableName = "DOCUMENT_TYPE"){
-  def documentTypeId: Rep[String] = column[String]("MAIL_ID", O.PrimaryKey)
+  def documentTypeId: Rep[String] = column[String]("DOCUMENT_TYPE_ID", O.PrimaryKey)
 
-  def documentTypename: Rep[String] = column[String]("MAIL_KEY")
+  def documentTypename: Rep[String] = column[String]("DOCUMENT_TYPE_NAME")
 
 
   def * : ProvenShape[DocumentType] = (documentTypeId, documentTypename) <> ((DocumentType.apply _).tupled, DocumentType.unapply)

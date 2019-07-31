@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class AddressTypeTable(tag: Tag) extends Table[AddressType] (tag, "ADDRESSTYPE"){
+class AddressTypeTable(tag: Tag) extends Table[AddressType] (tag, "ADDRESS_TYPE"){
 
   def addressTypeID: Rep[String] = column[String]("ADDRESS_TYPE_ID", O.PrimaryKey)
 
