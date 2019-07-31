@@ -14,11 +14,11 @@ import scala.concurrent.Future
 
 class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _tableName = "APPLICATION_STATUS") {
 
-  def applicationStatusId: Rep[String] = column[String]("APPLICATION_ID", O.PrimaryKey)
+  def applicationStatusId: Rep[String] = column[String]("APPLICATION_STATUS_ID", O.PrimaryKey)
 
   def description: Rep[String] = column[String]("DESCRIPTION")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATETIME")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
 
   override def * : ProvenShape[ApplicationStatus] = (applicationStatusId,description,date) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
 }

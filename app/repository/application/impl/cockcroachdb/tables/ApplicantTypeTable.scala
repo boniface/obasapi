@@ -9,11 +9,11 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ApplicantTypeTable(tag: Tag) extends Table[ApplicantType](tag, _tableName = "ApplicantType"){
+class ApplicantTypeTable(tag: Tag) extends Table[ApplicantType](tag, _tableName = "APPLICANT_TYPE"){
 
-  def applicantTypeId: Rep[String] = column[String]("MAIL_ID", O.PrimaryKey)
+  def applicantTypeId: Rep[String] = column[String]("APPLICANT_TYPE_ID", O.PrimaryKey)
 
-  def name: Rep[String] = column[String]("MAIL_KEY")
+  def name: Rep[String] = column[String]("NAME")
 
 
   

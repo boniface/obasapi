@@ -11,7 +11,7 @@ import domain.address.ContactType
 
 class ContactTypeTable(tag: Tag) extends Table[ContactType](tag, "CONTACT_TYPE") {
 
-  def contactTypeId: Rep[String] = column[String]("CONTACTTYPE_ID", O.PrimaryKey)
+  def contactTypeId: Rep[String] = column[String]("CONTACT_TYPE_ID", O.PrimaryKey)
 
   def name: Rep[String] = column[String]("NAME")
 

@@ -17,7 +17,7 @@ class DocumentTable(tag:Tag) extends Table[Document](tag, _tableName = "DOCUMENT
 
   def documentsId: Rep[String] = column[String]("DOCUMENTS_ID")
 
-  def documentTypeId: Rep[String] = column[String]("DOCUMENTTYPE_ID")
+  def documentTypeId: Rep[String] = column[String]("DOCUMENT_TYPE_ID")
 
   def description: Rep[String] = column[String]("DESCRIPTION")
 
