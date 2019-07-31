@@ -35,6 +35,7 @@ class UserAddressRepositoryImpl extends UserAddressRepository{
     UserAddressDatabase.userAddressTable.create.ifNotExists().future().map(result => result.head.isExhausted())
 
   }
+
 }
 class UserAddressDatabase(override val connector: KeySpaceDef) extends Database[UserAddressDatabase](connector) {
   object userAddressTable extends UserAddressTableImpl with connector.Connector

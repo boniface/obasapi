@@ -18,28 +18,28 @@ class LocationServiceTest extends FunSuite{
 
   }
 
-  test("readEntity"){
-    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
-    assert(result.head.locationId==entity.locationId)
-  }
-
-  test("getEntities") {
-    val result = Await.result(roachService.roach.getEntities, 2 minutes)
-    assert(result.nonEmpty)
-  }
-
-  test("updateEntities"){
-    val updatedEntity=entity.copy(code = "123456")
-    Await.result(roachService.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
-    assert(result.head.code==updatedEntity.code)
-  }
-
-
-  test("deleteEntities"){
-    Await.result(roachService.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
-    assert(result.isEmpty)
-
-  }
+//  test("readEntity"){
+//    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
+//    assert(result.head.locationId==entity.locationId)
+//  }
+//
+//  test("getEntities") {
+//    val result = Await.result(roachService.roach.getEntities, 2 minutes)
+//    assert(result.nonEmpty)
+//  }
+//
+//  test("updateEntities"){
+//    val updatedEntity=entity.copy(code = "123456")
+//    Await.result(roachService.roach.saveEntity(updatedEntity), 2 minutes)
+//    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
+//    assert(result.head.code==updatedEntity.code)
+//  }
+//
+//
+//  test("deleteEntities"){
+//    Await.result(roachService.roach.deleteEntity(entity), 2 minutes)
+//    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
+//    assert(result.isEmpty)
+//
+//  }
 }

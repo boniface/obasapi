@@ -16,28 +16,28 @@ class UserPasswordServiceTest extends FunSuite{
 
   }
 
-  test("readEntity"){
-    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
-    assert(result.head.email==entity.email)
-  }
-
-  test("getEntities") {
-    val result = Await.result(roachService.apply.getEntities, 2 minutes)
-    assert(result.nonEmpty)
-  }
-
-  test("updateEntities"){
-    val updatedEntity=entity.copy(password = "P@ssw0rd")
-    Await.result(roachService.apply.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
-    assert(result.head.password==updatedEntity.password)
-  }
-
-
-  test("deleteEntities"){
-    Await.result(roachService.apply.deleteEntity(entity), 2 minutes)
-    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
-    assert(result.isEmpty)
-
-  }
+//  test("readEntity"){
+//    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
+//    assert(result.head.email==entity.email)
+//  }
+//
+//  test("getEntities") {
+//    val result = Await.result(roachService.apply.getEntities, 2 minutes)
+//    assert(result.nonEmpty)
+//  }
+//
+//  test("updateEntities"){
+//    val updatedEntity=entity.copy(password = "P@ssw0rd")
+//    Await.result(roachService.apply.saveEntity(updatedEntity), 2 minutes)
+//    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
+//    assert(result.head.password==updatedEntity.password)
+//  }
+//
+//
+//  test("deleteEntities"){
+//    Await.result(roachService.apply.deleteEntity(entity), 2 minutes)
+//    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
+//    assert(result.isEmpty)
+//
+//  }
 }
