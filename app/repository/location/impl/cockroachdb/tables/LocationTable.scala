@@ -35,8 +35,10 @@ object LocationTable extends TableQuery(new LocationTable(_)) {
     db.run(this.filter(_.locationId === locationId).result).map(_.headOption)
   }
 
-  def saveEntity(location: Location): Future[Location] = {
-    db.run(this returning this.map(_.locationId) into ((acc, locationId) => acc.copy(locationId = locationId)) += location)
+  def saveEntity(location: Location): Future[Option[Location]] = {
+    db.run(
+      (this returning this).insertOrUpdate(location)
+    )
   }
 
   def getEntities: Future[Seq[Location]] = {

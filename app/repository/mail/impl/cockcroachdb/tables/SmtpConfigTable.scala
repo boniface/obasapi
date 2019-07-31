@@ -32,8 +32,10 @@ object SmtpConfigTable extends TableQuery(new SmtpConfigTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(smtpConfig: SmtpConfig): Future[SmtpConfig] = {
-    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += smtpConfig)
+  def saveEntity(smtpConfig: SmtpConfig): Future[Option[SmtpConfig]] = {
+    db.run(
+      (this returning this).insertOrUpdate(smtpConfig)
+    )
   }
 
   def getEntities: Future[Seq[SmtpConfig]] = {

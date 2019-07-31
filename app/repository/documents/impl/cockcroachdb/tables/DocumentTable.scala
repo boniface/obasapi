@@ -40,8 +40,10 @@ object DocumentTable extends TableQuery(new DocumentTable(_)){
     db.run(this.filter(_.email === email).result).map(_.headOption)
   }
 
-  def saveEntity(document: Document): Future[Document] = {
-    db.run(this returning this.map(_.email) into ((acc, email) => acc.copy(email = email)) += document)
+  def saveEntity(document: Document): Future[Option[Document]] = {
+    db.run(
+      (this returning this).insertOrUpdate(document)
+    )
   }
 
   def getEntities: Future[Seq[Document]] = {

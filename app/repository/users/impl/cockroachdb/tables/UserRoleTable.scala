@@ -25,9 +25,10 @@ object UserRoleTable extends TableQuery(new UserRoleTable(_)) {
     db.run(this.filter(_.userId === userId).result).map(_.headOption)
   }
 
-  def saveEntity(userRole: UserRole): Future[UserRole] = {
-    println("Repo Table")
-    db.run(this returning this.map(_.userId) into ((acc, userId) => acc.copy(userId = userId)) += userRole)
+  def saveEntity(userRole: UserRole): Future[Option[UserRole]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userRole)
+    )
   }
 
   def getEntities: Future[Seq[UserRole]] = {

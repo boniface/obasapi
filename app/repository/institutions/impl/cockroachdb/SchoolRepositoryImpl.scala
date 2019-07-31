@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class SchoolRepositoryImpl  extends SchoolRepository{
 
-  override def saveEntity(entity: School): Future[Boolean] = {
-    SchoolTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: School): Future[Option[School]] = {
+    SchoolTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[School]] = {

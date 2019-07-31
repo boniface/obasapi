@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class UniversityCoursesServiceImpl extends UniversityCoursesService{
 
-  override def saveEntity(entity: UniversityCourses): Future[Boolean] = {
+  override def saveEntity(entity: UniversityCourses): Future[Option[UniversityCourses]] =
     UniversityCoursesRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[UniversityCourses]] = {
     UniversityCoursesRepository.roach.getEntities

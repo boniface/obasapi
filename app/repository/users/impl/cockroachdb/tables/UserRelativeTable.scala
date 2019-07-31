@@ -31,8 +31,10 @@ object UserRelativeTable extends TableQuery(new UserRelativeTable(_)) {
     db.run(this.filter(_.userRelativeId === userRelativeId).result).map(_.headOption)
   }
 
-  def saveEntity(userRelative: UserRelative): Future[UserRelative] = {
-    db.run(this returning this.map(_.userRelativeId) into ((acc, userRelativeId) => acc.copy(userRelativeId = userRelativeId)) += userRelative)
+  def saveEntity(userRelative: UserRelative): Future[Option[UserRelative]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userRelative)
+    )
   }
 
   def getEntities: Future[Seq[UserRelative]] = {

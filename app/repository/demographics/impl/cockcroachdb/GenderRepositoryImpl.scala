@@ -8,8 +8,8 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class GenderRepositoryImpl extends GenderRepository{
-  override def saveEntity(entity: Gender): Future[Boolean] = {
-    GenderTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: Gender): Future[Option[Gender]] = {
+    GenderTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Gender]] = {

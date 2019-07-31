@@ -27,8 +27,10 @@ object RolesTable extends TableQuery(new RolesTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(mailApi:  Roles): Future[ Roles] = {
-    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += mailApi)
+  def saveEntity(roles: Roles): Future[Option[Roles]] = {
+    db.run(
+      (this returning this).insertOrUpdate(roles)
+    )
   }
 
   def getEntities: Future[Seq[ Roles]] = {

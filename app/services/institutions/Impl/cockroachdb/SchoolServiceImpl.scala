@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class SchoolServiceImpl extends SchoolService {
 
-  override def saveEntity(entity: School): Future[Boolean] =
+  override def saveEntity(entity: School): Future[Option[School]] =
     SchoolRepository.roach.saveEntity(entity)
-
   override def getEntities: Future[Seq[School]] =
     SchoolRepository.roach.getEntities
 

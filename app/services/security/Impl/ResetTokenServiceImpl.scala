@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class ResetTokenServiceImpl extends ResetTokenService{
 
-  override def saveEntity(entity: ResetToken): Future[Boolean] = {
+  override def saveEntity(entity: ResetToken): Future[Option[ResetToken]] =
     ResetTokenRepository.apply.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[ResetToken]] = {
     ResetTokenRepository.apply.getEntities

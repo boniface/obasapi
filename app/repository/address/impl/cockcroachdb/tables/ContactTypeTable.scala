@@ -25,8 +25,10 @@ object ContactTypeTable extends TableQuery(new ContactTypeTable(_)) {
     db.run(this.filter(_.contactTypeId === contactTypeId).result).map(_.headOption)
   }
 
-  def saveEntity(contactType: ContactType): Future[ContactType] = {
-    db.run(this returning this.map(_.contactTypeId) into ((acc, contactTypeId) => acc.copy(contactTypeId = contactTypeId)) += contactType)
+  def saveEntity(contactType: ContactType): Future[Option[ContactType]] = {
+    db.run(
+      (this returning this).insertOrUpdate(contactType)
+    )
   }
 
   def getEntities: Future[Seq[ContactType]] = {

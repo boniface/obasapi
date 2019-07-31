@@ -25,8 +25,10 @@ object UserPasswordTable extends TableQuery(new UserPasswordTable(_)) {
     db.run(this.filter(_.email === email).result).map(_.headOption)
   }
 
-  def saveEntity(userPassword: UserPassword): Future[UserPassword] = {
-    db.run(this returning this.map(_.email) into ((acc, email) => acc.copy(email = email)) += userPassword)
+  def saveEntity(userPassword: UserPassword): Future[Option[UserPassword]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userPassword)
+    )
   }
 
   def getEntities: Future[Seq[UserPassword]] = {

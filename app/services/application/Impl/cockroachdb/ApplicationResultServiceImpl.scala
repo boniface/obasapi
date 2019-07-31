@@ -9,9 +9,8 @@ import scala.concurrent.Future
 class ApplicationResultServiceImpl extends ApplicationResultService{
 
 
-  override def saveEntity(entity: ApplicationResult): Future[Boolean] = {
+  override def saveEntity(entity: ApplicationResult): Future[Option[ApplicationResult]] =
     ApplicationResultRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[ApplicationResult]] = {
     ApplicationResultRepository.roach.getEntities

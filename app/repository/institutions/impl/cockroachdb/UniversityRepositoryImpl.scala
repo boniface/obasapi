@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UniversityRepositoryImpl  extends UniversityRepository{
 
-  override def saveEntity(entity: University): Future[Boolean] = {
-    UniversityTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: University): Future[Option[University]] = {
+    UniversityTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[University]] = {

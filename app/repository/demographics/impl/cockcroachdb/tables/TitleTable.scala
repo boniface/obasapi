@@ -27,8 +27,10 @@ object TitleTable extends TableQuery(new TitleTable(_)) {
     db.run(this.filter(_.titleId === titleId).result).map(_.headOption)
   }
 
-  def saveEntity(title: Title): Future[Title] = {
-    db.run(this returning this.map(_.titleId) into ((acc, titleId) => acc.copy(titleId = titleId)) += title)
+  def saveEntity(title: Title): Future[Option[Title]] = {
+    db.run(
+      (this returning this).insertOrUpdate(title)
+    )
   }
 
   def getEntities: Future[Seq[Title]] = {

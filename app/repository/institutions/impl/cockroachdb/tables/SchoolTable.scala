@@ -29,8 +29,10 @@ object SchoolTable extends TableQuery(new SchoolTable(_)) {
     db.run(this.filter(_.schoolId === schoolId).result).map(_.headOption)
   }
 
-  def saveEntity(school: School): Future[School] = {
-    db.run(this returning this.map(_.schoolId) into ((acc, schoolId) => acc.copy(schoolId = schoolId)) += school)
+  def saveEntity(school: School): Future[Option[School]] = {
+    db.run(
+      (this returning this).insertOrUpdate(school)
+    )
   }
 
   def getEntities: Future[Seq[School]] = {

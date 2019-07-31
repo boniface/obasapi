@@ -9,9 +9,8 @@ import scala.concurrent.Future
 class MatricSubjectsServiceImpl extends MatricSubjectsService{
 
 
-  override def saveEntity(entity: MatricSubjects): Future[Boolean] = {
+  override def saveEntity(entity: MatricSubjects): Future[Option[MatricSubjects]] =
     MatricSubjectsRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[MatricSubjects]] = {
     MatricSubjectsRepository.roach.getEntities

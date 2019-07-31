@@ -25,8 +25,10 @@ object DocumentTypeTable extends TableQuery(new DocumentTypeTable(_)) {
     db.run(this.filter(_.documentTypeId === documentTypeId).result).map(_.headOption)
   }
 
-  def saveEntity(document: DocumentType): Future[DocumentType] = {
-    db.run(this returning this.map(_.documentTypeId) into ((acc, documentTypeId) => acc.copy(documentTypeId = documentTypeId)) += document)
+  def saveEntity(documentType: DocumentType): Future[Option[DocumentType]] = {
+    db.run(
+      (this returning this).insertOrUpdate(documentType)
+    )
   }
 
   def getEntities: Future[Seq[DocumentType]] = {
