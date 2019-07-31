@@ -11,30 +11,30 @@ import scala.concurrent.Future
 
 
 class UserPasswordTable(tag: Tag) extends Table[UserPassword](tag, "USERPASSWORD") {
-  def userId: Rep[String] = column[String]("USER_ID", O.PrimaryKey)
+  def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
 
   def password: Rep[String] = column[String]("PASSWORD")
 
-  def * : ProvenShape[UserPassword] = (userId, password) <> ((UserPassword.apply _).tupled, UserPassword.unapply)
+  def * : ProvenShape[UserPassword] = (email, password) <> ((UserPassword.apply _).tupled, UserPassword.unapply)
 }
 
 object UserPasswordTable extends TableQuery(new UserPasswordTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(userId: String): Future[Option[UserPassword]] = {
-    db.run(this.filter(_.userId === userId).result).map(_.headOption)
+  def getEntity(email: String): Future[Option[UserPassword]] = {
+    db.run(this.filter(_.email === email).result).map(_.headOption)
   }
 
   def saveEntity(userPassword: UserPassword): Future[UserPassword] = {
-    db.run(this returning this.map(_.userId) into ((acc, userId) => acc.copy(userId = userId)) += userPassword)
+    db.run(this returning this.map(_.email) into ((acc, email) => acc.copy(email = email)) += userPassword)
   }
 
   def getEntities: Future[Seq[UserPassword]] = {
     db.run(UserPasswordTable.result)
   }
 
-  def deleteEntity(userId: String): Future[Int] = {
-    db.run(this.filter(_.userId === userId).delete)
+  def deleteEntity(email: String): Future[Int] = {
+    db.run(this.filter(_.email === email).delete)
   }
 
   def createTable = {

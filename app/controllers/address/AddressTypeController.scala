@@ -26,6 +26,7 @@ class AddressTypeController @Inject()
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
+      println(" The input ", request.body)
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>

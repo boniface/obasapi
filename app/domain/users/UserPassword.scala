@@ -2,8 +2,7 @@ package domain.users
 
 import play.api.libs.json.Json
 
-case class UserPassword(
-                        userId:String,
+case class UserPassword(email:String,
                         password:String
                        )
 object UserPassword{

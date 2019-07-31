@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 class ApplicationResultRepositoryTest extends FunSuite {
 
-  val entity =ApplicationResult("1","Bachelor Acquired",LocalDateTime.of(2000,5,6,1500,15,5))
+  val entity =ApplicationResult("1","Bachelor Acquired",LocalDateTime.now)
   val repository = ApplicationResultRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
