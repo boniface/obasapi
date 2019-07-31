@@ -18,16 +18,16 @@ class MailConfigRepositoryTest extends FunSuite {
 
   }
 
-  test("readEntity") {
-    val result = Await.result(roachRepository.getEntity(entity.id), 2 minutes)
-    assert(result.head.id == entity.id)
-  }
-
-
-  test("getEntities") {
-    val result = Await.result(roachRepository.getEntities, 2 minutes)
-    assert(result.nonEmpty)
-  }
+//  test("readEntity") {
+//    val result = Await.result(roachRepository.getEntity(entity.id), 2 minutes)
+//    assert(result.head.id == entity.id)
+//  }
+//
+//
+//  test("getEntities") {
+//    val result = Await.result(roachRepository.getEntities, 2 minutes)
+//    assert(result.nonEmpty)
+//  }
   //
   //  test("updateEntities") {
   //    val updatedEntity = entity.copy(host = "Home")

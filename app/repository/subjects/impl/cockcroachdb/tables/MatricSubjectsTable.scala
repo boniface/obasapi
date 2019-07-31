@@ -9,7 +9,7 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class MatricSubjectsTable(tag: Tag) extends Table[MatricSubjects](tag, _tableName = "MATRICK_SUBJECTS"){
+class MatricSubjectsTable(tag: Tag) extends Table[MatricSubjects](tag, _tableName = "MATRIC_SUBJECTS"){
   
   def subjectCode: Rep[String] = column[String]("SUBJECT_CODE", O.PrimaryKey)
 
