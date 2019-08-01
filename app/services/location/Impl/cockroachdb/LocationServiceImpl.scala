@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class LocationServiceImpl extends LocationService {
 
-  override def saveEntity(entity: Location): Future[Boolean] =
+  override def saveEntity(entity: Location): Future[Option[Location]] =
     LocationRepository.roach.saveEntity(entity)
-
   override def getEntities: Future[Seq[Location]] =
     LocationRepository.roach.getEntities
 

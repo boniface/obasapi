@@ -9,9 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserAddressRepositoryImpl  extends UserAddressRepository{
 
-  override def saveEntity(entity: UserAddress): Future[Boolean] = {
-    println("Did i get jere?",  entity)
-    UserAddressTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: UserAddress): Future[Option[UserAddress]] = {
+    UserAddressTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserAddress]] = {

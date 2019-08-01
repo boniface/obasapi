@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class UserDocumentsServiceImpl extends UserDocumentsService {
 
-  override def saveEntity(entity: UserDocuments): Future[Boolean] =
+  override def saveEntity(entity: UserDocuments): Future[Option[UserDocuments]] =
     UserDocumentsRepository.roach.saveEntity(entity)
-
   override def getEntities: Future[Seq[UserDocuments]] =
     UserDocumentsRepository.roach.getEntities
 

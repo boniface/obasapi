@@ -10,9 +10,8 @@ class ApplicationStatusServiceImpl extends ApplicationStatusService{
 
 
 
-  override def saveEntity(entity: ApplicationStatus): Future[Boolean] = {
+  override def saveEntity(entity: ApplicationStatus): Future[Option[ApplicationStatus]] =
     ApplicationStatusRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[ApplicationStatus]] = {
     ApplicationStatusRepository.roach.getEntities

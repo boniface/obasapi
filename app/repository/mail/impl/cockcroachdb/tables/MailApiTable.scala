@@ -27,8 +27,10 @@ object MailApiTable extends TableQuery(new MailApiTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(mailApi: MailApi): Future[MailApi] = {
-    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += mailApi)
+  def saveEntity(mailApi: MailApi): Future[Option[MailApi]] = {
+    db.run(
+      (this returning this).insertOrUpdate(mailApi)
+    )
   }
 
   def getEntities: Future[Seq[MailApi]] = {

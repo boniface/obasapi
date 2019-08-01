@@ -1,4 +1,4 @@
-package repository.security.Impl.cockcraochdb.tables
+package repository.security.impl.cockcroachdb.tables
 
 import domain.security.ResetToken
 import slick.jdbc.PostgresProfile.api._
@@ -27,8 +27,13 @@ object ResetTokenTable extends TableQuery(new ResetTokenTable(_)) {
     db.run(this.filter(_.resetokenvalue === resetokenvalue).result).map(_.headOption)
   }
 
-  def saveEntity(apiKeys: ResetToken): Future[ResetToken] = {
+  /*def saveEntity(apiKeys: ResetToken): Future[ResetToken] = {
     db.run(this returning this.map(_.resetokenvalue) into ((acc, resetokenvalue) => acc.copy(resetokenvalue = resetokenvalue)) += apiKeys)
+  }*/
+  def saveEntity(apiKeys: ResetToken): Future[Option[ResetToken]] = {
+    db.run(
+      (this returning this).insertOrUpdate(apiKeys)
+    )
   }
 
   def getEntities: Future[Seq[ResetToken]] = {

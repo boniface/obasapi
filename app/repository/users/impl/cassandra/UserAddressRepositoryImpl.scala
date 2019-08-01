@@ -13,9 +13,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class UserAddressRepositoryImpl extends UserAddressRepository{
-  override def saveEntity(entity: UserAddress): Future[Boolean] = {
-    UserAddressDatabase.userAddressTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: UserAddress) = ???
 
   override def getEntities: Future[Seq[UserAddress]] = {
     UserAddressDatabase.userAddressTable.getEntities
@@ -35,6 +33,7 @@ class UserAddressRepositoryImpl extends UserAddressRepository{
     UserAddressDatabase.userAddressTable.create.ifNotExists().future().map(result => result.head.isExhausted())
 
   }
+
 }
 class UserAddressDatabase(override val connector: KeySpaceDef) extends Database[UserAddressDatabase](connector) {
   object userAddressTable extends UserAddressTableImpl with connector.Connector

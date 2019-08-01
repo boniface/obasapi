@@ -26,10 +26,10 @@ class UserApplicationResultController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
-            results: Boolean <- domainService.saveEntity(value)
+          val response: Future[Option[UserApplicationResult]] = for {
+            results: Option[UserApplicationResult] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[UserApplicationResult]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -39,11 +39,11 @@ class UserApplicationResultController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response: Future[Option[UserApplicationResult]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Boolean <- domainService.saveEntity(value)
+            results: Option[UserApplicationResult] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[UserApplicationResult]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }

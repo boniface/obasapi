@@ -13,7 +13,7 @@ class UserDocumentsRepositoryTest extends FunSuite{
   val repository = UserDocumentsRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -27,12 +27,11 @@ class UserDocumentsRepositoryTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(documentId = "13")
-//    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(repository.roach.getEntity(entity.userDocumentsId), 2 minutes)
-//    assert(result.head.documentId==updatedEntity.documentId)
-//  }
+ test("updateEntity") {
+  val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+  assert(result.isEmpty)
+
+}
 //
 //
 //  test("deleteEntities"){

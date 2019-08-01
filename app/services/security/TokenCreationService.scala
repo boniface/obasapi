@@ -1,7 +1,7 @@
 package services.security
 
 import domain.users.User
-import services.security.Impl.TokenCreationServiceImpl
+import services.security.impl.TokenCreationServiceImpl
 
 import scala.concurrent.Future
 

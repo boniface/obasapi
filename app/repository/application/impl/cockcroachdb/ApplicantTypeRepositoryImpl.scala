@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class ApplicantTypeRepositoryImpl extends ApplicantTypeRepository{
 
-  override def saveEntity(entity: ApplicantType): Future[Boolean] = {
-    ApplicantTypeTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: ApplicantType): Future[Option[ApplicantType]] = {
+    ApplicantTypeTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ApplicantType]] = {

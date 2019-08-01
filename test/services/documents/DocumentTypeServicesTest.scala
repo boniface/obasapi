@@ -12,7 +12,7 @@ class DocumentTypeServicesTest extends FunSuite {
   val service = DocumentTypeService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -26,11 +26,10 @@ class DocumentTypeServicesTest extends FunSuite {
     assert(result.nonEmpty)
   }
 
-  test("updateEntities"){
-    val updatedEntity=entity.copy(documentTypename = "Metric")
-    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.documentTypeId), 2 minutes)
-    assert(result.head.documentTypename==updatedEntity.documentTypename)
+  test("updateEntity") {
+    val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
   }
 
 

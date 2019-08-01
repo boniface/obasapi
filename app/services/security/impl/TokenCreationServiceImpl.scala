@@ -1,4 +1,4 @@
-package services.security.Impl
+package services.security.impl
 
 import com.typesafe.config.ConfigFactory
 import domain.security.ApiKeys

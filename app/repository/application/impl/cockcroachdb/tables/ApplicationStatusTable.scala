@@ -30,8 +30,10 @@ object ApplicationStatusTable extends TableQuery(new ApplicationStatusTable(_)){
     db.run(this.filter(_.applicationStatusId === applicationStatusId).result).map(_.headOption)
   }
 
-  def saveEntity(applicationStatus: ApplicationStatus): Future[ApplicationStatus] = {
-    db.run(this returning this.map(_.applicationStatusId) into ((acc, applicationStatusId) => acc.copy(applicationStatusId = applicationStatusId)) += applicationStatus)
+  def saveEntity(applicationStatus: ApplicationStatus): Future[Option[ApplicationStatus]] = {
+    db.run(
+      (this returning this).insertOrUpdate(applicationStatus)
+    )
   }
 
   def getEntities: Future[Seq[ApplicationStatus]] = {

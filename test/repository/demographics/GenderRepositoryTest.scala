@@ -13,7 +13,7 @@ class GenderRepositoryTest extends FunSuite {
   val repository = GenderRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -27,11 +27,10 @@ class GenderRepositoryTest extends FunSuite {
     assert(result.nonEmpty)
   }
 
-  test("updateEntities"){
-    val updatedEntity=entity.copy(genderName = "Female")
-    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.genderId), 2 minutes)
-    assert(result.head.genderName==updatedEntity.genderName)
+  test("updateEntity") {
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
   }
 
 

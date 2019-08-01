@@ -27,8 +27,10 @@ object LocationTypeTable extends TableQuery(new LocationTypeTable(_)) {
     db.run(this.filter(_.locationTypeId === locationTypeId).result).map(_.headOption)
   }
 
-  def saveEntity(locationType: LocationType): Future[LocationType] = {
-    db.run(this returning this.map(_.locationTypeId) into ((acc, locationTypeId) => acc.copy(locationTypeId = locationTypeId)) += locationType)
+  def saveEntity(locationType: LocationType): Future[Option[LocationType]] = {
+    db.run(
+      (this returning this).insertOrUpdate(locationType)
+    )
   }
 
   def getEntities: Future[Seq[LocationType]] = {

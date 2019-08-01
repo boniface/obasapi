@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 trait UserService extends CrudService[User]{
   def isUserAvailable(email:String): Future[Boolean]
-  def changePassword(credentials:UserPassword):Future[Boolean]
+  def changePassword(credentials:UserPassword):Future[Option[UserPassword]]
 }
 
 object UserService{

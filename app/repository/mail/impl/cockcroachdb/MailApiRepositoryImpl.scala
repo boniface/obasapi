@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class MailApiRepositoryImpl extends MailApiRepository{
 
-  override def saveEntity(entity: MailApi): Future[Boolean] = {
-    MailApiTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: MailApi): Future[Option[MailApi]] = {
+    MailApiTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[MailApi]] = {

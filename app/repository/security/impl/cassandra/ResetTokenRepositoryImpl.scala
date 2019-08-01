@@ -1,10 +1,10 @@
-package repository.security.Impl.cassandra
+package repository.security.impl.cassandra
 
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl._
 import domain.security.ResetToken
-import repository.security.Impl.cassandra.tables.ResetTokenTableImpl
+import repository.security.impl.cassandra.tables.ResetTokenTableImpl
 import repository.security.ResetTokenRepository
 import util.connections.DataConnection
 
@@ -12,9 +12,7 @@ import scala.concurrent.Future
 
 class ResetTokenRepositoryImpl extends ResetTokenRepository {
 
-  override def saveEntity(entity: ResetToken): Future[Boolean] = {
-    ResetTokenDatabase.resetTokenTable.saveEntity(entity) map ( result => result.isExhausted())
-  }
+  override def saveEntity(entity: ResetToken) = ???
 
   override def getEntities: Future[Seq[ResetToken]] = {
     ResetTokenDatabase.resetTokenTable.getEntities

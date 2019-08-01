@@ -9,9 +9,8 @@ import scala.concurrent.Future
 
 class DocumentTypeServiceImpl extends DocumentTypeService{
 
-  override def saveEntity(entity: DocumentType): Future[Boolean] = {
+  override def saveEntity(entity: DocumentType): Future[Option[DocumentType]] =
     DocumentTypeRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[DocumentType]] = {
     DocumentTypeRepository.roach.getEntities

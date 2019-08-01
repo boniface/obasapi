@@ -15,7 +15,7 @@ class ApplicationResultServicesTest extends FunSuite {
 
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -30,11 +30,10 @@ class ApplicationResultServicesTest extends FunSuite {
     assert(result.nonEmpty)
   }
 
-  test("updateEntities"){
-    val updatedEntity=entity.copy(description = "Diploma Acquired")
-    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.applicationResultId), 2 minutes)
-    assert(result.head.description==updatedEntity.description)
+  test("updateEntity") {
+    val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
   }
 
 

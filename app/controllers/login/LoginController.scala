@@ -2,6 +2,7 @@ package controllers.login
 
 import controllers.ApiResponse
 import domain.login.{Login, LoginToken, Register}
+import domain.security.ResetToken
 import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
@@ -48,10 +49,10 @@ class LoginController @Inject()
       val entity = Json.fromJson[Register](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response: Future[Option[ResetToken]] = for {
             results <- domainService.forgotPassword(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[ResetToken]](response, className)
         case Left(error) => api.errorResponse(error,className)
       }
   }

@@ -11,9 +11,7 @@ import util.connections.DataConnection
 import scala.concurrent.Future
 
 class SmtpConfigRepositoryImpl extends SmtpConfigRepository {
-  override def saveEntity(entity: SmtpConfig): Future[Boolean] = {
-    SmtpConfigDatabase.smtpConfigTable.saveEntity(entity).map(result => result.isExhausted())
-  }
+  override def saveEntity(entity: SmtpConfig) = ???
 
   override def getEntities: Future[Seq[SmtpConfig]] = {
     SmtpConfigDatabase.smtpConfigTable.getEntities

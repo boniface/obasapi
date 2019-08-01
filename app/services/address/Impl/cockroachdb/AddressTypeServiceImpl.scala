@@ -9,9 +9,8 @@ import scala.concurrent.Future
 class AddressTypeServiceImpl extends AddressTypeService{
 
 
-  override def saveEntity(entity: AddressType): Future[Boolean] = {
+  override def saveEntity(entity: AddressType): Future[Option[AddressType]] =
     AddressTypeRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[AddressType]] = {
     println(" The Address Type is Requested Here ")

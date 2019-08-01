@@ -19,7 +19,7 @@ abstract class AddressTypeTableImpl extends AddressTypeTable with RootConnector{
   override  lazy val tableName ="AddressType"
 
 
-  def saveEntity(entity:AddressType): Future[ResultSet] ={
+  def saveEntity(entity:AddressType)={
     insert
       .value(_.addressTypeID, entity.addressTypeID)
       .value(_.addressName, entity.addressName)

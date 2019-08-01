@@ -1,6 +1,6 @@
 package services.security
 
-import services.security.Impl.AuthenticationServiceImpl
+import services.security.impl.AuthenticationServiceImpl
 
 trait AuthenticationService {
   def getHashedPassword(key: String): String
