@@ -12,7 +12,7 @@ class RolesServicesTest extends FunSuite {
   val service = RoleService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -27,11 +27,10 @@ class RolesServicesTest extends FunSuite {
     assert(result.nonEmpty)
   }
 
-  test("updateEntities"){
-    val updatedEntity=entity.copy(roleName = "ND:Application Development")
-    Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.id), 2 minutes)
-    assert(result.head.roleName==updatedEntity.roleName)
+  test("updateEntity") {
+    val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
   }
 
 

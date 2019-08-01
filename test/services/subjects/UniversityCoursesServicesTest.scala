@@ -12,7 +12,7 @@ class UniversityCoursesServicesTest extends FunSuite {
   val service = UniversityCoursesService
   test("createEntity"){
     val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -28,12 +28,11 @@ test("readEntity"){
       println(result)
     assert(result.nonEmpty)
   }
-  test("updateEntities"){
-  val updatedEntity=entity.copy(name = "UCT")
-  Await.result(service.roach.saveEntity(updatedEntity), 2 minutes)
-  val result = Await.result(service.roach.getEntity(entity.courseCode), 2 minutes)
-  assert(result.head.name==updatedEntity.name)
-}
+  test("updateEntity") {
+    val result = Await.result(service.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 
 
   test("deleteEntities"){

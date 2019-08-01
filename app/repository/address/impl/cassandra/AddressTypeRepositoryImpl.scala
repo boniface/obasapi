@@ -15,10 +15,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class AddressTypeRepositoryImpl extends AddressTypeRepository {
-  override def saveEntity(entity: AddressType): Future[Boolean] =
-  {
-    AddressTypeDatabse.AddressTypeTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: AddressType) = ???
 
   override def getEntities: Future[Seq[AddressType]] = {
     AddressTypeDatabse.AddressTypeTable.getEntities

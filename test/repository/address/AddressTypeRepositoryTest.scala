@@ -12,7 +12,12 @@ class AddressTypeRepositoryTest extends FunSuite {
 
   val entity = AddressType("5","9 Browning RD")
   val repository = AddressTypeRepository
+  
+  test("createEntity"){
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    assert(result.nonEmpty)
 
+  }
 
 //  test("readEntity"){
 //    val result = Await.result(repository.roach.getEntity(entity.addressTypeID), 2 minutes)
@@ -24,13 +29,12 @@ class AddressTypeRepositoryTest extends FunSuite {
     println(result)
     assert(result.nonEmpty)
   }
-//
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(addressName = "6 Browning RD")
-//    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(repository.roach.getEntity(entity.addressTypeID), 2 minutes)
-//    assert(result.head.addressName==updatedEntity.addressName)
-//  }
+
+  test("updateEntity") {
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 
 
 //  test("deleteEntities"){

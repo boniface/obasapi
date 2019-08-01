@@ -1,4 +1,4 @@
-package services.security.Impl
+package services.security.impl
 
 import domain.security.ResetToken
 import repository.security.ResetTokenRepository

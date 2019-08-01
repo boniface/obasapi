@@ -13,9 +13,7 @@ import scala.concurrent.Future
 
 
 class ApplicationResultRepositoryImpl extends ApplicationResultRepository{
-  override def saveEntity(entity: ApplicationResult): Future[Boolean] = {
-    ApplicationResultDatabase.ApplicationResultTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: ApplicationResult) = ???
 
   override def getEntities: Future[Seq[ApplicationResult]] = {
     ApplicationResultDatabase.ApplicationResultTable.getEntities

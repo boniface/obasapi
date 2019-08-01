@@ -13,9 +13,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class UserApplicationResultRepositoryImpl extends UserApplicationResultRepository{
-  override def saveEntity(entity: UserApplicationResult): Future[Boolean] = {
-    UserApplicationResultDatabase.userApplicationResultTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: UserApplicationResult) = ???
 
   override def getEntities: Future[Seq[UserApplicationResult]] = {
     UserApplicationResultDatabase.userApplicationResultTable.getEntities

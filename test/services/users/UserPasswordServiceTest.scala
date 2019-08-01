@@ -12,7 +12,7 @@ class UserPasswordServiceTest extends FunSuite{
   val roachService = UserPasswordService
   test("createEntity"){
     val result = Await.result(roachService.apply.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -26,12 +26,11 @@ class UserPasswordServiceTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(password = "P@ssw0rd")
-//    Await.result(roachService.apply.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(roachService.apply.getEntity(entity.email), 2 minutes)
-//    assert(result.head.password==updatedEntity.password)
-//  }
+  test("updateEntity") {
+    val result = Await.result(roachService.apply.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 //
 //
 //  test("deleteEntities"){

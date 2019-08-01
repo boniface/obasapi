@@ -14,7 +14,7 @@ class LocationServiceTest extends FunSuite{
   // column "PARENT_ID" does not exist
   test("createEntity"){
     val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -28,12 +28,11 @@ class LocationServiceTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(code = "123456")
-//    Await.result(roachService.roach.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(roachService.roach.getEntity(entity.locationId), 2 minutes)
-//    assert(result.head.code==updatedEntity.code)
-//  }
+  test("updateEntity") {
+    val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 //
 //
 //  test("deleteEntities"){

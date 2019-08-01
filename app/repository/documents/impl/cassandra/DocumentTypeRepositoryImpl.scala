@@ -13,9 +13,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class DocumentTypeRepositoryImpl extends DocumentTypeRepository{
-  override def saveEntity(entity: DocumentType): Future[Boolean] = {
-    DocumentTypeDatabase.DocumentTypeTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: DocumentType) = ???
 
   override def getEntities: Future[Seq[DocumentType]] = {
     DocumentTypeDatabase.DocumentTypeTable.getEntities

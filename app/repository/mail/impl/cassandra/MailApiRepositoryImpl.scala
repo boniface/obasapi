@@ -11,10 +11,7 @@ import util.connections.DataConnection
 import scala.concurrent.Future
 
 class MailApiRepositoryImpl extends MailApiRepository{
-  override def saveEntity(entity: MailApi): Future[Boolean] = {
-    MailApiDatabase.mailApiTable.saveEntity(entity) map (result => result.isExhausted())
-
-  }
+  override def saveEntity(entity: MailApi) = ???
 
   override def getEntities: Future[Seq[MailApi]] = {
     MailApiDatabase.mailApiTable.getEntities

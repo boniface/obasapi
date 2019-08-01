@@ -1,7 +1,7 @@
-package repository.security.Impl.cockcraochdb
+package repository.security.impl.cockcroachdb
 
 import domain.security.ResetToken
-import repository.security.Impl.cockcraochdb.tables.ResetTokenTable
+import repository.security.impl.cockcroachdb.tables.ResetTokenTable
 import repository.security.ResetTokenRepository
 
 import scala.concurrent.Future
@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class ResetTokenRepositoryImpl extends ResetTokenRepository{
 
-  override def saveEntity(entity: ResetToken): Future[Boolean] = {
-    ResetTokenTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: ResetToken): Future[Option[ResetToken]] = {
+    ResetTokenTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ResetToken]] = {

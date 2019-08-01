@@ -21,10 +21,7 @@ class MailConfigRepositoryImpl extends MailConfigRepository {
     MailConfigDatabase.mailConfigSingleTable.create.ifNotExists().future().map(result => result.head.isExhausted())
   }
 
-  override def saveEntity(entity: MailConfig): Future[Boolean] = {
-    MailConfigDatabase.mailConfigTable.saveEntity(entity).map(result => result.isExhausted())
-    MailConfigDatabase.mailConfigSingleTable.saveEntity(entity).map(result => result.isExhausted())
-  }
+  override def saveEntity(entity: MailConfig) = ???
 
   override def getEntities: Future[Seq[MailConfig]] = {
     MailConfigDatabase.mailConfigTable.getEntities

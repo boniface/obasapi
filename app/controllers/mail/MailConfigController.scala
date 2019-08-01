@@ -28,11 +28,11 @@ class MailConfigController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response: Future[Option[MailConfig]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Boolean <- domainService.saveEntity(value)
+            results: Option[MailConfig] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[MailConfig]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -42,11 +42,11 @@ class MailConfigController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response: Future[Option[MailConfig]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Boolean <- domainService.saveEntity(value)
+            results: Option[MailConfig] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[MailConfig]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }

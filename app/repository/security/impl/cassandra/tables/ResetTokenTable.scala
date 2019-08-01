@@ -1,4 +1,4 @@
-package repository.security.Impl.cassandra.tables
+package repository.security.impl.cassandra.tables
 
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.streams._

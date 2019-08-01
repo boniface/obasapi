@@ -1,4 +1,4 @@
-package services.security.Impl
+package services.security.impl
 
 import org.apache.commons.lang3.RandomStringUtils
 import org.mindrot.jbcrypt.BCrypt

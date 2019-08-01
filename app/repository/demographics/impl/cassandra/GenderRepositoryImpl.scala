@@ -12,9 +12,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class GenderRepositoryImpl extends GenderRepository{
-  override def saveEntity(entity: Gender): Future[Boolean] = {
-    GenderDatabase.GenderTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: Gender) = ???
 
   override def getEntities: Future[Seq[Gender]] = {
     GenderDatabase.GenderTable.getEntities

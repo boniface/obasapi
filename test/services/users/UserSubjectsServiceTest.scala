@@ -8,13 +8,13 @@ import scala.concurrent.duration._
 
 
 class UserSubjectsServiceTest extends FunSuite{
-  val entity = UserSubjects("2","aj","maths","two")
+  val entity = UserSubjects("5","israel","maths","two")
   val roachService = UserSubjectsService
-//  test("createEntity"){
-//    val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
-//    assert(result)
-//
-//  }
+  test("createEntity"){
+    val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
+    assert(result.nonEmpty)
+
+  }
 
 //  test("readEntity"){
 //    val result = Await.result(roachService.roach.getEntity(entity.userSubjectId), 2 minutes)
@@ -26,12 +26,11 @@ class UserSubjectsServiceTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-  test("updateEntities"){
-    val updatedEntity=entity.copy(description = "science")
-    Await.result(roachService.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(roachService.roach.getEntity(entity.userSubjectId), 2 minutes)
-    assert(result.head.description==updatedEntity.description)
-  }
+//  test("updateEntity") {
+//    val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
+//    assert(result.isEmpty)
+//
+//  }
 //
 //
 //  test("deleteEntities"){

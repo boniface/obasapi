@@ -1,6 +1,7 @@
 package services.login
 
 import domain.login.{Login, LoginToken, Register}
+import domain.security.ResetToken
 import play.api.mvc.Request
 import services.login.Impl.LoginServiceImpl
 
@@ -9,7 +10,7 @@ import scala.concurrent.Future
 trait LoginService {
   def isUserRegistered(user: Register): Future[Boolean]
 
-  def forgotPassword(register: Register): Future[Boolean]
+  def forgotPassword(register: Register): Future[Option[ResetToken]]
 
   def register(register: Register): Future[Boolean]
 
