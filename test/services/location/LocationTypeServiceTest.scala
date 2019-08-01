@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 
 class LocationTypeServiceTest extends FunSuite{
-  val entity = LocationType("1","Lion's Head")
+  val entity = LocationType("1","Lion's Head","111")
   val roachService = LocationTypeService
   test("createEntity"){
     val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)

@@ -11,7 +11,7 @@ import scala.concurrent.Future
 
 
 class LocationTable(tag: Tag) extends Table[Location](tag, "LOCATION") {
-  def locationId: Rep[String] = column[String]("SCHOOL_ID", O.PrimaryKey)
+  def locationId: Rep[String] = column[String]("LOCATION_ID", O.PrimaryKey)
 
   def name: Rep[String] = column[String]("NAME")
 
