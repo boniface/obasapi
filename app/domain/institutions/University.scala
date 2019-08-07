@@ -6,7 +6,7 @@ case class University(
                   universityId:String,
                   universityName:String,
                   universityDetails:String,
-                  universityState:String
+                  universityTown:String
                 )
 object University {
   implicit val universityFmt = Json.format[University]
