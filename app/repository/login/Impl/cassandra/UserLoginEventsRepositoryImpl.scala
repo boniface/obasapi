@@ -11,10 +11,7 @@ import util.connections.DataConnection
 import scala.concurrent.Future
 
 class UserLoginEventsRepositoryImpl extends UserLoginEventsRepository{
-  override def saveEntity(entity: UserLoginEvents): Future[Boolean] = {
-    UserLoginEventsDatabase.userLoginEventsTable.saveEntity(entity).map(result=> result.isExhausted())
-  }
-
+  override def saveEntity(entity: UserLoginEvents) = ???
   override def getEntities: Future[Seq[UserLoginEvents]] = {
     UserLoginEventsDatabase.userLoginEventsTable.getEntities
   }

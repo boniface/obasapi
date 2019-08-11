@@ -37,9 +37,9 @@ class LoginTokenServiceImpl extends LoginTokenService {
     jwtContext.getJwtClaims.getClaimValue(Claims.USER_ROLE).toString
   }
 
-  override def saveEntity(entity: LoginToken): Future[Boolean] = {
+  override def saveEntity(entity: LoginToken): Future[Option[LoginToken]] =
     LoginTokenRepository.apply.saveEntity(entity)
-  }
+
 
   override def getEntities: Future[Seq[LoginToken]] = {
     LoginTokenRepository.apply.getEntities

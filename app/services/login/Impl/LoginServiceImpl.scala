@@ -21,7 +21,7 @@ class LoginServiceImpl extends LoginService {
     UserService.apply.isUserAvailable(user.email)
   }
 
-  override def forgotPassword(register: Register): Future[Boolean] = {
+  override def forgotPassword(register: Register): Future[Option[ResetToken]] =  {
     val siteUrl = ConfigFactory.load().getString("base.url")
     val user = User(email = register.email)
     val resetKey = ApiKeysService.apply.generateResetToken()

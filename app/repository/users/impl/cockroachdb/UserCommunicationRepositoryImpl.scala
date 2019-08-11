@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserCommunicationRepositoryImpl  extends UserCommunicationRepository{
 
-  override def saveEntity(entity: UserCommunication): Future[Boolean] = {
-    UserCommunicationTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: UserCommunication): Future[Option[UserCommunication]] = {
+    UserCommunicationTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserCommunication]] = {

@@ -14,10 +14,7 @@ import scala.concurrent.Future
 
 class UserPasswordRepositoryImpl extends UserPasswordRepository{
 
-  override def saveEntity(entity: UserPassword): Future[Boolean] =
-  {
-    UserPasswordDatabse.UserPasswordTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: UserPassword) = ???
 
   override def getEntities: Future[Seq[UserPassword]] = {
     UserPasswordDatabse.UserPasswordTable.getEntities

@@ -8,8 +8,8 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class ContactTypeRepositoryImpl extends ContactTypeRepository{
-  override def saveEntity(entity: ContactType): Future[Boolean] = {
-    ContactTypeTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: ContactType): Future[Option[ContactType]] = {
+    ContactTypeTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ContactType]] = {

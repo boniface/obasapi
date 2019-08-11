@@ -8,8 +8,8 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class SmtpConfigRepositoryImpl extends SmtpConfigRepository {
-  override def saveEntity(entity: SmtpConfig): Future[Boolean] ={
-    SmtpConfigTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: SmtpConfig): Future[Option[SmtpConfig]] = {
+    SmtpConfigTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[SmtpConfig]] = {

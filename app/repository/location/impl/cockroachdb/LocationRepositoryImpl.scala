@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class LocationRepositoryImpl  extends LocationRepository{
 
-  override def saveEntity(entity: Location): Future[Boolean] = {
-    LocationTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: Location): Future[Option[Location]] = {
+    LocationTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Location]] = {

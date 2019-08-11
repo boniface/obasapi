@@ -1,19 +1,17 @@
-package repository.security.Impl.cassandra
+package repository.security.impl.cassandra
 
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl._
 import domain.security.ApiKeys
 import repository.security.ApiKeysRepository
-import repository.security.Impl.cassandra.tables.ApiKeysTableImpl
+import repository.security.impl.cassandra.tables.ApiKeysTableImpl
 import util.connections.DataConnection
 
 import scala.concurrent.Future
 
 class ApiKeysRepositoryImpl extends ApiKeysRepository {
-  override def saveEntity(entity: ApiKeys): Future[Boolean] = {
-    ApiKeysDatabase.apiKeysTable.saveEntity(entity).map(result => result.isExhausted())
-  }
+  override def saveEntity(entity: ApiKeys) = ???
 
   override def getEntities: Future[Seq[ApiKeys]] = {
     ApiKeysDatabase.apiKeysTable.getEntities

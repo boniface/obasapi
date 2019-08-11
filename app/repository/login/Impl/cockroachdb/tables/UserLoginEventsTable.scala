@@ -31,8 +31,10 @@ object UserLoginEventsTable extends TableQuery(new UserLoginEventsTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(userLoginEvents: UserLoginEvents): Future[UserLoginEvents] = {
-    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += userLoginEvents)
+  def saveEntity(userLoginEvents: UserLoginEvents): Future[Option[UserLoginEvents]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userLoginEvents)
+    )
   }
 
   def getEntities: Future[Seq[UserLoginEvents]] = {

@@ -31,8 +31,10 @@ object UniversityCoursesTable extends TableQuery(new UniversityCoursesTable(_)) 
     db.run(this.filter(_.courseCode === courseCode).result).map(_.headOption)
   }
 
-  def saveEntity(universitycourses: UniversityCourses): Future[UniversityCourses] = {
-    db.run(this returning this.map(_.courseCode) into ((acc, courseCode) => acc.copy(courseCode = courseCode)) += universitycourses)
+  def saveEntity(universityCourses: UniversityCourses): Future[Option[UniversityCourses]] = {
+    db.run(
+      (this returning this).insertOrUpdate(universityCourses)
+    )
   }
 
   def getEntities: Future[Seq[UniversityCourses]] = {

@@ -39,10 +39,10 @@ class MatricSubjectsController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
-            results: Boolean <- domainService.saveEntity(value)
+          val response: Future[Option[MatricSubjects]] = for {
+            results: Option[MatricSubjects] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[MatricSubjects]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -52,11 +52,11 @@ class MatricSubjectsController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response: Future[Option[MatricSubjects]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Boolean <- domainService.saveEntity(value)
+            results: Option[MatricSubjects] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[MatricSubjects]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }

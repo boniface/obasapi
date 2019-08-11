@@ -9,9 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserRoleRepositoryImpl  extends UserRoleRepository{
 
-  override def saveEntity(entity: UserRole): Future[Boolean] = {
-    println("Repo Impl")
-    UserRoleTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: UserRole): Future[Option[UserRole]] = {
+    UserRoleTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserRole]] = {

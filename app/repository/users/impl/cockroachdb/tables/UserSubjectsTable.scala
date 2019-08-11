@@ -30,8 +30,10 @@ object UserSubjectsTable extends TableQuery(new UserSubjectsTable(_)) {
     db.run(this.filter(_.userSubjectId === userSubjectId).result).map(_.headOption)
   }
 
-  def saveEntity(userSubjects: UserSubjects): Future[UserSubjects] = {
-    db.run(this returning this.map(_.userSubjectId) into ((acc, userSubjectId) => acc.copy(userSubjectId = userSubjectId)) += userSubjects)
+  def saveEntity(userSubjects: UserSubjects): Future[Option[UserSubjects]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userSubjects)
+    )
   }
 
   def getEntities: Future[Seq[UserSubjects]] = {

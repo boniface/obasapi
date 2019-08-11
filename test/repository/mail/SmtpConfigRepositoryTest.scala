@@ -13,7 +13,7 @@ class SmtpConfigRepositoryTest extends FunSuite{
   val repository = SmtpConfigRepository.roach
   test("createEntity"){
     val result = Await.result(repository.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -27,11 +27,10 @@ class SmtpConfigRepositoryTest extends FunSuite{
     assert(result.nonEmpty)
   }
 
-  test("updateEntities"){
-    val updatedEntity=entity.copy(port = 2018)
-    Await.result(repository.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.getEntity(entity.id), 2 minutes)
-    assert(result.head.port==updatedEntity.port)
+  test("updateEntity") {
+    val result = Await.result(repository.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
   }
 
 

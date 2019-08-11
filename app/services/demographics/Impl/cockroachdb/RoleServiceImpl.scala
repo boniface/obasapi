@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class RoleServiceImpl extends RoleService{
 
-  override def saveEntity(entity: Roles): Future[Boolean] = {
+  override def saveEntity(entity: Roles): Future[Option[Roles]] =
     RolesRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[Roles]] = {
     RolesRepository.roach.getEntities

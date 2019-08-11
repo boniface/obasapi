@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 
 class MatricSubjectsRepositoryImpl extends MatricSubjectsRepository{
-  override def saveEntity(entity: MatricSubjects): Future[Boolean] = {
-    MatricSubjectsTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: MatricSubjects): Future[Option[MatricSubjects]] = {
+    MatricSubjectsTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[MatricSubjects]] = {

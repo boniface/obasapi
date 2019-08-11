@@ -12,7 +12,7 @@ class UserAddressServiceTest extends FunSuite{
   val roachService = UserAddressService.apply
   test("createEntity"){
     val result = Await.result(roachService.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -28,12 +28,11 @@ class UserAddressServiceTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(physicalAddress = "14 Loop Street")
-//    Await.result(roachService.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(roachService.getEntity(entity.userAddressId), 2 minutes)
-//    assert(result.head.physicalAddress==updatedEntity.physicalAddress)
-//  }
+  test("updateEntity") {
+    val result = Await.result(roachService.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 //
 //
 //  test("deleteEntities"){

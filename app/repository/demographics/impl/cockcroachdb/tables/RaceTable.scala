@@ -27,8 +27,10 @@ object RaceTable extends TableQuery(new RaceTable(_)) {
     db.run(this.filter(_.raceId === raceId).result).map(_.headOption)
   }
 
-  def saveEntity(race: Race): Future[Race] = {
-    db.run(this returning this.map(_.raceId) into ((acc, raceId) => acc.copy(raceId = raceId)) += race)
+  def saveEntity(race: Race): Future[Option[Race]] = {
+    db.run(
+      (this returning this).insertOrUpdate(race)
+    )
   }
 
   def getEntities: Future[Seq[Race]] = {

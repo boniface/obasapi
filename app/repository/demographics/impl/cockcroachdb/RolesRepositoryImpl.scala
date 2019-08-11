@@ -8,8 +8,8 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class RolesRepositoryImpl extends RolesRepository {
-  override def saveEntity(entity: Roles): Future[Boolean] ={
-    RolesTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: Roles): Future[Option[Roles]] = {
+    RolesTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Roles]] = {

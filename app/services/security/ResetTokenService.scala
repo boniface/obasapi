@@ -2,7 +2,7 @@ package services.security
 
 import domain.security.ResetToken
 import services.CrudService
-import services.security.Impl.ResetTokenServiceImpl
+import services.security.impl.ResetTokenServiceImpl
 
 trait ResetTokenService extends CrudService[ResetToken] {
 

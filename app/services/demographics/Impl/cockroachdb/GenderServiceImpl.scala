@@ -8,10 +8,8 @@ import scala.concurrent.Future
 
 class GenderServiceImpl extends GenderService{
 
-  override def saveEntity(entity: Gender): Future[Boolean] = {
+  override def saveEntity(entity: Gender): Future[Option[Gender]] =
     GenderRepository.roach.saveEntity(entity)
-  }
-
   override def getEntities: Future[Seq[Gender]] = {
     GenderRepository.roach.getEntities
   }

@@ -13,9 +13,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class LocationTypeRepositoryImpl extends LocationTypeRepository{
-  override def saveEntity(entity: LocationType): Future[Boolean] = {
-    LocationTypeDatabase.locationTypeTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: LocationType) = ???
 
   override def getEntities: Future[Seq[LocationType]] = {
     LocationTypeDatabase.locationTypeTable.getEntities

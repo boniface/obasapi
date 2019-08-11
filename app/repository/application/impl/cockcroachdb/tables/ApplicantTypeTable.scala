@@ -27,8 +27,10 @@ object ApplicantTypeTable extends TableQuery(new ApplicantTypeTable(_)) {
     db.run(this.filter(_.applicantTypeId === applicantTypeId).result).map(_.headOption)
   }
 
-  def saveEntity(applicantType : ApplicantType): Future[ApplicantType] = {
-    db.run(this returning this.map(_.applicantTypeId) into ((acc, applicantTypeId) => acc.copy(applicantTypeId = applicantTypeId)) +=applicantType)
+  def saveEntity(applicantType: ApplicantType): Future[Option[ApplicantType]] = {
+    db.run(
+      (this returning this).insertOrUpdate(applicantType)
+    )
   }
 
   def getEntities: Future[Seq[ApplicantType]] = {

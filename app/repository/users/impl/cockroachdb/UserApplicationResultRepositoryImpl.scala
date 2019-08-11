@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserApplicationResultRepositoryImpl  extends UserApplicationResultRepository{
 
-  override def saveEntity(entity: UserApplicationResult): Future[Boolean] = {
-    UserApplicationResultTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: UserApplicationResult): Future[Option[UserApplicationResult]] = {
+    UserApplicationResultTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[UserApplicationResult]] = {

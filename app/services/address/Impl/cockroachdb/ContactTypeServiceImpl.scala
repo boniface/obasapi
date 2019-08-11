@@ -10,9 +10,8 @@ import scala.concurrent.Future
 class ContactTypeServiceImpl extends ContactTypeService{
 
 
-  override def saveEntity(entity: ContactType): Future[Boolean] = {
+  override def saveEntity(entity: ContactType): Future[Option[ContactType]] =
     ContactTypeRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[ContactType]] = {
     ContactTypeRepository.roach.getEntities
