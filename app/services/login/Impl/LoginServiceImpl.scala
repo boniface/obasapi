@@ -115,7 +115,10 @@ class LoginServiceImpl extends LoginService {
     val emailToken = LoginToken(register.email, "")
     LoginTokenService.apply.deleteEntity(emailToken)
   }
-}
+
+  override def checkFileSize(size: Long): Future[Boolean] = {
+    Future.successful(size < 10000000)
+  }
 
 
 

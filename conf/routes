@@ -21,4 +21,5 @@ GET        /assets/*file        controllers.Assets.versioned(path="/public", fil
 ->         /login               controllers.login.LoginRouter
 ->         /institutions        controllers.institutions.InstitutionRouter
 ->         /location            controllers.location.LocationRouter
+->         /file               controllers.storage.UploadRouter
 
