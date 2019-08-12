@@ -27,9 +27,12 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
     db.run(this.filter(_.userAddressId === userAddressId).result).map(_.headOption)
   }
 
-  def saveEntity(userAddress: UserAddress): Future[UserAddress] = {
-    println(" In tahble", userAddress)
-    db.run(this returning this.map(_.userAddressId) into ((acc, userAddressId) => acc.copy(userAddressId = userAddressId)) += userAddress)
+  def saveEntity(userAddress: UserAddress): Future[Option[UserAddress]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userAddress)
+    )
+
+//    db.run(this returning this.map(_.userAddressId) into ((acc, userAddressId) => acc.copy(userAddressId = userAddressId)) += userAddress)
   }
 
   def getEntities: Future[Seq[UserAddress]] = {

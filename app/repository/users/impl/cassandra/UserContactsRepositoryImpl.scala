@@ -13,9 +13,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class UserContactsRepositoryImpl extends UserContactsRepository{
-  override def saveEntity(entity: UserContacts): Future[Boolean] = {
-    UserContactsDatabase.userContactsTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: UserContacts)= ???
 
   override def getEntities: Future[Seq[UserContacts]] = {
     UserContactsDatabase.userContactsTable.getEntities

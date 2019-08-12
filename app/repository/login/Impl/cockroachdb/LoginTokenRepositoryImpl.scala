@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class LoginTokenRepositoryImpl extends LoginTokenRepository{
 
-  override def saveEntity(entity: LoginToken): Future[Boolean] = {
-    LoginTokenTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: LoginToken): Future[Option[LoginToken]] = {
+    LoginTokenTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[LoginToken]] = {

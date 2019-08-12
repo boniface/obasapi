@@ -7,9 +7,8 @@ import services.mail.MailConfigService
 import scala.concurrent.Future
 
 class MailConfigServiceImpl extends MailConfigService{
-  override def saveEntity(entity: MailConfig): Future[Boolean] = {
+  override def saveEntity(entity: MailConfig): Future[Option[MailConfig]] =
     MailConfigRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[MailConfig]] = {
     MailConfigRepository.roach.getEntities

@@ -10,7 +10,7 @@ import scala.concurrent.Future
 
 class UserServiceImpl extends UserService {
 
-  override def saveEntity(entity: User): Future[Boolean] =
+  override def saveEntity(entity: User): Future[Option[User]] =
     UserRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[User]] =
@@ -28,7 +28,7 @@ class UserServiceImpl extends UserService {
     getEntity(email).map(user => user.isDefined)
   }
 
-  override def changePassword(credentials: UserPassword): Future[Boolean] = {
+  override def changePassword(credentials: UserPassword)= {
     val hashedPassword = credentials.copy(password = AuthenticationService.apply.getHashedPassword(credentials.password))
     UserPasswordService.apply.saveEntity(hashedPassword)
   }

@@ -20,9 +20,7 @@ class LoginTokenRepositoryImpl extends LoginTokenRepository {
   }
 
 
-  override def saveEntity(entity: LoginToken): Future[Boolean] = {
-    LoginTokenDatabase.loginTokenTable.saveEntity(entity).map(result => result.isExhausted())
-  }
+  override def saveEntity(entity: LoginToken) = ???
 
   override def getEntities: Future[Seq[LoginToken]] = {
     LoginTokenDatabase.loginTokenTable.getEntities

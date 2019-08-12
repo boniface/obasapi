@@ -13,10 +13,7 @@ import util.connections.{DataConnection, PgDBConnection}
 import scala.concurrent.Future
 
 class TitleRepositoryImpl extends TitleRepository{
-  override def saveEntity(entity: Title): Future[Boolean] = {
-    TitleDatabase.TitleTable.saveEntity(entity) map (result => result.isExhausted())
-  }
-
+  override def saveEntity(entity: Title) = ???
   override def getEntities: Future[Seq[Title]] = {
     TitleDatabase.TitleTable.getEntities
   }

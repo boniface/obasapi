@@ -35,10 +35,10 @@ class TitleController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
-            results: Boolean <- domainService.saveEntity(value)
+          val response: Future[Option[Title]] = for {
+            results: Option[Title] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[Title]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -48,11 +48,11 @@ class TitleController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response: Future[Option[Title]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Boolean <- domainService.saveEntity(value)
+            results: Option[Title] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Boolean](response, className)
+          api.requestResponse[Option[Title]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }

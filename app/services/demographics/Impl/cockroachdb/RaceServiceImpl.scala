@@ -8,9 +8,8 @@ import scala.concurrent.Future
 
 class RaceServiceImpl extends RaceService{
 
-  override def saveEntity(entity: Race): Future[Boolean] = {
+  override def saveEntity(entity: Race): Future[Option[Race]] =
     RaceRepository.roach.saveEntity(entity)
-  }
 
   override def getEntities: Future[Seq[Race]] = {
     RaceRepository.roach.getEntities

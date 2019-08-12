@@ -13,9 +13,7 @@ import scala.concurrent.Future
 
 
 class RolesRepositoryImpl extends RolesRepository{
-  override def saveEntity(entity: Roles): Future[Boolean] = {
-    RolesDatabase.RolesTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: Roles) = ???
 
   override def getEntities: Future[Seq[Roles]] = {
     RolesDatabase.RolesTable.getEntities

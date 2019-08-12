@@ -29,8 +29,10 @@ object MatricSubjectsTable extends TableQuery(new MatricSubjectsTable(_)) {
     db.run(this.filter(_.subjectCode === subjectCode).result).map(_.headOption)
   }
 
-  def saveEntity(matricSubjects: MatricSubjects): Future[MatricSubjects] = {
-    db.run(this returning this.map(_.subjectCode) into ((acc, subjectCode) => acc.copy(subjectCode = subjectCode)) += matricSubjects)
+  def saveEntity(matricSubjects: MatricSubjects): Future[Option[MatricSubjects]] = {
+    db.run(
+      (this returning this).insertOrUpdate(matricSubjects)
+    )
   }
 
   def getEntities: Future[Seq[MatricSubjects]] = {

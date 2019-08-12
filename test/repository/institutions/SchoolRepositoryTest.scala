@@ -15,7 +15,7 @@ class SchoolRepositoryTest extends FunSuite{
   test("createEntity") {
 
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 
@@ -29,11 +29,10 @@ class SchoolRepositoryTest extends FunSuite{
     println(result)
     assert(result.nonEmpty)
   }
-  test("updateEntities") {
-    val updatedEntity = entity.copy(schoolName = "JvR High")
-    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.schoolId), 2 minutes)
-    assert(result.head.schoolName == updatedEntity.schoolName)
+  test("updateEntity") {
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
   }
 
 

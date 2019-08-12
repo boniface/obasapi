@@ -33,8 +33,10 @@ object UserTable extends TableQuery(new UserTable(_)) {
     db.run(this.filter(_.email === email).result).map(_.headOption)
   }
 
-  def saveEntity(user: User): Future[User] = {
-    db.run(this returning this.map(_.email) into ((acc, email) => acc.copy(email = email)) += user)
+  def saveEntity(user: User): Future[Option[User]] = {
+    db.run(
+      (this returning this).insertOrUpdate(user)
+    )
   }
 
   def getEntities: Future[Seq[User]] = {

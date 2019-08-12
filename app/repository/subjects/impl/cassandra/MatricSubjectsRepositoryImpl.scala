@@ -14,9 +14,7 @@ import scala.concurrent.Future
 
 
 class MatricSubjectsRepositoryImpl extends MatricSubjectsRepository {
-  override def saveEntity(entity: MatricSubjects): Future[Boolean] = {
-    MatricSubjectDatabase.MatricSubjectsTable.saveEntity(entity) map (result => result.isExhausted())
-  }
+  override def saveEntity(entity: MatricSubjects)  = ???
 
   override def getEntities: Future[Seq[MatricSubjects]] = {
     MatricSubjectDatabase.MatricSubjectsTable.getEntities

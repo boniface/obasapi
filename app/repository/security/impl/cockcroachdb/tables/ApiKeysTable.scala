@@ -31,8 +31,10 @@ object ApiKeysTable extends TableQuery(new ApiKeysTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(apiKeys: ApiKeys): Future[ApiKeys] = {
-    db.run(this returning this.map(_.id) into ((acc, id) => acc.copy(id = id)) += apiKeys)
+  def saveEntity(apiKeys: ApiKeys): Future[Option[ApiKeys]] = {
+    db.run(
+      (this returning this).insertOrUpdate(apiKeys)
+    )
   }
 
   def getEntities: Future[Seq[ApiKeys]] = {

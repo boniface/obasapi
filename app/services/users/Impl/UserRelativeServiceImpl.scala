@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 class UserRelativeServiceImpl extends UserRelativeService {
 
-  override def saveEntity(entity: UserRelative): Future[Boolean] =
+  override def saveEntity(entity: UserRelative): Future[Option[UserRelative]] =
     UserRelativeRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[UserRelative]] =

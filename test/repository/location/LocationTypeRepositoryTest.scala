@@ -13,7 +13,7 @@ class LocationTypeRepositoryTest extends FunSuite{
   val repository = LocationTypeRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-    assert(result)
+    assert(result.nonEmpty)
 
   }
 //
@@ -28,12 +28,11 @@ class LocationTypeRepositoryTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 
-//  test("updateEntities"){
-//    val updatedEntity=entity.copy(name = "JvR High")
-//    Await.result(repository.roach.saveEntity(updatedEntity), 2 minutes)
-//    val result = Await.result(repository.roach.getEntity(entity.locationTypeId), 2 minutes)
-//    assert(result.head.name==updatedEntity.name)
-//  }
+  test("updateEntity") {
+    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 //
 //
 //  test("deleteEntities"){

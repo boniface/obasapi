@@ -9,8 +9,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class ApiKeysRepositoryImpl extends ApiKeysRepository {
 
-  override def saveEntity(entity: ApiKeys): Future[Boolean] = {
-    ApiKeysTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: ApiKeys): Future[Option[ApiKeys]] = {
+    ApiKeysTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[ApiKeys]] = {

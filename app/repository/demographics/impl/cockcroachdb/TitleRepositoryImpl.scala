@@ -8,8 +8,8 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class TitleRepositoryImpl extends TitleRepository {
-  override def saveEntity(entity: Title): Future[Boolean] = {
-    TitleTable.saveEntity(entity).map(value=> value.equals(entity))
+  override def saveEntity(entity: Title): Future[Option[Title]] = {
+    TitleTable.saveEntity(entity)
   }
 
   override def getEntities: Future[Seq[Title]] = {

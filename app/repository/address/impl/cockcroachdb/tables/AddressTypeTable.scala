@@ -26,12 +26,21 @@ object AddressTypeTable extends TableQuery(new AddressTypeTable(_)){
     db.run(this.filter(_.addressTypeID === addressTypeID).result).map(_.headOption)
   }
 
-  def saveEntity(addressType: AddressType): Future[AddressType] = {
-    db.run(this returning this.map(_.addressTypeID) into ((acc, addressTypeID) => acc.copy(addressTypeID = addressTypeID)) += addressType)
+  def saveEntity(addressType: AddressType): Future[Option[AddressType]] = {
+    db.run(
+      (this returning this).insertOrUpdate(addressType)
+    )
   }
 
   def getEntities: Future[Seq[AddressType]] = {
     db.run(AddressTypeTable.result)
+  }
+
+  def updateEntity(addressType: AddressType): Future[Int] = {
+    db.run(
+      this.filter(_.addressTypeID === addressType.addressTypeID)
+        .map(a => a).update(addressType)
+    )
   }
 
   def deleteEntity(addressTypeID: String): Future[Int] = {

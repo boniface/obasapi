@@ -10,7 +10,7 @@ class TitleServiceImpl extends TitleService
 {
 
 
-  override def saveEntity(entity: Title): Future[Boolean] = {
+  override def saveEntity(entity: Title): Future[Option[Title]] = {
     TitleRepository.roach.saveEntity(entity)
   }
 

@@ -28,8 +28,10 @@ object LoginTokenTable extends TableQuery(new LoginTokenTable(_)) {
     db.run(this.filter(_.email === email).result).map(_.headOption)
   }
 
-  def saveEntity(loginToken: LoginToken): Future[LoginToken] = {
-    db.run(this returning this.map(_.email) into ((acc, email) => acc.copy(email = email)) += loginToken)
+  def saveEntity(loginToken: LoginToken): Future[Option[LoginToken]] = {
+    db.run(
+      (this returning this).insertOrUpdate(loginToken)
+    )
   }
 
   def getEntities: Future[Seq[LoginToken]] = {

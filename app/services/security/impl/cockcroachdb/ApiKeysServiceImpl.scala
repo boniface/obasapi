@@ -1,4 +1,4 @@
-package services.security.Impl
+package services.security.impl.cockcroachdb
 
 import java.time.LocalDateTime
 
@@ -13,7 +13,7 @@ import util.APPKeys
 import scala.concurrent.Future
 
 class ApiKeysServiceImpl extends ApiKeysService{
-  override def saveEntity(entity: ApiKeys): Future[Boolean] = {
+  override def saveEntity(entity: ApiKeys): Future[Option[ApiKeys]] = {
     ApiKeysRepository.apply.saveEntity(entity)
   }
 
@@ -54,7 +54,7 @@ class ApiKeysServiceImpl extends ApiKeysService{
     key.toJson(JsonWebKey.OutputControlLevel.INCLUDE_PRIVATE)
   }
 
-  override def initKey: Future[Boolean] = {
+  override def initKey: Future[Option[ApiKeys]] = {
     val key = generateJsonPublicKey(APPKeys.PUBLICKEY)
     val keys = ApiKeys(APPKeys.PUBLICKEY,key,APPKeys.ACTIVE, LocalDateTime.now())
     saveEntity(keys)

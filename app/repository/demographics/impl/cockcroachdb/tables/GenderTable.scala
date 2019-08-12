@@ -27,8 +27,10 @@ object GenderTable extends TableQuery(new GenderTable(_)) {
     db.run(this.filter(_.genderId === genderId).result).map(_.headOption)
   }
 
-  def saveEntity(gender: Gender): Future[Gender] = {
-    db.run(this returning this.map(_.genderId) into ((acc, genderId) => acc.copy(genderId = genderId)) += gender)
+  def saveEntity(gender: Gender): Future[Option[Gender]] = {
+    db.run(
+      (this returning this).insertOrUpdate(gender)
+    )
   }
 
   def getEntities: Future[Seq[Gender]] = {
