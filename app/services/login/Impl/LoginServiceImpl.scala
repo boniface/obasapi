@@ -21,7 +21,7 @@ class LoginServiceImpl extends LoginService {
     UserService.apply.isUserAvailable(user.email)
   }
 
-  override def forgotPassword(register: Register): Future[Option[ResetToken]] =  {
+  override def forgotPassword(register: Register): Future[Option[ResetToken]] = {
     val siteUrl = ConfigFactory.load().getString("base.url")
     val user = User(email = register.email)
     val resetKey = ApiKeysService.apply.generateResetToken()
@@ -54,7 +54,7 @@ class LoginServiceImpl extends LoginService {
 
   private def authenticateUser(password: String, actualPass: String): Future[Boolean] = {
     Future.successful(AuthenticationService.apply
-      .checkPassword(password, actualPass) )// compare
+      .checkPassword(password, actualPass)) // compare
   }
 
   private def saveLoginToken(email: String, token: String): Future[Option[LoginToken]] = {
@@ -69,14 +69,14 @@ class LoginServiceImpl extends LoginService {
 
   //TODO: Write test case
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
-     for {
+    for {
       user <- UserService.apply.getEntity(login.email) if user.isDefined
       userPassword <- UserPasswordService.apply.getEntity(login.email) if userPassword.isDefined
-      userRole <-UserRoleService.roach.getEntity(login.email) if userRole.isDefined
+      userRole <- UserRoleService.roach.getEntity(login.email) if userRole.isDefined
       checkPasswd <- authenticateUser(login.email, userPassword.get.password) if checkPasswd
-      token <- TokenCreationService.apply.generateLoginToken(user.get,userRole.get.roleId)
+      token <- TokenCreationService.apply.generateLoginToken(user.get, userRole.get.roleId)
       loginToken <- saveLoginToken(login.email, token)
-    } yield  loginToken
+    } yield loginToken
   }
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {
@@ -121,4 +121,4 @@ class LoginServiceImpl extends LoginService {
   }
 
 
-
+}
