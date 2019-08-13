@@ -41,11 +41,12 @@ class LoginServiceImpl extends LoginService {
     val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
     val userPassword = UserPassword(user.email, hashedTempPass)
     val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
+    println(emailMessage)
     for {
-      _ <- isUserRegistered(register) //check if user is available
-      _ <- UserService.apply.saveEntity(user) // save the user
-      _ <- UserPasswordService.apply.saveEntity(userPassword) //save hashed
-      _ <- UserRoleService.roach.saveEntity(userRole) //save the role
+      isRegistered <- isUserRegistered(register) if !isRegistered //check if user is available
+      savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user
+      savedUserPasswd <- UserPasswordService.apply.saveEntity(userPassword) if savedUserPasswd.isDefined //save hashed
+      savedUserRole <- UserRoleService.roach.saveEntity(userRole) if savedUserRole.isDefined //save the role
       sendEmail <- MailService.sendGrid.sendMail(emailMessage)
     } yield {
       sendEmail.statusCode == 202
@@ -73,10 +74,13 @@ class LoginServiceImpl extends LoginService {
       user <- UserService.apply.getEntity(login.email) if user.isDefined
       userPassword <- UserPasswordService.apply.getEntity(login.email) if userPassword.isDefined
       userRole <- UserRoleService.roach.getEntity(login.email) if userRole.isDefined
-      checkPasswd <- authenticateUser(login.email, userPassword.get.password) if checkPasswd
+      checkPasswd <- authenticateUser(login.password, userPassword.get.password) if checkPasswd
       token <- TokenCreationService.apply.generateLoginToken(user.get, userRole.get.roleId)
-      loginToken <- saveLoginToken(login.email, token)
-    } yield loginToken
+//      loginToken <- saveLoginToken(login.email, token)
+    } yield {
+      println(token)
+      Some(LoginToken("", ""))
+    }
   }
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {

@@ -15,12 +15,14 @@ class SendGridMailImpl extends MailService{
 
   def sendMail(message:EmailMessage): Future[MessageResponse] = {
 
+    lazy val content = new Content("text/html", message.content)
+    lazy val to = new Email(message.email)
+
     for {
-      mailKey: Option[MailApi] <- MailApiService.roach.getEntity(APPKeys.SEDNGRID)
+      mailKey: Option[MailApi] <- MailApiService.roach.getEntity(APPKeys.SENDGRID_ID)
     } yield {
-      val mail: Mail = new Mail(new Email(getKey(mailKey).sender),
-        message.subject, new Email(message.email),
-        new Content("text/html", message.content))
+      lazy val from = new Email(getKey(mailKey).sender)
+      val mail: Mail = new Mail(from, message.subject, to, content)
       val sg = new SendGrid(getKey(mailKey).key)
       val result = postMessage(sg, mail)
       result
