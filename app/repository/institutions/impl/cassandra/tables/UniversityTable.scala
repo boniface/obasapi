@@ -14,7 +14,7 @@ abstract class UniversityTable extends Table[UniversityTable, University] {
 
   object universityDetails extends StringColumn
 
-  object universityState extends StringColumn
+  object universityTown extends StringColumn
 
 }
 
@@ -27,7 +27,7 @@ abstract class UniversityTableImpl extends UniversityTable with RootConnector {
       .value(_.universityId, entity.universityId)
       .value(_.universityName, entity.universityName)
       .value(_.universityDetails, entity.universityDetails)
-      .value(_.universityState, entity.universityState)
+      .value(_.universityTown, entity.universityTown)
       .future()
   }
 

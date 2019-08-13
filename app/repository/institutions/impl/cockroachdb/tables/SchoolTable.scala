@@ -17,9 +17,9 @@ class SchoolTable(tag: Tag) extends Table[School](tag, "SCHOOL") {
 
   def schoolDetails: Rep[String] = column[String]("SCHOOL_DETAILS")
 
-  def schoolState: Rep[String] = column[String]("SCHOOL_STATE")
+  def schoolTown: Rep[String] = column[String]("SCHOOL_STATE")
 
-  def * : ProvenShape[School] = (schoolId, schoolName, schoolDetails, schoolState) <> ((School.apply _).tupled, School.unapply)
+  def * : ProvenShape[School] = (schoolId, schoolName, schoolDetails, schoolTown) <> ((School.apply _).tupled, School.unapply)
 }
 
 object SchoolTable extends TableQuery(new SchoolTable(_)) {
