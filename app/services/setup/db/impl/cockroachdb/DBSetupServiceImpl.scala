@@ -8,6 +8,7 @@ import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
 import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
+import services.security.ApiKeysService
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
 import services.users.{UserAddressService, UserApplicationResultService, UserCommunicationService, UserContactsService, UserDemographicsService, UserDocumentsService, UserInstitutionService, UserPasswordService, UserRelativeService, UserResultsService, UserRoleService, UserService, UserSubjectsService}
@@ -78,6 +79,10 @@ class DBSetupServiceImpl extends DBSetupService {
     //TODO: Add table creation for UserResultsTable and UserTable
   }
 
+  def createSecurityTables(): Future[Boolean] = {
+    ApiKeysService.apply.createTable
+  }
+
   override def createTables: Future[Boolean] = {
 
     createAddressTables()
@@ -97,6 +102,8 @@ class DBSetupServiceImpl extends DBSetupService {
     createSubjectTables()
 
     createUserTables()
+
+    createSecurityTables()
 
   }
 }

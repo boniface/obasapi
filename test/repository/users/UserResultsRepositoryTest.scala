@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 
 class UserResultsRepositoryTest extends FunSuite{
-  val entity = UserResults("6","failed")
+  val entity = UserResults("36","failed")
   val repository = UserResultsRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
@@ -27,11 +27,11 @@ class UserResultsRepositoryTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-  test("updateEntity") {
-    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-    assert(result.isEmpty)
-
-  }
+//  test("updateEntity") {
+//    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+//    assert(result.isEmpty)
+//
+//  }
 //
 //
 //  test("deleteEntities"){
