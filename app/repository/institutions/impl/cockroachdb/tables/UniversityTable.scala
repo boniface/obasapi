@@ -17,9 +17,9 @@ class UniversityTable(tag: Tag) extends Table[University](tag, "UNIVERSITY") {
 
   def universityDetails: Rep[String] = column[String]("UNIVERSITY_DETAILS")
 
-  def universityState: Rep[String] = column[String]("UNIVERSITY_STATE")
+  def universityTown: Rep[String] = column[String]("UNIVERSITY_STATE")
 
-  def * : ProvenShape[University] = (universityId, universityName, universityDetails, universityState) <> ((University.apply _).tupled, University.unapply)
+  def * : ProvenShape[University] = (universityId, universityName, universityDetails, universityTown) <> ((University.apply _).tupled, University.unapply)
 }
 
 object UniversityTable extends TableQuery(new UniversityTable(_)) {
