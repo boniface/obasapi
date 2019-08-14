@@ -19,7 +19,7 @@ abstract class UserTable extends Table[UserTable, User] {
 
   object lastName extends StringColumn
 
-  object dateCreated extends Col[LocalDateTime]
+  object dateOfBirth extends Col[LocalDateTime]
 
 }
 
@@ -33,7 +33,7 @@ abstract class UserTableImpl extends UserTable with RootConnector {
       .value(_.firstName, entity.firstName)
       .value(_.middleName, entity.middleName)
       .value(_.lastName, entity.lastName)
-      .value(_.dateCreated, entity.dateCreated)
+      .value(_.dateOfBirth, entity.dateOfBirth)
       .future()
   }
 
