@@ -21,7 +21,7 @@ class UserTable(tag: Tag) extends Table[User](tag, "USER") {
 
   def lastName: Rep[String] = column[String]("LAST_NAME")
 
-  def dateCreated: Rep[LocalDateTime] = column[LocalDateTime]("DATE_OF_BIRTH")
+  def dateCreated: Rep[LocalDateTime] = column[LocalDateTime]("DATE_CREATED")
 
   def * : ProvenShape[User] = (email, firstName, middleName, lastName, dateCreated) <> ((User.apply _).tupled, User.unapply)
 }
