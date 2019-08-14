@@ -1,10 +1,10 @@
 package repository.users.impl.cassandra.tables
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDateTime
 
 import com.outworkers.phantom.dsl._
-import com.outworkers.phantom.streams._
 import com.outworkers.phantom.jdk8._
+import com.outworkers.phantom.streams._
 import domain.users.User
 
 import scala.concurrent.Future
@@ -19,7 +19,7 @@ abstract class UserTable extends Table[UserTable, User] {
 
   object lastName extends StringColumn
 
-  object dateOfBirth extends Col[LocalDateTime]
+  object dateCreated extends Col[LocalDateTime]
 
 }
 
@@ -33,7 +33,7 @@ abstract class UserTableImpl extends UserTable with RootConnector {
       .value(_.firstName, entity.firstName)
       .value(_.middleName, entity.middleName)
       .value(_.lastName, entity.lastName)
-      .value(_.dateOfBirth, entity.dateOfBirth)
+      .value(_.dateCreated, entity.dateCreated)
       .future()
   }
 
