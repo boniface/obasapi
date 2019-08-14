@@ -1,5 +1,6 @@
 package services.login.Impl
 
+import akka.stream.actor.ActorPublisherMessage.Request
 import domain.login.{Login, Register, ResetKey}
 import domain.security.ResetToken
 import org.scalatest.FunSuite
@@ -13,7 +14,10 @@ class LoginServiceImplTest extends FunSuite {
   val loginService = LoginService
 
   test("testCheckLoginStatus") {
-    
+    val register = Register("cyfotyasi@gmail.com")
+    val result = Await.result(loginService.apply.isUserRegistered(register), 2.minutes)
+    println(result)
+    assert(result == true)
 
   }
 
