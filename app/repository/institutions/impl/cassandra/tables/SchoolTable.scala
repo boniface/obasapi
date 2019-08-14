@@ -14,7 +14,7 @@ abstract class SchoolTable extends Table[SchoolTable, School] {
 
   object schoolDetails extends StringColumn
 
-  object schoolState extends StringColumn
+  object schoolTown extends StringColumn
 
 }
 
@@ -27,7 +27,7 @@ abstract class SchoolTableImpl extends SchoolTable with RootConnector {
       .value(_.schoolId, entity.schoolId)
       .value(_.schoolName, entity.schoolName)
       .value(_.schoolDetails, entity.schoolDetails)
-      .value(_.schoolState, entity.schoolState)
+      .value(_.schoolTown, entity.schoolTown)
       .future()
   }
 
