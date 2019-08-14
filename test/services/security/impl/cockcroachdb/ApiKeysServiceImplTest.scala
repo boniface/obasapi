@@ -1,34 +1,48 @@
-package repository.security.impl.cockcroachdb
+package services.security.impl.cockcroachdb
 
 import java.time.LocalDateTime
 
 import domain.security.ApiKeys
 import org.scalatest.FunSuite
-import repository.security.ApiKeysRepository
 import services.security.ApiKeysService
 import util.APPKeys
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
-class ApiKeysRepositoryImplTest extends FunSuite {
+class ApiKeysServiceImplTest extends FunSuite {
 
-  val repository = ApiKeysRepository
+  val service = ApiKeysService
+  val phrase = "TEST_PHRASE"
+
+  test("testSaveEntity") {
+    val key = service.apply.generateJsonPublicKey(phrase)
+    val entity = ApiKeys(APPKeys.PUBLICKEY, key, APPKeys.ACTIVE, LocalDateTime.now)
+    val result = Await.result(service.apply.saveEntity(entity), 2.minutes)
+    println(result)
+    assert(result.nonEmpty)
+
+  }
+
+  test("testDeleteEntity") {
+
+  }
+
+  test("testGetPublicJsonWebKey") {
+
+  }
+
+  test("testGenerateResetToken") {
+
+  }
 
   test("testGetEntity") {
 
   }
 
-  test("testSaveEntity") {
-    val service = ApiKeysService
-    val phrase = "TEST_PHRASE"
-    val key = service.apply.generateJsonPublicKey(phrase)
-    val entity = ApiKeys(APPKeys.PUBLICKEY, key, APPKeys.ACTIVE, LocalDateTime.now)
-    val result = Await.result(repository.apply.saveEntity(entity), 2.minutes)
-    assert(result.nonEmpty)
-  }
-
-  test("testDeleteEntity") {
+  test("testGenerateJsonPublicKey") {
+    val result = service.apply.generateJsonPublicKey(phrase)
+    assert(!result.isEmpty)
 
   }
 

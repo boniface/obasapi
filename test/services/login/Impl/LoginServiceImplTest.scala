@@ -1,8 +1,11 @@
 package services.login.Impl
 
+import java.io.File
+
 import akka.stream.actor.ActorPublisherMessage.Request
 import domain.login.{Login, Register, ResetKey}
 import domain.security.ResetToken
+import javax.imageio.ImageIO
 import org.scalatest.FunSuite
 import services.login.LoginService
 
@@ -26,6 +29,16 @@ class LoginServiceImplTest extends FunSuite {
   }
 
   test("testCheckFileSize") {
+    val url = getClass().getResource("3.JPG")
+    val file = new File(url.getPath())
+  //  val someFile = new File("3.JPG")
+    //val imageSize = url.getFile.length()
+    val imageSize = file.length()
+    println(imageSize)
+    val size = imageSize
+    val result = Await.result(loginService.apply.checkFileSize(size), 2.minutes)
+
+    assert(result == true)
 
   }
 
