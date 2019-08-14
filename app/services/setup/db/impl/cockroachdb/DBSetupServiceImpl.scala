@@ -6,8 +6,9 @@ import services.demographics.{GenderService, RaceService, RoleService, TitleServ
 import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
+import services.login.LoginTokenService
 import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
-import services.security.ApiKeysService
+import services.security.{ApiKeysService, ResetTokenService}
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
 import services.users._
@@ -80,6 +81,8 @@ class DBSetupServiceImpl extends DBSetupService {
 
   def createSecurityTables(): Future[Boolean] = {
     ApiKeysService.apply.createTable
+    ResetTokenService.apply.createTable
+    LoginTokenService.apply.createTable
   }
 
   override def createTables: Future[Boolean] = {

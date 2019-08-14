@@ -1,4 +1,4 @@
-package repository.login.Impl.cassandra.tables
+package repository.login.impl.cassandra.tables
 
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.streams._
