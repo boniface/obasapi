@@ -9,7 +9,7 @@ case class User(
                firstName:String = "",
                middleName:String = "",
                lastName:String = "",
-               dateCreated:LocalDateTime = LocalDateTime.now
+               dateOfBirth:LocalDateTime = LocalDateTime.now
                )
 object User{
   implicit val userFmt = Json.format[User]
