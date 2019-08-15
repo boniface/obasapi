@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 
 class UserRoleRepositoryTest extends FunSuite{
-  val entity = UserRole("1","aj")
+  val entity = UserRole("51","aj")
   val repository = UserRoleRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
@@ -27,11 +27,11 @@ class UserRoleRepositoryTest extends FunSuite{
 //    assert(result.nonEmpty)
 //  }
 //
-  test("updateEntity") {
-    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
-    assert(result.isEmpty)
-
-  }
+//  test("updateEntity") {
+//    val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
+//    assert(result.isEmpty)
+//
+//  }
 //
 //
 //  test("deleteEntities"){

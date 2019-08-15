@@ -20,6 +20,8 @@ trait LoginService {
 
   def checkLoginStatus[A](request: Request[A]): Future[Boolean]
 
+  def checkFileSize(size:Long):Future[Boolean]
+
   def logOut(register: Register): Future[Boolean]
 }
 object LoginService{

@@ -21,7 +21,7 @@ class LoginServiceImpl extends LoginService {
     UserService.apply.isUserAvailable(user.email)
   }
 
-  override def forgotPassword(register: Register): Future[Option[ResetToken]] =  {
+  override def forgotPassword(register: Register): Future[Option[ResetToken]] = {
     val siteUrl = ConfigFactory.load().getString("base.url")
     val user = User(email = register.email)
     val resetKey = ApiKeysService.apply.generateResetToken()
@@ -41,11 +41,12 @@ class LoginServiceImpl extends LoginService {
     val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
     val userPassword = UserPassword(user.email, hashedTempPass)
     val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
+    println(emailMessage)
     for {
-      _ <- isUserRegistered(register) //check if user is available
-      _ <- UserService.apply.saveEntity(user) // save the user
-      _ <- UserPasswordService.apply.saveEntity(userPassword) //save hashed
-      _ <- UserRoleService.roach.saveEntity(userRole) //save the role
+      isRegistered <- isUserRegistered(register) if !isRegistered //check if user is available
+      savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user
+      savedUserPasswd <- UserPasswordService.apply.saveEntity(userPassword) if savedUserPasswd.isDefined //save hashed
+      savedUserRole <- UserRoleService.roach.saveEntity(userRole) if savedUserRole.isDefined //save the role
       sendEmail <- MailService.sendGrid.sendMail(emailMessage)
     } yield {
       sendEmail.statusCode == 202
@@ -54,7 +55,7 @@ class LoginServiceImpl extends LoginService {
 
   private def authenticateUser(password: String, actualPass: String): Future[Boolean] = {
     Future.successful(AuthenticationService.apply
-      .checkPassword(password, actualPass) )// compare
+      .checkPassword(password, actualPass)) // compare
   }
 
   private def saveLoginToken(email: String, token: String): Future[Option[LoginToken]] = {
@@ -69,14 +70,17 @@ class LoginServiceImpl extends LoginService {
 
   //TODO: Write test case
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
-     for {
+    for {
       user <- UserService.apply.getEntity(login.email) if user.isDefined
       userPassword <- UserPasswordService.apply.getEntity(login.email) if userPassword.isDefined
-      userRole <-UserRoleService.roach.getEntity(login.email) if userRole.isDefined
-      checkPasswd <- authenticateUser(login.email, userPassword.get.password) if checkPasswd
-      token <- TokenCreationService.apply.generateLoginToken(user.get,userRole.get.roleId)
-      loginToken <- saveLoginToken(login.email, token)
-    } yield  loginToken
+      userRole <- UserRoleService.roach.getEntity(login.email) if userRole.isDefined
+      checkPasswd <- authenticateUser(login.password, userPassword.get.password) if checkPasswd
+      token <- TokenCreationService.apply.generateLoginToken(user.get, userRole.get.roleId)
+//      loginToken <- saveLoginToken(login.email, token)
+    } yield {
+      println(token)
+      Some(LoginToken("", ""))
+    }
   }
 
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {
@@ -115,7 +119,10 @@ class LoginServiceImpl extends LoginService {
     val emailToken = LoginToken(register.email, "")
     LoginTokenService.apply.deleteEntity(emailToken)
   }
+
+  override def checkFileSize(size: Long): Future[Boolean] = {
+    Future.successful(size < 10000000)
+  }
+
+
 }
-
-
-

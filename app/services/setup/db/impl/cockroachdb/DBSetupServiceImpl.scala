@@ -11,12 +11,10 @@ import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
 import services.users.{UserAddressService, UserApplicationResultService, UserCommunicationService, UserContactsService, UserDemographicsService, UserDocumentsService, UserInstitutionService, UserPasswordService, UserRelativeService, UserResultsService, UserRoleService, UserService, UserSubjectsService}
-import services.login.{LoginService,LoginTokenService}
-
 
 import scala.concurrent.Future
 
- class DBSetupServiceImpl extends DBSetupService {
+class DBSetupServiceImpl extends DBSetupService {
 
   def createLocationTables(): Future[Boolean] = {
     LocationService.roach.createTable
@@ -77,14 +75,7 @@ import scala.concurrent.Future
     UserResultsService.roach.createTable
     UserService.apply.createTable
 
-
-  }
-
-  def createLoginTables(): Future[Boolean] = {
-
-    LoginTokenService.apply.createTable
-
-
+    //TODO: Add table creation for UserResultsTable and UserTable
   }
 
   override def createTables: Future[Boolean] = {
@@ -106,8 +97,6 @@ import scala.concurrent.Future
     createSubjectTables()
 
     createUserTables()
-
-    createLoginTables()
 
   }
 }
