@@ -2,7 +2,7 @@ package repository.login
 
 import domain.login.LoginToken
 import repository.Repository
-import repository.login.Impl.cassandra.LoginTokenRepositoryImpl
+import repository.login.impl.cockroachdb.LoginTokenRepositoryImpl
 
 
 trait LoginTokenRepository extends Repository[LoginToken] {

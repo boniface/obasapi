@@ -9,6 +9,7 @@ import org.scalatest.FunSuite
 class FileUploadTest extends FunSuite {
   val url = getClass().getResource("3.JPG")
   val file = new File(url.getPath())
+  println()
   val logo = new FileInputStream(file)
   val baseUrl = "http://localhost:9000"
   val UPLOAD = "upload"

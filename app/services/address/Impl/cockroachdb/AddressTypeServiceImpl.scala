@@ -13,8 +13,7 @@ class AddressTypeServiceImpl extends AddressTypeService{
     AddressTypeRepository.roach.saveEntity(entity)
 
   override def getEntities: Future[Seq[AddressType]] = {
-    println(" The Address Type is Requested Here ")
-    AddressTypeRepository.roach.getEntities
+      AddressTypeRepository.roach.getEntities
   }
 
   override def getEntity(addressTypeID: String): Future[Option[AddressType]] = {

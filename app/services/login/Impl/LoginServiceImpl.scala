@@ -27,13 +27,14 @@ class LoginServiceImpl extends LoginService {
     val resetKey = ApiKeysService.apply.generateResetToken()
     val resetToken = ResetToken(resetKey, register.email)
     val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, siteUrl)
+    println(resetMessage)
     for {
       saveToken <- ResetTokenService.apply.saveEntity(resetToken)
       _ <- MailService.sendGrid.sendMail(resetMessage)
     } yield saveToken
   }
 
-  //TODO: Write test case
+  //TODO: Email doesn't send!
   override def register(register: Register): Future[Boolean] = {
     val tempPass = AuthenticationService.apply.generateRandomPassword() // generated password
     val hashedTempPass = AuthenticationService.apply.getHashedPassword(tempPass) // hash passwrd
@@ -41,11 +42,12 @@ class LoginServiceImpl extends LoginService {
     val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
     val userPassword = UserPassword(user.email, hashedTempPass)
     val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
+    println(emailMessage)
     for {
-      _ <- isUserRegistered(register) //check if user is available
-      _ <- UserService.apply.saveEntity(user) // save the user
-      _ <- UserPasswordService.apply.saveEntity(userPassword) //save hashed
-      _ <- UserRoleService.roach.saveEntity(userRole) //save the role
+      isRegistered <- isUserRegistered(register) if !isRegistered //check if user is available
+      savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user
+      savedUserPasswd <- UserPasswordService.apply.saveEntity(userPassword) if savedUserPasswd.isDefined //save hashed
+      savedUserRole <- UserRoleService.roach.saveEntity(userRole) if savedUserRole.isDefined //save the role
       sendEmail <- MailService.sendGrid.sendMail(emailMessage)
     } yield {
       sendEmail.statusCode == 202
@@ -67,13 +69,12 @@ class LoginServiceImpl extends LoginService {
   }
 
 
-  //TODO: Write test case
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
     for {
       user <- UserService.apply.getEntity(login.email) if user.isDefined
       userPassword <- UserPasswordService.apply.getEntity(login.email) if userPassword.isDefined
       userRole <- UserRoleService.roach.getEntity(login.email) if userRole.isDefined
-      checkPasswd <- authenticateUser(login.email, userPassword.get.password) if checkPasswd
+      checkPasswd <- authenticateUser(login.password, userPassword.get.password) if checkPasswd
       token <- TokenCreationService.apply.generateLoginToken(user.get, userRole.get.roleId)
       loginToken <- saveLoginToken(login.email, token)
     } yield loginToken
@@ -85,6 +86,7 @@ class LoginServiceImpl extends LoginService {
       user <- UserService.apply.getEntity(resetToken.get.email)
       send <- resetAccount(user)
     } yield send
+
   }
 
   private def resetAccount(user: Option[User]): Future[Boolean] = {
@@ -92,6 +94,7 @@ class LoginServiceImpl extends LoginService {
     lazy val newHashedPassword = AuthenticationService.apply.getHashedPassword(generatedPassword)
     lazy val userPassword = UserPassword(user.get.email, newHashedPassword)
     lazy val emailMessage = EmailCreationMessageService.apply.passwordResetMessage(user.get, generatedPassword)
+    println(emailMessage)
     for {
       _ <- UserPasswordService.apply.saveEntity(userPassword)
       sent <- MailService.sendGrid.sendMail(emailMessage)
@@ -113,6 +116,7 @@ class LoginServiceImpl extends LoginService {
 
   override def logOut(register: Register): Future[Boolean] = {
     val emailToken = LoginToken(register.email, "")
+    println(emailToken)
     LoginTokenService.apply.deleteEntity(emailToken)
   }
 
