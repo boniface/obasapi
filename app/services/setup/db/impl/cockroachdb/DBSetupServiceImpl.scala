@@ -7,6 +7,7 @@ import services.demographics.{GenderService, RaceService, RoleService, TitleServ
 import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
+import services.login.LoginTokenService
 import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
@@ -78,6 +79,10 @@ class DBSetupServiceImpl extends DBSetupService {
     //TODO: Add table creation for UserResultsTable and UserTable
   }
 
+  def createLoginTokenTables(): Future[Boolean] ={
+    LoginTokenService.apply.createTable
+  }
+
   override def createTables: Future[Boolean] = {
 
     createAddressTables()
@@ -97,6 +102,8 @@ class DBSetupServiceImpl extends DBSetupService {
     createSubjectTables()
 
     createUserTables()
+
+    createLocationTables()
 
   }
 }
