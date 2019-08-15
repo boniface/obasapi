@@ -2,7 +2,7 @@ package repository.login
 
 import domain.login.UserLoginEvents
 import repository.Repository
-import repository.login.Impl.cassandra.UserLoginEventsRepositoryImpl
+import repository.login.impl.cockroachdb.UserLoginEventsRepositoryImpl
 
 import scala.concurrent.Future
 
