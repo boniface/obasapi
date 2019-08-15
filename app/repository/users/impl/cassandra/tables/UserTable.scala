@@ -1,10 +1,10 @@
 package repository.users.impl.cassandra.tables
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDateTime
 
 import com.outworkers.phantom.dsl._
-import com.outworkers.phantom.streams._
 import com.outworkers.phantom.jdk8._
+import com.outworkers.phantom.streams._
 import domain.users.User
 
 import scala.concurrent.Future

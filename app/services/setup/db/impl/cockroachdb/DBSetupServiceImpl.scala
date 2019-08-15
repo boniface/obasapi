@@ -1,6 +1,5 @@
 package services.setup.db.impl.cockroachdb
 
-import domain.users.{UserApplicationResult, UserContacts, UserDemographics, UserInstitution, UserPassword, UserRelative, UserSubjects}
 import services.address.{AddressTypeService, ContactTypeService}
 import services.application.{ApplicantTypeService, ApplicationResultService, ApplicationStatusService}
 import services.demographics.{GenderService, RaceService, RoleService, TitleService}
@@ -9,9 +8,12 @@ import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
 import services.login.LoginTokenService
 import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
+
+import services.security.{ApiKeysService, ResetTokenService}
+
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
-import services.users.{UserAddressService, UserApplicationResultService, UserCommunicationService, UserContactsService, UserDemographicsService, UserDocumentsService, UserInstitutionService, UserPasswordService, UserRelativeService, UserResultsService, UserRoleService, UserService, UserSubjectsService}
+import services.users._
 
 import scala.concurrent.Future
 
@@ -79,8 +81,15 @@ class DBSetupServiceImpl extends DBSetupService {
     //TODO: Add table creation for UserResultsTable and UserTable
   }
 
+
   def createLoginTokenTables(): Future[Boolean] ={
-    LoginTokenService.apply.createTable
+ LoginTokenService.apply.createTable
+  }
+  
+  def createSecurityTables(): Future[Boolean] = {
+    ApiKeysService.apply.createTable
+    ResetTokenService.apply.createTable
+   
   }
 
   override def createTables: Future[Boolean] = {
@@ -105,5 +114,8 @@ class DBSetupServiceImpl extends DBSetupService {
 
     createLocationTables()
 
+    createSecurityTables()
+    
+    createLoginTokenTables()
   }
 }

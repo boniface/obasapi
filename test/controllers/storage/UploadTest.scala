@@ -18,7 +18,6 @@ class UploadTest extends FunSuite {
     println("The results ", result)
 
   }
-
 }
 
 

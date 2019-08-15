@@ -1,7 +1,6 @@
 package domain.users
 
-import java.time.{LocalDate, LocalDateTime}
-
+import java.time.LocalDateTime
 
 import play.api.libs.json.Json
 
