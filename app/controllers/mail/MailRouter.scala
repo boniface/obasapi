@@ -8,7 +8,8 @@ import play.api.routing.sird._
 class MailRouter@Inject()
 (mailConfigController: MailConfigController,
  smtpConfigController: SmtpConfigController,
- mailApiController: MailApiController) extends SimpleRouter {
+ mailApiController: MailApiController,
+emailMessageController: EmailMessageController) extends SimpleRouter {
   override def routes: Routes = {
     //MAIL
     case GET(p"/all") =>
@@ -48,6 +49,18 @@ class MailRouter@Inject()
       mailApiController.deleteEntity
     case POST(p"/api/send") =>
       mailApiController.sendMail
+
+      //EMAILMESSAGE
+    case GET(p"/message/all") =>
+      emailMessageController.getEntities
+    case GET(p"/message/get/$id") =>
+      emailMessageController.getEntity(id)
+    case POST(p"/message/create") =>
+      emailMessageController.create
+    case POST(p"/message/update") =>
+      emailMessageController.update
+    case POST(p"/message/delete") =>
+      emailMessageController.deleteEntity
 
   }
 }

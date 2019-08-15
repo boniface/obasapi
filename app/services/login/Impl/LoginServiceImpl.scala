@@ -80,11 +80,13 @@ class LoginServiceImpl extends LoginService {
     } yield loginToken
   }
 
+  //TODO: Test when sendgrid allows
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {
     for {
       resetToken <- ResetTokenService.apply.getEntity(resetKey) if resetToken.isDefined
       user <- UserService.apply.getEntity(resetToken.get.email)
       send <- resetAccount(user)
+      _ <- ResetTokenService.apply.saveEntity(resetToken.get.copy(status = APPKeys.INACTIVE))
     } yield send
 
   }
