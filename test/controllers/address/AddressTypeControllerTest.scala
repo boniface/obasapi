@@ -29,47 +29,47 @@ class AddressTypeControllerTest extends PlaySpec with GuiceOneAppPerTest with In
     }
   }
 
-//  "Read Entity " in{
-//
-//     val request = route(app, FakeRequest(GET,"/address/get" +entity.addressTypeID)
-//         .withHeaders(AUTHORIZATION -> token)
-//     ).get
-//    status(request) mustBe OK
-//    contentType(request)mustBe Some("application/Json")
-//    println("The Content is: ", contentAsString(request))
-//  }
-//
-//  "Get Entities" in{
-//      val request =route(app, FakeRequest(GET, "address/all")
-//      .withHeaders(AUTHORIZATION -> token)
-//      ).get
-//    status(request) mustBe OK
-//    contentType(request) mustBe Some("application/json")
-//    println("The Content is: ", contentAsString(request))
-//
-//  }
-//
-//  "Update Entity" in{
-//    val updatedEntity =entity.copy(addressName ="updated")
-//    val request =route(app, FakeRequest(POST, "/address/update")
-//    .withJsonBody(Json.toJson(updatedEntity))
-//    .withHeaders(AUTHORIZATION -> token)
-//    ).get
-//    status(request) mustBe OK
-//    contentType(request) mustBe Some("application/json")
-//    println("The Content is: ", contentAsString(request))
-//  }
-//
-//  "Delete Entities" in {
-//    val request =route(app,FakeRequest(POST,"address/delete")
-//    .withJsonBody(Json.toJson(entity))
-//    .withHeaders(AUTHORIZATION ->token)
-//    ).get
-//    status(request) mustBe OK
-//    contentType(request) mustBe Some("application/json")
-//    println("The Content is: ", contentAsString(request))
-//
-//  }
+  "Read Entity " in{
+
+     val request = route(app, FakeRequest(GET,"/address/get" +entity.addressTypeID)
+         .withHeaders(AUTHORIZATION -> token)
+     ).get
+    status(request) mustBe OK
+    contentType(request)mustBe Some("application/Json")
+    println("The Content is: ", contentAsString(request))
+  }
+
+  "Get Entities" in{
+      val request =route(app, FakeRequest(GET, "address/all")
+      .withHeaders(AUTHORIZATION -> token)
+      ).get
+    status(request) mustBe OK
+    contentType(request) mustBe Some("application/json")
+    println("The Content is: ", contentAsString(request))
+
+  }
+
+  "Update Entity" in{
+    val updatedEntity =entity.copy(addressName ="updated")
+    val request =route(app, FakeRequest(POST, "/address/update")
+    .withJsonBody(Json.toJson(updatedEntity))
+    .withHeaders(AUTHORIZATION -> token)
+    ).get
+    status(request) mustBe OK
+    contentType(request) mustBe Some("application/json")
+    println("The Content is: ", contentAsString(request))
+  }
+
+  "Delete Entities" in {
+    val request =route(app,FakeRequest(POST,"address/delete")
+    .withJsonBody(Json.toJson(entity))
+    .withHeaders(AUTHORIZATION ->token)
+    ).get
+    status(request) mustBe OK
+    contentType(request) mustBe Some("application/json")
+    println("The Content is: ", contentAsString(request))
+
+  }
 
 
 }
