@@ -59,15 +59,4 @@ class AddressTypeControllerTest extends PlaySpec with GuiceOneAppPerTest with In
       println("The Content is: ", contentAsString(request))
     }
 
-    "Delete Entities" in {
-      val request = route(app, FakeRequest(POST, "/address/delete")
-        .withJsonBody(Json.toJson(entity))
-        .withHeaders(AUTHORIZATION -> token)
-      ).get
-      status(request) mustBe OK
-      contentType(request) mustBe Some("application/json")
-      println("The Content is: ", contentAsString(request))
 
-    }
-  }
-}

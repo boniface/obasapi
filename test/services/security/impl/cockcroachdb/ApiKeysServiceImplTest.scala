@@ -19,7 +19,6 @@ class ApiKeysServiceImplTest extends FunSuite {
     val key = service.apply.generateJsonPublicKey(phrase)
     val entity = ApiKeys(APPKeys.PUBLICKEY, key, APPKeys.ACTIVE, LocalDateTime.now)
     val result = Await.result(service.apply.saveEntity(entity), 2.minutes)
-    println(result)
     assert(result.nonEmpty)
 
   }

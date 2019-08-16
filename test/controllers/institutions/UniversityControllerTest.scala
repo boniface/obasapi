@@ -9,7 +9,7 @@ import play.api.test.{FakeRequest,Injecting}
 
 class UniversityControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
-  val entity =University("1","Cape Peninsula University of Technology"," Strand Cape Town","Western Cape")
+  val entity =University("1","Cape Peninsula University of Technology"," Strand Cape Town","Western Cape","")
   val token ="eyJsDbNTlcQag"
 
 

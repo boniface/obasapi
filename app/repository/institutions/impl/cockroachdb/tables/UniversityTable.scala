@@ -15,9 +15,9 @@ class UniversityTable(tag: Tag) extends Table[University](tag, "UNIVERSITY") {
 
   def universityName: Rep[String] = column[String]("UNIVERSITY_NAME")
 
-  def universityProvince: Rep[String] = column[String]("UNIVERSITY_DETAILS")
+  def universityProvince: Rep[String] = column[String]("UNIVERSITY_PROVINCE")
 
-  def universityPhoneNumber: Rep[String] = column[String]("UNIVERSITY_STATE")
+  def universityPhoneNumber: Rep[String] = column[String]("UNIVERSITY_PHONE_NUMBER")
 
   def universityEmail: Rep[String] = column [String]("UNIVERSITY_EMAIL")
 
