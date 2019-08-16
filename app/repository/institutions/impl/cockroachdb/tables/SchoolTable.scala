@@ -15,9 +15,9 @@ class SchoolTable(tag: Tag) extends Table[School](tag, "SCHOOL") {
 
   def schoolName: Rep[String] = column[String]("SCHOOL_NAME")
 
-  def schoolDetails: Rep[String] = column[String]("SCHOOL_DETAILS")
+  def schoolAddress: Rep[String] = column[String]("SCHOOL_ADDRESS")
 
-  def schoolTown: Rep[String] = column[String]("SCHOOL_STATE")
+  def school_PROVINCE: Rep[String] = column[String]("SCHOOL_PROVINCE")
 
   def * : ProvenShape[School] = (schoolId, schoolName, schoolDetails, schoolTown) <> ((School.apply _).tupled, School.unapply)
 }

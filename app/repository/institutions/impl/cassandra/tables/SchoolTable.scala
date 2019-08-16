@@ -26,6 +26,7 @@ abstract class SchoolTableImpl extends SchoolTable with RootConnector {
     insert
       .value(_.schoolId, entity.schoolId)
       .value(_.schoolName, entity.schoolName)
+      .value(_.)
       .value(_.schoolDetails, entity.schoolDetails)
       .value(_.schoolTown, entity.schoolTown)
       .future()
