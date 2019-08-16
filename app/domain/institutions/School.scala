@@ -5,8 +5,9 @@ import play.api.libs.json.Json
 case class School(
                   schoolId:String,
                   schoolName:String,
-                  schoolDetails:String,
-                  schoolTown:String,
+                  schoolProvince:String,
+                  schoolAddress:String,
+                  schoolPhonenumber:String,
 
                  )
 object School{

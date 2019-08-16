@@ -15,11 +15,13 @@ class SchoolTable(tag: Tag) extends Table[School](tag, "SCHOOL") {
 
   def schoolName: Rep[String] = column[String]("SCHOOL_NAME")
 
-  def schoolDetails: Rep[String] = column[String]("SCHOOL_DETAILS")
+  def schoolProvince: Rep[String] = column[String]("SCHOOL_PROVINCE")
 
-  def schoolTown: Rep[String] = column[String]("SCHOOL_STATE")
+  def schoolAddress: Rep[String] = column[String]("SCHOOL_ADDRESS")
 
-  def * : ProvenShape[School] = (schoolId, schoolName, schoolDetails, schoolTown) <> ((School.apply _).tupled, School.unapply)
+  def schoolPhonenumber: Rep[String] = column[String]("SCHOOL_PHONE_NUMBER")
+
+  def * : ProvenShape[School] = (schoolId, schoolName, schoolProvince, schoolAddress,schoolPhonenumber) <> ((School.apply _).tupled, School.unapply)
 }
 
 object SchoolTable extends TableQuery(new SchoolTable(_)) {
