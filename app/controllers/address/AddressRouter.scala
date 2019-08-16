@@ -10,7 +10,6 @@ class AddressRouter @Inject()
  contactTypeController: ContactTypeController) extends SimpleRouter {
   override def routes: Routes = {
 
-    //ADDRESSTYPE
     case GET(p"/all") =>
       addressTypeController.getAllAddressType
     case GET(p"/get/$addressTypeID") =>

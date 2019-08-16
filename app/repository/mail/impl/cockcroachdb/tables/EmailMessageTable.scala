@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import domain.mail.EmailMessage
 
-class EmailMessageTable(tag: Tag) extends Table[EmailMessage](tag, "EMAIL_MESSAGE_TABLE") {
+class EmailMessageTable(tag: Tag) extends Table[EmailMessage](tag, "EMAIL_MESSAGE") {
   def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
 
   def subject: Rep[String] = column[String]("SUBJECT")

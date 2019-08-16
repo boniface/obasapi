@@ -15,7 +15,9 @@ class EmailMessageControllerTest extends PlaySpec with GuiceOneAppPerTest with I
   "EntityController " should {
 
     "Create Entity " in {
-      val request = route(app, FakeRequest(POST, "/message/create")
+
+      val request = route(app, FakeRequest(POST, "/mail/message/create")
+
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -25,8 +27,10 @@ class EmailMessageControllerTest extends PlaySpec with GuiceOneAppPerTest with I
 
     }
 
+
     "Read Entity " in {
-      val request = route(app, FakeRequest(GET, "get//$email" + entity.email)
+      val request = route(app, FakeRequest(GET, "/mail/message/$email" + entity.email)
+
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -37,7 +41,9 @@ class EmailMessageControllerTest extends PlaySpec with GuiceOneAppPerTest with I
     }
 
     "Get Entities" in {
-      val request = route(app, FakeRequest(GET, "/all")
+
+
+      val request = route(app, FakeRequest(GET, "/mail/message/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -48,8 +54,9 @@ class EmailMessageControllerTest extends PlaySpec with GuiceOneAppPerTest with I
     }
 
     "Update Entity" in {
-      val updatedEntity = entity.copy(host = "Updated")
-      val request = route(app, FakeRequest(POST, "/update")
+
+      val updatedEntity = entity.copy(email = "Updated")
+      val request = route(app, FakeRequest(POST, "/mail/message/update")
         .withJsonBody(Json.toJson(updatedEntity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -59,7 +66,9 @@ class EmailMessageControllerTest extends PlaySpec with GuiceOneAppPerTest with I
     }
 
     "Delete Entities " in {
-      val request = route(app, FakeRequest(POST, "/delete" )
+
+      val request = route(app, FakeRequest(POST, "/mail/message/delete" )
+
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -68,6 +77,8 @@ class EmailMessageControllerTest extends PlaySpec with GuiceOneAppPerTest with I
       println(" The Content is: ", contentAsString(request))
 
     }
+
   }
+
 
 }

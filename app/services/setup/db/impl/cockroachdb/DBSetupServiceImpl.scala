@@ -7,7 +7,7 @@ import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
 import services.log.LogEventService
-import services.login.{LoginTokenService, UserLoginEventsService}
+import services.login.LoginTokenService
 import services.mail.{EmailMessageService, MailApiService, MailConfigService, SmtpConfigService}
 import services.security.{ApiKeysService, ResetTokenService}
 import services.setup.db.DBSetupService
@@ -77,12 +77,10 @@ class DBSetupServiceImpl extends DBSetupService {
     UserSubjectsService.roach.createTable
     UserResultsService.roach.createTable
     UserService.apply.createTable
-
   }
 
   def createLoginTables(): Future[Boolean] ={
     LoginTokenService.apply.createTable
-    UserLoginEventsService.apply.createTable
   }
 
   def createSecurityTables(): Future[Boolean] = {
@@ -92,7 +90,7 @@ class DBSetupServiceImpl extends DBSetupService {
   }
 
   def createLogTables(): Future[Boolean] ={
-    LogEventService.roach.createTable
+    LogEventService.apply.createTable
   }
 
   override def createTables: Future[Boolean] = {
