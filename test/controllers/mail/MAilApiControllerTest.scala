@@ -16,7 +16,7 @@ class MAilApiControllerTest extends PlaySpec with GuiceOneAppPerTest with Inject
   "EntityController " should {
 
     "Create Entity " in {
-      val request = route(app, FakeRequest(POST, "/mail/api/userSubscriptionUpdate")
+      val request = route(app, FakeRequest(POST, "/mail/api/create")
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -27,7 +27,7 @@ class MAilApiControllerTest extends PlaySpec with GuiceOneAppPerTest with Inject
     }
 
     "Read Entity " in {
-      val request = route(app, FakeRequest(GET, "/mail/api/get/" + entity.id)
+      val request = route(app, FakeRequest(GET, "/mail/api/get/$id" + entity.id)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
