@@ -11,66 +11,66 @@ import play.api.test.{FakeRequest, Injecting}
 
 class ApplicationStatusControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
 
-  val entity =ApplicationStatus("1","Recieved",LocalDateTime.now())
-  val token ="eyJsDbNTlcQag"
+  val entity = ApplicationStatus("1", "Recieved", LocalDateTime.now())
+  val token = "eyJsDbNTlcQag"
 
 
+  "EntityController" should {
 
-  "EntityController" should{
+    "Create Entity" in {
 
-    "Create Entity" in{
-
-      val request =route(app, FakeRequest(POST,"/status/create")
+      val request = route(app, FakeRequest(POST, "/application/status/create")
         .withJsonBody(Json.toJson(entity))
-        .withHeaders(AUTHORIZATION-> token)
+        .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
       contentType(request) mustBe Some("application/json")
       println("The Content is: ", contentAsString(request))
     }
+
+
+    "Read Entity " in {
+
+      val request = route(app, FakeRequest(GET, "/application/status/get/$applicationStatusId" + entity.applicationStatusId)
+        .withHeaders(AUTHORIZATION -> token)
+      ).get
+      status(request) mustBe OK
+      contentType(request) mustBe Some("application/json")
+      println("The Content is: ", contentAsString(request))
+    }
+
+    "Get Entities" in {
+      val request = route(app, FakeRequest(GET, "/application/status/all")
+        .withHeaders(AUTHORIZATION -> token)
+      ).get
+      status(request) mustBe OK
+      contentType(request) mustBe Some("application/json")
+      println("The Content is: ", contentAsString(request))
+
+    }
+
+    "Update Entity" in {
+      val updatedEntity = entity.copy(description = "updated")
+      val request = route(app, FakeRequest(POST, "/application/status/update")
+        .withJsonBody(Json.toJson(updatedEntity))
+        .withHeaders(AUTHORIZATION -> token)
+      ).get
+      status(request) mustBe OK
+      contentType(request) mustBe Some("application/json")
+      println("The Content is: ", contentAsString(request))
+    }
+
+    "Delete Entities" in {
+      val request = route(app, FakeRequest(POST, "/application/status/delete")
+        .withJsonBody(Json.toJson(entity))
+        .withHeaders(AUTHORIZATION -> token)
+      ).get
+      status(request) mustBe OK
+      contentType(request) mustBe Some("application/json")
+      println("The Content is: ", contentAsString(request))
+
+    }
+
   }
-
-  "Read Entity " in{
-
-    val request = route(app, FakeRequest(GET,"/status/get" +entity.applicationStatusId)
-      .withHeaders(AUTHORIZATION -> token)
-    ).get
-    status(request) mustBe OK
-    contentType(request)mustBe Some("application/Json")
-    println("The Content is: ", contentAsString(request))
-  }
-
-  "Get Entities" in{
-    val request =route(app, FakeRequest(GET, "/status/all")
-      .withHeaders(AUTHORIZATION -> token)
-    ).get
-    status(request) mustBe OK
-    contentType(request) mustBe Some("application/json")
-    println("The Content is: ", contentAsString(request))
-
-  }
-
-  "Update Entity" in{
-    val updatedEntity =entity.copy(description ="updated")
-    val request =route(app, FakeRequest(POST, "/status/update")
-      .withJsonBody(Json.toJson(updatedEntity))
-      .withHeaders(AUTHORIZATION -> token)
-    ).get
-    status(request) mustBe OK
-    contentType(request) mustBe Some("application/json")
-    println("The Content is: ", contentAsString(request))
-  }
-
-  "Delete Entities" in {
-    val request =route(app,FakeRequest(POST,"/status/delete")
-      .withJsonBody(Json.toJson(entity))
-      .withHeaders(AUTHORIZATION ->token)
-    ).get
-    status(request) mustBe OK
-    contentType(request) mustBe Some("application/json")
-    println("The Content is: ", contentAsString(request))
-
-  }
-
 
 }

@@ -8,7 +8,7 @@ trait LogEventService  extends CrudService[LogEvent]{
 
 }
 object LogEventService{
-  def roach: LogEventService = new LogEventServiceImpl()
+  def apply: LogEventService = new LogEventServiceImpl()
 }
 
 

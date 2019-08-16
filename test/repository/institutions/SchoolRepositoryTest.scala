@@ -26,7 +26,6 @@ class SchoolRepositoryTest extends FunSuite{
 
   test("getEntities"){
     val result = Await.result(repository.roach.getEntities, 2 minutes)
-    println(result)
     assert(result.nonEmpty)
   }
   test("updateEntity") {

@@ -15,9 +15,9 @@ class LogEventServiceImpl extends LogEventService{
     LogEventRepository.roach.getEntities
   }
 
-  override def getEntity(id: String)=  ??? //{
- //   LogEventRepository.roach.deleteEntity(id)
-  //}
+  override def getEntity(id: String): Future[Option[LogEvent]] =  {
+    LogEventRepository.roach.getEntity(id)
+  }
 
   override def deleteEntity(entity: LogEvent): Future[Boolean] = {
     LogEventRepository.roach.deleteEntity(entity)

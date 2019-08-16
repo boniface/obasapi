@@ -77,8 +77,6 @@ class DBSetupServiceImpl extends DBSetupService {
     UserSubjectsService.roach.createTable
     UserResultsService.roach.createTable
     UserService.apply.createTable
-
-    //TODO: Add table creation for UserResultsTable and UserTable
   }
 
   def createLoginTables(): Future[Boolean] ={
@@ -92,7 +90,7 @@ class DBSetupServiceImpl extends DBSetupService {
   }
 
   def createLogTables(): Future[Boolean] ={
-    LogEventService.roach.createTable
+    LogEventService.apply.createTable
   }
 
   override def createTables: Future[Boolean] = {
