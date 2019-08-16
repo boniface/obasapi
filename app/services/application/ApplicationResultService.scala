@@ -2,7 +2,7 @@ package services.application
 
 import domain.application.ApplicationResult
 import services.CrudService
-import services.application.Impl.cockroachdb
+import services.application.Impl.cockroachdb.ApplicationResultServiceImpl
 
 trait ApplicationResultService extends CrudService[ApplicationResult]{
 
@@ -10,5 +10,5 @@ trait ApplicationResultService extends CrudService[ApplicationResult]{
 
  object ApplicationResultService
 {
-  def roach: ApplicationResultService = new cockroachdb.ApplicationResultServiceImpl()
+  def roach: ApplicationResultService = new ApplicationResultServiceImpl()
 }
