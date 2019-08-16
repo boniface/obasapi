@@ -12,9 +12,11 @@ abstract class SchoolTable extends Table[SchoolTable, School] {
 
   object schoolName extends StringColumn
 
-  object schoolDetails extends StringColumn
+  object schoolProvince extends StringColumn
 
-  object schoolTown extends StringColumn
+  object schoolAddress extends StringColumn
+
+  object schoolPhonenumber extends StringColumn
 
 }
 
@@ -26,9 +28,9 @@ abstract class SchoolTableImpl extends SchoolTable with RootConnector {
     insert
       .value(_.schoolId, entity.schoolId)
       .value(_.schoolName, entity.schoolName)
-      .value(_.)
-      .value(_.schoolDetails, entity.schoolDetails)
-      .value(_.schoolTown, entity.schoolTown)
+      .value(_.schoolAddress, entity.schoolAddress)
+      .value(_.schoolProvince, entity.schoolProvince)
+      .value(_.schoolPhonenumber, entity.schoolPhonenumber)
       .future()
   }
 
