@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserRoleTable(tag: Tag) extends Table[UserRole](tag, "USERROLE") {
+class UserRoleTable(tag: Tag) extends Table[UserRole](tag, "USER_ROLE") {
   def userId: Rep[String] = column[String]("USER_ID", O.PrimaryKey)
 
   def roleId: Rep[String] = column[String]("ROLE_ID")

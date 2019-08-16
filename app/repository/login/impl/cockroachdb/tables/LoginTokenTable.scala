@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class LoginTokenTable(tag: Tag) extends Table[LoginToken](tag, "LOGINTOKEN") {
+class LoginTokenTable(tag: Tag) extends Table[LoginToken](tag, "LOGIN_TOKEN") {
   def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
 
   def token: Rep[String] = column[String]("TOKEN")
