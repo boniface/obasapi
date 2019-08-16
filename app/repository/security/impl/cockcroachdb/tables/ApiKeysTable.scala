@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class ApiKeysTable(tag: Tag) extends Table[ApiKeys](tag, "APIKEYS") {
+class ApiKeysTable(tag: Tag) extends Table[ApiKeys](tag, "API_KEYS") {
   def id: Rep[String] = column[String]("APIKEYS_ID", O.PrimaryKey)
 
   def value: Rep[String] = column[String]("APIKEYS_VALUE")

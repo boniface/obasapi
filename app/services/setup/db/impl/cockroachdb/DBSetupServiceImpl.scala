@@ -7,7 +7,7 @@ import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
 import services.log.LogEventService
-import services.login.LoginTokenService
+import services.login.{LoginTokenService, UserLoginEventsService}
 import services.mail.{EmailMessageService, MailApiService, MailConfigService, SmtpConfigService}
 import services.security.{ApiKeysService, ResetTokenService}
 import services.setup.db.DBSetupService
@@ -78,11 +78,11 @@ class DBSetupServiceImpl extends DBSetupService {
     UserResultsService.roach.createTable
     UserService.apply.createTable
 
-    //TODO: Add table creation for UserResultsTable and UserTable
   }
 
   def createLoginTables(): Future[Boolean] ={
     LoginTokenService.apply.createTable
+    UserLoginEventsService.apply.createTable
   }
 
   def createSecurityTables(): Future[Boolean] = {

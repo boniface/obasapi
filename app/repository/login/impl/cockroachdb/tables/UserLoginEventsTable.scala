@@ -12,7 +12,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserLoginEventsTable(tag: Tag) extends Table[UserLoginEvents](tag, "USERSLOGINEVENTS") {
+class UserLoginEventsTable(tag: Tag) extends Table[UserLoginEvents](tag, "USERS_LOGIN_EVENTS") {
   def id: Rep[String] = column[String]("USEREVENTS_ID", O.PrimaryKey)
 
   def email: Rep[String] = column[String]("EMAIL")

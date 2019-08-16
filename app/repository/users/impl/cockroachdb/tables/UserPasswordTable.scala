@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserPasswordTable(tag: Tag) extends Table[UserPassword](tag, "USERPASSWORD") {
+class UserPasswordTable(tag: Tag) extends Table[UserPassword](tag, "USER_PASSWORD") {
   def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
 
   def password: Rep[String] = column[String]("PASSWORD")
