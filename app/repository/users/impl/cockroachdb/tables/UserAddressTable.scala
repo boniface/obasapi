@@ -32,7 +32,6 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
       (this returning this).insertOrUpdate(userAddress)
     )
 
-//    db.run(this returning this.map(_.userAddressId) into ((acc, userAddressId) => acc.copy(userAddressId = userAddressId)) += userAddress)
   }
 
   def getEntities: Future[Seq[UserAddress]] = {

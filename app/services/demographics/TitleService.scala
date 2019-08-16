@@ -2,7 +2,7 @@ package services.demographics
 
 import domain.demographics.Title
 import services.CrudService
-import services.demographics.Impl.cockroachdb
+import services.demographics.Impl.cockroachdb.TitleServiceImpl
 
 trait TitleService extends CrudService[Title]{
 
@@ -12,5 +12,5 @@ trait TitleService extends CrudService[Title]{
 
 object TitleService{
 
-  def roach: TitleService = new cockroachdb.TitleServiceImpl()
+  def roach: TitleService = new TitleServiceImpl()
 }
