@@ -1,6 +1,6 @@
 package repository.users.impl.cockroachdb.tables
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDateTime
 
 import domain.users.User
 import slick.jdbc.PostgresProfile.api._

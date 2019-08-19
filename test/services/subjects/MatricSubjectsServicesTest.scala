@@ -17,13 +17,11 @@ class MatricSubjectsServicesTest extends FunSuite {
 
   test("readEntity"){
     val result = Await.result(service.roach.getEntity(entity.subjectCode), 2 minutes)
-    print(result)
     assert(result.head.subjectCode==entity.subjectCode)
   }
 
   test("getEntities"){
     val result = Await.result(service.roach.getEntities, 2 minutes)
-    print(result)
     assert(result.nonEmpty)
   }
 

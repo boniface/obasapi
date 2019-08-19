@@ -12,9 +12,11 @@ abstract class UniversityTable extends Table[UniversityTable, University] {
 
   object universityName extends StringColumn
 
-  object universityDetails extends StringColumn
+  object universityProvince extends StringColumn
 
-  object universityState extends StringColumn
+  object universityPhoneNumber extends StringColumn
+
+  object universityEmail extends StringColumn
 
 }
 
@@ -26,8 +28,9 @@ abstract class UniversityTableImpl extends UniversityTable with RootConnector {
     insert
       .value(_.universityId, entity.universityId)
       .value(_.universityName, entity.universityName)
-      .value(_.universityDetails, entity.universityDetails)
-      .value(_.universityState, entity.universityState)
+      .value(_.universityProvince, entity.universityProvince)
+      .value(_.universityPhoneNumber, entity.universityPhoneNumber)
+      .value(_.universityEmail, entity.universityEmail)
       .future()
   }
 

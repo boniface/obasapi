@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "USERADDRESS") {
+class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "USER_ADDRESS") {
   def userAddressId: Rep[String] = column[String]("USER_ADDRESS_ID", O.PrimaryKey)
 
   def physicalAddress: Rep[String] = column[String]("PHYSICAL_ADDRESS")
@@ -32,7 +32,6 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
       (this returning this).insertOrUpdate(userAddress)
     )
 
-//    db.run(this returning this.map(_.userAddressId) into ((acc, userAddressId) => acc.copy(userAddressId = userAddressId)) += userAddress)
   }
 
   def getEntities: Future[Seq[UserAddress]] = {

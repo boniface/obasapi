@@ -15,11 +15,15 @@ class UniversityTable(tag: Tag) extends Table[University](tag, "UNIVERSITY") {
 
   def universityName: Rep[String] = column[String]("UNIVERSITY_NAME")
 
-  def universityDetails: Rep[String] = column[String]("UNIVERSITY_DETAILS")
+  def universityProvince: Rep[String] = column[String]("UNIVERSITY_PROVINCE")
 
-  def universityState: Rep[String] = column[String]("UNIVERSITY_STATE")
+  def universityPhoneNumber: Rep[String] = column[String]("UNIVERSITY_PHONE_NUMBER")
 
-  def * : ProvenShape[University] = (universityId, universityName, universityDetails, universityState) <> ((University.apply _).tupled, University.unapply)
+  def universityEmail: Rep[String] = column [String]("UNIVERSITY_EMAIL")
+
+
+
+  def * : ProvenShape[University] = (universityId, universityName,universityProvince,universityPhoneNumber,universityEmail) <> ((University.apply _).tupled, University.unapply)
 }
 
 object UniversityTable extends TableQuery(new UniversityTable(_)) {

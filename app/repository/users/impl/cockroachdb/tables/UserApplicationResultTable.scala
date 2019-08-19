@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserApplicationResultTable(tag: Tag) extends Table[UserApplicationResult](tag, "USERAPPLICATIONRESULT") {
+class UserApplicationResultTable(tag: Tag) extends Table[UserApplicationResult](tag, "USER_APPLICATION_RESULT") {
   def userApplicationResultId: Rep[String] = column[String]("USER_APPLICATION_RESULT_ID", O.PrimaryKey)
 
   def description: Rep[String] = column[String]("DESCRIPTION")
