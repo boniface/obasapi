@@ -10,10 +10,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserPasswordTable(tag: Tag) extends Table[UserPassword](tag, "USER_PASSWORD") {
-  def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
+class UserPasswordTable(tag: Tag) extends Table[UserPassword](tag, "user_password") {
+  def email: Rep[String] = column[String]("email", O.PrimaryKey)
 
-  def password: Rep[String] = column[String]("PASSWORD")
+  def password: Rep[String] = column[String]("password")
 
   def * : ProvenShape[UserPassword] = (email, password) <> ((UserPassword.apply _).tupled, UserPassword.unapply)
 }

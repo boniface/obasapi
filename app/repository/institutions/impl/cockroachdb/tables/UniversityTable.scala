@@ -10,16 +10,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UniversityTable(tag: Tag) extends Table[University](tag, "UNIVERSITY") {
-  def universityId: Rep[String] = column[String]("UNIVERSITY_ID", O.PrimaryKey)
+class UniversityTable(tag: Tag) extends Table[University](tag, "university") {
+  def universityId: Rep[String] = column[String]("university_id", O.PrimaryKey)
 
-  def universityName: Rep[String] = column[String]("UNIVERSITY_NAME")
+  def universityName: Rep[String] = column[String]("university_name")
 
-  def universityProvince: Rep[String] = column[String]("UNIVERSITY_PROVINCE")
+  def universityProvince: Rep[String] = column[String]("university_province")
 
-  def universityPhoneNumber: Rep[String] = column[String]("UNIVERSITY_PHONE_NUMBER")
+  def universityPhoneNumber: Rep[String] = column[String]("university_phone_number")
 
-  def universityEmail: Rep[String] = column [String]("UNIVERSITY_EMAIL")
+  def universityEmail: Rep[String] = column [String]("university_email")
 
 
 

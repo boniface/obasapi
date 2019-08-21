@@ -10,16 +10,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class SchoolTable(tag: Tag) extends Table[School](tag, "SCHOOL") {
-  def schoolId: Rep[String] = column[String]("SCHOOL_ID", O.PrimaryKey)
+class SchoolTable(tag: Tag) extends Table[School](tag, "school") {
+  def schoolId: Rep[String] = column[String]("school_id", O.PrimaryKey)
 
-  def schoolName: Rep[String] = column[String]("SCHOOL_NAME")
+  def schoolName: Rep[String] = column[String]("school_name")
 
-  def schoolProvince: Rep[String] = column[String]("SCHOOL_PROVINCE")
+  def schoolProvince: Rep[String] = column[String]("school_province")
 
-  def schoolAddress: Rep[String] = column[String]("SCHOOL_ADDRESS")
+  def schoolAddress: Rep[String] = column[String]("school_address")
 
-  def schoolPhonenumber: Rep[String] = column[String]("SCHOOL_PHONE_NUMBER")
+  def schoolPhonenumber: Rep[String] = column[String]("school_phone_number")
 
   def * : ProvenShape[School] = (schoolId, schoolName, schoolProvince, schoolAddress,schoolPhonenumber) <> ((School.apply _).tupled, School.unapply)
 }

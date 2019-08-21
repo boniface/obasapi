@@ -10,12 +10,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import domain.mail.EmailMessage
 
-class EmailMessageTable(tag: Tag) extends Table[EmailMessage](tag, "EMAIL_MESSAGE") {
-  def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
+class EmailMessageTable(tag: Tag) extends Table[EmailMessage](tag, "email_message") {
+  def email: Rep[String] = column[String]("email", O.PrimaryKey)
 
-  def subject: Rep[String] = column[String]("SUBJECT")
+  def subject: Rep[String] = column[String]("subject")
 
-  def content: Rep[String] = column[String]("CONTENT")
+  def content: Rep[String] = column[String]("content")
 
   def * : ProvenShape[EmailMessage] = (email, subject, content) <> ((EmailMessage.apply _).tupled, EmailMessage.unapply)
 }

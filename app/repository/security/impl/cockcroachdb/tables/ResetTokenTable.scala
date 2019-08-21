@@ -10,10 +10,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ResetTokenTable(tag: Tag) extends Table[ResetToken](tag, "RESET_TOKENS") {
-  def resetokenvalue: Rep[String] = column[String]("RESETTOKENVALUE", O.PrimaryKey)
-  def email: Rep[String] = column[String]("EMAIL")
+  def resetokenvalue: Rep[String] = column[String]("reset_token_value", O.PrimaryKey)
+  def email: Rep[String] = column[String]("email")
 
-  def status: Rep[String] = column[String]("STATUS")
+  def status: Rep[String] = column[String]("status")
 
   def * : ProvenShape[ResetToken] = (resetokenvalue, email, status) <> ((ResetToken.apply _).tupled, ResetToken.unapply)
 }

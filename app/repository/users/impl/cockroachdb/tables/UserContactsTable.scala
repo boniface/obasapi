@@ -10,14 +10,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserContactsTable(tag: Tag) extends Table[UserContacts](tag, "USER_CONTACTS") {
-  def userContactId: Rep[String] = column[String]("USER_CONTACT_ID", O.PrimaryKey)
+class UserContactsTable(tag: Tag) extends Table[UserContacts](tag, "user_contacts") {
+  def userContactId: Rep[String] = column[String]("user_contact_id", O.PrimaryKey)
 
-  def cellNumber: Rep[String] = column[String]("CELL_NUMBER")
+  def cellNumber: Rep[String] = column[String]("cell_number")
 
-  def alternativeNumber: Rep[String] = column[String]("ALTERNATIVE_NUMBER")
+  def alternativeNumber: Rep[String] = column[String]("alternative_number")
 
-  def alternativeEmail: Rep[String] = column[String]("ALTERNATIVE_EMAIL")
+  def alternativeEmail: Rep[String] = column[String]("alternative_email")
 
   def * : ProvenShape[UserContacts] = (userContactId, cellNumber, alternativeNumber, alternativeEmail) <> ((UserContacts.apply _).tupled, UserContacts.unapply)
 }

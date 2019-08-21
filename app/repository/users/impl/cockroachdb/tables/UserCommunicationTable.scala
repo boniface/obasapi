@@ -10,10 +10,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserCommunicationTable(tag: Tag) extends Table[UserCommunication](tag, "USER_COMMUNICATION") {
-  def communicationId: Rep[String] = column[String]("COMMUNICATION_ID", O.PrimaryKey)
+class UserCommunicationTable(tag: Tag) extends Table[UserCommunication](tag, "user_communication") {
+  def communicationId: Rep[String] = column[String]("communication_id", O.PrimaryKey)
 
-  def description: Rep[String] = column[String]("DESCRIPTION")
+  def description: Rep[String] = column[String]("description")
 
   def * : ProvenShape[UserCommunication] = (communicationId, description) <> ((UserCommunication.apply _).tupled, UserCommunication.unapply)
 }

@@ -10,20 +10,20 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class LocationTable(tag: Tag) extends Table[Location](tag, "LOCATION") {
-  def locationId: Rep[String] = column[String]("LOCATION_ID", O.PrimaryKey)
+class LocationTable(tag: Tag) extends Table[Location](tag, "location") {
+  def locationId: Rep[String] = column[String]("location_id", O.PrimaryKey)
 
-  def name: Rep[String] = column[String]("NAME")
+  def name: Rep[String] = column[String]("name")
 
-  def latitude: Rep[String] = column[String]("LATITUDE")
+  def latitude: Rep[String] = column[String]("latitude")
 
-  def longitude: Rep[String] = column[String]("LONGITUDE")
+  def longitude: Rep[String] = column[String]("longitude")
 
-  def code: Rep[String] = column[String]("CODE")
+  def code: Rep[String] = column[String]("code")
 
-  def locationTypeId: Rep[String] = column[String]("LOCATION_TYPE_ID")
+  def locationTypeId: Rep[String] = column[String]("location_type_id")
 
-  def parentId:Rep[Option[String]] = column[Option[String]]("PARENT_ID")
+  def parentId:Rep[Option[String]] = column[Option[String]]("parent_id")
 
   def * : ProvenShape[Location] = (locationId, name, latitude, longitude, code, locationTypeId, parentId) <> ((Location.apply _).tupled, Location.unapply)
 }
