@@ -16,16 +16,16 @@ import util.HelperUtil
 import scala.concurrent.Future
 
 
-class LogEventTable(tag: Tag) extends Table[LogEvent](tag, "LOG_EVENT") {
-  def id: Rep[String] = column[String]("ID", O.PrimaryKey)
+class LogEventTable(tag: Tag) extends Table[LogEvent](tag, "log_event") {
+  def id: Rep[String] = column[String]("id", O.PrimaryKey)
 
-  def eventName: Rep[String] = column[String]("EVENTNAME")
+  def eventName: Rep[String] = column[String]("event_name")
 
-  def eventType: Rep[String] = column[String]("EVENT_TYPE")
+  def eventType: Rep[String] = column[String]("event_type")
 
-  def message: Rep[String] = column[String]("MESSAGE")
+  def message: Rep[String] = column[String]("message")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATETIME")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("datetime")
 
 
 

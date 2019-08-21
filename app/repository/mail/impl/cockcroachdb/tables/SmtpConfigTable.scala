@@ -11,16 +11,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class SmtpConfigTable(tag: Tag) extends Table[SmtpConfig](tag, "SMTPCONFIG") {
-  def id: Rep[String] = column[String]("SMTPCONFIG_ID", O.PrimaryKey)
+class SmtpConfigTable(tag: Tag) extends Table[SmtpConfig](tag, "smtp_config") {
+  def id: Rep[String] = column[String]("smtp_config_id", O.PrimaryKey)
 
-  def port: Rep[Int] = column[Int]("PORT")
+  def port: Rep[Int] = column[Int]("port")
 
-  def host: Rep[String] = column[String]("HOST")
+  def host: Rep[String] = column[String]("host")
 
-  def username: Rep[String] = column[String]("USERNAME")
+  def username: Rep[String] = column[String]("username")
 
-  def password: Rep[String] = column[String]("PASSWORD")
+  def password: Rep[String] = column[String]("password")
 
   def * : ProvenShape[SmtpConfig] = (id,port,host,username,password) <> ((SmtpConfig.apply _).tupled, SmtpConfig.unapply)
 }

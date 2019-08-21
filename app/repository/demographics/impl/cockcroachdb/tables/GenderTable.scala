@@ -9,11 +9,11 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class GenderTable(tag: Tag) extends Table[Gender](tag, _tableName = "GENDER"){
+class GenderTable(tag: Tag) extends Table[Gender](tag, _tableName = "gender"){
 
-  def genderId: Rep[String] = column[String]("GENDER_ID", O.PrimaryKey)
+  def genderId: Rep[String] = column[String]("gender_id", O.PrimaryKey)
 
-  def genderName: Rep[String] = column[String]("GENDER_NAME")
+  def genderName: Rep[String] = column[String]("gender_name")
 
 
 

@@ -9,11 +9,11 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class RolesTable(tag: Tag) extends Table[Roles] (tag, _tableName = "ROLES"){
+class RolesTable(tag: Tag) extends Table[Roles] (tag, _tableName = "roles"){
 
-  def id: Rep[String] = column[String]("ID", O.PrimaryKey)
+  def id: Rep[String] = column[String]("id", O.PrimaryKey)
 
-  def roleName: Rep[String] = column[String]("ROLE_NAME")
+  def roleName: Rep[String] = column[String]("role_name")
 
 
 

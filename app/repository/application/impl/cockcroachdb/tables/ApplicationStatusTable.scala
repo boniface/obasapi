@@ -12,13 +12,13 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _tableName = "APPLICATION_STATUS") {
+class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _tableName = "application_status") {
 
-  def applicationStatusId: Rep[String] = column[String]("APPLICATION_STATUS_ID", O.PrimaryKey)
+  def applicationStatusId: Rep[String] = column[String]("application_status_id", O.PrimaryKey)
 
-  def description: Rep[String] = column[String]("DESCRIPTION")
+  def description: Rep[String] = column[String]("description")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("date")
 
   override def * : ProvenShape[ApplicationStatus] = (applicationStatusId,description,date) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
 }

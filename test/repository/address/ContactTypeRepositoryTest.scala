@@ -25,6 +25,7 @@ class ContactTypeRepositoryTest extends FunSuite {
     assert(result.nonEmpty)
   }
 
+
   test("updateEntity") {
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
     assert(result.isEmpty)

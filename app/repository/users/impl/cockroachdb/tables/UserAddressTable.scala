@@ -10,12 +10,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "USER_ADDRESS") {
-  def userAddressId: Rep[String] = column[String]("USER_ADDRESS_ID", O.PrimaryKey)
+class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
+  def userAddressId: Rep[String] = column[String]("user_address_id", O.PrimaryKey)
 
-  def physicalAddress: Rep[String] = column[String]("PHYSICAL_ADDRESS")
+  def physicalAddress: Rep[String] = column[String]("physical_address")
 
-  def postalCode: Rep[String] = column[String]("POSTAL_CODE")
+  def postalCode: Rep[String] = column[String]("postal_code")
 
   def * : ProvenShape[UserAddress] = (userAddressId, physicalAddress, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
 }
