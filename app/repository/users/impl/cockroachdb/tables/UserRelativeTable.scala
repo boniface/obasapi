@@ -10,16 +10,16 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserRelativeTable(tag: Tag) extends Table[UserRelative](tag, "USERRELATIVE") {
-  def userRelativeId: Rep[String] = column[String]("USER_RELATIVE_ID", O.PrimaryKey)
+class UserRelativeTable(tag: Tag) extends Table[UserRelative](tag, "user_relative") {
+  def userRelativeId: Rep[String] = column[String]("user_relative_id", O.PrimaryKey)
 
-  def name: Rep[String] = column[String]("NAME")
+  def name: Rep[String] = column[String]("name")
 
-  def cellphone: Rep[String] = column[String]("CELLPHONE")
+  def cellphone: Rep[String] = column[String]("cellphone")
 
-  def relationship: Rep[String] = column[String]("RELATIONSHIP")
+  def relationship: Rep[String] = column[String]("relationship")
 
-  def email: Rep[String] = column[String]("EMAIL")
+  def email: Rep[String] = column[String]("email")
 
   def * : ProvenShape[UserRelative] = (userRelativeId, name, cellphone, relationship, email) <> ((UserRelative.apply _).tupled, UserRelative.unapply)
 }

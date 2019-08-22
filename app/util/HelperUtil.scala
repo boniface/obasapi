@@ -85,4 +85,8 @@ object HelperUtil {
     }
   }
 
+  def getSiteURL: String = {
+    config.getString("base.url")
+  }
+
 }

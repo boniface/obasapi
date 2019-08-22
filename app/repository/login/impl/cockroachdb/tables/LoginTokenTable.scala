@@ -12,10 +12,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class LoginTokenTable(tag: Tag) extends Table[LoginToken](tag, "LOGINTOKEN") {
-  def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
+class LoginTokenTable(tag: Tag) extends Table[LoginToken](tag, "login_token") {
+  def email: Rep[String] = column[String]("email", O.PrimaryKey)
 
-  def token: Rep[String] = column[String]("TOKEN")
+  def token: Rep[String] = column[String]("token")
 
 
   def * : ProvenShape[LoginToken] = (email, token) <> ((LoginToken.apply _).tupled, LoginToken.unapply)

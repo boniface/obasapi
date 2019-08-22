@@ -9,13 +9,13 @@ import play.api.test.{FakeRequest, Injecting}
 
 class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with Injecting {
   val entity = SmtpConfig("1", 587, "smtp@gmail.com","username","password")
-  val token = "eyJsDbNTlcQag"
+  val token = "eyJraWQiOiJURVNUX1BIUkFTRSIsImFsZyI6IkVTMjU2In0.eyJpc3MiOiJIQVNIQ09ERS5aTSIsImF1ZCI6IlNJVEVVU0VSUyIsImV4cCI6MTU2NjQ3NDYzNiwianRpIjoiX0dxSG9Dc3dFU1J1R2pGaXBsRzhHZyIsImlhdCI6MTU2NjM4ODIzNiwibmJmIjoxNTY2Mzg4MTE2LCJzdWIiOiJTaXRlIEFjY2VzcyIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJyb2xlIjoiU1RSMDAxIn0.JH-vlwm0PSRSoBE9D3ZrgMhf_Li3gARBLCf6NUZNdHifvbYo3_iQaaBf8baI2H5DgO87oN6Jrb1RGSxVXdIcDg"
 
 
   "EntityController " should {
 
     "Create Entity " in {
-      val request = route(app, FakeRequest(POST, "/smtp/create")
+      val request = route(app, FakeRequest(POST, "/mail/smtp/create")
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -26,7 +26,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
     }
 
     "Read Entity " in {
-      val request = route(app, FakeRequest(GET, "/smtp/get/" + entity.id)
+      val request = route(app, FakeRequest(GET, "/mail/smtp/get/" + entity.id)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -37,7 +37,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
     }
 
     "Get Entities" in {
-      val request = route(app, FakeRequest(GET, "/smtp/all")
+      val request = route(app, FakeRequest(GET, "/mail/smtp/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -49,7 +49,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
 
     "Update Entity" in {
       val updatedEntity = entity.copy(username = "Updated")
-      val request = route(app, FakeRequest(POST, "/roles/update")
+      val request = route(app, FakeRequest(POST, "/mail/smtp/update")
         .withJsonBody(Json.toJson(updatedEntity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -59,7 +59,7 @@ class SmtpConfigControllerTest  extends PlaySpec with GuiceOneAppPerTest with In
     }
 
     "Delete Entities " in {
-      val request = route(app, FakeRequest(POST, "/roles/delete" )
+      val request = route(app, FakeRequest(POST, "/mail/smtp/delete" )
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get

@@ -43,7 +43,7 @@ class LoginServiceImplTest extends FunSuite {
   }
 
   test("testForgotPassword") {
-    val register = Register("cyfotyasi@gmail.com")
+    val register = Register("test@test.com")
     val result = Await.result(loginService.apply.forgotPassword(register), 2.minutes)
     println(result)
     assert(result.nonEmpty)
@@ -55,7 +55,7 @@ class LoginServiceImplTest extends FunSuite {
   }
 
   test("testResetPasswordRequest") {
-    val resetKey = "f3ozxsunqaqmiwox3ru9b6mdznidxnq3"
+    val resetKey = "niwm9eehpmwrikl1ubvyfxkyonmwpih6"
     val reset = Await.result(loginService.apply.resetPasswordRequest(resetKey), 2.minutes)
     println(reset)
     assert(reset == true)
@@ -73,7 +73,7 @@ class LoginServiceImplTest extends FunSuite {
   }
 
   test("testGetLoginToken") {
-    val login = Login("cyfotyasi@gmail.com", "EVA6R5nF")
+    val login = Login("test@gmail.com", "XambauL3")
     val token = Await.result(loginService.apply.getLoginToken(login), 2.minutes)
     println(token)
     assert(token.isDefined)

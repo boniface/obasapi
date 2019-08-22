@@ -10,12 +10,12 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class MailApiTable(tag: Tag) extends Table[MailApi](tag, "MAILAPI") {
-  def id: Rep[String] = column[String]("MAIL_ID", O.PrimaryKey)
+class MailApiTable(tag: Tag) extends Table[MailApi](tag, "mail_api") {
+  def id: Rep[String] = column[String]("mail_id", O.PrimaryKey)
 
-  def key: Rep[String] = column[String]("MAIL_KEY")
+  def key: Rep[String] = column[String]("mail_key")
 
-  def sender: Rep[String] = column[String]("SENDER")
+  def sender: Rep[String] = column[String]("sender")
 
   def * : ProvenShape[MailApi] = (id, key, sender) <> ((MailApi.apply _).tupled, MailApi.unapply)
 }

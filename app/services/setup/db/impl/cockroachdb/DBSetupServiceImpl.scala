@@ -6,8 +6,9 @@ import services.demographics.{GenderService, RaceService, RoleService, TitleServ
 import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
+import services.log.LogEventService
 import services.login.LoginTokenService
-import services.mail.{MailApiService, MailConfigService, SmtpConfigService}
+import services.mail.{EmailMessageService, MailApiService, MailConfigService, SmtpConfigService}
 import services.security.{ApiKeysService, ResetTokenService}
 import services.setup.db.DBSetupService
 import services.subjects.{MatricSubjectsService, UniversityCoursesService}
@@ -54,6 +55,7 @@ class DBSetupServiceImpl extends DBSetupService {
     MailApiService.roach.createTable
     MailConfigService.roach.createTable
     SmtpConfigService.roach.createTable
+    EmailMessageService.roach.createTable
   }
 
   def createSubjectTables(): Future[Boolean] = {
@@ -75,14 +77,20 @@ class DBSetupServiceImpl extends DBSetupService {
     UserSubjectsService.roach.createTable
     UserResultsService.roach.createTable
     UserService.apply.createTable
+  }
 
-    //TODO: Add table creation for UserResultsTable and UserTable
+  def createLoginTables(): Future[Boolean] ={
+    LoginTokenService.apply.createTable
   }
 
   def createSecurityTables(): Future[Boolean] = {
     ApiKeysService.apply.createTable
     ResetTokenService.apply.createTable
-    LoginTokenService.apply.createTable
+
+  }
+
+  def createLogTables(): Future[Boolean] ={
+    LogEventService.apply.createTable
   }
 
   override def createTables: Future[Boolean] = {
@@ -106,6 +114,10 @@ class DBSetupServiceImpl extends DBSetupService {
     createUserTables()
 
     createSecurityTables()
+
+    createLogTables()
+
+    createLoginTables()
 
   }
 }

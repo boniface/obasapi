@@ -9,7 +9,7 @@ import services.login.{LoginService, LoginTokenService}
 import services.mail.{EmailCreationMessageService, MailService}
 import services.security.{ApiKeysService, AuthenticationService, ResetTokenService, TokenCreationService}
 import services.users.{UserPasswordService, UserRoleService, UserService}
-import util.APPKeys
+import util.{APPKeys, HelperUtil}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -22,11 +22,11 @@ class LoginServiceImpl extends LoginService {
   }
 
   override def forgotPassword(register: Register): Future[Option[ResetToken]] = {
-    val siteUrl = ConfigFactory.load().getString("base.url")
+    val resetURL = HelperUtil.getSiteURL + "/login/passwordreset"
     val user = User(email = register.email)
     val resetKey = ApiKeysService.apply.generateResetToken()
     val resetToken = ResetToken(resetKey, register.email)
-    val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, siteUrl)
+    val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, resetURL)
     println(resetMessage)
     for {
       saveToken <- ResetTokenService.apply.saveEntity(resetToken)
@@ -80,11 +80,13 @@ class LoginServiceImpl extends LoginService {
     } yield loginToken
   }
 
+  //TODO: Test when sendgrid allows
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {
     for {
-      resetToken <- ResetTokenService.apply.getEntity(resetKey) if resetToken.isDefined
+      resetToken <- ResetTokenService.apply.getEntity(resetKey) if resetToken.isDefined && resetToken.get.status.equals(APPKeys.ACTIVE)
       user <- UserService.apply.getEntity(resetToken.get.email)
       send <- resetAccount(user)
+      _ <- ResetTokenService.apply.saveEntity(resetToken.get.copy(status = APPKeys.INACTIVE))
     } yield send
 
   }
@@ -97,8 +99,8 @@ class LoginServiceImpl extends LoginService {
     println(emailMessage)
     for {
       _ <- UserPasswordService.apply.saveEntity(userPassword)
-      sent <- MailService.sendGrid.sendMail(emailMessage)
-    } yield sent.statusCode == 202
+//      sent <- MailService.sendGrid.sendMail(emailMessage)
+    } yield true //sent.statusCode == 202
   }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
