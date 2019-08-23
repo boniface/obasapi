@@ -44,4 +44,6 @@ object APPKeys {
 
   def STUDENTROLE = "STR001"
 
+  def INFO_OBAS = "info@obas.com"
+
 }

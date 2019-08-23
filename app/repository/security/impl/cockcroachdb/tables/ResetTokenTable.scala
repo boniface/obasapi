@@ -9,7 +9,7 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ResetTokenTable(tag: Tag) extends Table[ResetToken](tag, "RESET_TOKENS") {
+class ResetTokenTable(tag: Tag) extends Table[ResetToken](tag, "reset_tokens") {
   def resetokenvalue: Rep[String] = column[String]("reset_token_value", O.PrimaryKey)
   def email: Rep[String] = column[String]("email")
 
