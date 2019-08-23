@@ -42,7 +42,6 @@ class LoginServiceImpl extends LoginService {
     val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
     val userPassword = UserPassword(user.email, hashedTempPass)
     val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
-    println(emailMessage)
     for {
       isRegistered <- isUserRegistered(register) if !isRegistered //check if user is available
       savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user

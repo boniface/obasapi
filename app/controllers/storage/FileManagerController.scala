@@ -48,7 +48,7 @@ class FileManagerController @Inject()(cc: MessagesControllerComponents, api: Api
       val response: Future[FileData] = {
 
         for {
-          //authorize <- loginService.checkLoginStatus(request) if authorize
+          authorize <- loginService.checkLoginStatus(request) if authorize
           checkSize <- loginService.checkFileSize(uploadedFile.get.fileSize) if checkSize
           results <- domainService.postFile(uploadedFile.get.file, uploadedFile.get.filename)
         } yield results
@@ -61,7 +61,7 @@ class FileManagerController @Inject()(cc: MessagesControllerComponents, api: Api
         val url = "/" + vol + "/" + "/" + fid + "/" + filename
 
         for {
-         // authorize <- loginService.checkLoginStatus(request) if authorize
+          authorize <- loginService.checkLoginStatus(request) if authorize
           results <- domainService.deleteFile(url)
         } yield results
       }
