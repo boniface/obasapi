@@ -15,7 +15,7 @@ class LoginRouter @Inject()
       loginController.forgotPassword
     case POST(p"/login") =>
       loginController.login
-    case GET(p"/register") =>
+    case POST(p"/register") =>
       loginController.register
     case GET(p"/passwordreset/$resetkey") =>
       loginController.resetPassword(resetkey)

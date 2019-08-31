@@ -98,8 +98,8 @@ class LoginServiceImpl extends LoginService {
     println(emailMessage)
     for {
       _ <- UserPasswordService.apply.saveEntity(userPassword)
-//      sent <- MailService.sendGrid.sendMail(emailMessage)
-    } yield true //sent.statusCode == 202
+      sent <- MailService.sendGrid.sendMail(emailMessage)
+    } yield sent.statusCode == 202
   }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {

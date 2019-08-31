@@ -18,7 +18,7 @@ class LoginControllerTest extends PlaySpec with GuiceOneAppPerTest with Injectin
     "Register" in {
       val register: Register = Register("test@gmail.com")
       val url =  "/login/register"
-      val request = route(app, FakeRequest(GET, url)
+      val request = route(app, FakeRequest(POST, url)
         .withJsonBody(Json.toJson(register))
       ).get
       status(request) mustBe OK
