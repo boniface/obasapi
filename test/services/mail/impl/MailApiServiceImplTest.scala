@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 
 class MailApiServiceImplTest extends FunSuite with BeforeAndAfterEach {
 
-  val entity = MailApi(APPKeys.SENDGRID_ID, "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", "info@obas.com")
+  val entity = MailApi(APPKeys.SENDGRID_ID, "XXX", "info@obas.com")
   val service = MailApiService
 
   test("testCreateTable") {
