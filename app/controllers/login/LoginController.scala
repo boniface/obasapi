@@ -7,14 +7,16 @@ import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import io.circe.generic.auto._
+import play.api.{Logger, Logging}
 import services.login.LoginService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class LoginController @Inject()
-(cc: ControllerComponents,api: ApiResponse) extends AbstractController(cc) {
+(cc: ControllerComponents,api: ApiResponse) extends AbstractController(cc) with Logging {
   def className: String = "LoginController"
+  override val logger: Logger = Logger(className)
 
   def domainService: LoginService = LoginService.apply
 
@@ -60,13 +62,20 @@ class LoginController @Inject()
   def register: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[Register](request.body).asEither
+      logger.info("Register request with body: " + entity)
       entity match {
         case Right(value) =>
-          val response: Future[Boolean] = for {
+          val response = for {
             results <- domainService.register(value)
-          } yield results
+          } yield {
+            logger.info("Register response: " + results)
+            results
+          }
           api.requestResponse[Boolean](response, className)
-        case Left(error) => api.errorResponse(error,className)
+        case Left(error) => {
+          logger.error("An error occurred: " + error.seq.toString())
+          api.errorResponse(error,className)
+        }
       }
   }
 
