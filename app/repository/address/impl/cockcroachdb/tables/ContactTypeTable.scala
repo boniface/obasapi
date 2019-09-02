@@ -9,11 +9,11 @@ import scala.concurrent.Future
 import domain.address.ContactType
 
 
-class ContactTypeTable(tag: Tag) extends Table[ContactType](tag, "CONTACT_TYPE") {
+class ContactTypeTable(tag: Tag) extends Table[ContactType](tag, "contact_type") {
 
-  def contactTypeId: Rep[String] = column[String]("CONTACT_TYPE_ID", O.PrimaryKey)
+  def contactTypeId: Rep[String] = column[String]("contact_type_id", O.PrimaryKey)
 
-  def name: Rep[String] = column[String]("NAME")
+  def name: Rep[String] = column[String]("name")
 
   def * : ProvenShape[ContactType] = (contactTypeId, name) <> ((ContactType.apply _).tupled, ContactType.unapply)
 }

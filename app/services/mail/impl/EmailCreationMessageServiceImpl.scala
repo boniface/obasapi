@@ -6,6 +6,9 @@ import services.mail.EmailCreationMessageService
 
 class EmailCreationMessageServiceImpl extends EmailCreationMessageService {
 
+  val htmlPrefix = "<html><body>"
+  val htmlSuffix = "</body></html>"
+
   override def accountCreatedMessage(user: User, generatedPassword: String): EmailMessage = {
     val subject = " New Account Created For You"
     val message = "Your Login Details are Username: " + user.email + " And the Password: " + generatedPassword + "" +
@@ -36,11 +39,11 @@ class EmailCreationMessageServiceImpl extends EmailCreationMessageService {
   }
 
   override def createNewAccountMessage(user: User, password: String): EmailMessage = {
-    val subject = " New Account Created For You"
-    val message = "Your Login Details are Username: " + user.email + " And the Password: " + password + "" +
+    val subject = "Welcome to OBAS!"
+    val message = htmlPrefix + "Your Login Details are Username: " + user.email + " And the Password: " + password + "" +
       "</p> You can access the Site  Provided to you By the Provider. " +
       "<b>PLEASE REMEMBER TO CHANGE YOUR PASSWORD</b><p/>" +
-      "We are Sure your Superiors have told you that Great Powers Come with Great Responsibility"
+      "We are sure your superiors have told you that great powers comes with great responsibility" + htmlSuffix
     EmailMessage(subject, user.email, message)
   }
 

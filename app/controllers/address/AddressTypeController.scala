@@ -26,7 +26,6 @@ class AddressTypeController @Inject()
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
-      println(" The input ", request.body)
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
@@ -61,7 +60,6 @@ class AddressTypeController @Inject()
   }
 
   def getAllAddressType: Action[AnyContent] = Action.async {
-        println(" End Point Accessed ")
     implicit request: Request[AnyContent] =>
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities

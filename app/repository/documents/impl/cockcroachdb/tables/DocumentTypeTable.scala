@@ -9,10 +9,10 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class  DocumentTypeTable(tag: Tag) extends Table[DocumentType](tag, _tableName = "DOCUMENT_TYPE"){
-  def documentTypeId: Rep[String] = column[String]("DOCUMENT_TYPE_ID", O.PrimaryKey)
+class  DocumentTypeTable(tag: Tag) extends Table[DocumentType](tag, _tableName = "document_type"){
+  def documentTypeId: Rep[String] = column[String]("document_type_id", O.PrimaryKey)
 
-  def documentTypename: Rep[String] = column[String]("DOCUMENT_TYPE_NAME")
+  def documentTypename: Rep[String] = column[String]("document_type_name")
 
 
   def * : ProvenShape[DocumentType] = (documentTypeId, documentTypename) <> ((DocumentType.apply _).tupled, DocumentType.unapply)

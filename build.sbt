@@ -24,7 +24,6 @@ dockerCommands := Seq(
   Cmd("ADD", "/opt /opt"),
   ExecCmd("RUN", "chown", "-R", "daemon:daemon", "."),
   Cmd("USER", "daemon"),
-  Cmd("WORKDIR", "/opt/docker"),
   ExecCmd("ENTRYPOINT", "bin/obasapi"),
   Cmd("VOLUME", "/opt/docker"),
   Cmd("EXPOSE", "9000"),

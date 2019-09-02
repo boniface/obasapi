@@ -10,10 +10,10 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserRoleTable(tag: Tag) extends Table[UserRole](tag, "USER_ROLE") {
-  def userId: Rep[String] = column[String]("USER_ID", O.PrimaryKey)
+class UserRoleTable(tag: Tag) extends Table[UserRole](tag, "user_role") {
+  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
 
-  def roleId: Rep[String] = column[String]("ROLE_ID")
+  def roleId: Rep[String] = column[String]("role_id")
 
   def * : ProvenShape[UserRole] = (userId, roleId) <> ((UserRole.apply _).tupled, UserRole.unapply)
 }

@@ -12,14 +12,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class ApiKeysTable(tag: Tag) extends Table[ApiKeys](tag, "API_KEYS") {
-  def id: Rep[String] = column[String]("APIKEYS_ID", O.PrimaryKey)
+class ApiKeysTable(tag: Tag) extends Table[ApiKeys](tag, "api_keys") {
+  def id: Rep[String] = column[String]("apikeys_id", O.PrimaryKey)
 
-  def value: Rep[String] = column[String]("APIKEYS_VALUE")
+  def value: Rep[String] = column[String]("apikeys_value")
 
-  def status: Rep[String] = column[String]("STATUS")
+  def status: Rep[String] = column[String]("status")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATETIME")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("datetime")
 
   def * : ProvenShape[ApiKeys] = (id, value, status, date) <> ((ApiKeys.apply _).tupled, ApiKeys.unapply)
 }

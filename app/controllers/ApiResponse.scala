@@ -20,7 +20,9 @@ class ApiResponse @Inject()(cc: ControllerComponents) extends AbstractController
     Future successful {
       val log = LogEvent(eventName = Events.RESPONSE, eventType = className, message = error.seq.toString())
             LogEventService.apply.saveEntity(log)
-      InternalServerError
+      val message = error.seq.toString()
+      if (message.contains("Future.filter predicate is not satisfied")) PreconditionFailed
+      else InternalServerError
     }
   }
 

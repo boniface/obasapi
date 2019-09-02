@@ -28,7 +28,7 @@ class UserServiceImpl extends UserService {
     getEntity(email).map(user => user.isDefined)
   }
 
-  override def changePassword(credentials: UserPassword)= {
+  override def changePassword(credentials: UserPassword): Future[Option[UserPassword]] = {
     val hashedPassword = credentials.copy(password = AuthenticationService.apply.getHashedPassword(credentials.password))
     UserPasswordService.apply.saveEntity(hashedPassword)
   }

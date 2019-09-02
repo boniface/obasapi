@@ -10,11 +10,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class AddressTypeTable(tag: Tag) extends Table[AddressType] (tag, "ADDRESS_TYPE"){
+class AddressTypeTable(tag: Tag) extends Table[AddressType] (tag, "address_type"){
 
-  def addressTypeID: Rep[String] = column[String]("ADDRESS_TYPE_ID", O.PrimaryKey)
+  def addressTypeID: Rep[String] = column[String]("address_type_id", O.PrimaryKey)
 
-  def addressName: Rep[String] = column[String]("ADDRESS_NAME")
+  def addressName: Rep[String] = column[String]("address_name")
   
   override def * : ProvenShape[AddressType]  = (addressTypeID,addressName) <> ((AddressType.apply _).tupled,AddressType.unapply)
 }
