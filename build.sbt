@@ -1,18 +1,50 @@
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
+
 name := """obasapi"""
-organization := "zm.hashcode"
+organization := "za.ac.cput"
 
 version := "1.0-SNAPSHOT"
 
-lazy val root = (project in file(".")).enablePlugins(PlayScala)
+lazy val root = (project in file("."))
+  .enablePlugins(PlayScala, DebianPlugin, JavaAppPackaging, SystemdPlugin)
 
-scalaVersion := "2.12.8"
+scalaVersion := "2.12.9"
+
+scalacOptions += "-Ypartial-unification"
+
+maintainer := "IT Department at CPUT <it@cput.ac.za>"
+packageSummary in Linux := "OBAS REST API"
+packageDescription := "CPUT IT Dept OBAS REST API "
+
+dockerCommands := Seq(
+  Cmd("FROM", "azul/zulu-openjdk-alpine:11"),
+  Cmd("RUN", "apk --no-cache add bash"),
+  Cmd("MAINTAINER", maintainer.value),
+  Cmd("WORKDIR", "/opt/docker"),
+  Cmd("ADD", "/opt /opt"),
+  ExecCmd("RUN", "chown", "-R", "daemon:daemon", "."),
+  Cmd("USER", "daemon"),
+  ExecCmd("ENTRYPOINT", "bin/obasapi"),
+  Cmd("VOLUME", "/opt/docker"),
+  Cmd("EXPOSE", "9000"),
+  Cmd("EXPOSE", "9999"),
+  Cmd("EXPOSE", "8888")
+)
+
+javaOptions in Universal ++= Seq(
+  // JVM memory tuning
+  "-J-Xms4g",
+  "-J-Xmx4g",
+  "-J-Xmn2g"
+)
 
 val PhantomVersion = "2.42.0"
-val PlayFrameWorkVersion = "2.7.2"
+val PlayFrameWorkVersion = "2.7.3"
 val catsVersion = "1.6.1"
-val circeVersion = "0.12.0-M3"
+val circeVersion = "0.12.0-M4"
 val TwitterChillVersion = "0.9.3"
 val MoshiVersion ="1.8.0"
+val softwaremillSttpVersion = "1.6.4"
 
 
 libraryDependencies ++= Seq("io.circe" %% "circe-core", "io.circe" %% "circe-generic", "io.circe" %% "circe-parser"
@@ -23,6 +55,9 @@ libraryDependencies += "com.outworkers" % "phantom-connectors_2.12" % PhantomVer
 libraryDependencies += "com.outworkers" % "phantom-streams_2.12" % PhantomVersion
 libraryDependencies += "com.outworkers" % "phantom-jdk8_2.12" % PhantomVersion
 
+libraryDependencies += "com.softwaremill.sttp" %% "core" % softwaremillSttpVersion
+libraryDependencies += "com.softwaremill.sttp" %% "circe" % softwaremillSttpVersion
+libraryDependencies += "com.softwaremill.sttp" %% "async-http-client-backend-future" % softwaremillSttpVersion
 
 
 libraryDependencies += "com.typesafe.play" % "play-akka-http-server_2.12" % PlayFrameWorkVersion
@@ -48,13 +83,14 @@ libraryDependencies += "org.jsoup" % "jsoup" % "1.11.3"
 libraryDependencies += "org.apache.commons" % "commons-lang3" % "3.7"
 libraryDependencies += "org.apache.commons" % "commons-email" % "1.5"
 libraryDependencies += "commons-io" % "commons-io" % "2.6"
+libraryDependencies += "com.squareup.okhttp3" % "okhttp" % "3.12.1"
 
 
-// Adds additional packages into Twirl
-//TwirlKeys.templateImports += "zm.hashcode.controllers._"
-
-// Adds additional packages into conf/routes
-// play.sbt.routes.RoutesKeys.routesImport += "zm.hashcode.binders._"
+libraryDependencies ++= Seq(
+  "com.typesafe.slick" %% "slick" % "3.3.1",
+  "com.typesafe.slick" %% "slick-hikaricp" % "3.3.1",
+  "org.postgresql" % "postgresql" % "42.2.5" //org.postgresql.ds.PGSimpleDataSource dependency
+)
 
 resolvers ++= Seq(
   "Typesafe repository snapshots" at "http://repo.typesafe.com/typesafe/snapshots/",
@@ -63,9 +99,9 @@ resolvers ++= Seq(
   "softprops-maven" at "http://dl.bintray.com/content/softprops/maven",
   "Brando Repository" at "http://chrisdinn.github.io/releases/",
   "Sonatype repo" at "https://oss.sonatype.org/content/groups/scala-tools/",
-  "Sonatype releases" at "https://oss.sonatype.org/content/repositories/releases",
-  "Sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
-  "Sonatype staging" at "http://oss.sonatype.org/content/repositories/staging",
+  "Sonatype releases" at "https://oss.sonatype.org/content/repository/releases",
+  "Sonatype snapshots" at "https://oss.sonatype.org/content/repository/snapshots",
+  "Sonatype staging" at "http://oss.sonatype.org/content/repository/staging",
   "Java.net Maven2 Repository" at "http://download.java.net/maven/2/",
   "Twitter Repository" at "http://maven.twttr.com",
   "Websudos releases" at "https://dl.bintray.com/websudos/oss-releases/",

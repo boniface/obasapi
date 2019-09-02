@@ -4,7 +4,7 @@ import scala.concurrent.Future
 
 trait CrudService[A] {
 
-  def saveEntity(entity: A): Future[Boolean]
+  def saveEntity(entity: A): Future[Option[A]]
 
   def getEntities: Future[Seq[A]]
 

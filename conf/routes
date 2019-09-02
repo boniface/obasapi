@@ -4,7 +4,22 @@
 # ~~~~
 
 # An example controller showing a sample home page
-GET     /                           controllers.HomeController.index
+GET        /                    controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET        /assets/*file        controllers.Assets.versioned(path="/public", file: Asset)
+
+
+->         /setup               controllers.setup.SetupRouter
+->         /mail                controllers.mail.MailRouter
+->         /users               controllers.users.UserRouter
+->         /address             controllers.address.AddressRouter
+->         /demographics        controllers.demographics.DemographicsRouter
+->         /application         controllers.application.ApplicationRouter
+->         /documents           controllers.documents.DocumentsRouter
+->         /subjects            controllers.subjects.SubjectsRouter
+->         /login               controllers.login.LoginRouter
+->         /institutions        controllers.institutions.InstitutionRouter
+->         /location            controllers.location.LocationRouter
+->         /file                controllers.storage.UploadRouter
+
