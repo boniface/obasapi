@@ -27,9 +27,8 @@ class LoginServiceImpl extends LoginService {
     val resetKey = ApiKeysService.apply.generateResetToken()
     val resetToken = ResetToken(resetKey, register.email)
     val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, resetURL)
-    println(resetMessage)
     for {
-      saveToken <- ResetTokenService.apply.saveEntity(resetToken)
+      saveToken <- ResetTokenService.apply.saveEntity(resetToken) if saveToken.isDefined
       _ <- MailService.sendGrid.sendMail(resetMessage)
     } yield saveToken
   }
@@ -38,12 +37,12 @@ class LoginServiceImpl extends LoginService {
   override def register(register: Register): Future[Boolean] = {
     val tempPass = AuthenticationService.apply.generateRandomPassword() // generated password
     val hashedTempPass = AuthenticationService.apply.getHashedPassword(tempPass) // hash passwrd
-    val user = User(register.email)
-    val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
-    val userPassword = UserPassword(user.email, hashedTempPass)
-    val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
+    lazy val user = User(register.email)
+    lazy val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
+    lazy val userPassword = UserPassword(user.email, hashedTempPass)
+    lazy val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
     for {
-      isRegistered <- isUserRegistered(register) if !isRegistered //check if user is available
+      isRegistered <- isUserRegistered(register) if !isRegistered//check if user is available
       savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user
       savedUserPasswd <- UserPasswordService.apply.saveEntity(userPassword) if savedUserPasswd.isDefined //save hashed
       savedUserRole <- UserRoleService.roach.saveEntity(userRole) if savedUserRole.isDefined //save the role
@@ -83,8 +82,8 @@ class LoginServiceImpl extends LoginService {
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {
     for {
       resetToken <- ResetTokenService.apply.getEntity(resetKey) if resetToken.isDefined && resetToken.get.status.equals(APPKeys.ACTIVE)
-      user <- UserService.apply.getEntity(resetToken.get.email)
-      send <- resetAccount(user)
+      user <- UserService.apply.getEntity(resetToken.get.email) if user.isDefined
+      send <- resetAccount(user) if send
       _ <- ResetTokenService.apply.saveEntity(resetToken.get.copy(status = APPKeys.INACTIVE))
     } yield send
 
@@ -95,11 +94,10 @@ class LoginServiceImpl extends LoginService {
     lazy val newHashedPassword = AuthenticationService.apply.getHashedPassword(generatedPassword)
     lazy val userPassword = UserPassword(user.get.email, newHashedPassword)
     lazy val emailMessage = EmailCreationMessageService.apply.passwordResetMessage(user.get, generatedPassword)
-    println(emailMessage)
     for {
-      _ <- UserPasswordService.apply.saveEntity(userPassword)
-      sent <- MailService.sendGrid.sendMail(emailMessage)
-    } yield sent.statusCode == 202
+      saveUserPassword <- UserPasswordService.apply.saveEntity(userPassword) if saveUserPassword.isDefined
+      emailResponse <- MailService.sendGrid.sendMail(emailMessage)
+    } yield emailResponse.statusCode == 202
   }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
@@ -117,13 +115,10 @@ class LoginServiceImpl extends LoginService {
 
   override def logOut(register: Register): Future[Boolean] = {
     val emailToken = LoginToken(register.email, "")
-    println(emailToken)
     LoginTokenService.apply.deleteEntity(emailToken)
   }
 
   override def checkFileSize(size: Long): Future[Boolean] = {
     Future.successful(size < 10000000)
   }
-
-
 }
