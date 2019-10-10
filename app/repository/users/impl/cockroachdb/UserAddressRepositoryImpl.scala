@@ -17,17 +17,22 @@ class UserAddressRepositoryImpl  extends UserAddressRepository{
     UserAddressTable.getEntities
   }
 
-  override def getEntity(userAddressId: String): Future[Option[UserAddress]] = {
-    UserAddressTable.getEntity(userAddressId)
+  override def getEntity(userId: String, addressTypeId: String): Future[Option[UserAddress]] = {
+    UserAddressTable.getEntity(userId, addressTypeId)
   }
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] = {
-    UserAddressTable.deleteEntity(entity.userAddressId)map(value=> value.isValidInt)
+    UserAddressTable.deleteEntity(entity.userId, entity.addressTypeId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
     Future.successful(UserAddressTable.createTable)
   }
+
+  override def getEntityForUser(userId: String): Future[Seq[UserAddress]] =
+    UserAddressTable.getEntityForUser(userId)
+
+  override def getEntity(id: String): Future[Option[UserAddress]] = ???
 }
 
 

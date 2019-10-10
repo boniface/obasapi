@@ -21,13 +21,7 @@ abstract class UserAddressTableImpl extends UserAddressTable with RootConnector 
 
   override lazy val tableName = "userAddress"
 
-  def saveEntity(entity: UserAddress): Future[ResultSet] = {
-    insert
-      .value(_.userAddressId, entity.userAddressId)
-      .value(_.physicalAddress, entity.physicalAddress)
-      .value(_.postalCode, entity.postalCode)
-      .future()
-  }
+  def saveEntity(entity: UserAddress): Future[ResultSet] = ???
 
   def getEntity(userAddressId: String): Future[Option[UserAddress]] = {
     select

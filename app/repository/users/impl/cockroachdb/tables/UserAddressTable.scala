@@ -11,20 +11,28 @@ import scala.concurrent.Future
 
 
 class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
-  def userAddressId: Rep[String] = column[String]("user_address_id", O.PrimaryKey)
+  def userId: Rep[String] = column[String]("user_id")
 
-  def physicalAddress: Rep[String] = column[String]("physical_address")
+  def addressTypeId: Rep[String] = column[String]("address_type_id")
+
+  def address: Rep[String] = column[String]("address")
 
   def postalCode: Rep[String] = column[String]("postal_code")
 
-  def * : ProvenShape[UserAddress] = (userAddressId, physicalAddress, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
+  def * : ProvenShape[UserAddress] = (userId, addressTypeId, address, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
+
+  def pk = primaryKey("pk_user_address", (userId, addressTypeId))
 }
 
 object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(userAddressId: String): Future[Option[UserAddress]] = {
-    db.run(this.filter(_.userAddressId === userAddressId).result).map(_.headOption)
+  def getEntity(userId: String, addressTypeId: String): Future[Option[UserAddress]] = {
+    db.run(this.filter(_.userId === userId).filter(_.addressTypeId === addressTypeId).result).map(_.headOption)
+  }
+
+  def getEntityForUser(userId: String): Future[Seq[UserAddress]] = {
+    db.run(this.filter(_.userId === userId).result)
   }
 
   def saveEntity(userAddress: UserAddress): Future[Option[UserAddress]] = {
@@ -38,8 +46,8 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
     db.run(UserAddressTable.result)
   }
 
-  def deleteEntity(userAddressId: String): Future[Int] = {
-    db.run(this.filter(_.userAddressId === userAddressId).delete)
+  def deleteEntity(userId: String, addressTypeId: String): Future[Int] = {
+    db.run(this.filter(_.userId === userId).filter(_.addressTypeId === addressTypeId).delete)
   }
 
   def createTable = {

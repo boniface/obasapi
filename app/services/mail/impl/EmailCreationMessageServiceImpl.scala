@@ -31,10 +31,10 @@ class EmailCreationMessageServiceImpl extends EmailCreationMessageService {
 
     val subject = "Your Reset New Login Credentials "
 
-    val message = "Your New Login Details are Username: " + user.email + " And the Password: " + generatedPassword + "" +
+    val message = htmlPrefix + "Your New Login Details are Username: " + user.email + " And the Password: " + generatedPassword + "" +
       "</p> You can access the Site  Provided to you By the Provider. " +
       "<b>PLEASE REMEMBER TO CHANGE YOUR PASSWORD</b><p/>" +
-      "We are Sure your Superiors have told you that Great Powers Come with Great Responsibility"
+      "We are Sure your Superiors have told you that Great Powers Come with Great Responsibility" + htmlSuffix
     EmailMessage(subject, user.email, message)
   }
 
@@ -59,8 +59,11 @@ class EmailCreationMessageServiceImpl extends EmailCreationMessageService {
   }
 
   override def forgetPasswordLinkMessage(user: User, resetKey: String, siteUrl: String): EmailMessage = {
-    EmailMessage("Password Reset Request Link", user.email, "A request was Made to Reset Your Password. If you did not " +
-      "Request the Reset, Please ignore the message, otherwise click on the Link Below  to request a New Password <p>" +
-      " " + siteUrl + "/" + resetKey)
+    val resetURL = siteUrl + "/" + resetKey
+    val message = htmlPrefix + "<p>A request was made to reset your password.</p>" +
+      "<p>If you did not request this reset, please ignore this message, otherwise click on the " +
+      "Link Below  to request a new password.</p>" +
+      "<p>" + resetURL + "</p>" + htmlPrefix
+    EmailMessage("Password Reset Request Link", user.email, message)
   }
 }
