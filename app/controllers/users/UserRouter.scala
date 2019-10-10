@@ -35,8 +35,10 @@ class UserRouter @Inject()
     //ADDRESS
     case GET(p"/address/all") =>
       userAddressController.getAllUserAddress
-    case GET(p"/address/get/$userAddressId") =>
-      userAddressController.getUserAddressById(userAddressId)
+    case GET(p"/address/get/$userId") =>
+      userAddressController.getUserAddresses(userId)
+    case GET(p"/address/get/$userId/$addressTypeId") =>
+      userAddressController.getUserAddress(userId, addressTypeId)
     case POST(p"/address/create") =>
       userAddressController.create
     case POST(p"/address/update") =>
