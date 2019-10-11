@@ -65,7 +65,7 @@ class DBSetupServiceImpl extends DBSetupService {
 
   def createUserTables(): Future[Boolean] = {
     UserAddressService.apply.createTable
-    UserApplicationResultService.roach.createTable
+    UserApplicationService.roach.createTable
     UserCommunicationService.roach.createTable
     UserContactsService.roach.createTable
     UserDemographicsService.roach.createTable

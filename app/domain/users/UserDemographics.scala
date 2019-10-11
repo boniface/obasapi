@@ -3,9 +3,12 @@ package domain.users
 import play.api.libs.json.Json
 
 case class UserDemographics(
-                            userDemographicsId:String,
+                           userId:String,
                             genderId:String,
-                            raceId:String
+                            raceId:String,
+                            title:String
+
+
                            )
 object UserDemographics{
   implicit val userDemographicsFmt =Json.format[UserDemographics]

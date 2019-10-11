@@ -6,6 +6,7 @@ import play.api.libs.json.Json
 
 case class User(
                email:String,
+               idNumber: String = "",
                firstName:String = "",
                middleName:String = "",
                lastName:String = "",

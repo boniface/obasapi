@@ -15,6 +15,8 @@ import scala.concurrent.Future
 class UserTable(tag: Tag) extends Table[User](tag, "user") {
   def email: Rep[String] = column[String]("email", O.PrimaryKey)
 
+  def idNumber: Rep[String] = column[String]("id_number")
+
   def firstName: Rep[String] = column[String]("first_name")
 
   def middleName: Rep[String] = column[String]("middle_name")
@@ -23,7 +25,7 @@ class UserTable(tag: Tag) extends Table[User](tag, "user") {
 
   def dateOfBirth: Rep[LocalDateTime] = column[LocalDateTime]("date_of_birth")
 
-  def * : ProvenShape[User] = (email, firstName, middleName, lastName, dateOfBirth) <> ((User.apply _).tupled, User.unapply)
+  def * : ProvenShape[User] = (email, idNumber, firstName, middleName, lastName, dateOfBirth) <> ((User.apply _).tupled, User.unapply)
 }
 
 object UserTable extends TableQuery(new UserTable(_)) {
