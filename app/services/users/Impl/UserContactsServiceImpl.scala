@@ -14,8 +14,7 @@ class UserContactsServiceImpl extends UserContactsService{
   override def getEntities: Future[Seq[UserContacts]] =
     UserContactsRepository.roach.getEntities
 
-  override def getEntity(userContactId: String): Future[Option[UserContacts]] =
-    UserContactsRepository.roach.getEntity(userContactId)
+  override def getEntity(userContactId: String): Future[Option[UserContacts]] = ???
 
   override def deleteEntity(entity: UserContacts): Future[Boolean] =
     UserContactsRepository.roach.deleteEntity(entity)
@@ -23,5 +22,9 @@ class UserContactsServiceImpl extends UserContactsService{
   override def createTable: Future[Boolean] =
     UserContactsRepository.roach.createTable
 
+  override def getEntityForUser(userId: String): Future[Seq[UserContacts]] =
+    UserContactsRepository.roach.getEntityForUser(userId)
 
+  override def getEntity(userId: String, contactTypeId: String): Future[Option[UserContacts]] =
+    UserContactsRepository.roach.getEntity(userId, contactTypeId)
 }

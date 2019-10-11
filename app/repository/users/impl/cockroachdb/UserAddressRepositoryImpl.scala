@@ -2,7 +2,7 @@ package repository.users.impl.cockroachdb
 
 import domain.users.UserAddress
 import repository.users.UserAddressRepository
-import repository.users.impl.cockroachdb.tables.UserAddressTable
+import repository.users.impl.cockroachdb.tables.{UserAddressTable, UserAddressTableCreate}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class UserAddressRepositoryImpl  extends UserAddressRepository{
 
   override def saveEntity(entity: UserAddress): Future[Option[UserAddress]] = {
+    println("Saving...", entity)
     UserAddressTable.saveEntity(entity)
   }
 
@@ -26,7 +27,7 @@ class UserAddressRepositoryImpl  extends UserAddressRepository{
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(UserAddressTable.createTable)
+    Future.successful(UserAddressTableCreate.createTable)
   }
 
   override def getEntityForUser(userId: String): Future[Seq[UserAddress]] =

@@ -73,8 +73,10 @@ class UserRouter @Inject()
     //CONTACTS
     case GET(p"/contacts/all") =>
       userContactsController.getAllUserContacts
-    case GET(p"/contacts/get/$userContactId") =>
-      userContactsController.getUserContactsById(userContactId)
+    case GET(p"/contacts/get/$userId/$contactTypeId") =>
+      userContactsController.getUserContactsById(userId, contactTypeId)
+    case GET(p"/contacts/get/$userId") =>
+      userContactsController.getUserContacts(userId)
     case POST(p"/contacts/create") =>
       userContactsController.create
     case POST(p"/contacts/update") =>
