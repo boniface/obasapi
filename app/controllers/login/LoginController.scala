@@ -63,17 +63,20 @@ class LoginController @Inject()
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[Register](request.body).asEither
       logger.info("Register request with body: " + entity)
+      println("Register request with body: " + entity)
       entity match {
         case Right(value) =>
           val response = for {
             results <- domainService.register(value)
           } yield {
             logger.info("Register response: " + results)
+            println("Register response: " + results)
             results
           }
           api.requestResponse[Boolean](response, className)
         case Left(error) => {
           logger.error("An error occurred: " + error.seq.toString())
+          println("An error occurred: " + error.seq.toString())
           api.errorResponse(error,className)
         }
       }

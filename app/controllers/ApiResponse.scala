@@ -23,6 +23,7 @@ class ApiResponse @Inject()(cc: ControllerComponents) extends AbstractController
     Future successful {
       val log = LogEvent(eventName = Events.RESPONSE, eventType = className, message = error.seq.toString())
       logger.info("Error for operation from " + className + ": " + log)
+      println("Error for operation from " + className + ": " + log)
       LogEventService.apply.saveEntity(log)
       val message = error.seq.toString()
       if (message.contains("Future.filter predicate is not satisfied")) PreconditionFailed
@@ -34,17 +35,20 @@ class ApiResponse @Inject()(cc: ControllerComponents) extends AbstractController
     response.map(result => {
       val retdata = result.asJson.noSpaces
       logger.info("Response for " + className + ": " + retdata)
+      println("Response for " + className + ": " + retdata)
       Ok(retdata)
         .as(ContentTypes.JSON)
     }).recover {
       case exp: TokenFailException =>
         val log = LogEvent(eventName = Events.TOKENFAILED, eventType = className, message = exp.getMessage)
         logger.info("Exception for " + className + ": " + log)
+        println("Exception for " + className + ": " + log)
         LogEventService.apply.saveEntity(log)
         Unauthorized
       case exp: Exception =>
         val log = LogEvent(eventName = Events.RESPONSE, eventType = className, message = exp.getMessage)
         logger.info("Exception for " + className + ": " + log)
+        println("Exception for " + className + ": " + log)
         LogEventService.apply.saveEntity(log)
         InternalServerError
     }
