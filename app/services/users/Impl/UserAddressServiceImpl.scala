@@ -14,8 +14,8 @@ class UserAddressServiceImpl extends UserAddressService {
   override def getEntities: Future[Seq[UserAddress]] =
     UserAddressRepository.roach.getEntities
 
-  override def getEntity(userAddressId: String): Future[Option[UserAddress]] =
-    UserAddressRepository.roach.getEntity(userAddressId)
+  override def getEntity(userId: String, addressTypeId: String): Future[Option[UserAddress]] =
+    UserAddressRepository.roach.getEntity(userId, addressTypeId)
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] =
     UserAddressRepository.roach.deleteEntity(entity)
@@ -23,4 +23,8 @@ class UserAddressServiceImpl extends UserAddressService {
   override def createTable: Future[Boolean] =
     UserAddressRepository.roach.createTable
 
+  override def getEntityForUser(userId: String): Future[Seq[UserAddress]] =
+    UserAddressRepository.roach.getEntityForUser(userId)
+
+  override def getEntity(id: String): Future[Option[UserAddress]] = ???
 }

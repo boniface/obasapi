@@ -35,8 +35,10 @@ class UserRouter @Inject()
     //ADDRESS
     case GET(p"/address/all") =>
       userAddressController.getAllUserAddress
-    case GET(p"/address/get/$userAddressId") =>
-      userAddressController.getUserAddressById(userAddressId)
+    case GET(p"/address/get/$userId") =>
+      userAddressController.getUserAddresses(userId)
+    case GET(p"/address/get/$userId/$addressTypeId") =>
+      userAddressController.getUserAddress(userId, addressTypeId)
     case POST(p"/address/create") =>
       userAddressController.create
     case POST(p"/address/update") =>
@@ -71,8 +73,10 @@ class UserRouter @Inject()
     //CONTACTS
     case GET(p"/contacts/all") =>
       userContactsController.getAllUserContacts
-    case GET(p"/contacts/get/$userContactId") =>
-      userContactsController.getUserContactsById(userContactId)
+    case GET(p"/contacts/get/$userId/$contactTypeId") =>
+      userContactsController.getUserContactsById(userId, contactTypeId)
+    case GET(p"/contacts/get/$userId") =>
+      userContactsController.getUserContacts(userId)
     case POST(p"/contacts/create") =>
       userContactsController.create
     case POST(p"/contacts/update") =>

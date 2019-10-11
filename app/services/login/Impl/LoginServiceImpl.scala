@@ -4,6 +4,7 @@ import com.typesafe.config.ConfigFactory
 import domain.login.{Login, LoginToken, Register}
 import domain.security.ResetToken
 import domain.users.{User, UserPassword, UserRole}
+import play.api.{Logger, Logging}
 import play.api.mvc.Request
 import services.login.{LoginService, LoginTokenService}
 import services.mail.{EmailCreationMessageService, MailService}
@@ -14,8 +15,11 @@ import util.{APPKeys, HelperUtil}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class LoginServiceImpl extends LoginService {
+class LoginServiceImpl extends LoginService with Logging {
+  def className = getClass.getCanonicalName
   def isSecurityEnabled: Boolean = ConfigFactory.load().getBoolean("token-security.enabled")
+
+  override val logger: Logger = Logger(className)
 
   override def isUserRegistered(user: Register): Future[Boolean] = {
     UserService.apply.isUserAvailable(user.email)
@@ -27,6 +31,7 @@ class LoginServiceImpl extends LoginService {
     val resetKey = ApiKeysService.apply.generateResetToken()
     val resetToken = ResetToken(resetKey, register.email)
     val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, resetURL)
+    logger.info("Forgot Password Message: "+ resetMessage)
     for {
       saveToken <- ResetTokenService.apply.saveEntity(resetToken) if saveToken.isDefined
       _ <- MailService.sendGrid.sendMail(resetMessage)
@@ -62,6 +67,7 @@ class LoginServiceImpl extends LoginService {
     for {
       _ <- LoginTokenService.apply.saveEntity(loginToken)
     } yield {
+      logger.info("LoginToken: " + loginToken)
       Some(loginToken)
     }
   }
@@ -69,13 +75,15 @@ class LoginServiceImpl extends LoginService {
 
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
     for {
-      user <- UserService.apply.getEntity(login.email) if user.isDefined
-      userPassword <- UserPasswordService.apply.getEntity(login.email) if userPassword.isDefined
-      userRole <- UserRoleService.roach.getEntity(login.email) if userRole.isDefined
+      user <- UserService.apply.getEntity(login.email) //if user.isDefined
+      userPassword <- UserPasswordService.apply.getEntity(login.email) //if userPassword.isDefined
+      userRole <- UserRoleService.roach.getEntity(login.email) //if userRole.isDefined
       checkPasswd <- authenticateUser(login.password, userPassword.get.password) if checkPasswd
       token <- TokenCreationService.apply.generateLoginToken(user.get, userRole.get.roleId)
       loginToken <- saveLoginToken(login.email, token)
-    } yield loginToken
+    } yield {
+      loginToken
+    }
   }
 
   //TODO: Test when sendgrid allows
@@ -91,13 +99,16 @@ class LoginServiceImpl extends LoginService {
 
   private def resetAccount(user: Option[User]): Future[Boolean] = {
     val generatedPassword = AuthenticationService.apply.generateRandomPassword()
-    lazy val newHashedPassword = AuthenticationService.apply.getHashedPassword(generatedPassword)
-    lazy val userPassword = UserPassword(user.get.email, newHashedPassword)
-    lazy val emailMessage = EmailCreationMessageService.apply.passwordResetMessage(user.get, generatedPassword)
+    val newHashedPassword = AuthenticationService.apply.getHashedPassword(generatedPassword)
+    val userPassword = UserPassword(user.get.email, newHashedPassword)
+    val emailMessage = EmailCreationMessageService.apply.passwordResetMessage(user.get, generatedPassword)
     for {
-      saveUserPassword <- UserPasswordService.apply.saveEntity(userPassword) if saveUserPassword.isDefined
+      saveUserPassword <- UserPasswordService.apply.saveEntity(userPassword)
       emailResponse <- MailService.sendGrid.sendMail(emailMessage)
-    } yield emailResponse.statusCode == 202
+    } yield {
+      logger.info("Reset Account Message: " + emailMessage)
+      emailResponse.statusCode == 202
+    }
   }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {

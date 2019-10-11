@@ -22,14 +22,7 @@ abstract class UserContactsTableImpl extends UserContactsTable with RootConnecto
 
   override lazy val tableName = "userContacts"
 
-  def saveEntity(entity: UserContacts): Future[ResultSet] = {
-    insert
-      .value(_.userContactId, entity.userContactId)
-      .value(_.cellNumber, entity.cellNumber)
-      .value(_.alternativeNumber, entity.alternativeNumber)
-      .value(_.alternativeEmail, entity.alternativeEmail)
-      .future()
-  }
+  def saveEntity(entity: UserContacts): Future[ResultSet] = ???
 
   def getEntity(userContactId: String): Future[Option[UserContacts]] = {
     select
