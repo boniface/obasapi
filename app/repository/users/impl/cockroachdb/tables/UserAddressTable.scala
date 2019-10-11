@@ -10,7 +10,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
+class UserAddressTableCreate(tag: Tag) extends Table[UserAddress](tag, "user_address") {
   def userId: Rep[String] = column[String]("user_id")
 
   def addressTypeId: Rep[String] = column[String]("address_type_id")
@@ -22,6 +22,18 @@ class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address")
   def * : ProvenShape[UserAddress] = (userId, addressTypeId, address, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
 
   def pk = primaryKey("pk_user_address", (userId, addressTypeId))
+}
+
+class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
+  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
+
+  def addressTypeId: Rep[String] = column[String]("address_type_id", O.PrimaryKey)
+
+  def address: Rep[String] = column[String]("address")
+
+  def postalCode: Rep[String] = column[String]("postal_code")
+
+  def * : ProvenShape[UserAddress] = (userId, addressTypeId, address, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
 }
 
 object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
@@ -50,10 +62,14 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
     db.run(this.filter(_.userId === userId).filter(_.addressTypeId === addressTypeId).delete)
   }
 
+}
+
+object UserAddressTableCreate extends TableQuery(new UserAddressTableCreate(_)) {
+  def db: driver.api.Database = PgDBConnection.db
+
   def createTable = {
     db.run(
-      UserAddressTable.schema.createIfNotExists
+      UserAddressTableCreate.schema.createIfNotExists
     ).isCompleted
   }
-
 }

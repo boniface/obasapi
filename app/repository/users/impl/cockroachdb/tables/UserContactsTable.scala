@@ -11,22 +11,25 @@ import scala.concurrent.Future
 
 
 class UserContactsTable(tag: Tag) extends Table[UserContacts](tag, "user_contacts") {
-  def userContactId: Rep[String] = column[String]("user_contact_id", O.PrimaryKey)
 
-  def cellNumber: Rep[String] = column[String]("cell_number")
+  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
 
-  def alternativeNumber: Rep[String] = column[String]("alternative_number")
+  def contactTypeId: Rep[String] = column[String]("contact_type_id", O.PrimaryKey)
 
-  def alternativeEmail: Rep[String] = column[String]("alternative_email")
+  def contact: Rep[String] = column[String]("contact")
 
-  def * : ProvenShape[UserContacts] = (userContactId, cellNumber, alternativeNumber, alternativeEmail) <> ((UserContacts.apply _).tupled, UserContacts.unapply)
+  def * : ProvenShape[UserContacts] = (userId, contactTypeId, contact) <> ((UserContacts.apply _).tupled, UserContacts.unapply)
 }
 
 object UserContactsTable extends TableQuery(new UserContactsTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(userContactId: String): Future[Option[UserContacts]] = {
-    db.run(this.filter(_.userContactId === userContactId).result).map(_.headOption)
+  def getEntity(userId: String, contactTypeId: String): Future[Option[UserContacts]] = {
+    db.run(this.filter(_.userId === userId).filter(_.contactTypeId === contactTypeId).result).map(_.headOption)
+  }
+
+  def getEntityForUser(userId: String): Future[Seq[UserContacts]] = {
+    db.run(this.filter(_.userId === userId).result)
   }
 
   def saveEntity(userContacts: UserContacts): Future[Option[UserContacts]] = {
@@ -39,13 +42,32 @@ object UserContactsTable extends TableQuery(new UserContactsTable(_)) {
     db.run(UserContactsTable.result)
   }
 
-  def deleteEntity(userContactId: String): Future[Int] = {
-    db.run(this.filter(_.userContactId === userContactId).delete)
+  def deleteEntity(userId: String, contactTypeId: String): Future[Int] = {
+    db.run(this.filter(_.userId === userId).filter(_.contactTypeId === contactTypeId).delete)
   }
+
+}
+
+class UserContactsTableCreate(tag: Tag) extends Table[UserContacts](tag, "user_contacts") {
+
+  def userId: Rep[String] = column[String]("user_id")
+
+  def contactTypeId: Rep[String] = column[String]("contact_type_id")
+
+  def contact: Rep[String] = column[String]("contact")
+
+  def * : ProvenShape[UserContacts] = (userId, contactTypeId, contact) <> ((UserContacts.apply _).tupled, UserContacts.unapply)
+
+  def pk = primaryKey("pk_user_contacts", (userId, contactTypeId))
+}
+
+object UserContactsTableCreate extends TableQuery(new UserContactsTableCreate(_)) {
+
+  def db: driver.api.Database = PgDBConnection.db
 
   def createTable = {
     db.run(
-      UserContactsTable.schema.createIfNotExists
+      UserContactsTableCreate.schema.createIfNotExists
     ).isCompleted
   }
 
