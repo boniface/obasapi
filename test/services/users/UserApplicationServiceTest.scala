@@ -1,15 +1,15 @@
 package services.users
 
-import domain.users.UserApplicationResult
+import domain.users.UserApplication
 import org.scalatest.FunSuite
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 
-class UserApplicationResultServiceTest extends FunSuite{
-  val entity = UserApplicationResult("1","It's nice")
-  val roachService = UserApplicationResultService
+class UserApplicationServiceTest extends FunSuite{
+  val entity = UserApplication("1","It's nice")
+  val roachService = UserApplicationService
   test("createEntity"){
     val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
     assert(result.nonEmpty)

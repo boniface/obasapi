@@ -2,11 +2,11 @@ package repository.users.impl.cassandra.tables
 
 import com.outworkers.phantom.dsl._
 import com.outworkers.phantom.streams._
-import domain.users.UserApplicationResult
+import domain.users.UserApplication
 
 import scala.concurrent.Future
 
-abstract class UserApplicationResultTable extends Table[UserApplicationResultTable, UserApplicationResult] {
+abstract class UserApplicationResultTable extends Table[UserApplicationResultTable, UserApplication] {
 
   object userApplicationResultId extends StringColumn with PartitionKey
 
@@ -18,20 +18,20 @@ abstract class UserApplicationResultTableImpl extends UserApplicationResultTable
 
   override lazy val tableName = "userApplicationResult"
 
-  def saveEntity(entity: UserApplicationResult): Future[ResultSet] = {
+  def saveEntity(entity: UserApplication): Future[ResultSet] = {
     insert
       .value(_.userApplicationResultId, entity.userApplicationResultId)
       .value(_.description, entity.description)
       .future()
   }
 
-  def getEntity(userApplicationResultId: String): Future[Option[UserApplicationResult]] = {
+  def getEntity(userApplicationResultId: String): Future[Option[UserApplication]] = {
     select
       .where(_.userApplicationResultId eqs userApplicationResultId)
       .one()
   }
 
-  def getEntities: Future[Seq[UserApplicationResult]] = {
+  def getEntities: Future[Seq[UserApplication]] = {
     select
       .fetchEnumerator() run Iteratee.collect()
   }

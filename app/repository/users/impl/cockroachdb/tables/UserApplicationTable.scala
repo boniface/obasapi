@@ -1,6 +1,6 @@
 package repository.users.impl.cockroachdb.tables
 
-import domain.users.UserApplicationResult
+import domain.users.UserApplication
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection
@@ -10,29 +10,29 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserApplicationResultTable(tag: Tag) extends Table[UserApplicationResult](tag, "user_application_result") {
+class UserApplicationTable(tag: Tag) extends Table[UserApplication](tag, "user_application_result") {
   def userApplicationResultId: Rep[String] = column[String]("user_application_result_id", O.PrimaryKey)
 
   def description: Rep[String] = column[String]("description")
 
-  def * : ProvenShape[UserApplicationResult] = (userApplicationResultId, description) <> ((UserApplicationResult.apply _).tupled, UserApplicationResult.unapply)
+  def * : ProvenShape[UserApplication] = (userApplicationResultId, description) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
 }
 
-object UserApplicationResultTable extends TableQuery(new UserApplicationResultTable(_)) {
+object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(userApplicationResultId: String): Future[Option[UserApplicationResult]] = {
+  def getEntity(userApplicationResultId: String): Future[Option[UserApplication]] = {
     db.run(this.filter(_.userApplicationResultId === userApplicationResultId).result).map(_.headOption)
   }
 
-  def saveEntity(userApplicationResult: UserApplicationResult): Future[Option[UserApplicationResult]] = {
+  def saveEntity(userApplicationResult: UserApplication): Future[Option[UserApplication]] = {
     db.run(
       (this returning this).insertOrUpdate(userApplicationResult)
     )
   }
 
-  def getEntities: Future[Seq[UserApplicationResult]] = {
-    db.run(UserApplicationResultTable.result)
+  def getEntities: Future[Seq[UserApplication]] = {
+    db.run(UserApplicationTable.result)
   }
 
   def deleteEntity(userApplicationResultId: String): Future[Int] = {
@@ -41,7 +41,7 @@ object UserApplicationResultTable extends TableQuery(new UserApplicationResultTa
 
   def createTable = {
     db.run(
-      UserApplicationResultTable.schema.createIfNotExists
+      UserApplicationTable.schema.createIfNotExists
     ).isCompleted
   }
 

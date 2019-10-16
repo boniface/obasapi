@@ -22,7 +22,7 @@ abstract class UserDemographicsTableImpl extends UserDemographicsTable with Root
 
   def saveEntity(entity: UserDemographics): Future[ResultSet] = {
     insert
-      .value(_.userDemographicsId, entity.userDemographicsId)
+      .value(_.userDemographicsId, entity.userId)
       .value(_.genderId, entity.genderId)
       .value(_.raceId, entity.raceId)
       .future()

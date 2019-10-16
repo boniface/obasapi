@@ -1,23 +1,23 @@
 package controllers.users
 
 import controllers.ApiResponse
-import domain.users.UserApplicationResult
+import domain.users.UserApplication
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.login.LoginService
-import services.users.UserApplicationResultService
+import services.users.UserApplicationService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class UserApplicationResultController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc){
-  type DomainObject = UserApplicationResult
+  type DomainObject = UserApplication
 
   def className: String = "UserApplicationResultController"
-  def domainService: UserApplicationResultService = UserApplicationResultService.roach
+  def domainService: UserApplicationService = UserApplicationService.roach
   def loginService: LoginService = LoginService.apply
 
 
@@ -26,10 +26,10 @@ class UserApplicationResultController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Option[UserApplicationResult]] = for {
-            results: Option[UserApplicationResult] <- domainService.saveEntity(value)
+          val response: Future[Option[UserApplication]] = for {
+            results: Option[UserApplication] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Option[UserApplicationResult]](response, className)
+          api.requestResponse[Option[UserApplication]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -39,11 +39,11 @@ class UserApplicationResultController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Option[UserApplicationResult]] = for {
+          val response: Future[Option[UserApplication]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Option[UserApplicationResult] <- domainService.saveEntity(value)
+            results: Option[UserApplication] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Option[UserApplicationResult]](response, className)
+          api.requestResponse[Option[UserApplication]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
