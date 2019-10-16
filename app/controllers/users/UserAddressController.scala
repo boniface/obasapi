@@ -45,7 +45,7 @@ class UserAddressController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Option[UserAddress]] = for {
-//            _ <- loginService.checkLoginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Option[UserAddress] <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Option[UserAddress]](response, className)
