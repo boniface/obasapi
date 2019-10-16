@@ -6,7 +6,7 @@ case class UserAddress(
                         userId: String,
                         addressTypeId: String,
                         address: String,
-                        postalCode: String
+                        postalAddress: String
                       )
 
 object UserAddress {

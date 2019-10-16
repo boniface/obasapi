@@ -6,6 +6,7 @@ import controllers.ApiResponse
 import domain.demographics.Title
 import javax.inject.Inject
 import io.circe.generic.auto._
+import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.address.AddressTypeService
@@ -14,6 +15,7 @@ import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
 import services.demographics.Impl.cockroachdb.TitleServiceImpl
 import services.demographics.{RaceService, RoleService, TitleService}
 import services.login.LoginService
+import util.HelperUtil
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -21,10 +23,11 @@ import scala.concurrent.Future
 
 
 class TitleController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = Title
 
   def className: String = "TitleController"
+  override val logger: Logger = Logger(className)
 
   def domainService: TitleService = TitleService.roach
 
@@ -35,8 +38,10 @@ class TitleController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
+          val copy = value.copy(titleId = HelperUtil.codeGen(value.titlename))
+          logger.info("Saving title: " + copy)
           val response: Future[Option[Title]] = for {
-            results: Option[Title] <- domainService.saveEntity(value)
+            results: Option[Title] <- domainService.saveEntity(copy)
           } yield results
           api.requestResponse[Option[Title]](response, className)
         case Left(error) => api.errorResponse(error, className)
