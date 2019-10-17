@@ -24,7 +24,7 @@ class UserRelativeRepositoryImpl extends UserRelativeRepository{
   }
 
   override def deleteEntity(entity: UserRelative): Future[Boolean] = {
-    UserRelativeDatabase.userRelativeTable.deleteEntity(entity.userRelativeId) map (result => result.isExhausted())
+    UserRelativeDatabase.userRelativeTable.deleteEntity(entity.userId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {
