@@ -11,15 +11,13 @@ import scala.concurrent.Future
 
 
 class UserDemographicsTable(tag: Tag) extends Table[UserDemographics](tag, "user_demographics") {
-  def userId: Rep[String] = column[String]("user_demographics_id", O.PrimaryKey)
+  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
 
   def genderId: Rep[String] = column[String]("gender_id")
 
   def raceId: Rep[String] = column[String]("race_id")
   
   def titleId: Rep[String] = column[String]("title_id")
-  
-
 
   def * : ProvenShape[UserDemographics] = (userId, genderId, raceId,titleId) <> ((UserDemographics.apply _).tupled, UserDemographics.unapply)
 }

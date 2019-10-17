@@ -51,7 +51,6 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
     db.run(
       (this returning this).insertOrUpdate(userAddress)
     )
-
   }
 
   def getEntities: Future[Seq[UserAddress]] = {
