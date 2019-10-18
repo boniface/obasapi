@@ -5,7 +5,7 @@ import play.api.libs.json.Json
 case class UserSubjects(
                    userSubjectId:String,
                    name:String,
-                   description: String,
+                   description:String,
                    term:String
                   )
 object UserSubjects{
