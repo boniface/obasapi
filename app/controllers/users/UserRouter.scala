@@ -135,8 +135,8 @@ class UserRouter @Inject()
     //RELATIVE
     case GET(p"/relative/all") =>
       userRelativeController.getAllUserRelative
-    case GET(p"/relative/get/$userRelativeId") =>
-      userRelativeController.getUserRelativeById(userRelativeId)
+    case GET(p"/relative/get/$userId") =>
+      userRelativeController.getUserRelativeById(userId)
     case POST(p"/relative/create") =>
       userRelativeController.create
     case POST(p"/relative/update") =>

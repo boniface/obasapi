@@ -3,27 +3,27 @@ package repository.users.impl.cassandra
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl._
-import domain.users.UserApplicationResult
+import domain.users.UserApplication
 import repository.users.impl.cassandra.tables.UserApplicationResultTableImpl
-import repository.users.UserApplicationResultRepository
+import repository.users.UserApplicationRepository
 //import util.connections.DataConnection
 
 import util.connections.{DataConnection, PgDBConnection}
 
 import scala.concurrent.Future
 
-class UserApplicationResultRepositoryImpl extends UserApplicationResultRepository{
-  override def saveEntity(entity: UserApplicationResult) = ???
+class UserApplicationRepositoryImpl extends UserApplicationRepository{
+  override def saveEntity(entity: UserApplication) = ???
 
-  override def getEntities: Future[Seq[UserApplicationResult]] = {
+  override def getEntities: Future[Seq[UserApplication]] = {
     UserApplicationResultDatabase.userApplicationResultTable.getEntities
   }
 
-  override def getEntity(userApplicationResultId: String): Future[Option[UserApplicationResult]] = {
+  override def getEntity(userApplicationResultId: String): Future[Option[UserApplication]] = {
     UserApplicationResultDatabase.userApplicationResultTable.getEntity(userApplicationResultId)
   }
 
-  override def deleteEntity(entity: UserApplicationResult): Future[Boolean] = {
+  override def deleteEntity(entity: UserApplication): Future[Boolean] = {
     UserApplicationResultDatabase.userApplicationResultTable.deleteEntity(entity.userApplicationResultId) map (result => result.isExhausted())
   }
 

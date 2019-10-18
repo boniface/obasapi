@@ -28,6 +28,7 @@ class UserAddressController @Inject()
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       logger.info("Create request with body: " + entity)
+      println("Create request with body: " + entity)
       entity match {
         case Right(value) =>
           val response: Future[Option[UserAddress]] = for {
@@ -42,10 +43,11 @@ class UserAddressController @Inject()
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       logger.info("Update request with body: " + entity)
+      println("Update request with body: " + entity)
       entity match {
         case Right(value) =>
           val response: Future[Option[UserAddress]] = for {
-//            _ <- loginService.checkLoginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Option[UserAddress] <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Option[UserAddress]](response, className)
@@ -56,6 +58,7 @@ class UserAddressController @Inject()
   def getUserAddresses(userId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve by userId: " + userId)
+      println("Retrieve by userId: " + userId)
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntityForUser(userId)
       } yield results
@@ -65,6 +68,7 @@ class UserAddressController @Inject()
   def getUserAddress(userId: String, addressTypeId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve by userId: " + userId + " and addressTypeId: " + addressTypeId)
+      println("Retrieve by userId: " + userId + " and addressTypeId: " + addressTypeId)
       val response: Future[Option[DomainObject]] = for {
         results <- domainService.getEntity(userId, addressTypeId)
       } yield results
@@ -74,6 +78,7 @@ class UserAddressController @Inject()
   def getAllUserAddress: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve all requested")
+      println("Retrieve all requested")
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
       } yield results
@@ -84,6 +89,7 @@ class UserAddressController @Inject()
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       logger.info("Delete request with body: " + entity)
+      println("Delete request with body: " + entity)
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {

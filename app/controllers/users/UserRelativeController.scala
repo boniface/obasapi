@@ -4,6 +4,7 @@ import controllers.ApiResponse
 import domain.users.UserRelative
 import javax.inject.Inject
 import io.circe.generic.auto._
+import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.login.LoginService
@@ -13,10 +14,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class UserRelativeController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc){
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = UserRelative
 
   def className: String = "UserRelativeController"
+  override val logger: Logger = Logger(className)
   def domainService: UserRelativeService = UserRelativeService.roach
   def loginService: LoginService = LoginService.apply
 
@@ -48,10 +50,12 @@ class UserRelativeController @Inject()
       }
   }
 
-  def getUserRelativeById(userRelativeId: String): Action[AnyContent] = Action.async {
+  def getUserRelativeById(userId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by userId: " + userId)
+      println("Retrieve by userId: " + userId)
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(userRelativeId)
+        results <- domainService.getEntity(userId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

@@ -46,6 +46,7 @@ class LoginServiceImpl extends LoginService with Logging {
     lazy val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
     lazy val userPassword = UserPassword(user.email, hashedTempPass)
     lazy val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
+    println(emailMessage)
     for {
       isRegistered <- isUserRegistered(register) if !isRegistered//check if user is available
       savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user
@@ -112,8 +113,15 @@ class LoginServiceImpl extends LoginService with Logging {
   }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
-    val token = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
+    println("Request: ", request.headers.get(APPKeys.AUTHORIZATION))
+    val tokenWithBearer = request.headers.get(APPKeys.AUTHORIZATION).getOrElse("")
+    val token = if (tokenWithBearer.contains("Bearer "))
+      tokenWithBearer.replace("Bearer ", "") else tokenWithBearer
     val email = LoginTokenService.apply.getUserEmail(token)
+    logger.info("Token: " + token)
+    println("Token: " + token)
+    logger.info("Email: " + email)
+    println("Email: " + email)
     if (isSecurityEnabled) {
       if (LoginTokenService.apply.isTokenValid(token).isRight) {
         for {
