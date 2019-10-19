@@ -18,8 +18,8 @@ class UserRelativeRepositoryTest extends FunSuite{
   }
 
   test("readEntity"){
-    val result = Await.result(repository.roach.getEntity(entity.userRelativeId), 2 minutes)
-    assert(result.head.userRelativeId==entity.userRelativeId)
+    val result = Await.result(repository.roach.getEntity(entity.userId), 2 minutes)
+    assert(result.head.userId==entity.userId)
   }
 
   test("getEntities") {
@@ -36,7 +36,7 @@ class UserRelativeRepositoryTest extends FunSuite{
 
   test("deleteEntities"){
     Await.result(repository.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(repository.roach.getEntity(entity.userRelativeId), 2 minutes)
+    val result = Await.result(repository.roach.getEntity(entity.userId), 2 minutes)
     assert(result.isEmpty)
 
   }
