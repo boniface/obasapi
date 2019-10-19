@@ -30,7 +30,7 @@ class UserRelativeControllerTest extends PlaySpec with GuiceOneAppPerTest  with 
 
     "Read Entity " in {
 
-      val request = route(app, FakeRequest(GET, "/users/relative/get/$userRelativeId" + entity.userRelativeId)
+      val request = route(app, FakeRequest(GET, "/users/relative/get/$userRelativeId" + entity.userId)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
