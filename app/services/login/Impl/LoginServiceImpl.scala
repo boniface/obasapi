@@ -78,17 +78,22 @@ class LoginServiceImpl extends LoginService with Logging {
     retdata
   }
 
+  def buildUpdatedUserPassword(changePassword: ChangePassword, newHashedPassword: String): UserPassword = {
+    UserPassword(changePassword.email, newHashedPassword)
+  }
+
   override def changePassword(changePassword: ChangePassword): Future[Option[LoginToken]] = {
     val newHashedPassword = AuthenticationService.apply.getHashedPassword(changePassword.newPassword)
     for {
       userPassword <- UserPasswordService.apply.getEntity(changePassword.email)
       checkPassword <- authenticateUser(changePassword.oldPassword, userPassword.get.password) if checkPassword
-      updateUserPassword <- UserPasswordService.apply.saveEntity(UserPassword(changePassword.email, newHashedPassword)) if updateUserPassword.isDefined
+      updateUserPassword <- UserPasswordService.apply.saveEntity(buildUpdatedUserPassword(changePassword, newHashedPassword))
       _ <- UserChangePasswordService.apply.saveEntity(getSecureChangePasswordObj(changePassword, userPassword.get, newHashedPassword))
      loginToken <- getLoginToken(Login(changePassword.email, changePassword.newPassword))
     } yield {
       loginToken
     }
+
   }
 
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
