@@ -121,16 +121,19 @@ class UserRouter @Inject()
       userInstitutionController.deleteUserInstitution
 
     //PASSWORD
-    case GET(p"/password/all") =>
-      userPasswordController.getAllUserPassword
-    case GET(p"/password/get/$userPasswordId") =>
-      userPasswordController.getUserPasswordById(userPasswordId)
-    case POST(p"/password/create") =>
-      userPasswordController.create
-    case POST(p"/password/update") =>
-      userPasswordController.update
-    case POST(p"/password/delete") =>
-      userPasswordController.deleteUserPassword
+    /** Strange block starts here
+     * This is not supposed to be here */
+//    case GET(p"/password/all") =>
+//      userPasswordController.getAllUserPassword
+//    case GET(p"/password/get/$userPasswordId") =>
+//      userPasswordController.getUserPasswordById(userPasswordId)
+//    case POST(p"/password/create") =>
+//      userPasswordController.create
+//    case POST(p"/password/update") =>
+//      userPasswordController.update
+//    case POST(p"/password/delete") =>
+//      userPasswordController.deleteUserPassword
+    /** Strange block ends here */
 
     //RELATIVE
     case GET(p"/relative/all") =>
@@ -179,6 +182,8 @@ class UserRouter @Inject()
       userSubjectsController.update
     case POST(p"/subjects/delete") =>
       userSubjectsController.deleteUserSubjects
+
+      //PASSWORD
 
   }
 }
