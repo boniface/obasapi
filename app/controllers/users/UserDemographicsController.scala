@@ -4,6 +4,7 @@ import controllers.ApiResponse
 import domain.users.UserDemographics
 import javax.inject.Inject
 import io.circe.generic.auto._
+import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.login.LoginService
@@ -13,10 +14,11 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class UserDemographicsController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc){
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = UserDemographics
 
   def className: String = "UserDemographicsController"
+  override val logger: Logger = Logger(className)
   def domainService: UserDemographicsService = UserDemographicsService.roach
   def loginService: LoginService = LoginService.apply
 
@@ -39,6 +41,8 @@ class UserDemographicsController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
+          logger.info("Update request with body: " + entity)
+          println("Update request with body: " + entity)
           val response: Future[Option[UserDemographics]] = for {
             _ <- loginService.checkLoginStatus(request)
             results: Option[UserDemographics] <- domainService.saveEntity(value)

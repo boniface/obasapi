@@ -1,7 +1,7 @@
 package controllers.login
 
 import controllers.ApiResponse
-import domain.login.{Login, LoginToken, Register}
+import domain.login.{ChangePassword, Login, LoginToken, Register}
 import domain.security.ResetToken
 import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
@@ -43,6 +43,30 @@ class LoginController @Inject()
           } yield results
           api.requestResponse[Boolean](response, className)
         case Left(error) => api.errorResponse(error,className)
+      }
+  }
+
+  def changePassword: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[ChangePassword](request.body).asEither
+      logger.info("Change password request with body: " + entity)
+      println("Change password request with body: " + entity)
+      entity match {
+        case Right(value) =>
+          val response: Future[Option[LoginToken]] = for {
+            _ <- domainService.checkLoginStatus(request)
+            results <- domainService.changePassword(value)
+          } yield {
+            logger.info("Change password response: " + results)
+            println("Change password response: " + results)
+            results
+          }
+          api.requestResponse[Option[LoginToken]](response, className)
+        case Left(error) => {
+          logger.error("An error occurred: " + error.seq.toString())
+          println("An error occurred: " + error.seq.toString())
+          api.errorResponse(error,className)
+        }
       }
   }
 

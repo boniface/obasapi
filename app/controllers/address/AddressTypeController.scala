@@ -50,7 +50,7 @@ class AddressTypeController @Inject()
       entity match {
         case Right(value) =>
           val response: Future[Option[AddressType]] = for {
-//            _ <- loginService.checkLoginStatus(request)
+            _ <- loginService.checkLoginStatus(request)
             results: Option[AddressType] <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Option[AddressType]](response, className)

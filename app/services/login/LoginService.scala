@@ -1,6 +1,6 @@
 package services.login
 
-import domain.login.{Login, LoginToken, Register}
+import domain.login.{ChangePassword, Login, LoginToken, Register}
 import domain.security.ResetToken
 import play.api.mvc.Request
 import services.login.Impl.LoginServiceImpl
@@ -23,6 +23,8 @@ trait LoginService {
   def checkFileSize(size:Long):Future[Boolean]
 
   def logOut(register: Register): Future[Boolean]
+
+  def changePassword(changePassword: ChangePassword): Future[Option[LoginToken]]
 }
 object LoginService{
   def apply: LoginService = new LoginServiceImpl()

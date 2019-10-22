@@ -1,7 +1,7 @@
 package services.login.Impl
 
 import com.typesafe.config.ConfigFactory
-import domain.login.{Login, LoginToken, Register}
+import domain.login.{ChangePassword, Login, LoginToken, Register}
 import domain.security.ResetToken
 import domain.users.{User, UserPassword, UserRole}
 import play.api.{Logger, Logging}
@@ -9,7 +9,7 @@ import play.api.mvc.Request
 import services.login.{LoginService, LoginTokenService}
 import services.mail.{EmailCreationMessageService, MailService}
 import services.security.{ApiKeysService, AuthenticationService, ResetTokenService, TokenCreationService}
-import services.users.{UserPasswordService, UserRoleService, UserService}
+import services.users.{UserChangePasswordService, UserPasswordService, UserRoleService, UserService}
 import util.{APPKeys, HelperUtil}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -73,6 +73,23 @@ class LoginServiceImpl extends LoginService with Logging {
     }
   }
 
+  private def getSecureChangePasswordObj(changePassword: ChangePassword, userPassword: UserPassword, newHashedPassword: String): ChangePassword = {
+    val retdata = changePassword.copy(oldPassword = userPassword.password, newPassword = newHashedPassword)
+    retdata
+  }
+
+  override def changePassword(changePassword: ChangePassword): Future[Option[LoginToken]] = {
+    val newHashedPassword = AuthenticationService.apply.getHashedPassword(changePassword.newPassword)
+    for {
+      userPassword <- UserPasswordService.apply.getEntity(changePassword.email)
+      checkPassword <- authenticateUser(changePassword.oldPassword, userPassword.get.password) if checkPassword
+      updateUserPassword <- UserPasswordService.apply.saveEntity(UserPassword(changePassword.email, newHashedPassword)) if updateUserPassword.isDefined
+      _ <- UserChangePasswordService.apply.saveEntity(getSecureChangePasswordObj(changePassword, userPassword.get, newHashedPassword))
+     loginToken <- getLoginToken(Login(changePassword.email, changePassword.newPassword))
+    } yield {
+      loginToken
+    }
+  }
 
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
     for {
@@ -95,7 +112,6 @@ class LoginServiceImpl extends LoginService with Logging {
       send <- resetAccount(user) if send
       _ <- ResetTokenService.apply.saveEntity(resetToken.get.copy(status = APPKeys.INACTIVE))
     } yield send
-
   }
 
   private def resetAccount(user: Option[User]): Future[Boolean] = {
