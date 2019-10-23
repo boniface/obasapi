@@ -9,11 +9,11 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class TownTable(tag: Tag) extends Table[Town] (tag, _tableName = "application_status") {
+class TownTable(tag: Tag) extends Table[Town] (tag, _tableName = "town") {
 
-  def townCode: Rep[String] = column[String]("application_status_id", O.PrimaryKey)
+  def townCode: Rep[String] = column[String]("town_code", O.PrimaryKey)
 
-  def townName: Rep[String] = column[String]("description")
+  def townName: Rep[String] = column[String]("town_name")
 
   override def * : ProvenShape[Town] = (townCode,townName) <> ((Town.apply _).tupled, Town.unapply)
 }

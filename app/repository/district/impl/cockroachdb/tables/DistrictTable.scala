@@ -11,7 +11,7 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DistrictTable(tag: Tag) extends Table[District] (tag, _tableName = "application_status") {
+class DistrictTable(tag: Tag) extends Table[District] (tag, _tableName = "district") {
 
   def districtCode: Rep[String] = column[String]("district_code", O.PrimaryKey)
 

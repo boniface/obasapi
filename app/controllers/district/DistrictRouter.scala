@@ -51,7 +51,7 @@ class DistrictRouter @Inject()(districtController: DistrictController
     case POST(p"/town/delete") =>
       townController.deleteTown
   }
-}
+
 
 
 }
