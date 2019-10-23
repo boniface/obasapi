@@ -2,7 +2,7 @@ package repository.users.impl.cockroachdb
 
 import domain.login.ChangePassword
 import repository.users.UserChangePasswordRepository
-import repository.users.impl.cockroachdb.tables.UserChangePasswordTable
+import repository.users.impl.cockroachdb.tables.{UserChangePasswordTable, UserChangePasswordTableCreate}
 
 import scala.concurrent.Future
 
@@ -15,5 +15,5 @@ class UserChangePasswordRepositoryImpl extends UserChangePasswordRepository{
 
   override def deleteEntity(entity: ChangePassword): Future[Boolean] = ???
 
-  override def createTable: Future[Boolean] = Future.successful(UserChangePasswordTable.createTable)
+  override def createTable: Future[Boolean] = Future.successful(UserChangePasswordTableCreate.createTable)
 }

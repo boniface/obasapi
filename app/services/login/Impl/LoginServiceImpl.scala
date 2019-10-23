@@ -78,7 +78,7 @@ class LoginServiceImpl extends LoginService with Logging {
     retdata
   }
 
-  def buildUpdatedUserPassword(changePassword: ChangePassword, newHashedPassword: String): UserPassword = {
+  private def buildUpdatedUserPassword(changePassword: ChangePassword, newHashedPassword: String): UserPassword = {
     UserPassword(changePassword.email, newHashedPassword)
   }
 
@@ -87,7 +87,7 @@ class LoginServiceImpl extends LoginService with Logging {
     for {
       userPassword <- UserPasswordService.apply.getEntity(changePassword.email)
       checkPassword <- authenticateUser(changePassword.oldPassword, userPassword.get.password) if checkPassword
-      updateUserPassword <- UserPasswordService.apply.saveEntity(buildUpdatedUserPassword(changePassword, newHashedPassword))
+      _ <- UserPasswordService.apply.saveEntity(buildUpdatedUserPassword(changePassword, newHashedPassword))
       _ <- UserChangePasswordService.apply.saveEntity(getSecureChangePasswordObj(changePassword, userPassword.get, newHashedPassword))
      loginToken <- getLoginToken(Login(changePassword.email, changePassword.newPassword))
     } yield {
