@@ -9,7 +9,10 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
+/**
+ * Used for DDL (to create table with composite key)
+ * @param tag
+ */
 class UserAddressTableCreate(tag: Tag) extends Table[UserAddress](tag, "user_address") {
   def userId: Rep[String] = column[String]("user_id")
 
@@ -24,6 +27,20 @@ class UserAddressTableCreate(tag: Tag) extends Table[UserAddress](tag, "user_add
   def pk = primaryKey("pk_user_address", (userId, addressTypeId))
 }
 
+object UserAddressTableCreate extends TableQuery(new UserAddressTableCreate(_)) {
+  def db: driver.api.Database = PgDBConnection.db
+
+  def createTable = {
+    db.run(
+      UserAddressTableCreate.schema.createIfNotExists
+    ).isCompleted
+  }
+}
+
+/**
+ * Used for DML
+ * @param tag
+ */
 class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
   def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
 
@@ -61,14 +78,4 @@ object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
     db.run(this.filter(_.userId === userId).filter(_.addressTypeId === addressTypeId).delete)
   }
 
-}
-
-object UserAddressTableCreate extends TableQuery(new UserAddressTableCreate(_)) {
-  def db: driver.api.Database = PgDBConnection.db
-
-  def createTable = {
-    db.run(
-      UserAddressTableCreate.schema.createIfNotExists
-    ).isCompleted
-  }
 }
