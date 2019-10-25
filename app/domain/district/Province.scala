@@ -2,12 +2,12 @@ package domain.district
 
 import play.api.libs.json.Json
 
-case class Province (
+case class Province(
+                     provinceCode: String,
+                     provinceName: String
+                   )
 
-  provinceCode: String,
-  provinceName: String
-)
-object Province{
+object Province {
   implicit val provinceFmt = Json.format[Province]
 
 }

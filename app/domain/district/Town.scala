@@ -3,7 +3,6 @@ package domain.district
 import play.api.libs.json.Json
 
 case class Town(
-
                  townCode: String,
                  townName: String
                )
