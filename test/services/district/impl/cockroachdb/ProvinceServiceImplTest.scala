@@ -1,8 +1,8 @@
 package services.district.impl.cockroachdb
 
-import domain.district.Province
+import domain.demographics.Province
 import org.scalatest.FunSuite
-import services.district.ProvinceService
+import services.demographics.ProvinceService
 
 import scala.concurrent.Await
 import scala.concurrent.duration._

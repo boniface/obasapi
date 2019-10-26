@@ -10,7 +10,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class UserAddressRepositoryImpl  extends UserAddressRepository{
 
   override def saveEntity(entity: UserAddress): Future[Option[UserAddress]] = {
-    println("Saving...", entity)
     UserAddressTable.saveEntity(entity)
   }
 

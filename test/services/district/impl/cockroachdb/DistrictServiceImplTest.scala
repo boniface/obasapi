@@ -2,9 +2,9 @@ package services.district.impl.cockroachdb
 
 import java.time.LocalDateTime
 
-import domain.district.District
+import domain.demographics.District
 import org.scalatest.FunSuite
-import services.district.DistrictService
+import services.demographics.DistrictService
 
 import scala.concurrent.Await
 import scala.concurrent.Await

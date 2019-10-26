@@ -6,19 +6,14 @@ import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
 class UserRouter @Inject()
-(userAddressController: UserAddressController,
- userApplicationResultController: UserApplicationResultController,
- userCommunicationController: UserCommunicationController,
- userContactsController: UserContactsController,
- userController: UserController,
- userDemographicsController: UserDemographicsController,
- userDocumentsController: UserDocumentsController,
- userInstitutionController: UserInstitutionController,
- userPasswordController: UserPasswordController,
- userRelativeController: UserRelativeController,
- userResultsController: UserResultsController,
- userRoleController: UserRoleController,
- userSubjectsController: UserSubjectsController) extends SimpleRouter {
+(userAddressController: UserAddressController, userApplicationResultController: UserApplicationResultController,
+ userCommunicationController: UserCommunicationController, userContactsController: UserContactsController,
+ userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentsController,
+ userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
+ userRelativeController: UserRelativeController, userResultsController: UserResultsController,
+ userRoleController: UserRoleController, userSubjectsController: UserSubjectsController,
+ userTownController: UserTownController
+) extends SimpleRouter {
   override def routes: Routes = {
     //USER
     case GET(p"/all") =>
@@ -123,16 +118,16 @@ class UserRouter @Inject()
     //PASSWORD
     /** Strange block starts here
      * This is not supposed to be here */
-//    case GET(p"/password/all") =>
-//      userPasswordController.getAllUserPassword
-//    case GET(p"/password/get/$userPasswordId") =>
-//      userPasswordController.getUserPasswordById(userPasswordId)
-//    case POST(p"/password/create") =>
-//      userPasswordController.create
-//    case POST(p"/password/update") =>
-//      userPasswordController.update
-//    case POST(p"/password/delete") =>
-//      userPasswordController.deleteUserPassword
+    //    case GET(p"/password/all") =>
+    //      userPasswordController.getAllUserPassword
+    //    case GET(p"/password/get/$userPasswordId") =>
+    //      userPasswordController.getUserPasswordById(userPasswordId)
+    //    case POST(p"/password/create") =>
+    //      userPasswordController.create
+    //    case POST(p"/password/update") =>
+    //      userPasswordController.update
+    //    case POST(p"/password/delete") =>
+    //      userPasswordController.deleteUserPassword
     /** Strange block ends here */
 
     //RELATIVE
@@ -183,7 +178,15 @@ class UserRouter @Inject()
     case POST(p"/subjects/delete") =>
       userSubjectsController.deleteUserSubjects
 
-      //PASSWORD
+    //TOWN
+    case POST(p"/town/create") =>
+      userTownController.create
+    case GET(p"/town/get/$userId") =>
+      userTownController.read(userId)
+    case POST(p"/town/update") =>
+      userTownController.update
+    case GET(p"/town/delete") =>
+      userTownController.delete
 
   }
 }

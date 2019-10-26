@@ -1,6 +1,6 @@
 package controllers.district
 
-import domain.district.Town
+import domain.demographics.Town
 import org.scalatest.FunSuite
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest

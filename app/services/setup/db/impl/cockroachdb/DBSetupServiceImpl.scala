@@ -2,8 +2,7 @@ package services.setup.db.impl.cockroachdb
 
 import services.address.{AddressTypeService, ContactTypeService}
 import services.application.{ApplicantTypeService, ApplicationResultService, ApplicationStatusService}
-import services.demographics.{GenderService, RaceService, RoleService, TitleService}
-import services.district.{DistrictService, ProvinceService, TownService}
+import services.demographics.{DistrictService, DistrictTownService, GenderService, ProvinceDistrictService, ProvinceService, RaceService, RoleService, TitleService, TownService}
 import services.documents.{DocumentService, DocumentTypeService}
 import services.institutions.{SchoolService, UniversityService}
 import services.location.{LocationService, LocationTypeService}
@@ -40,12 +39,11 @@ class DBSetupServiceImpl extends DBSetupService {
     RaceService.roach.createTable
     RoleService.roach.createTable
     TitleService.roach.createTable
-  }
-
-  def createDistrictTables(): Future[Boolean] = {
     DistrictService.roach.createTable
     ProvinceService.roach.createTable
     TownService.roach.createTable
+    ProvinceDistrictService.apply.createTable
+    DistrictTownService.apply.createTable
   }
 
   def createDocumentTables(): Future[Boolean] = {
@@ -85,6 +83,7 @@ class DBSetupServiceImpl extends DBSetupService {
     UserResultsService.roach.createTable
     UserService.apply.createTable
     UserChangePasswordService.apply.createTable
+    UserTownService.apply.createTable
   }
 
   def createLoginTables(): Future[Boolean] ={
@@ -108,8 +107,6 @@ class DBSetupServiceImpl extends DBSetupService {
     createApplicationTables()
 
     createDemographicsTables()
-
-    createDistrictTables()
 
     createDocumentTables()
 
