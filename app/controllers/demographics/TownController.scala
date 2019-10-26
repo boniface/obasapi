@@ -4,19 +4,22 @@ import controllers.ApiResponse
 import domain.demographics.Town
 import io.circe.generic.auto._
 import javax.inject.Inject
+import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc._
 import services.demographics.TownService
 import services.login.LoginService
+import util.HelperUtil
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class TownController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = Town
 
   def className: String = "TownController"
+  override val logger: Logger = Logger(className)
 
   def domainService: TownService = TownService.roach
   def loginService: LoginService = LoginService.apply
@@ -26,8 +29,10 @@ class TownController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
+          val copy = value.copy(townCode = HelperUtil.codeGen(value.townName))
+          logger.info("Saving town: " + copy)
           val response: Future[Option[Town]] = for {
-            results: Option[Town] <- domainService.saveEntity(value)
+            results: Option[Town] <- domainService.saveEntity(copy)
           } yield results
           api.requestResponse[Option[Town]](response, className)
         case Left(error) => api.errorResponse(error, className)

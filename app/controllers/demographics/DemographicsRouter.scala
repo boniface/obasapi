@@ -6,9 +6,10 @@ import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
 class DemographicsRouter @Inject()
-(genderController: GenderController, raceController: RaceController,
- rolesController: RolesController, titleController: TitleController, districtController: DistrictController,
- provinceController: ProvinceController, townController: TownController) extends SimpleRouter {
+(genderController: GenderController, raceController: RaceController, rolesController: RolesController,
+ titleController: TitleController, districtController: DistrictController, provinceController: ProvinceController,
+ townController: TownController, provinceDistrictController: ProvinceDistrictController, districtTownController: DistrictTownController
+) extends SimpleRouter {
   override def routes: Routes = {
 
     //GENDER
@@ -71,7 +72,6 @@ class DemographicsRouter @Inject()
     case POST(p"/district/delete") =>
       districtController.deleteDistrict
 
-
     //PROVINCE
     case GET(p"/province/all") =>
       provinceController.getAllProvince
@@ -95,7 +95,30 @@ class DemographicsRouter @Inject()
       townController.update
     case POST(p"/town/delete") =>
       townController.deleteTown
+
+    //PROVINCE_DISTRICT
+    case GET(p"/provincedistrict/all") =>
+      provinceDistrictController.getAll
+    case GET(p"/provincedistrict/get/$provinceCode/$districtCode") =>
+      provinceDistrictController.read(provinceCode, districtCode)
+    case GET(p"/provincedistrict/get/$provinceCode") =>
+      provinceDistrictController.getDistrictsInProvince(provinceCode)
+    case POST(p"/provincedistrict/create") =>
+      provinceDistrictController.create
+    case POST(p"/provincedistrict/delete") =>
+      provinceDistrictController.delete
+
+    //DISTRICT_TOWN
+    case GET(p"/districttown/all") =>
+      districtTownController.getAll
+    case GET(p"/districttown/get/$districtCode/$townCode") =>
+      districtTownController.read(districtCode, townCode)
+    case GET(p"/districttown/get/$districtCode") =>
+      districtTownController.getTownsInDistrict(districtCode)
+    case POST(p"/districttown/create") =>
+      districtTownController.create
+    case POST(p"/districttown/delete") =>
+      districtTownController.delete
+
   }
-
-
 }
