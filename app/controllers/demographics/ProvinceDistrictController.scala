@@ -44,6 +44,16 @@ class ProvinceDistrictController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
+  def getProvinceForDistrict(districtCode: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve province by districtCode: " + districtCode)
+      println("Retrieve province by districtCode: " + districtCode)
+      val response: Future[Option[DomainObject]] = for {
+        results <- domainService.getEntities
+      } yield results.filter(value => value.districtCode == districtCode).headOption
+      api.requestResponse[Option[DomainObject]](response, className)
+  }
+
   def read(provinceCode: String, districtCode: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve by provinceCode: " + provinceCode + " and districtCode: " + districtCode)
