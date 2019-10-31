@@ -6,6 +6,7 @@ import java.nio.file.attribute.PosixFilePermission._
 import java.nio.file.attribute.PosixFilePermissions
 import java.nio.file.{Files, Path}
 import java.util
+
 import io.circe.generic.auto._
 import akka.stream.IOResult
 import akka.stream.scaladsl._
@@ -14,6 +15,7 @@ import controllers.ApiResponse
 import domain.storage.{FileData, FileInformation, FileSize}
 import javax.inject.Inject
 import org.apache.commons.io.FileUtils
+import play.api.{Logger, Logging}
 import play.api.libs.streams._
 import play.api.mvc.MultipartFormData.FilePart
 import play.api.mvc._
@@ -27,20 +29,21 @@ import scala.concurrent.Future
 
 class FileManagerController @Inject()(cc: MessagesControllerComponents, api: ApiResponse)
 
-  extends MessagesAbstractController(cc) {
+  extends MessagesAbstractController(cc) with Logging {
   def className: String = "FileManagerController"
+  override val logger: Logger = Logger(className)
 
   def domainService: FileManagerService = FileManagerService.apply
 
   def loginService: LoginService = LoginService.apply
 
 
-  private val logger = org.slf4j.LoggerFactory.getLogger(this.getClass)
-
   type FilePartHandler[A] = FileInfo => Accumulator[ByteString, FilePart[A]]
 
   def upload: Action[MultipartFormData[File]] = Action.async(parse.multipartFormData(handleFilePartAsFile)) {
     implicit request: MessagesRequest[MultipartFormData[File]] =>
+      logger.info("Upload file request with filedata: " + request.body)
+      println("Upload file request with filedata: " + request.body)
       def  uploadedFile: Option[FileInformation] = request.body.file("upload").map {
         case FilePart(key, filename, contentType, file, fileSize, dispositionType) =>
           FileInformation(key, filename, contentType, file, fileSize, dispositionType)

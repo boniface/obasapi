@@ -101,9 +101,9 @@ class DemographicsRouter @Inject()
       provinceDistrictController.getAll
     case GET(p"/provincedistrict/get/$provinceCode/$districtCode") =>
       provinceDistrictController.read(provinceCode, districtCode)
-    case GET(p"/provincedistrict/get/$provinceCode") =>
+    case GET(p"/provincedistrict/getdistricts/$provinceCode") =>
       provinceDistrictController.getDistrictsInProvince(provinceCode)
-    case GET(p"/provincedistrict/get/province/$districtCode") =>
+    case GET(p"/provincedistrict/getdistrictprovince/$districtCode") =>
       provinceDistrictController.getProvinceForDistrict(districtCode)
     case POST(p"/provincedistrict/create") =>
       provinceDistrictController.create
@@ -115,9 +115,9 @@ class DemographicsRouter @Inject()
       districtTownController.getAll
     case GET(p"/districttown/get/$districtCode/$townCode") =>
       districtTownController.read(districtCode, townCode)
-    case GET(p"/districttown/get/$districtCode") =>
+    case GET(p"/districttown/gettowns/$districtCode") =>
       districtTownController.getTownsInDistrict(districtCode)
-    case GET(p"/districttown/get/district/$townCode") =>
+    case GET(p"/districttown/gettowndistrict/$townCode") =>
       districtTownController.getDistrictForTown(townCode)
     case POST(p"/districttown/create") =>
       districtTownController.create
