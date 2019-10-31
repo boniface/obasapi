@@ -13,7 +13,8 @@ class UserTownServiceImpl extends UserTownService{
   override def getEntities: Future[Seq[UserTown]] =
     UserTownRepository.apply.getEntities
 
-  override def getEntity(id: String): Future[Option[UserTown]] = ???
+  override def getEntity(id: String): Future[Option[UserTown]] =
+    UserTownRepository.apply.getEntity(id)
 
   override def deleteEntity(entity: UserTown): Future[Boolean] =
     UserTownRepository.apply.deleteEntity(entity)
