@@ -8,7 +8,7 @@ import play.api.routing.sird._
 class UserRouter @Inject()
 (userAddressController: UserAddressController, userApplicationResultController: UserApplicationResultController,
  userCommunicationController: UserCommunicationController, userContactsController: UserContactsController,
- userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentsController,
+ userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentController,
  userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
  userRelativeController: UserRelativeController, userResultsController: UserResultsController,
  userRoleController: UserRoleController, userSubjectsController: UserSubjectsController,
@@ -93,9 +93,11 @@ class UserRouter @Inject()
 
     //DOCUMENTS
     case GET(p"/documents/all") =>
-      userDocumentsController.getAllUserDocuments
-    case GET(p"/documents/get/$userDocumentsId") =>
-      userDocumentsController.getUserDocumentsById(userDocumentsId)
+      userDocumentsController.getAllUsersDocuments
+    case GET(p"/documents/get/$userId") =>
+      userDocumentsController.getUserDocuments(userId)
+    case GET(p"/documents/get/$userId/$documentId") =>
+      userDocumentsController.getUserDocument(userId, documentId)
     case POST(p"/documents/create") =>
       userDocumentsController.create
     case POST(p"/documents/update") =>

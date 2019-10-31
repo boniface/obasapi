@@ -1,15 +1,15 @@
 package services.users
 
-import domain.users.UserDocuments
+import domain.users.UserDocument
 import org.scalatest.FunSuite
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
 
 
-class UserDocumentsServiceTest extends FunSuite{
-  val entity = UserDocuments("1","12")
-  val roachService = UserDocumentsService
+class UserDocumentServiceTest extends FunSuite{
+  val entity = UserDocument("1","12")
+  val roachService = UserDocumentService
   test("createEntity"){
     val result = Await.result(roachService.roach.saveEntity(entity), 2 minutes)
     assert(result.nonEmpty)
@@ -17,8 +17,8 @@ class UserDocumentsServiceTest extends FunSuite{
   }
 
   test("readEntity"){
-    val result = Await.result(roachService.roach.getEntity(entity.userDocumentsId), 2 minutes)
-    assert(result.head.userDocumentsId==entity.userDocumentsId)
+    val result = Await.result(roachService.roach.getEntity(entity.userId), 2 minutes)
+    assert(result.head.userId==entity.userId)
   }
 
   test("getEntities") {
@@ -35,7 +35,7 @@ class UserDocumentsServiceTest extends FunSuite{
 
   test("deleteEntities"){
     Await.result(roachService.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(roachService.roach.getEntity(entity.userDocumentsId), 2 minutes)
+    val result = Await.result(roachService.roach.getEntity(entity.userId), 2 minutes)
     assert(result.isEmpty)
 
   }

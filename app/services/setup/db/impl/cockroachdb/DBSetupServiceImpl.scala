@@ -74,7 +74,7 @@ class DBSetupServiceImpl extends DBSetupService {
     UserCommunicationService.roach.createTable
     UserContactsService.roach.createTable
     UserDemographicsService.roach.createTable
-    UserDocumentsService.roach.createTable
+    UserDocumentService.roach.createTable
     UserInstitutionService.roach.createTable
     UserPasswordService.apply.createTable
     UserRelativeService.roach.createTable
