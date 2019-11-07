@@ -37,7 +37,6 @@ class FileManagerController @Inject()(cc: MessagesControllerComponents, api: Api
 
   def loginService: LoginService = LoginService.apply
 
-
   type FilePartHandler[A] = FileInfo => Accumulator[ByteString, FilePart[A]]
 
   def upload: Action[MultipartFormData[File]] = Action.async(parse.multipartFormData(handleFilePartAsFile)) {
@@ -49,7 +48,6 @@ class FileManagerController @Inject()(cc: MessagesControllerComponents, api: Api
           FileInformation(key, filename, contentType, file, fileSize, dispositionType)
       }
       val response: Future[FileData] = {
-
         for {
           authorize <- loginService.checkLoginStatus(request) if authorize
           checkSize <- loginService.checkFileSize(uploadedFile.get.fileSize) if checkSize
