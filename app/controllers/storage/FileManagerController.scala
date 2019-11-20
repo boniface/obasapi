@@ -71,11 +71,17 @@ class FileManagerController @Inject()(cc: MessagesControllerComponents, api: Api
 
 
   def getFile(vol: String, fid: String, filename: String): Action[AnyContent] = Action.async {
-    val url = "/" + vol + "/" + "/" + fid + "/" + filename
+    val url = "/" + vol + "/" + fid + "/" + filename
     val mimeType = URLConnection.getFileNameMap.getContentTypeFor(new File(filename).getName)
+    logger.info("URL: " + url)
+    println("URL: " + url)
+    logger.info("MIMETYPE: " + mimeType)
+    println("MIMETYPE: " + mimeType)
     domainService.getFile(url) map {
       case Right(file) => {
         val dataContent: Source[ByteString, _] = StreamConverters.fromInputStream(() => FileUtils.openInputStream(file))
+        logger.info("Datacontent: "+ dataContent)
+        println("Datacontent: "+ dataContent)
         Ok.chunked(dataContent).as(mimeType)
       }
       case Left(err) => {

@@ -4,7 +4,7 @@ import services.address.{AddressTypeService, ContactTypeService}
 import services.application.{ApplicantTypeService, ApplicationResultService, ApplicationStatusService}
 import services.demographics.{DistrictService, DistrictTownService, GenderService, ProvinceDistrictService, ProvinceService, RaceService, RoleService, TitleService, TownService}
 import services.documents.{DocumentService, DocumentTypeService}
-import services.institutions.{SchoolService, UniversityService}
+import services.institutions.{InstitutionAddressService, InstitutionContactService, InstitutionLocationService, InstitutionService, InstitutionTypeService}
 import services.location.{LocationService, LocationTypeService}
 import services.log.LogEventService
 import services.login.LoginTokenService
@@ -52,8 +52,11 @@ class DBSetupServiceImpl extends DBSetupService {
   }
 
   def createInstitutionTables(): Future[Boolean] = {
-    SchoolService.roach.createTable
-    UniversityService.roach.createTable
+    InstitutionTypeService.apply.createTable
+    InstitutionService.apply.createTable
+    InstitutionAddressService.apply.createTable
+    InstitutionContactService.apply.createTable
+    InstitutionLocationService.apply.createTable
   }
 
   def createMailTables(): Future[Boolean] = {
