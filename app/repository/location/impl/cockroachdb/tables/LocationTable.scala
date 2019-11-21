@@ -13,19 +13,17 @@ import scala.concurrent.Future
 class LocationTable(tag: Tag) extends Table[Location](tag, "location") {
   def locationId: Rep[String] = column[String]("location_id", O.PrimaryKey)
 
+  def locationTypeId: Rep[String] = column[String]("location_type_id")
+
   def name: Rep[String] = column[String]("name")
 
   def latitude: Rep[String] = column[String]("latitude")
 
   def longitude: Rep[String] = column[String]("longitude")
 
- // def code: Rep[String] = column[String]("code")
+  def locationParentId:Rep[Option[String]] = column[Option[String]]("parent_id")
 
-  def locationTypeId: Rep[String] = column[String]("location_type_id")
-
-  def parentId:Rep[Option[String]] = column[Option[String]]("parent_id")
-
-  def * : ProvenShape[Location] = (locationId, name, latitude, longitude, locationTypeId, parentId) <> ((Location.apply _).tupled, Location.unapply)
+  def * : ProvenShape[Location] = (locationId, locationTypeId, name, latitude, longitude, locationParentId) <> ((Location.apply _).tupled, Location.unapply)
 }
 
 object LocationTable extends TableQuery(new LocationTable(_)) {

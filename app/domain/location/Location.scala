@@ -3,17 +3,15 @@ package domain.location
 import play.api.libs.json.Json
 
 case class Location(
-                     locationId:String,
+                     locationId: String,
+                     locationTypeId: String,
                      name: String,
-                     latitude:String,
-                     longitude:String,
-                     locationTypeId:String,
-
-                     parentId:Option[String],
-                   //   children: LocationType[]
-                     //children[] Location
+                     latitude: String,
+                     longitude: String,
+                     locationParentId: Option[String]
                    )
-object Location{
+
+object Location {
   implicit val locationFmt = Json.format[Location]
 
 }
