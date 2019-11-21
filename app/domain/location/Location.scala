@@ -4,10 +4,9 @@ import play.api.libs.json.Json
 
 case class Location(
                      locationId:String,
-                     name:String,
+                     name: String,
                      latitude:String,
                      longitude:String,
-                     code:String,
                      locationTypeId:String,
 
                      parentId:Option[String],

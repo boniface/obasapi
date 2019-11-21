@@ -19,13 +19,13 @@ class LocationTable(tag: Tag) extends Table[Location](tag, "location") {
 
   def longitude: Rep[String] = column[String]("longitude")
 
-  def code: Rep[String] = column[String]("code")
+ // def code: Rep[String] = column[String]("code")
 
   def locationTypeId: Rep[String] = column[String]("location_type_id")
 
   def parentId:Rep[Option[String]] = column[Option[String]]("parent_id")
 
-  def * : ProvenShape[Location] = (locationId, name, latitude, longitude, code, locationTypeId, parentId) <> ((Location.apply _).tupled, Location.unapply)
+  def * : ProvenShape[Location] = (locationId, name, latitude, longitude, locationTypeId, parentId) <> ((Location.apply _).tupled, Location.unapply)
 }
 
 object LocationTable extends TableQuery(new LocationTable(_)) {

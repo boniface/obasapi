@@ -36,7 +36,7 @@ abstract class LocationTableImpl extends LocationTable with RootConnector {
       .value(_.parentId, entity.parentId)
       .value(_.latitude, entity.latitude)
       .value(_.longitude, entity.longitude)
-      .value(_.code, entity.code)
+     // .value(_.code, entity.code)
       .value(_.locationTypeId, entity.locationTypeId)
       .future()
   }
