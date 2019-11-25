@@ -17,7 +17,7 @@ GET        /assets/*file        controllers.Assets.versioned(path="/public", fil
 ->         /demographics        controllers.demographics.DemographicsRouter
 ->         /application         controllers.application.ApplicationRouter
 ->         /documents           controllers.documents.DocumentsRouter
-->         /subjects            controllers.subjects.SubjectsRouter
+->         /academics           controllers.academics.AcademicsRouter
 ->         /login               controllers.login.LoginRouter
 ->         /institutions        controllers.institutions.InstitutionRouter
 ->         /location            controllers.location.LocationRouter

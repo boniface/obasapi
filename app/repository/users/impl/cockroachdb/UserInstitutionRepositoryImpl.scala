@@ -1,7 +1,7 @@
 package repository.users.impl.cockroachdb
 
 import domain.users.UserInstitution
-import repository.users.impl.cockroachdb.tables.UserInstitutionTable
+import repository.users.impl.cockroachdb.tables.{UserInstitutionTable, UserInstitutionTableCreate}
 import repository.users.UserInstitutionRepository
 
 import scala.concurrent.Future
@@ -17,17 +17,21 @@ class UserInstitutionRepositoryImpl  extends UserInstitutionRepository{
     UserInstitutionTable.getEntities
   }
 
-  override def getEntity(userInstitutionId: String): Future[Option[UserInstitution]] = {
-    UserInstitutionTable.getEntity(userInstitutionId)
-  }
-
   override def deleteEntity(entity: UserInstitution): Future[Boolean] = {
     UserInstitutionTable.deleteEntity(entity.userId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {
-    Future.successful(UserInstitutionTable.createTable)
+    Future.successful(UserInstitutionTableCreate.createTable)
   }
+
+  override def getEntity(userId: String, institutionId: String): Future[Option[UserInstitution]] =
+    UserInstitutionTable.getEntity(userId, institutionId)
+
+  override def getEntitiesForUser(userId: String): Future[Seq[UserInstitution]] =
+    UserInstitutionTable.getEntitiesForUser(userId)
+
+  override def getEntity(id: String): Future[Option[UserInstitution]] = ???
 }
 
 

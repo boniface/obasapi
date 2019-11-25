@@ -1,17 +1,17 @@
 package services.setup.db.impl.cockroachdb
 
+import services.academics.{CourseService, CourseSubjectService, SubjectService}
 import services.address.{AddressTypeService, ContactTypeService}
 import services.application.{ApplicantTypeService, ApplicationResultService, ApplicationStatusService}
 import services.demographics.{DistrictService, DistrictTownService, GenderService, ProvinceDistrictService, ProvinceService, RaceService, RoleService, TitleService, TownService}
 import services.documents.{DocumentService, DocumentTypeService}
-import services.institutions.{InstitutionAddressService, InstitutionContactService, InstitutionLocationService, InstitutionService, InstitutionTypeService}
+import services.institutions.{InstitutionAddressService, InstitutionContactService, InstitutionCourseService, InstitutionLocationService, InstitutionService, InstitutionTypeService}
 import services.location.{LocationService, LocationTypeService}
 import services.log.LogEventService
 import services.login.LoginTokenService
 import services.mail.{EmailMessageService, MailApiService, MailConfigService, SmtpConfigService}
 import services.security.{ApiKeysService, ResetTokenService}
 import services.setup.db.DBSetupService
-import services.subjects.{MatricSubjectsService, UniversityCoursesService}
 import services.users._
 
 import scala.concurrent.Future
@@ -57,6 +57,7 @@ class DBSetupServiceImpl extends DBSetupService {
     InstitutionAddressService.apply.createTable
     InstitutionContactService.apply.createTable
     InstitutionLocationService.apply.createTable
+    InstitutionCourseService.apply.createTable
   }
 
   def createMailTables(): Future[Boolean] = {
@@ -66,9 +67,10 @@ class DBSetupServiceImpl extends DBSetupService {
     EmailMessageService.roach.createTable
   }
 
-  def createSubjectTables(): Future[Boolean] = {
-    MatricSubjectsService.roach.createTable
-    UniversityCoursesService.roach.createTable
+  def createAcademicsTables(): Future[Boolean] = {
+    CourseService.apply.createTable
+    SubjectService.apply.createTable
+    CourseSubjectService.apply.createTable
   }
 
   def createUserTables(): Future[Boolean] = {
@@ -119,7 +121,7 @@ class DBSetupServiceImpl extends DBSetupService {
 
     createMailTables()
 
-    createSubjectTables()
+    createAcademicsTables()
 
     createUserTables()
 

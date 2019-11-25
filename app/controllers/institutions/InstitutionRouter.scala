@@ -10,7 +10,8 @@ class InstitutionRouter @Inject()(
                                    institutionAddressController: InstitutionAddressController,
                                    institutionContactController: InstitutionContactController,
                                    institutionLocationController: InstitutionLocationController,
-                                   institutionTypeController: InstitutionTypeController
+                                   institutionTypeController: InstitutionTypeController,
+                                   institutionCourseController: InstitutionCourseController
                                  ) extends SimpleRouter {
   override def routes: Routes = {
 
@@ -77,6 +78,20 @@ class InstitutionRouter @Inject()(
       institutionTypeController.update
     case POST(p"/type/delete") =>
       institutionTypeController.delete
+
+    // INSTITUTION_COURSE
+    case POST(p"/course/create") =>
+      institutionCourseController.create
+    case GET(p"/course/get/$institutionId/$courseId") =>
+      institutionCourseController.read(institutionId, courseId)
+    case POST(p"/course/update") =>
+      institutionCourseController.update
+    case GET(p"/course/all") =>
+      institutionCourseController.getAll
+    case GET(p"/course/getcourses/$institutionId") =>
+      institutionCourseController.getInstitutionCourses(institutionId)
+    case POST(p"/course/delete") =>
+      institutionCourseController.delete
 
 
   }
