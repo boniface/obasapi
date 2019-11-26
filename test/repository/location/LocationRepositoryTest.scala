@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 
 class LocationRepositoryTest extends FunSuite{
-  val entity = Location("16","Cape Town","33.9249","18.4241","12345","Western Cape",Some("asdsad"))
+  val entity = Location("001","L02", "Hermanus", "90,09,90", "45Y",Option("Western Cape Un"))
   val repository = LocationRepository
   test("createEntity"){
     val result = Await.result(repository.roach.saveEntity(entity), 2 minutes)
