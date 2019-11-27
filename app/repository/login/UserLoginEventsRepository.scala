@@ -3,9 +3,6 @@ package repository.login
 import domain.login.UserLoginEvents
 import repository.Repository
 
-import repository.login.impl.cockroachdb.UserLoginEventsRepositoryImpl
-
-
 import scala.concurrent.Future
 
 trait UserLoginEventsRepository extends Repository[UserLoginEvents] {

@@ -1,11 +1,11 @@
 package repository.demographics.impl.cockcroachdb
 
 import domain.demographics.Title
-import repository.demographics.impl.cockcroachdb.tables.TitleTable
 import repository.demographics.TitleRepository
+import repository.demographics.impl.cockcroachdb.tables.TitleTable
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class TitleRepositoryImpl extends TitleRepository {
   override def saveEntity(entity: Title): Future[Option[Title]] = {

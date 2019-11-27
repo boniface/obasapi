@@ -2,7 +2,6 @@ package repository.academics
 
 import domain.academics.CourseSubject
 import repository.Repository
-import repository.academics.impl.cockcroachdb.CourseSubjectRepositoryImpl
 
 import scala.concurrent.Future
 
