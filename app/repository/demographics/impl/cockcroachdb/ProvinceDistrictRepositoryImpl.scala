@@ -4,8 +4,8 @@ import domain.demographics.ProvinceDistrict
 import repository.demographics.ProvinceDistrictRepository
 import repository.demographics.impl.cockcroachdb.tables.{ProvinceDistrictTable, ProvinceDistrictTableCreate}
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class ProvinceDistrictRepositoryImpl extends ProvinceDistrictRepository {
   override def saveEntity(entity: ProvinceDistrict): Future[Option[ProvinceDistrict]] = ProvinceDistrictTable.saveEntity(entity)

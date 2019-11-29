@@ -1,11 +1,11 @@
 package repository.demographics.impl.cockcroachdb
 
 import domain.demographics.Race
-import repository.demographics.impl.cockcroachdb.tables.RaceTable
 import repository.demographics.RaceRepository
+import repository.demographics.impl.cockcroachdb.tables.RaceTable
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class RaceRepositoryImpl extends RaceRepository {
   override def saveEntity(entity: Race): Future[Option[Race]] = {

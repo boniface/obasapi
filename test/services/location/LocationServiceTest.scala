@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 
 class LocationServiceTest extends FunSuite{
-  val entity = Location("3", "Cape Town", "33.9249", "18.4241", "12345", "Western Cape", Some("1"))
+  val entity = Location("001","L02", "Hermanus", "90,09,90", "45Y",Option("Western Cape Un"))
   val roachService = LocationService
 
 

@@ -1,6 +1,6 @@
 package repository.demographics.impl.cockcroachdb.tables
 
-import  domain.demographics.Title
+import domain.demographics.Title
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection

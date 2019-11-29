@@ -2,7 +2,7 @@ package services.academics
 
 import domain.academics.CourseSubject
 import services.CrudService
-import services.academics.Impl.cockroachdb.CourseSubjectServiceImpl
+import services.academics.Impl.cockroach.CourseSubjectServiceImpl
 
 import scala.concurrent.Future
 
