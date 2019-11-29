@@ -5,8 +5,8 @@ import java.time.LocalDateTime
 import play.api.libs.json.Json
 
 case class UserApplicationStatus(
-                                  applicationId:String,
                                   statusId:String,
+                                  applicationId:String,
                                   modifiedBy:String,
                                   dateTime: LocalDateTime,
 
