@@ -3,9 +3,9 @@ package domain.users
 import play.api.libs.json.Json
 
 case class UserApplication(
-                                 userApplicationResultId:String,
-                                 description:String
-                                )
+                                  userId: String,
+                                  applicationId: String
+                          )
 object UserApplication{
-  implicit val userApplicationResultFmt = Json.format[UserApplication]
+  implicit val userApplicationFmt = Json.format[UserApplication]
 }
