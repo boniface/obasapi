@@ -8,8 +8,6 @@ import scala.concurrent.Future
 
 class ApplicationStatusServiceImpl extends ApplicationStatusService{
 
-
-
   override def saveEntity(entity: ApplicationStatus): Future[Option[ApplicationStatus]] =
     ApplicationStatusRepository.roach.saveEntity(entity)
 
@@ -17,8 +15,8 @@ class ApplicationStatusServiceImpl extends ApplicationStatusService{
     ApplicationStatusRepository.roach.getEntities
   }
 
-  override def getEntity(applicationStatusId: String): Future[Option[ApplicationStatus]] = {
-    ApplicationStatusRepository.roach.getEntity(applicationStatusId)
+  override def getEntity(id: String): Future[Option[ApplicationStatus]] = {
+    ApplicationStatusRepository.roach.getEntity(id)
   }
 
   override def deleteEntity(entity: ApplicationStatus): Future[Boolean] = {

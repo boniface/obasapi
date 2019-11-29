@@ -1,49 +1,58 @@
-package controllers.application
+package controllers.users
 
 import controllers.ApiResponse
-import domain.application.ApplicantType
+import domain.users.UserSubject
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.application.ApplicantTypeService
 import services.login.LoginService
-import util.HelperUtil
+import services.users.UserSubjectService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ApplicantTypeController @Inject()
+class UserSubjectController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
-  type DomainObject = ApplicantType
-  def className: String = "ApplicantTypeController"
+  type DomainObject = UserSubject
+  def className: String = "UserSubjectController"
   override val logger: Logger = Logger(className)
-  def domainService: ApplicantTypeService = ApplicantTypeService.roach
+  def domainService: UserSubjectService = UserSubjectService.roach
   def loginService: LoginService = LoginService.apply
+
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       logger.info("Create request with body: " + entity)
+      println("Create request with body: " + entity)
       entity match {
         case Right(value) =>
-          val copy = value.copy(id = HelperUtil.codeGen(value.name))
-          logger.info("Saving applicant type: " + copy)
           val response: Future[Option[DomainObject]] = for {
-            results: Option[DomainObject] <- domainService.saveEntity(copy)
+            results: Option[DomainObject] <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
 
+  def read(userId: String, institutionId: String, subjectId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by userId: " + userId + " and institutionId: " + institutionId + " subjectId: " + subjectId)
+      val response: Future[Option[DomainObject]] = for {
+        results <- domainService.getEntity(userId, institutionId, subjectId)
+      } yield results
+      api.requestResponse[Option[DomainObject]](response, className)
+  }
+
   def update: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
-      logger.info("Update request with body: " + entity)
       entity match {
         case Right(value) =>
+          logger.info("Update request with body: " + entity)
+          println("Update request with body: " + entity)
           val response: Future[Option[DomainObject]] = for {
             _ <- loginService.checkLoginStatus(request)
             results: Option[DomainObject] <- domainService.saveEntity(value)
@@ -53,28 +62,39 @@ class ApplicantTypeController @Inject()
       }
   }
 
-  def getApplicantTypeById(id: String): Action[AnyContent] = Action.async {
+  def getSubjectsForUserPerInstitution(userId: String, institutionId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
-      logger.info("Retrieve by id: " + id)
-      val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(id)
+      logger.info("Retrieve by userId: " + userId + " and institutionId: " + institutionId)
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getEntitiesForUserPerInstitution(userId, institutionId)
       } yield results
-      api.requestResponse[Option[DomainObject]](response, className)
+      api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def getAllApplicantType: Action[AnyContent] = Action.async {
+  def getSubjectsForUser(userId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by userId: " + userId)
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getEntitiesForUser(userId)
+      } yield results
+      api.requestResponse[Seq[DomainObject]](response, className)
+  }
+
+  def getAll: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve all requested")
+      println("Retrieve all requested")
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteApplicantType: Action[JsValue] = Action.async(parse.json) {
+  def delete: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       logger.info("Delete request with body: " + entity)
+      println("Delete request with body: " + entity)
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {

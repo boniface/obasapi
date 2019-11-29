@@ -7,7 +7,8 @@ import play.api.routing.sird._
 
 class AcademicsRouter @Inject()(
                                  courseController: CourseController,
-                                 subjectController: SubjectController
+                                 subjectController: SubjectController,
+                                 courseSubjectController: CourseSubjectController
                                ) extends SimpleRouter {
 
   override def routes: Routes = {
@@ -34,6 +35,18 @@ class AcademicsRouter @Inject()(
       subjectController.update
     case POST(p"/subject/delete") =>
       subjectController.delete
+
+    // COURSE_SUBJECT
+    case POST(p"/coursesubject/create") =>
+      courseSubjectController.create
+    case GET(p"/coursesubject/get/$courseId/$subjectId") =>
+      courseSubjectController.read(courseId, subjectId)
+    case GET(p"/coursesubject/all") =>
+      courseSubjectController.getAll
+    case GET(p"/coursesubject/getsubjects/$courseId") =>
+      courseSubjectController.getCourseSubjects(courseId)
+    case POST(p"/coursesubject/delete") =>
+      courseSubjectController.delete
   }
 
 

@@ -22,7 +22,7 @@ class ApplicantTypeRepositoryImpl extends ApplicantTypeRepository{
   }
 
   override def deleteEntity(entity: ApplicantType): Future[Boolean] = {
-    ApplicantTypeTable.deleteEntity(entity.applicantTypeId)map(value=> value.isValidInt)
+    ApplicantTypeTable.deleteEntity(entity.id)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {

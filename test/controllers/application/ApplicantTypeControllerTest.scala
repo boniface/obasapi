@@ -29,7 +29,7 @@ class ApplicantTypeControllerTest extends PlaySpec with GuiceOneAppPerTest  with
 
     "Read Entity " in {
 
-      val request = route(app, FakeRequest(GET, "/application/type/get/$applicantTypeId" + entity.applicantTypeId)
+      val request = route(app, FakeRequest(GET, "/application/type/get/$applicantTypeId" + entity.id)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -48,7 +48,7 @@ class ApplicantTypeControllerTest extends PlaySpec with GuiceOneAppPerTest  with
     }
 
     "Update Entity" in {
-      val updatedEntity = entity.copy(name = "updated")
+      val updatedEntity = entity.copy(description = "updated")
       val request = route(app, FakeRequest(POST, "/application/type/update")
         .withJsonBody(Json.toJson(updatedEntity))
         .withHeaders(AUTHORIZATION -> token)

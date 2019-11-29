@@ -19,8 +19,8 @@ class ApplicationStatusServicesTest extends FunSuite {
   }
 
   test("readEntity"){
-    val result = Await.result(service.roach.getEntity(entity.applicationStatusId), 2 minutes)
-    assert(result.head.applicationStatusId==entity.applicationStatusId)
+    val result = Await.result(service.roach.getEntity(entity.id), 2 minutes)
+    assert(result.head.id==entity.id)
   }
 
 
@@ -38,7 +38,7 @@ class ApplicationStatusServicesTest extends FunSuite {
 
   test("deleteEntities"){
     Await.result(service.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.applicationStatusId), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.id), 2 minutes)
     assert(result.isEmpty)
 
   }

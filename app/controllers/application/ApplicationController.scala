@@ -1,35 +1,40 @@
-package controllers.users
+package controllers.application
 
 import controllers.ApiResponse
-import domain.users.UserSubjects
-import javax.inject.Inject
+import domain.application.Application
 import io.circe.generic.auto._
+import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
+import play.api.{Logger, Logging}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import services.application.ApplicationService
 import services.login.LoginService
-import services.users.UserSubjectsService
+import util.HelperUtil
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UserSubjectsController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc){
-  type DomainObject = UserSubjects
-
-  def className: String = "UserSubjectsController"
-  def domainService: UserSubjectsService = UserSubjectsService.roach
+class ApplicationController @Inject()
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
+  type DomainObject = Application
+  def className: String = "ApplicationController"
+  override val logger: Logger = Logger(className)
+  def domainService: ApplicationService = ApplicationService.apply
   def loginService: LoginService = LoginService.apply
-
 
   def create: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
+      logger.info("Create request with body: " + entity)
       entity match {
         case Right(value) =>
-          val response: Future[Option[UserSubjects]] = for {
-            results: Option[UserSubjects] <- domainService.saveEntity(value)
+          val concatKey = value.applicationTypeId + value.applicantTypeId + value.institutionId + value.courseId
+          val copy = value.copy(id = HelperUtil.codeGen(concatKey))
+          logger.info("Saving application: " + copy)
+          val response: Future[Option[DomainObject]] = for {
+            results: Option[DomainObject] <- domainService.saveEntity(copy)
           } yield results
-          api.requestResponse[Option[UserSubjects]](response, className)
+          api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -37,36 +42,40 @@ class UserSubjectsController @Inject()
   def update: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
+      logger.info("Update request with body: " + entity)
       entity match {
         case Right(value) =>
-          val response: Future[Option[UserSubjects]] = for {
+          val response: Future[Option[DomainObject]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Option[UserSubjects] <- domainService.saveEntity(value)
+            results: Option[DomainObject] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Option[UserSubjects]](response, className)
+          api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
 
-  def getUserSubjectsById(userSubjectId: String): Action[AnyContent] = Action.async {
+  def read(id: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by id: " + id)
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(userSubjectId)
+        results <- domainService.getEntity(id)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getAllUserSubjects: Action[AnyContent] = Action.async {
+  def getAll: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
+      logger.info("Retrieve all requested")
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
-  def deleteUserSubjects: Action[JsValue] = Action.async(parse.json) {
+  def delete: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
+      logger.info("Delete request with body: " + entity)
       entity match {
         case Right(value) =>
           val response: Future[Boolean] = for {
@@ -76,4 +85,5 @@ class UserSubjectsController @Inject()
         case Left(error) => api.errorResponse(error, className)
       }
   }
+
 }

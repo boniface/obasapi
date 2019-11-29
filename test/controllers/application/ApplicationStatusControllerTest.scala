@@ -31,7 +31,7 @@ class ApplicationStatusControllerTest extends PlaySpec with GuiceOneAppPerTest  
 
     "Read Entity " in {
 
-      val request = route(app, FakeRequest(GET, "/application/status/get/$applicationStatusId" + entity.applicationStatusId)
+      val request = route(app, FakeRequest(GET, "/application/status/get/$applicationStatusId" + entity.id)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK

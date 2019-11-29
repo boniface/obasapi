@@ -17,8 +17,8 @@ class ApplicantTypeServicesTest extends FunSuite {
   }
 
   test("readEntity"){
-    val result = Await.result(service.roach.getEntity(entity.applicantTypeId), 2 minutes)
-    assert(result.head.applicantTypeId==entity.applicantTypeId)
+    val result = Await.result(service.roach.getEntity(entity.id), 2 minutes)
+    assert(result.head.id==entity.id)
   }
 
 
@@ -36,7 +36,7 @@ class ApplicantTypeServicesTest extends FunSuite {
 
   test("deleteEntities"){
     Await.result(service.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(service.roach.getEntity(entity.applicantTypeId), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.id), 2 minutes)
     assert(result.isEmpty)
 
   }

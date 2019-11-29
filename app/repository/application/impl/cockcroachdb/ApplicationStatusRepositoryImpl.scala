@@ -21,7 +21,7 @@ class ApplicationStatusRepositoryImpl extends ApplicationStatusRepository{
   }
 
   override def deleteEntity(entity: ApplicationStatus): Future[Boolean] = {
-    ApplicationStatusTable.deleteEntity(entity.applicationStatusId)map(value=> value.isValidInt)
+    ApplicationStatusTable.deleteEntity(entity.id)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {

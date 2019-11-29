@@ -84,8 +84,6 @@ class InstitutionRouter @Inject()(
       institutionCourseController.create
     case GET(p"/course/get/$institutionId/$courseId") =>
       institutionCourseController.read(institutionId, courseId)
-    case POST(p"/course/update") =>
-      institutionCourseController.update
     case GET(p"/course/all") =>
       institutionCourseController.getAll
     case GET(p"/course/getcourses/$institutionId") =>

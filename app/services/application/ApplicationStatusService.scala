@@ -8,6 +8,5 @@ trait ApplicationStatusService extends CrudService[ApplicationStatus]{
 }
 
 object ApplicationStatusService{
-
   def roach: ApplicationStatusService = new ApplicationStatusServiceImpl()
 }

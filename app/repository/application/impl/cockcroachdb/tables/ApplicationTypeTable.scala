@@ -1,6 +1,6 @@
 package repository.application.impl.cockcroachdb.tables
 
-import domain.application.ApplicantType
+import domain.application.ApplicationType
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection
@@ -9,7 +9,7 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ApplicantTypeTable(tag: Tag) extends Table[ApplicantType](tag, _tableName = "applicant_type"){
+class ApplicationTypeTable(tag: Tag) extends Table[ApplicationType](tag, _tableName = "application_type"){
 
   def id: Rep[String] = column[String]("id", O.PrimaryKey)
 
@@ -17,24 +17,24 @@ class ApplicantTypeTable(tag: Tag) extends Table[ApplicantType](tag, _tableName 
 
   def description: Rep[Option[String]] = column[Option[String]]("description")
 
-  override def * : ProvenShape[ApplicantType] = (id, name, description) <> ((ApplicantType.apply _).tupled, ApplicantType.unapply)
+  override def * : ProvenShape[ApplicationType] = (id, name, description) <> ((ApplicationType.apply _).tupled, ApplicationType.unapply)
 }
 
-object ApplicantTypeTable extends TableQuery(new ApplicantTypeTable(_)) {
+object ApplicationTypeTable extends TableQuery(new ApplicationTypeTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(id: String): Future[Option[ApplicantType]] = {
+  def getEntity(id: String): Future[Option[ApplicationType]] = {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(applicantType: ApplicantType): Future[Option[ApplicantType]] = {
+  def saveEntity(applicationType: ApplicationType): Future[Option[ApplicationType]] = {
     db.run(
-      (this returning this).insertOrUpdate(applicantType)
+      (this returning this).insertOrUpdate(applicationType)
     )
   }
 
-  def getEntities: Future[Seq[ApplicantType]] = {
-    db.run(ApplicantTypeTable.result)
+  def getEntities: Future[Seq[ApplicationType]] = {
+    db.run(ApplicationTypeTable.result)
   }
 
   def deleteEntity(id: String): Future[Int] = {
@@ -43,7 +43,7 @@ object ApplicantTypeTable extends TableQuery(new ApplicantTypeTable(_)) {
 
   def createTable = {
     db.run(
-      ApplicantTypeTable.schema.createIfNotExists
+      ApplicationTypeTable.schema.createIfNotExists
     ).isCompleted
   }
 

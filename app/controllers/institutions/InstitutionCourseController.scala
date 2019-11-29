@@ -37,22 +37,6 @@ class InstitutionCourseController @Inject()
       }
   }
 
-  def update: Action[JsValue] = Action.async(parse.json) {
-    implicit request: Request[JsValue] =>
-      val entity = Json.fromJson[DomainObject](request.body).asEither
-      logger.info("Update request with body: " + entity)
-      println("Update request with body: " + entity)
-      entity match {
-        case Right(value) =>
-          val response: Future[Option[DomainObject]] = for {
-            _ <- loginService.checkLoginStatus(request)
-            results: Option[DomainObject] <- domainService.saveEntity(value)
-          } yield results
-          api.requestResponse[Option[DomainObject]](response, className)
-        case Left(error) => api.errorResponse(error, className)
-      }
-  }
-
   def read(institutionId: String, courseId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve by institutionId: " + institutionId + " and courseId: " + courseId)

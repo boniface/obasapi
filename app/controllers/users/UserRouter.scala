@@ -11,8 +11,8 @@ class UserRouter @Inject()
  userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentController,
  userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
  userRelativeController: UserRelativeController, userResultsController: UserResultsController,
- userRoleController: UserRoleController, userSubjectsController: UserSubjectsController,
- userTownController: UserTownController
+ userRoleController: UserRoleController, userSubjectController: UserSubjectController,
+ userTownController: UserTownController, userCourseController: UserCourseController
 ) extends SimpleRouter {
   override def routes: Routes = {
     //USER
@@ -169,16 +169,18 @@ class UserRouter @Inject()
       userRoleController.deleteUserRole
 
     //SUBJECTS
-    case GET(p"/subjects/all") =>
-      userSubjectsController.getAllUserSubjects
-    case GET(p"/subjects/get/$userSubjectId") =>
-      userSubjectsController.getUserSubjectsById(userSubjectId)
-    case POST(p"/subjects/create") =>
-      userSubjectsController.create
-    case POST(p"/subjects/update") =>
-      userSubjectsController.update
-    case POST(p"/subjects/delete") =>
-      userSubjectsController.deleteUserSubjects
+    case GET(p"/subject/all/$userId") =>
+      userSubjectController.getSubjectsForUser(userId)
+    case GET(p"/subject/get/$userId/$institutionId/$subjectId") =>
+      userSubjectController.read(userId, institutionId, subjectId)
+    case GET(p"/subject/getforinstitution/$userId/$institutionId") =>
+      userSubjectController.getSubjectsForUserPerInstitution(userId, institutionId)
+    case POST(p"/subject/create") =>
+      userSubjectController.create
+    case POST(p"/subject/update") =>
+      userSubjectController.update
+    case POST(p"/subject/delete") =>
+      userSubjectController.delete
 
     //TOWN
     case POST(p"/town/create") =>
@@ -189,6 +191,18 @@ class UserRouter @Inject()
       userTownController.update
     case GET(p"/town/delete") =>
       userTownController.delete
+
+    // COURSE
+    case GET(p"/course/all/$userId") =>
+      userCourseController.getCoursesForUser(userId)
+    case GET(p"/course/getforinstitution/$userId/$institutionId") =>
+      userCourseController.getCoursesForUserPerInstitution(userId, institutionId)
+    case GET(p"/course/get/$userId/$institutionId/$courseId") =>
+      userCourseController.read(userId, institutionId, courseId)
+    case POST(p"/course/create") =>
+      userCourseController.create
+    case POST(p"/course/delete") =>
+      userCourseController.delete
 
   }
 }
