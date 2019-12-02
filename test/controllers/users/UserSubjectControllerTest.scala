@@ -45,7 +45,6 @@ class UserSubjectControllerTest extends PlaySpec with GuiceOneAppPerTest  with I
       status(request) mustBe OK
       contentType(request) mustBe Some("application/json")
       println("The Content is: ", contentAsString(request))
-
     }
 
     "Update Entity" in {

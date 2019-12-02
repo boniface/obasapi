@@ -11,7 +11,7 @@ import scala.concurrent.Future
 
 class InstitutionTable(tag: Tag) extends Table[Institution](tag, "institution"){
 
-  def id: Rep[String] = column[String]("id")
+  def id: Rep[String] = column[String]("id" ,O.PrimaryKey)
 
   def institutionTypeId: Rep[String] = column[String]("institution_type_id")
 
@@ -43,7 +43,7 @@ object InstitutionTable extends TableQuery(new InstitutionTable(_)) {
 
   def createTable: Boolean = {
     db.run(
-      InstitutionTypeTable.schema.createIfNotExists
+      InstitutionTable.schema.createIfNotExists
     ).isCompleted
   }
 }
