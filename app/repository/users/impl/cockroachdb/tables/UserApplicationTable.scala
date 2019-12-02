@@ -1,6 +1,5 @@
 package repository.users.impl.cockroachdb.tables
 
-
 import domain.users.UserApplication
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
@@ -10,7 +9,10 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
+/**
+ * Used for DDL (to create table with composite key)
+ * @param tag
+ */
 class UserApplicationTableCreate(tag: Tag) extends Table[UserApplication](tag, "user_application") {
   def userId: Rep[String] = column[String]("user_id")
 
@@ -35,12 +37,12 @@ object UserApplicationTableCreate extends TableQuery(new UserApplicationTableCre
  * Used for DML
  * @param tag
  */
-class UserApplicationTable(tag: Tag) extends Table[UserApplicationTable](tag, "user_application") {
+class UserApplicationTable(tag: Tag) extends Table[UserApplication](tag, "user_application") {
   def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
 
-  def applicationId: Rep[String] = column[String]("user_application_id", O.PrimaryKey)
+  def applicationId: Rep[String] = column[String]("application_id", O.PrimaryKey)
 
-  def * : ProvenShape[UserApplication] = (userId, applicationId) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
+  override def * = (userId, applicationId) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
 }
 
 object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
