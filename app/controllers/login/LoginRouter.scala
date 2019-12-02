@@ -21,5 +21,7 @@ class LoginRouter @Inject()
       loginController.resetPassword(resetkey)
     case GET(p"/logout") =>
       loginController.logout
+    case POST(p"/changepassword") =>
+      loginController.changePassword
   }
 }

@@ -35,8 +35,7 @@ abstract class DocumentTableImpl extends DocumentTable with RootConnector{
 
   def saveEntity(entity:Document): Future[ResultSet] ={
     insert
-      .value(_.email, entity.email)
-      .value(_.documentsId, entity.documentsId)
+      .value(_.documentsId, entity.documentId)
       .value(_.documentTypeId, entity.documentTypeId)
       .value(_.description, entity.description)
       .value(_.url, entity.url)

@@ -22,7 +22,7 @@ class UserDemographicsRepositoryImpl  extends UserDemographicsRepository{
   }
 
   override def deleteEntity(entity: UserDemographics): Future[Boolean] = {
-    UserDemographicsTable.deleteEntity(entity.userDemographicsId)map(value=> value.isValidInt)
+    UserDemographicsTable.deleteEntity(entity.userId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {

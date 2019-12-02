@@ -8,7 +8,7 @@ import scala.concurrent.Future
 
 abstract class UserRelativeTable extends Table[UserRelativeTable, UserRelative] {
 
-  object userRelativeId extends StringColumn with PartitionKey
+  object userId extends StringColumn with PartitionKey
 
   object name extends StringColumn
 
@@ -26,7 +26,7 @@ abstract class UserRelativeTableImpl extends UserRelativeTable with RootConnecto
 
   def saveEntity(entity: UserRelative): Future[ResultSet] = {
     insert
-      .value(_.userRelativeId, entity.userRelativeId)
+      .value(_.userId, entity.userId)
       .value(_.name, entity.name)
       .value(_.cellphone, entity.cellphone)
       .value(_.relationship, entity.relationship)
@@ -34,9 +34,9 @@ abstract class UserRelativeTableImpl extends UserRelativeTable with RootConnecto
       .future()
   }
 
-  def getEntity(userRelativeId: String): Future[Option[UserRelative]] = {
+  def getEntity(userId: String): Future[Option[UserRelative]] = {
     select
-      .where(_.userRelativeId eqs userRelativeId)
+      .where(_.userId eqs userId)
       .one()
   }
 
@@ -45,9 +45,9 @@ abstract class UserRelativeTableImpl extends UserRelativeTable with RootConnecto
       .fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteEntity(userRelativeId: String): Future[ResultSet] = {
+  def deleteEntity(userId: String): Future[ResultSet] = {
     delete
-      .where(_.userRelativeId eqs userRelativeId)
+      .where(_.userId eqs userId)
       .future()
   }
 }

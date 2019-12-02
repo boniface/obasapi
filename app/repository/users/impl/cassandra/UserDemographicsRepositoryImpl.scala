@@ -24,7 +24,7 @@ class UserDemographicsRepositoryImpl extends UserDemographicsRepository{
   }
 
   override def deleteEntity(entity: UserDemographics): Future[Boolean] = {
-    UserDemographicsDatabase.userDemographicsTable.deleteEntity(entity.userDemographicsId) map (result => result.isExhausted())
+    UserDemographicsDatabase.userDemographicsTable.deleteEntity(entity.userId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {

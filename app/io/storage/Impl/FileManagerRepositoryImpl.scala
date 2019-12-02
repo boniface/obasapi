@@ -46,6 +46,7 @@ class FileManagerRepositoryImpl extends FileManagerRepository {
   }
   override def getFile(uri:String ): Future[Either[String,File]] ={
     val url = volumeUrl+uri
+    println("Main URL: " + url)
     val file = Files.createTempFile("file", "ext")
     sttp
       .get(uri"$url")

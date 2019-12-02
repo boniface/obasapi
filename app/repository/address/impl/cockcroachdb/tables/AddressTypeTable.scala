@@ -36,13 +36,6 @@ object AddressTypeTable extends TableQuery(new AddressTypeTable(_)){
     db.run(AddressTypeTable.result)
   }
 
-  def updateEntity(addressType: AddressType): Future[Int] = {
-    db.run(
-      this.filter(_.addressTypeID === addressType.addressTypeID)
-        .map(a => a).update(addressType)
-    )
-  }
-
   def deleteEntity(addressTypeID: String): Future[Int] = {
     db.run(this.filter(_.addressTypeID === addressTypeID).delete)
   }

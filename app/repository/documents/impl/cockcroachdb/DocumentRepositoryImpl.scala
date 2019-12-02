@@ -21,7 +21,7 @@ class DocumentRepositoryImpl extends DocumentRepository{
   }
 
   override def deleteEntity(entity: Document): Future[Boolean] = {
-    DocumentTable.deleteEntity(entity.documentsId)map(value=> value.isValidInt)
+    DocumentTable.deleteEntity(entity.documentId)map(value=> value.isValidInt)
   }
 
   override def createTable: Future[Boolean] = {

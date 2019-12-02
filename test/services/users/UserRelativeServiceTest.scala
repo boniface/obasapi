@@ -17,8 +17,8 @@ class UserRelativeServiceTest extends FunSuite{
   }
 
   test("readEntity"){
-    val result = Await.result(roachService.roach.getEntity(entity.userRelativeId), 2 minutes)
-    assert(result.head.userRelativeId==entity.userRelativeId)
+    val result = Await.result(roachService.roach.getEntity(entity.userId), 2 minutes)
+    assert(result.head.userId==entity.userId)
   }
 
   test("getEntities") {
@@ -35,7 +35,7 @@ class UserRelativeServiceTest extends FunSuite{
 
   test("deleteEntities"){
     Await.result(roachService.roach.deleteEntity(entity), 2 minutes)
-    val result = Await.result(roachService.roach.getEntity(entity.userRelativeId), 2 minutes)
+    val result = Await.result(roachService.roach.getEntity(entity.userId), 2 minutes)
     assert(result.isEmpty)
 
   }

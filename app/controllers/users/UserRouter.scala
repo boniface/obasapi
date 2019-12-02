@@ -6,19 +6,14 @@ import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
 class UserRouter @Inject()
-(userAddressController: UserAddressController,
- userApplicationResultController: UserApplicationResultController,
- userCommunicationController: UserCommunicationController,
- userContactsController: UserContactsController,
- userController: UserController,
- userDemographicsController: UserDemographicsController,
- userDocumentsController: UserDocumentsController,
- userInstitutionController: UserInstitutionController,
- userPasswordController: UserPasswordController,
- userRelativeController: UserRelativeController,
- userResultsController: UserResultsController,
- userRoleController: UserRoleController,
- userSubjectsController: UserSubjectsController) extends SimpleRouter {
+(userAddressController: UserAddressController, userApplicationResultController: UserApplicationResultController,
+ userCommunicationController: UserCommunicationController, userContactsController: UserContactsController,
+ userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentController,
+ userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
+ userRelativeController: UserRelativeController, userResultsController: UserResultsController,
+ userRoleController: UserRoleController, userSubjectsController: UserSubjectsController,
+ userTownController: UserTownController
+) extends SimpleRouter {
   override def routes: Routes = {
     //USER
     case GET(p"/all") =>
@@ -35,8 +30,10 @@ class UserRouter @Inject()
     //ADDRESS
     case GET(p"/address/all") =>
       userAddressController.getAllUserAddress
-    case GET(p"/address/get/$userAddressId") =>
-      userAddressController.getUserAddressById(userAddressId)
+    case GET(p"/address/get/$userId") =>
+      userAddressController.getUserAddresses(userId)
+    case GET(p"/address/get/$userId/$addressTypeId") =>
+      userAddressController.getUserAddress(userId, addressTypeId)
     case POST(p"/address/create") =>
       userAddressController.create
     case POST(p"/address/update") =>
@@ -71,8 +68,10 @@ class UserRouter @Inject()
     //CONTACTS
     case GET(p"/contacts/all") =>
       userContactsController.getAllUserContacts
-    case GET(p"/contacts/get/$userContactId") =>
-      userContactsController.getUserContactsById(userContactId)
+    case GET(p"/contacts/get/$userId/$contactTypeId") =>
+      userContactsController.getUserContactsById(userId, contactTypeId)
+    case GET(p"/contacts/get/$userId") =>
+      userContactsController.getUserContacts(userId)
     case POST(p"/contacts/create") =>
       userContactsController.create
     case POST(p"/contacts/update") =>
@@ -94,9 +93,11 @@ class UserRouter @Inject()
 
     //DOCUMENTS
     case GET(p"/documents/all") =>
-      userDocumentsController.getAllUserDocuments
-    case GET(p"/documents/get/$userDocumentsId") =>
-      userDocumentsController.getUserDocumentsById(userDocumentsId)
+      userDocumentsController.getAllUsersDocuments
+    case GET(p"/documents/get/$userId") =>
+      userDocumentsController.getUserDocuments(userId)
+    case GET(p"/documents/get/$userId/$documentId") =>
+      userDocumentsController.getUserDocument(userId, documentId)
     case POST(p"/documents/create") =>
       userDocumentsController.create
     case POST(p"/documents/update") =>
@@ -117,22 +118,25 @@ class UserRouter @Inject()
       userInstitutionController.deleteUserInstitution
 
     //PASSWORD
-    case GET(p"/password/all") =>
-      userPasswordController.getAllUserPassword
-    case GET(p"/password/get/$userPasswordId") =>
-      userPasswordController.getUserPasswordById(userPasswordId)
-    case POST(p"/password/create") =>
-      userPasswordController.create
-    case POST(p"/password/update") =>
-      userPasswordController.update
-    case POST(p"/password/delete") =>
-      userPasswordController.deleteUserPassword
+    /** Strange block starts here
+     * This is not supposed to be here */
+    //    case GET(p"/password/all") =>
+    //      userPasswordController.getAllUserPassword
+    //    case GET(p"/password/get/$userPasswordId") =>
+    //      userPasswordController.getUserPasswordById(userPasswordId)
+    //    case POST(p"/password/create") =>
+    //      userPasswordController.create
+    //    case POST(p"/password/update") =>
+    //      userPasswordController.update
+    //    case POST(p"/password/delete") =>
+    //      userPasswordController.deleteUserPassword
+    /** Strange block ends here */
 
     //RELATIVE
     case GET(p"/relative/all") =>
       userRelativeController.getAllUserRelative
-    case GET(p"/relative/get/$userRelativeId") =>
-      userRelativeController.getUserRelativeById(userRelativeId)
+    case GET(p"/relative/get/$userId") =>
+      userRelativeController.getUserRelativeById(userId)
     case POST(p"/relative/create") =>
       userRelativeController.create
     case POST(p"/relative/update") =>
@@ -175,6 +179,16 @@ class UserRouter @Inject()
       userSubjectsController.update
     case POST(p"/subjects/delete") =>
       userSubjectsController.deleteUserSubjects
+
+    //TOWN
+    case POST(p"/town/create") =>
+      userTownController.create
+    case GET(p"/town/get/$userId") =>
+      userTownController.read(userId)
+    case POST(p"/town/update") =>
+      userTownController.update
+    case GET(p"/town/delete") =>
+      userTownController.delete
 
   }
 }

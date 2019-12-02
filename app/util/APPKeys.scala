@@ -46,4 +46,10 @@ object APPKeys {
 
   def INFO_OBAS = "info@obas.com"
 
+  def APPROVED = "Approved"
+
+  def NOT_APPROVED = "Not Approved"
+
+  def PROCESSING = "Processing..."
+
 }

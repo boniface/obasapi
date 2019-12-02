@@ -5,19 +5,22 @@ import controllers.ApiResponse
 import domain.demographics.Roles
 import javax.inject.Inject
 import io.circe.generic.auto._
+import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.demographics.RoleService
 import services.login.LoginService
+import util.HelperUtil
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class RolesController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) {
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = Roles
 
   def className: String = "RolesController"
+  override val logger: Logger = Logger(className)
 
   def domainService: RoleService = RoleService.roach
 
@@ -28,8 +31,10 @@ class RolesController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
+          val copy = value.copy(id = HelperUtil.codeGen(value.roleName))
+          logger.info("Saving role: " + copy)
           val response: Future[Option[Roles]] = for {
-            results: Option[Roles] <- domainService.saveEntity(value)
+            results: Option[Roles] <- domainService.saveEntity(copy)
           } yield results
           api.requestResponse[Option[Roles]](response, className)
         case Left(error) => api.errorResponse(error, className)
