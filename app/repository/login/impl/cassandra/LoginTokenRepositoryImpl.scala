@@ -1,10 +1,10 @@
-package repository.login.Impl.cassandra
+package repository.login.impl.cassandra
 
 import com.outworkers.phantom.connectors.KeySpace
 import com.outworkers.phantom.database.Database
 import com.outworkers.phantom.dsl._
 import domain.login.LoginToken
-import repository.login.Impl.cassandra.tables.LoginTokenTable
+import repository.login.impl.cassandra.tables.LoginTokenTable
 import repository.login.LoginTokenRepository
 import util.connections.DataConnection
 

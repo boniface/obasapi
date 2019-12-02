@@ -11,23 +11,23 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class DocumentTable(tag:Tag) extends Table[Document](tag, _tableName = "DOCUMENT"){
+class DocumentTable(tag:Tag) extends Table[Document](tag, _tableName = "document"){
 
-  def email: Rep[String] = column[String]("EMAIL", O.PrimaryKey)
+  def email: Rep[String] = column[String]("email", O.PrimaryKey)
 
-  def documentsId: Rep[String] = column[String]("DOCUMENTS_ID")
+  def documentsId: Rep[String] = column[String]("documents_id")
 
-  def documentTypeId: Rep[String] = column[String]("DOCUMENT_TYPE_ID")
+  def documentTypeId: Rep[String] = column[String]("document_type_id")
 
-  def description: Rep[String] = column[String]("DESCRIPTION")
+  def description: Rep[String] = column[String]("description")
 
-  def url: Rep[String] = column[String]("URL")
+  def url: Rep[String] = column[String]("url")
 
-  def mime: Rep[String] = column[String]("MIME")
+  def mime: Rep[String] = column[String]("mime")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("date")
 
-  def permission: Rep[String] = column[String]("PERMISSION")
+  def permission: Rep[String] = column[String]("permission")
 
   def * : ProvenShape[Document] = (email, documentsId, documentTypeId,description,url,mime,date,permission) <> ((Document.apply _).tupled, Document.unapply)
   

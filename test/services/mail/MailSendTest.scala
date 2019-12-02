@@ -13,7 +13,6 @@ class MailSendTest extends FunSuite{
     val message = EmailMessage("Final Test ","boniface@kabaso.com","THis is to Test If you get your<b> Messaged </b>")
 
     val result = Await.result(service.sendGrid.sendMail(message), 2 minutes)
-    println(" The Result is ", result)
     assert(result.statusCode>0)
 
   }

@@ -13,23 +13,23 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class MailConfigTable(tag: Tag) extends Table[MailConfig](tag,"MAILCONFIG") {
+class MailConfigTable(tag: Tag) extends Table[MailConfig](tag,"mail_config") {
 
-  def id: Rep[String] = column[String]("MAILCONFIG_ID",O.PrimaryKey)
+  def id: Rep[String] = column[String]("mail_config_id",O.PrimaryKey)
 
-  def siteId: Rep[String] = column[String]("SITE_ID")
+  def siteId: Rep[String] = column[String]("site_id")
 
-  def key: Rep[String] = column[String]("MAILCONFIG_KEY")
+  def key: Rep[String] = column[String]("mail_config_key")
 
-  def value: Rep[String] = column[String]("VALUE")
+  def value: Rep[String] = column[String]("value")
 
-  def host: Rep[String] = column[String]("HOST")
+  def host: Rep[String] = column[String]("host")
 
-  def port: Rep[String] = column[String]("PORT")
+  def port: Rep[String] = column[String]("post")
 
-  def state: Rep[String] = column[String]("STATE")
+  def state: Rep[String] = column[String]("state")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATE")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("date")
 
   def * : ProvenShape[MailConfig] = (siteId,id,key, value, host,port,state,date) <> ((MailConfig.apply _).tupled, MailConfig.unapply)
 }

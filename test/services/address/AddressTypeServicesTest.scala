@@ -40,13 +40,13 @@ class AddressTypeServicesTest extends FunSuite {
     assert(result.isEmpty)
 
   }
-//
-//
-//  test("deleteEntities") {
-//    Await.result(service.roach.deleteEntity(entity), 2 minutes)
-//    val result = Await.result(service.roach.getEntity(entity.addressTypeID), 2 minutes)
-//    assert(result.isEmpty)
-//
-//  }
+
+
+  test("deleteEntities") {
+    Await.result(service.roach.deleteEntity(entity), 2 minutes)
+    val result = Await.result(service.roach.getEntity(entity.addressTypeID), 2 minutes)
+    assert(result.isEmpty)
+
+  }
 
 }

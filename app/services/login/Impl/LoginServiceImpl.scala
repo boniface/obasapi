@@ -9,7 +9,7 @@ import services.login.{LoginService, LoginTokenService}
 import services.mail.{EmailCreationMessageService, MailService}
 import services.security.{ApiKeysService, AuthenticationService, ResetTokenService, TokenCreationService}
 import services.users.{UserPasswordService, UserRoleService, UserService}
-import util.APPKeys
+import util.{APPKeys, HelperUtil}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -21,31 +21,31 @@ class LoginServiceImpl extends LoginService {
     UserService.apply.isUserAvailable(user.email)
   }
 
-  override def forgotPassword(register: Register): Future[Option[ResetToken]] =  {
-    val siteUrl = ConfigFactory.load().getString("base.url")
+  override def forgotPassword(register: Register): Future[Option[ResetToken]] = {
+    val resetURL = HelperUtil.getSiteURL + "/login/passwordreset"
     val user = User(email = register.email)
     val resetKey = ApiKeysService.apply.generateResetToken()
     val resetToken = ResetToken(resetKey, register.email)
-    val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, siteUrl)
+    val resetMessage = EmailCreationMessageService.apply.forgetPasswordLinkMessage(user, resetKey, resetURL)
     for {
-      saveToken <- ResetTokenService.apply.saveEntity(resetToken)
+      saveToken <- ResetTokenService.apply.saveEntity(resetToken) if saveToken.isDefined
       _ <- MailService.sendGrid.sendMail(resetMessage)
     } yield saveToken
   }
 
-  //TODO: Write test case
+  //TODO: Email doesn't send!
   override def register(register: Register): Future[Boolean] = {
     val tempPass = AuthenticationService.apply.generateRandomPassword() // generated password
     val hashedTempPass = AuthenticationService.apply.getHashedPassword(tempPass) // hash passwrd
-    val user = User(register.email)
-    val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
-    val userPassword = UserPassword(user.email, hashedTempPass)
-    val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
+    lazy val user = User(register.email)
+    lazy val userRole = UserRole(user.email, APPKeys.STUDENTROLE)
+    lazy val userPassword = UserPassword(user.email, hashedTempPass)
+    lazy val emailMessage = EmailCreationMessageService.apply.createNewAccountMessage(user, tempPass) // get Email Message
     for {
-      _ <- isUserRegistered(register) //check if user is available
-      _ <- UserService.apply.saveEntity(user) // save the user
-      _ <- UserPasswordService.apply.saveEntity(userPassword) //save hashed
-      _ <- UserRoleService.roach.saveEntity(userRole) //save the role
+      isRegistered <- isUserRegistered(register) if !isRegistered//check if user is available
+      savedUser <- UserService.apply.saveEntity(user) if savedUser.isDefined // save the user
+      savedUserPasswd <- UserPasswordService.apply.saveEntity(userPassword) if savedUserPasswd.isDefined //save hashed
+      savedUserRole <- UserRoleService.roach.saveEntity(userRole) if savedUserRole.isDefined //save the role
       sendEmail <- MailService.sendGrid.sendMail(emailMessage)
     } yield {
       sendEmail.statusCode == 202
@@ -54,7 +54,7 @@ class LoginServiceImpl extends LoginService {
 
   private def authenticateUser(password: String, actualPass: String): Future[Boolean] = {
     Future.successful(AuthenticationService.apply
-      .checkPassword(password, actualPass) )// compare
+      .checkPassword(password, actualPass)) // compare
   }
 
   private def saveLoginToken(email: String, token: String): Future[Option[LoginToken]] = {
@@ -67,24 +67,26 @@ class LoginServiceImpl extends LoginService {
   }
 
 
-  //TODO: Write test case
   override def getLoginToken(login: Login): Future[Option[LoginToken]] = {
-     for {
+    for {
       user <- UserService.apply.getEntity(login.email) if user.isDefined
       userPassword <- UserPasswordService.apply.getEntity(login.email) if userPassword.isDefined
-      userRole <-UserRoleService.roach.getEntity(login.email) if userRole.isDefined
-      checkPasswd <- authenticateUser(login.email, userPassword.get.password) if checkPasswd
-      token <- TokenCreationService.apply.generateLoginToken(user.get,userRole.get.roleId)
+      userRole <- UserRoleService.roach.getEntity(login.email) if userRole.isDefined
+      checkPasswd <- authenticateUser(login.password, userPassword.get.password) if checkPasswd
+      token <- TokenCreationService.apply.generateLoginToken(user.get, userRole.get.roleId)
       loginToken <- saveLoginToken(login.email, token)
-    } yield  loginToken
+    } yield loginToken
   }
 
+  //TODO: Test when sendgrid allows
   override def resetPasswordRequest(resetKey: String): Future[Boolean] = {
     for {
-      resetToken <- ResetTokenService.apply.getEntity(resetKey) if resetToken.isDefined
-      user <- UserService.apply.getEntity(resetToken.get.email)
-      send <- resetAccount(user)
+      resetToken <- ResetTokenService.apply.getEntity(resetKey) if resetToken.isDefined && resetToken.get.status.equals(APPKeys.ACTIVE)
+      user <- UserService.apply.getEntity(resetToken.get.email) if user.isDefined
+      send <- resetAccount(user) if send
+      _ <- ResetTokenService.apply.saveEntity(resetToken.get.copy(status = APPKeys.INACTIVE))
     } yield send
+
   }
 
   private def resetAccount(user: Option[User]): Future[Boolean] = {
@@ -93,9 +95,9 @@ class LoginServiceImpl extends LoginService {
     lazy val userPassword = UserPassword(user.get.email, newHashedPassword)
     lazy val emailMessage = EmailCreationMessageService.apply.passwordResetMessage(user.get, generatedPassword)
     for {
-      _ <- UserPasswordService.apply.saveEntity(userPassword)
-      sent <- MailService.sendGrid.sendMail(emailMessage)
-    } yield sent.statusCode == 202
+      saveUserPassword <- UserPasswordService.apply.saveEntity(userPassword) if saveUserPassword.isDefined
+      emailResponse <- MailService.sendGrid.sendMail(emailMessage)
+    } yield emailResponse.statusCode == 202
   }
 
   override def checkLoginStatus[A](request: Request[A]): Future[Boolean] = {
@@ -119,6 +121,4 @@ class LoginServiceImpl extends LoginService {
   override def checkFileSize(size: Long): Future[Boolean] = {
     Future.successful(size < 10000000)
   }
-
-
-
+}

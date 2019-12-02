@@ -34,7 +34,7 @@ object APPKeys {
 
   def AUTHORIZATION = "Authorization"
 
-  def SEDNGRID = "SENDGRID"
+  def SENDGRID_ID = "SENDGRID"
 
   def ANONYMOUS = "ANONYMOUS"
 
@@ -42,6 +42,8 @@ object APPKeys {
 
   def USERID = "USERID"
 
-  def STUDENTROLE = "ST001"
+  def STUDENTROLE = "STR001"
+
+  def INFO_OBAS = "info@obas.com"
 
 }

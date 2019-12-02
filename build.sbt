@@ -24,7 +24,6 @@ dockerCommands := Seq(
   Cmd("ADD", "/opt /opt"),
   ExecCmd("RUN", "chown", "-R", "daemon:daemon", "."),
   Cmd("USER", "daemon"),
-  Cmd("WORKDIR", "/opt/docker"),
   ExecCmd("ENTRYPOINT", "bin/obasapi"),
   Cmd("VOLUME", "/opt/docker"),
   Cmd("EXPOSE", "9000"),
@@ -45,7 +44,7 @@ val catsVersion = "1.6.1"
 val circeVersion = "0.12.0-M4"
 val TwitterChillVersion = "0.9.3"
 val MoshiVersion ="1.8.0"
-val softwaremillSttpVersion="1.6.4"
+val softwaremillSttpVersion = "1.6.4"
 
 
 libraryDependencies ++= Seq("io.circe" %% "circe-core", "io.circe" %% "circe-generic", "io.circe" %% "circe-parser"

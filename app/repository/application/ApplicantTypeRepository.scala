@@ -2,7 +2,7 @@ package repository.application
 
 import domain.application.ApplicantType
 import repository.Repository
-import repository.application.impl.cockcroachdb
+import repository.application.impl.cockcroachdb.ApplicantTypeRepositoryImpl
 
 trait ApplicantTypeRepository extends Repository [ApplicantType]{
 
@@ -11,5 +11,5 @@ trait ApplicantTypeRepository extends Repository [ApplicantType]{
 }
 object ApplicantTypeRepository{
 
-  def roach: ApplicantTypeRepository= new cockcroachdb.ApplicantTypeRepositoryImpl()
+  def roach: ApplicantTypeRepository= new ApplicantTypeRepositoryImpl()
 }

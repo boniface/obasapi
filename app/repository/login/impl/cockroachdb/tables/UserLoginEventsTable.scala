@@ -12,14 +12,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
-class UserLoginEventsTable(tag: Tag) extends Table[UserLoginEvents](tag, "USERSLOGINEVENTS") {
-  def id: Rep[String] = column[String]("USEREVENTS_ID", O.PrimaryKey)
+class UserLoginEventsTable(tag: Tag) extends Table[UserLoginEvents](tag, "users_login_events") {
+  def id: Rep[String] = column[String]("user_events_id", O.PrimaryKey)
 
-  def email: Rep[String] = column[String]("EMAIL")
+  def email: Rep[String] = column[String]("email")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("DATETIME")
+  def date: Rep[LocalDateTime] = column[LocalDateTime]("datetime")
 
-  def description: Rep[String] = column[String]("DESCRIPTION")
+  def description: Rep[String] = column[String]("description")
 
   def * : ProvenShape[UserLoginEvents] = (id,email, date, description) <> ((UserLoginEvents.apply _).tupled, UserLoginEvents.unapply)
 }

@@ -9,7 +9,9 @@ case class Location(
                      longitude:String,
                      code:String,
                      locationTypeId:String,
-                     parentId:Option[String]
+
+                     parentId:Option[String],
+                   //   children: LocationType[]
                      //children[] Location
                    )
 object Location{

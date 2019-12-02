@@ -9,17 +9,17 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UniversityCoursesTable(tag: Tag) extends Table[UniversityCourses](tag,_tableName = "UNIVERSITY_COURSES"){
+class UniversityCoursesTable(tag: Tag) extends Table[UniversityCourses](tag,_tableName = "university_courses"){
 
-  def courseCode: Rep[String] = column[String]("COURSE_CODE", O.PrimaryKey)
+  def courseCode: Rep[String] = column[String]("course_code", O.PrimaryKey)
 
-  def description: Rep[Option[String]] = column[Option[String]]("DESCRIPTION")
+  def description: Rep[Option[String]] = column[Option[String]]("description")
 
-  def name: Rep[String] = column[String]("NAME")
+  def name: Rep[String] = column[String]("name")
 
-  def Type: Rep[String] = column[String]("TYPE")
+  def Type: Rep[String] = column[String]("type")
 
-  def Term: Rep[String] = column[String]("TERM")
+  def Term: Rep[String] = column[String]("term")
 
   def * : ProvenShape[UniversityCourses] = (courseCode, description, name,Type,Term) <> ((UniversityCourses.apply _).tupled, UniversityCourses.unapply)
 }

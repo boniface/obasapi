@@ -9,11 +9,11 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class TitleTable(tag: Tag) extends Table[Title](tag, _tableName = "TITLE"){
+class TitleTable(tag: Tag) extends Table[Title](tag, _tableName = "title"){
 
-  def titleId: Rep[String] = column[String]("TITLE_ID", O.PrimaryKey)
+  def titleId: Rep[String] = column[String]("title_id", O.PrimaryKey)
 
-  def titlename: Rep[String] = column[String]("TITLE_NAME")
+  def titlename: Rep[String] = column[String]("title_name")
 
  
 

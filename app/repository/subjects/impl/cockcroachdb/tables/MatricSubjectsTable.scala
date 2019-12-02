@@ -9,15 +9,15 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class MatricSubjectsTable(tag: Tag) extends Table[MatricSubjects](tag, _tableName = "MATRIC_SUBJECTS"){
+class MatricSubjectsTable(tag: Tag) extends Table[MatricSubjects](tag, _tableName = "matric_subjects"){
   
-  def subjectCode: Rep[String] = column[String]("SUBJECT_CODE", O.PrimaryKey)
+  def subjectCode: Rep[String] = column[String]("subject_code", O.PrimaryKey)
 
-  def description: Rep[Option[String]] = column[Option[String]]("DESCRIPTION")
+  def description: Rep[Option[String]] = column[Option[String]]("description")
 
-  def name: Rep[String] = column[String]("NAME")
+  def name: Rep[String] = column[String]("name")
 
-  def Term: Rep[String] = column[String]("TERM")
+  def Term: Rep[String] = column[String]("term")
 
   def * : ProvenShape[MatricSubjects] = (subjectCode, description, name,Term) <> ((MatricSubjects.apply _).tupled, MatricSubjects.unapply)
 }
