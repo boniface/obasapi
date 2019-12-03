@@ -9,25 +9,56 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+/**
+ * Used for DDL (to create table with composite key)
+ * @param tag
+ */
+class UserApplicationTableCreate(tag: Tag) extends Table[UserApplication](tag, "user_application") {
+  def userId: Rep[String] = column[String]("user_id")
 
-class UserApplicationTable(tag: Tag) extends Table[UserApplication](tag, "user_application_result") {
-  def userApplicationResultId: Rep[String] = column[String]("user_application_result_id", O.PrimaryKey)
+  def applicationId: Rep[String] = column[String]("application_id")
 
-  def description: Rep[String] = column[String]("description")
+  def * : ProvenShape[UserApplication] = (userId, applicationId) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
 
-  def * : ProvenShape[UserApplication] = (userApplicationResultId, description) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
+  def pk = primaryKey("pk_user_application", (userId, applicationId))
+}
+
+object UserApplicationTableCreate extends TableQuery(new UserApplicationTableCreate(_)) {
+  def db: driver.api.Database = PgDBConnection.db
+
+  def createTable = {
+    db.run(
+      UserApplicationTableCreate.schema.createIfNotExists
+    ).isCompleted
+  }
+}
+
+/**
+ * Used for DML
+ * @param tag
+ */
+class UserApplicationTable(tag: Tag) extends Table[UserApplication](tag, "user_application") {
+  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
+
+  def applicationId: Rep[String] = column[String]("application_id", O.PrimaryKey)
+
+  override def * = (userId, applicationId) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
 }
 
 object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(userApplicationResultId: String): Future[Option[UserApplication]] = {
-    db.run(this.filter(_.userApplicationResultId === userApplicationResultId).result).map(_.headOption)
+  def getEntity(userId: String, applicationId: String): Future[Option[UserApplication]] = {
+    db.run(this.filter(_.userId === userId).filter(_.applicationId === applicationId).result).map(_.headOption)
   }
 
-  def saveEntity(userApplicationResult: UserApplication): Future[Option[UserApplication]] = {
+  def getEntityForUser(userId: String): Future[Seq[UserApplication]] = {
+    db.run(this.filter(_.userId === userId).result)
+  }
+
+  def saveEntity(userApplication: UserApplication): Future[Option[UserApplication]] = {
     db.run(
-      (this returning this).insertOrUpdate(userApplicationResult)
+      (this returning this).insertOrUpdate(userApplication)
     )
   }
 
@@ -35,14 +66,8 @@ object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
     db.run(UserApplicationTable.result)
   }
 
-  def deleteEntity(userApplicationResultId: String): Future[Int] = {
-    db.run(this.filter(_.userApplicationResultId === userApplicationResultId).delete)
-  }
-
-  def createTable = {
-    db.run(
-      UserApplicationTable.schema.createIfNotExists
-    ).isCompleted
+  def deleteEntity(userId: String, applicationId: String): Future[Int] = {
+    db.run(this.filter(_.userId === userId).filter(_.applicationId === applicationId).delete)
   }
 
 }

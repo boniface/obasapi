@@ -7,18 +7,17 @@ import play.api.libs.json.Json
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, Injecting}
 
-class CourseControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting {
+class CourseControllerTest extends PlaySpec with GuiceOneAppPerTest  with Injecting  {
 
-  val entity =Course("C01","Information Technology",Option("Information and Design"))
-  val token ="eyJraWQiOiJURVNUX1BIUkFTRSIsImFsZyI6IkVTMjU2In0.eyJpc3MiOiJIQVNIQ09ERS5aTSIsImF1ZCI6IlNJVEVVU0VSUyIsImV4cCI6MTU2NjQ3NDYzNiwianRpIjoiX0dxSG9Dc3dFU1J1R2pGaXBsRzhHZyIsImlhdCI6MTU2NjM4ODIzNiwibmJmIjoxNTY2Mzg4MTE2LCJzdWIiOiJTaXRlIEFjY2VzcyIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJyb2xlIjoiU1RSMDAxIn0.JH-vlwm0PSRSoBE9D3ZrgMhf_Li3gARBLCf6NUZNdHifvbYo3_iQaaBf8baI2H5DgO87oN6Jrb1RGSxVXdIcDg"
-
+  val entity = Course("C01", "Information Technology",Some("Informatics & Designs"))
+  val token = "eyJraWQiOiJURVNUX1BIUkFTRSIsImFsZyI6IkVTMjU2In0.eyJpc3MiOiJIQVNIQ09ERS5aTSIsImF1ZCI6IlNJVEVVU0VSUyIsImV4cCI6MTU2NjQ3NDYzNiwianRpIjoiX0dxSG9Dc3dFU1J1R2pGaXBsRzhHZyIsImlhdCI6MTU2NjM4ODIzNiwibmJmIjoxNTY2Mzg4MTE2LCJzdWIiOiJTaXRlIEFjY2VzcyIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJyb2xlIjoiU1RSMDAxIn0.JH-vlwm0PSRSoBE9D3ZrgMhf_Li3gARBLCf6NUZNdHifvbYo3_iQaaBf8baI2H5DgO87oN6Jrb1RGSxVXdIcDg"
 
 
   "EntityController" should {
 
     "Create Entity" in {
 
-      val request = route(app, FakeRequest(POST, "/subjects/matric/create")
+      val request = route(app, FakeRequest(POST, "/academics/course/create")
         .withJsonBody(Json.toJson(entity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -30,7 +29,7 @@ class CourseControllerTest extends PlaySpec with GuiceOneAppPerTest  with Inject
 
     "Read Entity " in {
 
-      val request = route(app, FakeRequest(GET, "/subjects/matric/get/$subjectCode" + entity.id)
+      val request = route(app, FakeRequest(GET, "/academics/course/get/$id" + entity.id)
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -39,7 +38,7 @@ class CourseControllerTest extends PlaySpec with GuiceOneAppPerTest  with Inject
     }
 
     "Get Entities" in {
-      val request = route(app, FakeRequest(GET, "/subjects/matric/all")
+      val request = route(app, FakeRequest(GET, "/academics/course/all")
         .withHeaders(AUTHORIZATION -> token)
       ).get
       status(request) mustBe OK
@@ -50,7 +49,7 @@ class CourseControllerTest extends PlaySpec with GuiceOneAppPerTest  with Inject
 
     "Update Entity" in {
       val updatedEntity = entity.copy(courseName = "updated")
-      val request = route(app, FakeRequest(POST, "/subjects/matric/update")
+      val request = route(app, FakeRequest(POST, "/academics/course/update")
         .withJsonBody(Json.toJson(updatedEntity))
         .withHeaders(AUTHORIZATION -> token)
       ).get
@@ -58,17 +57,5 @@ class CourseControllerTest extends PlaySpec with GuiceOneAppPerTest  with Inject
       contentType(request) mustBe Some("application/json")
       println("The Content is: ", contentAsString(request))
     }
-
-    "Delete Entities" in {
-      val request = route(app, FakeRequest(POST, "/subjects/matric/delete")
-        .withJsonBody(Json.toJson(entity))
-        .withHeaders(AUTHORIZATION -> token)
-      ).get
-      status(request) mustBe OK
-      contentType(request) mustBe Some("application/json")
-      println("The Content is: ", contentAsString(request))
-
-    }
-
   }
 }
