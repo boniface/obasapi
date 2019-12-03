@@ -16,11 +16,11 @@ import scala.concurrent.Future
  */
 class UserApplicationStatusTableCreate(tag: Tag) extends Table[UserApplicationStatus](tag, "user_application_status") {
 
-  def applicationId: Rep[String] = column[String]("user_id")
+  def applicationId: Rep[String] = column[String]("application_id")
 
-  def statusId: Rep[String] = column[String]("address_type_id")
+  def statusId: Rep[String] = column[String]("status_id")
 
-  def modifiedBy: Rep[String] = column[String]("modifiedBy")
+  def modifiedBy: Rep[String] = column[String]("modified_by")
 
   def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
 
@@ -48,7 +48,7 @@ class UserApplicationStatusTable(tag: Tag) extends Table[UserApplicationStatus](
 
   def statusId: Rep[String] = column[String]("status_id", O.PrimaryKey)
 
-  def modifiedBy: Rep[String] = column[String]("modifiedBy")
+  def modifiedBy: Rep[String] = column[String]("modified_by")
 
   def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
 
@@ -62,7 +62,7 @@ object UserApplicationStatusTable extends TableQuery(new UserApplicationStatusTa
     db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).result).map(_.headOption)
   }
 
-  def getEntityForApplication(applicationId: String): Future[Seq[UserApplicationStatus]] = {
+  def getEntitiesForApplication(applicationId: String): Future[Seq[UserApplicationStatus]] = {
     db.run(this.filter(_.applicationId === applicationId).result)
   }
 

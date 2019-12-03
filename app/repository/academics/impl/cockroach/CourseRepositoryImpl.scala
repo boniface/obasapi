@@ -1,12 +1,11 @@
-package repository.academics
+package repository.academics.impl.cockroach
 
 import domain.academics.Course
+import repository.academics.CourseRepository
+import repository.academics.impl.cockroach.tables.CourseTable
 
-
-import repository.academics.tables.CourseTable
-
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class CourseRepositoryImpl extends CourseRepository {
   override def saveEntity(entity: Course): Future[Option[Course]] =

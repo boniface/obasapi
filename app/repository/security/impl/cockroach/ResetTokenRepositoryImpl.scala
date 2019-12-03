@@ -1,11 +1,11 @@
-package repository.security
+package repository.security.impl.cockroach
 
 import domain.security.ResetToken
+import repository.security.ResetTokenRepository
+import repository.security.impl.cockroach.tables.ResetTokenTable
 
-import repository.security.tables.ResetTokenTable
-
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class ResetTokenRepositoryImpl extends ResetTokenRepository{
 

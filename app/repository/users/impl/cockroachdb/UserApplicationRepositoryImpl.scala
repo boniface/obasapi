@@ -10,10 +10,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class UserApplicationRepositoryImpl  extends UserApplicationRepository{
 
   override def getEntity(userId: String, applicationId: String): Future[Option[UserApplication]] =
-  {
     UserApplicationTable.getEntity(userId,applicationId)
-  }
-  override def getEntityForUser(userId: String): Future[Seq[UserApplication]] = {
+
+  override def getEntitiesForUser(userId: String): Future[Seq[UserApplication]] = {
     UserApplicationTable.getEntityForUser(userId)
   }
 

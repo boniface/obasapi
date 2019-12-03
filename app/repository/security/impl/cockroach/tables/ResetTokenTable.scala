@@ -1,4 +1,4 @@
-package repository.security.tables
+package repository.security.impl.cockroach.tables
 
 import domain.security.ResetToken
 import slick.jdbc.PostgresProfile.api._

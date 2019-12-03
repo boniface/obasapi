@@ -1,11 +1,11 @@
-package repository.login
+package repository.login.impl.cockroach
 
 import domain.login.UserLoginEvents
+import repository.login.UserLoginEventsRepository
+import repository.login.impl.cockroach.tables.UserLoginEventsTable
 
-import repository.login.tables.UserLoginEventsTable
-
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class UserLoginEventsRepositoryImpl extends UserLoginEventsRepository{
 

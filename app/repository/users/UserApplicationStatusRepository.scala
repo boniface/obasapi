@@ -7,12 +7,10 @@ import repository.users.impl.cockroachdb.UserApplicationStatusRepositoryImpl
 import scala.concurrent.Future
 
 trait UserApplicationStatusRepository extends Repository[UserApplicationStatus]{
-
-  def getEntity(id: String, applicationId: String): Future[Option[UserApplicationStatus]]
-  def getEntityForApplication(id: String): Future[Seq[UserApplicationStatus]]
-
-
+  def getEntity(applicationId: String, statusId: String): Future[Option[UserApplicationStatus]]
+  def getEntitiesForApplication(applicationId: String): Future[Seq[UserApplicationStatus]]
 }
+
 object UserApplicationStatusRepository {
-  def roach: UserApplicationStatusRepository =new UserApplicationStatusRepositoryImpl()
+  def roach: UserApplicationStatusRepository = new UserApplicationStatusRepositoryImpl()
 }

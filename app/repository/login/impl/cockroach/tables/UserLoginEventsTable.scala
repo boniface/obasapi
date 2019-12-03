@@ -1,4 +1,4 @@
-package repository.login.tables
+package repository.login.impl.cockroach.tables
 
 import java.time.LocalDateTime
 

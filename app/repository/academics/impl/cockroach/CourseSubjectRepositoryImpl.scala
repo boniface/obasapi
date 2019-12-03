@@ -1,12 +1,11 @@
-package repository.academics
+package repository.academics.impl.cockroach
 
 import domain.academics.CourseSubject
+import repository.academics.CourseSubjectRepository
+import repository.academics.impl.cockroach.tables.{CourseSubjectTable, CourseSubjectTableCreate}
 
-
-import repository.academics.tables.{CourseSubjectTable, CourseSubjectTableCreate}
-
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class CourseSubjectRepositoryImpl extends CourseSubjectRepository{
   override def getEntity(courseId: String, subjectId: String): Future[Option[CourseSubject]] =

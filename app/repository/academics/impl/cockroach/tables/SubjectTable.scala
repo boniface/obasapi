@@ -1,4 +1,4 @@
-package repository.academics.tables
+package repository.academics.impl.cockroach.tables
 
 import domain.academics.Subject
 import slick.jdbc.PostgresProfile.api._

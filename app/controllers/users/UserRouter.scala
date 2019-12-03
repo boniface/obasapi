@@ -6,13 +6,13 @@ import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
 class UserRouter @Inject()
-(userAddressController: UserAddressController, userApplicationResultController: UserApplicationResultController,
+(userAddressController: UserAddressController, userApplicationController: UserApplicationController,
  userCommunicationController: UserCommunicationController, userContactsController: UserContactsController,
  userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentController,
  userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
  userRelativeController: UserRelativeController, userResultsController: UserResultsController,
  userRoleController: UserRoleController, userSubjectController: UserSubjectController,
- userTownController: UserTownController, userCourseController: UserCourseController
+ userTownController: UserTownController, userCourseController: UserCourseController, userApplicationStatusController: UserApplicationStatusController
 ) extends SimpleRouter {
   override def routes: Routes = {
     //USER
@@ -41,17 +41,25 @@ class UserRouter @Inject()
     case POST(p"/address/delete") =>
       userAddressController.deleteUserAddress
 
-    //APPLICATION
-    case GET(p"/application/all") =>
-      userApplicationResultController.getAllUserApplicationResult
-    case GET(p"/application/get/$userApplicationResultId") =>
-      userApplicationResultController.getUserApplicationResultById(userApplicationResultId)
+    // USER_APPLICATION
+    case GET(p"/application/all/$userId") =>
+      userApplicationController.getEntitiesForUser(userId)
+    case GET(p"/application/get/$userId/$applicationId") =>
+      userApplicationController.read(userId, applicationId)
     case POST(p"/application/create") =>
-      userApplicationResultController.create
-    case POST(p"/application/update") =>
-      userApplicationResultController.update
+      userApplicationController.create
     case POST(p"/application/delete") =>
-      userApplicationResultController.deleteUserApplicationResult
+      userApplicationController.delete
+
+    // USER_APPLICATION_STATUS
+    case GET(p"/applicationstatus/all/$applicationId") =>
+      userApplicationStatusController.getEntitiesForApplication(applicationId)
+    case GET(p"/applicationstatus/get/$applicationId/$statusId") =>
+      userApplicationStatusController.read(applicationId, statusId)
+    case POST(p"/applicationstatus/create") =>
+      userApplicationStatusController.create
+    case POST(p"/applicationstatus/delete") =>
+      userApplicationStatusController.delete
 
     //COMMUNICATION
     case GET(p"/communication/all") =>

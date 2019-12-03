@@ -90,6 +90,7 @@ class DBSetupServiceImpl extends DBSetupService {
     UserService.apply.createTable
     UserChangePasswordService.apply.createTable
     UserTownService.apply.createTable
+    UserApplicationStatusService.roach.createTable
   }
 
   def createLoginTables(): Future[Boolean] ={

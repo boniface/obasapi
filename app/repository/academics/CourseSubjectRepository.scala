@@ -2,6 +2,7 @@ package repository.academics
 
 import domain.academics.CourseSubject
 import repository.Repository
+import repository.academics.impl.cockroach.CourseSubjectRepositoryImpl
 
 import scala.concurrent.Future
 

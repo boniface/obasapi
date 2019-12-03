@@ -1,11 +1,11 @@
-package repository.security
+package repository.security.impl.cockroach
 
 import domain.security.ApiKeys
+import repository.security.ApiKeysRepository
+import repository.security.impl.cockroach.tables.ApiKeysTable
 
-import repository.security.tables.ApiKeysTable
-
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class ApiKeysRepositoryImpl extends ApiKeysRepository {
 

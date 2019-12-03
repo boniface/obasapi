@@ -1,11 +1,11 @@
-package repository.login
+package repository.login.impl.cockroach
 
 import domain.login.LoginToken
+import repository.login.LoginTokenRepository
+import repository.login.impl.cockroach.tables.LoginTokenTable
 
-import repository.login.tables.LoginTokenTable
-
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class LoginTokenRepositoryImpl extends LoginTokenRepository{
 
