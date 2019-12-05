@@ -57,10 +57,10 @@ class ApplicationRouter @Inject()(
       applicationStatusController.getLatestForAppnStatus(applicationId, statusId)
     case GET(p"/status/getforapplication/$applicationId") =>
       applicationStatusController.getLatestForApplication(applicationId)
+    case GET(p"/status/iscompleted/$applicationId") =>
+      applicationStatusController.checkIfApplicationComplete(applicationId)
     case POST(p"/status/create") =>
       applicationStatusController.create
-    case POST(p"/status/iscompleted/$applicationId") =>
-      applicationStatusController.checkIfApplicationComplete(applicationId)
 
   }
 }
