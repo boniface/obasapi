@@ -54,12 +54,12 @@ class UserRouter @Inject()
     // USER_APPLICATION_STATUS
     case GET(p"/applicationstatus/all/$applicationId") =>
       userApplicationStatusController.getEntitiesForApplication(applicationId)
-    case GET(p"/applicationstatus/get/$applicationId/$statusId") =>
-      userApplicationStatusController.read(applicationId, statusId)
+    case GET(p"/applicationstatus/getforstatus/$applicationId/$statusId") =>
+      userApplicationStatusController.getLatestForAppnStatus(applicationId, statusId)
+    case GET(p"/applicationstatus/getforapplication/$applicationId") =>
+      userApplicationStatusController.getLatestForApplication(applicationId)
     case POST(p"/applicationstatus/create") =>
       userApplicationStatusController.create
-    case POST(p"/applicationstatus/delete") =>
-      userApplicationStatusController.delete
 
     //COMMUNICATION
     case GET(p"/communication/all") =>

@@ -1,7 +1,5 @@
 package controllers.documents
 
-
-
 import controllers.ApiResponse
 import domain.documents.DocumentType
 import javax.inject.Inject
@@ -9,30 +7,19 @@ import io.circe.generic.auto._
 import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
-import services.address.AddressTypeService
-import services.application.ApplicantTypeService
-import services.application.Impl.cockroachdb.ApplicantTypeServiceImpl
-import services.demographics.Impl.cockroachdb.RaceServiceImpl
-import services.demographics.{RaceService, RoleService}
-import services.documents.Impl.cockroachdb.DocumentTypeServiceImpl
-import services.documents.{DocumentService, DocumentTypeService}
+import services.documents.DocumentTypeService
 import services.login.LoginService
 import util.HelperUtil
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
-
 class DocumentTypeController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = DocumentType
-
   def className: String = "DocumentTypeController"
   override val logger: Logger = Logger(className)
-
   def domainService: DocumentTypeService = DocumentTypeService.roach
-
   def loginService: LoginService = LoginService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {

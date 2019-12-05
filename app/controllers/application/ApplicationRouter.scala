@@ -1,14 +1,11 @@
 package controllers.application
 
 import javax.inject.Inject
-
 import play.api.routing.sird._
-
 import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 
 class ApplicationRouter @Inject()(
-                                   applicationStatusController: ApplicationStatusController,
                                    applicantTypeController: ApplicantTypeController,
                                    applicationController: ApplicationController,
                                    applicationTypeController: ApplicationTypeController
@@ -39,18 +36,6 @@ class ApplicationRouter @Inject()(
       applicantTypeController.update
     case POST(p"/applicanttype/delete") =>
       applicantTypeController.deleteApplicantType
-
-    //APPLICATION_STATUS
-    case GET(p"/status/all") =>
-      applicationStatusController.getAllApplicationStatus
-    case GET(p"/status/get/$applicationStatusId") =>
-      applicationStatusController.getApplicationStatusById(applicationStatusId)
-    case POST(p"/status/create") =>
-      applicationStatusController.create
-    case POST(p"/status/update") =>
-      applicationStatusController.update
-    case POST(p"/status/delete") =>
-      applicationStatusController.deleteApplicationStatus
 
     //APPLICATION_TYPE
     case GET(p"/type/all") =>

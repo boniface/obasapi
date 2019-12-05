@@ -1,25 +1,25 @@
-package controllers.users
+package controllers.documents
 
 import controllers.ApiResponse
-import domain.users.UserApplicationStatus
+import domain.documents.DocumentStatus
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.{Logger, Logging}
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import services.documents.DocumentStatusService
 import services.login.LoginService
-import services.users.UserApplicationStatusService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UserApplicationStatusController @Inject()
+class DocumentStatusController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
 
-  type DomainObject = UserApplicationStatus
-  def className: String = "UserApplicationStatusController"
+  type DomainObject = DocumentStatus
+  def className: String = "DocumentStatusController"
   override val logger: Logger = Logger(className)
-  def domainService: UserApplicationStatusService = UserApplicationStatusService.roach
+  def domainService: DocumentStatusService = DocumentStatusService.apply
   def loginService: LoginService = LoginService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
@@ -37,32 +37,32 @@ class UserApplicationStatusController @Inject()
       }
   }
 
-  def getLatestForAppnStatus(applicationId: String, statusId: String): Action[AnyContent] = Action.async {
+  def getLatestForDocumentnStatus(documentId: String, statusId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
-      logger.info("Retrieve latest by applicationId: " + applicationId + " and statusId: " + statusId)
-      println("Retrieve latest by applicationId: " + applicationId + " and statusId: " + statusId)
+      logger.info("Retrieve latest by documentId: " + documentId + " and statusId: " + statusId)
+      println("Retrieve latest by documentId: " + documentId + " and statusId: " + statusId)
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getLatestForAppnStatus(applicationId, statusId)
+        results <- domainService.getLatestForDocumentnStatus(documentId, statusId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getLatestForApplication(applicationId: String): Action[AnyContent] = Action.async {
+  def getLatestForDocument(documentId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
-      logger.info("Retrieve latest by applicationId: " + applicationId)
-      println("Retrieve latest by applicationId: " + applicationId)
+      logger.info("Retrieve latest by documentId: " + documentId)
+      println("Retrieve latest by documentId: " + documentId)
       val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getLatestForApplication(applicationId)
+        results <- domainService.getLatestForDocument(documentId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
-  def getEntitiesForApplication(applicationId: String): Action[AnyContent] = Action.async {
+  def getEntitiesForDocument(documentId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
-      logger.info("Retrieve by applicationId: " + applicationId)
-      println("Retrieve by applicationId: " + applicationId)
+      logger.info("Retrieve by documentId: " + documentId)
+      println("Retrieve by documentId: " + documentId)
       val response: Future[Seq[DomainObject]] = for {
-        results <- domainService.getEntitiesForApplication(applicationId)
+        results <- domainService.getEntitiesForDocument(documentId)
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }
@@ -76,4 +76,5 @@ class UserApplicationStatusController @Inject()
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }
+
 }

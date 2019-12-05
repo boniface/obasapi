@@ -1,6 +1,6 @@
-package repository.application.impl.cockcroachdb.tables
+package repository.util.generic.impl.cockroach.tables
 
-import domain.application.ApplicationStatus
+import domain.util.generic.GenericStatus
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection
@@ -9,7 +9,7 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _tableName = "application_status") {
+class GenericStatusTable(tag: Tag) extends Table[GenericStatus] (tag, _tableName = "generic_status") {
 
   def id: Rep[String] = column[String]("id", O.PrimaryKey)
 
@@ -17,24 +17,24 @@ class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _t
 
   def description: Rep[Option[String]] = column[Option[String]]("description")
 
-  override def * : ProvenShape[ApplicationStatus] = (id, name, description) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
+  override def * : ProvenShape[GenericStatus] = (id, name, description) <> ((GenericStatus.apply _).tupled, GenericStatus.unapply)
 }
 
-object ApplicationStatusTable extends TableQuery(new ApplicationStatusTable(_)){
+object GenericStatusTable extends TableQuery(new GenericStatusTable(_)){
   def db: driver.api.Database =PgDBConnection.db
 
-  def getEntity(id:String):Future[Option[ApplicationStatus]] ={
+  def getEntity(id:String):Future[Option[GenericStatus]] ={
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
-  def saveEntity(applicationStatus: ApplicationStatus): Future[Option[ApplicationStatus]] = {
+  def saveEntity(applicationStatus: GenericStatus): Future[Option[GenericStatus]] = {
     db.run(
       (this returning this).insertOrUpdate(applicationStatus)
     )
   }
 
-  def getEntities: Future[Seq[ApplicationStatus]] = {
-    db.run(ApplicationStatusTable.result)
+  def getEntities: Future[Seq[GenericStatus]] = {
+    db.run(GenericStatusTable.result)
   }
 
   def deleteEntity(id: String): Future[Int] = {
@@ -43,7 +43,7 @@ object ApplicationStatusTable extends TableQuery(new ApplicationStatusTable(_)){
 
   def createTable = {
     db.run(
-      ApplicationStatusTable.schema.createIfNotExists
+      GenericStatusTable.schema.createIfNotExists
     ).isCompleted
   }
   

@@ -5,14 +5,16 @@ import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
-class DocumentsRouter@Inject()
-(documentController: DocumentController,documentTypeController: DocumentTypeController
-)extends SimpleRouter{
-  override def routes:Routes ={
+class DocumentsRouter @Inject() (
+                                  documentController: DocumentController,
+                                  documentTypeController: DocumentTypeController,
+                                  documentStatusController: DocumentStatusController
+                                ) extends SimpleRouter {
+  override def routes: Routes = {
 
     //DOCUMENT
     case GET(p"/all") =>
-     documentController.getAllDocument
+      documentController.getAllDocument
     case GET(p"/get/$email") =>
       documentController.getDocumentById(email)
     case POST(p"/create") =>
@@ -35,7 +37,15 @@ class DocumentsRouter@Inject()
     case POST(p"/type/delete") =>
       documentTypeController.deleteDocumentType
 
-
+    // DOCUMENT_STATUS
+    case GET(p"/status/all/$documentId") =>
+      documentStatusController.getEntitiesForDocument(documentId)
+    case GET(p"/status/getforstatus/$documentId/$statusId") =>
+      documentStatusController.getLatestForDocumentnStatus(documentId, statusId)
+    case GET(p"/status/getfordocument/$documentId") =>
+      documentStatusController.getLatestForDocument(documentId)
+    case POST(p"/status/create") =>
+      documentStatusController.create
 
 
   }

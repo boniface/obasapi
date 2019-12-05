@@ -22,11 +22,13 @@ class UserApplicationStatusTableCreate(tag: Tag) extends Table[UserApplicationSt
 
   def modifiedBy: Rep[String] = column[String]("modified_by")
 
+  def comment: Rep[Option[String]] = column[Option[String]]("comment")
+
   def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
 
-  def * : ProvenShape[UserApplicationStatus] = (applicationId, statusId, modifiedBy, dateTime) <> ((UserApplicationStatus.apply _).tupled, UserApplicationStatus.unapply)
+  def * : ProvenShape[UserApplicationStatus] = (applicationId, statusId, modifiedBy, comment, dateTime) <> ((UserApplicationStatus.apply _).tupled, UserApplicationStatus.unapply)
 
-  def pk = primaryKey("pk_user_address", (applicationId, statusId))
+  def pk = primaryKey("pk_user_application_status", (applicationId, statusId, dateTime))
 }
 
 object UserApplicationStatusTableCreate extends TableQuery(new UserApplicationStatusTableCreate(_)) {
@@ -44,40 +46,50 @@ object UserApplicationStatusTableCreate extends TableQuery(new UserApplicationSt
  * @param tag
  */
 class UserApplicationStatusTable(tag: Tag) extends Table[UserApplicationStatus](tag, "user_application_status") {
+
   def applicationId: Rep[String] = column[String]("application_id", O.PrimaryKey)
 
   def statusId: Rep[String] = column[String]("status_id", O.PrimaryKey)
 
   def modifiedBy: Rep[String] = column[String]("modified_by")
 
-  def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
+  def comment: Rep[Option[String]] = column[Option[String]]("comment")
 
-  def * : ProvenShape[UserApplicationStatus] = (applicationId, statusId, modifiedBy, dateTime) <> ((UserApplicationStatus.apply _).tupled, UserApplicationStatus.unapply)
+  def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time", O.PrimaryKey)
+
+  def * : ProvenShape[UserApplicationStatus] = (applicationId, statusId, modifiedBy, comment, dateTime) <> ((UserApplicationStatus.apply _).tupled, UserApplicationStatus.unapply)
 }
 
 object UserApplicationStatusTable extends TableQuery(new UserApplicationStatusTable(_)) {
+  type DomainObject = UserApplicationStatus
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(applicationId: String, statusId: String): Future[Option[UserApplicationStatus]] = {
-    db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).result).map(_.headOption)
+  def getEntitiesForAppnStatus(applicationId: String, statusId: String): Future[Seq[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).result)
   }
 
-  def getEntitiesForApplication(applicationId: String): Future[Seq[UserApplicationStatus]] = {
+  def getLatestForAppnStatus(applicationId: String, statusId: String): Future[Option[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).result)
+      .map(_.sorted(UserApplicationStatus.orderByDateTime)).map(_.headOption)
+  }
+
+  def getEntitiesForApplication(applicationId: String): Future[Seq[DomainObject]] = {
     db.run(this.filter(_.applicationId === applicationId).result)
   }
 
-  def saveEntity(userAddress: UserApplicationStatus): Future[Option[UserApplicationStatus]] = {
+  def getLatestForApplication(applicationId: String): Future[Option[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).result)
+      .map(_.sorted(UserApplicationStatus.orderByDateTime)).map(_.headOption)
+  }
+
+  def saveEntity(userAddress: UserApplicationStatus): Future[Option[DomainObject]] = {
     db.run(
       (this returning this).insertOrUpdate(userAddress)
     )
   }
 
-  def getEntities: Future[Seq[UserApplicationStatus]] = {
+  def getEntities: Future[Seq[DomainObject]] = {
     db.run(UserApplicationStatusTable.result)
-  }
-
-  def deleteEntity(applicationId: String, statusId: String): Future[Int] = {
-    db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).delete)
   }
 
 }

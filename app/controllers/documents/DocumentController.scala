@@ -1,6 +1,5 @@
 package controllers.documents
 
-
 import controllers.ApiResponse
 import domain.documents.Document
 import javax.inject.Inject
@@ -15,17 +14,12 @@ import util.APPKeys
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
-
 class DocumentController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = Document
-
   def className: String = "DocumentController"
   override val logger: Logger = Logger(className)
-
   def domainService: DocumentService = DocumentService.roach
-
   def loginService: LoginService = LoginService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {
