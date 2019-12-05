@@ -47,6 +47,8 @@ class UserRouter @Inject()
       userApplicationController.getEntitiesForUser(userId)
     case GET(p"/application/get/$userId/$applicationId") =>
       userApplicationController.read(userId, applicationId)
+    case GET(p"/application/latest/$userId") =>
+      userApplicationController.getLatestForUser(userId)
     case POST(p"/application/create") =>
       userApplicationController.create
     case POST(p"/application/delete") =>

@@ -9,6 +9,7 @@ import scala.concurrent.Future
 trait UserApplicationRepository extends Repository[UserApplication]{
   def getEntity(id: String, applicationId: String): Future[Option[UserApplication]]
   def getEntitiesForUser(id: String): Future[Seq[UserApplication]]
+  def getLatestEntityForUser(userId: String): Future[Option[UserApplication]]
 }
 
 object UserApplicationRepository{

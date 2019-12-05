@@ -1,5 +1,7 @@
 package repository.users.impl.cockroachdb.tables
 
+import java.time.LocalDateTime
+
 import domain.users.UserApplication
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
@@ -18,7 +20,9 @@ class UserApplicationTableCreate(tag: Tag) extends Table[UserApplication](tag, "
 
   def applicationId: Rep[String] = column[String]("application_id")
 
-  def * : ProvenShape[UserApplication] = (userId, applicationId) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
+  def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
+
+  def * : ProvenShape[UserApplication] = (userId, applicationId, dateTime) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
 
   def pk = primaryKey("pk_user_application", (userId, applicationId))
 }
@@ -42,7 +46,9 @@ class UserApplicationTable(tag: Tag) extends Table[UserApplication](tag, "user_a
 
   def applicationId: Rep[String] = column[String]("application_id", O.PrimaryKey)
 
-  override def * = (userId, applicationId) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
+  def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
+
+  override def * = (userId, applicationId, dateTime) <> ((UserApplication.apply _).tupled, UserApplication.unapply)
 }
 
 object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
@@ -50,6 +56,10 @@ object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
 
   def getEntity(userId: String, applicationId: String): Future[Option[UserApplication]] = {
     db.run(this.filter(_.userId === userId).filter(_.applicationId === applicationId).result).map(_.headOption)
+  }
+
+  def getLatestForUser(userId: String): Future[Option[UserApplication]] = {
+    db.run(this.filter(_.userId === userId).result).map(_.sorted(UserApplication.orderByDateTime)).map(_.headOption)
   }
 
   def getEntityForUser(userId: String): Future[Seq[UserApplication]] = {

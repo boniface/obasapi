@@ -24,4 +24,7 @@ class UserApplicationServiceImpl extends  UserApplicationService {
     UserApplicationRepository.roach.deleteEntity(entity)
 
   override def createTable: Future[Boolean] = UserApplicationRepository.roach.createTable
+
+  override def getLatestEntityForUser(userId: String): Future[Option[UserApplication]] =
+    UserApplicationRepository.roach.getLatestEntityForUser(userId)
 }
