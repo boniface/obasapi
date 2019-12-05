@@ -17,7 +17,7 @@ class ApplicationStatusController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
 
   type DomainObject = ApplicationStatus
-  def className: String = "UserApplicationStatusController"
+  def className: String = "ApplicationStatusController"
   override val logger: Logger = Logger(className)
   def domainService: ApplicationStatusService = ApplicationStatusService.roach
   def loginService: LoginService = LoginService.apply

@@ -37,7 +37,7 @@ class ApplicationStatusServiceImpl extends ApplicationStatusService {
     ApplicationStatusRepository.roach.getLatestForApplication(applicationId)
 
   def getIncompleteStatus(statuses: Seq[GenericStatus]): Future[Seq[GenericStatus]] = {
-    Future.successful(statuses.filter(status => !status.name.trim.equalsIgnoreCase(APPKeys.REJECTED) && !status.name.trim.equalsIgnoreCase(APPKeys.APPROVED)))
+    Future.successful(statuses.filter(status => status.name.trim.equalsIgnoreCase(APPKeys.REJECTED) && status.name.trim.equalsIgnoreCase(APPKeys.APPROVED)))
   }
 
   def checkApplicationStatus(applicationStatus: Option[ApplicationStatus], incompleteStatuses: Seq[GenericStatus]) = {
