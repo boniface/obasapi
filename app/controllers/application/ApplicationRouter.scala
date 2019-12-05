@@ -8,7 +8,8 @@ import play.api.routing.SimpleRouter
 class ApplicationRouter @Inject()(
                                    applicantTypeController: ApplicantTypeController,
                                    applicationController: ApplicationController,
-                                   applicationTypeController: ApplicationTypeController
+                                   applicationTypeController: ApplicationTypeController,
+                                   applicationStatusController: ApplicationStatusController
                                  )
   extends SimpleRouter {
   override def routes: Routes = {
@@ -48,6 +49,16 @@ class ApplicationRouter @Inject()(
       applicationTypeController.update
     case POST(p"/type/delete") =>
       applicationTypeController.delete
+
+    // APPLICATION_STATUS
+    case GET(p"/status/all/$applicationId") =>
+      applicationStatusController.getEntitiesForApplication(applicationId)
+    case GET(p"/status/getforstatus/$applicationId/$statusId") =>
+      applicationStatusController.getLatestForAppnStatus(applicationId, statusId)
+    case GET(p"/status/getforapplication/$applicationId") =>
+      applicationStatusController.getLatestForApplication(applicationId)
+    case POST(p"/status/create") =>
+      applicationStatusController.create
 
   }
 }

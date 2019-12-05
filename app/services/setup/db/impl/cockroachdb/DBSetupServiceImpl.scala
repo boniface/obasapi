@@ -2,7 +2,7 @@ package services.setup.db.impl.cockroachdb
 
 import services.academics.{CourseService, CourseSubjectService, SubjectService}
 import services.address.{AddressTypeService, ContactTypeService}
-import services.application.{ApplicantTypeService, ApplicationService, ApplicationTypeService}
+import services.application.{ApplicantTypeService, ApplicationService, ApplicationStatusService, ApplicationTypeService}
 import services.demographics.{DistrictService, DistrictTownService, GenderService, ProvinceDistrictService, ProvinceService, RaceService, RoleService, TitleService, TownService}
 import services.documents.{DocumentService, DocumentStatusService, DocumentTypeService}
 import services.institutions.{InstitutionAddressService, InstitutionContactService, InstitutionCourseService, InstitutionLocationService, InstitutionService, InstitutionTypeService}
@@ -33,6 +33,7 @@ class DBSetupServiceImpl extends DBSetupService {
     ApplicantTypeService.roach.createTable
     ApplicationService.apply.createTable
     ApplicationTypeService.apply.createTable
+    ApplicationStatusService.roach.createTable
   }
 
   def createDemographicsTables(): Future[Boolean] = {
@@ -91,7 +92,7 @@ class DBSetupServiceImpl extends DBSetupService {
     UserService.apply.createTable
     UserChangePasswordService.apply.createTable
     UserTownService.apply.createTable
-    UserApplicationStatusService.roach.createTable
+    ApplicationStatusService.roach.createTable
   }
 
   def createLoginTables(): Future[Boolean] ={

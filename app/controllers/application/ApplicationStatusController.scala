@@ -1,25 +1,25 @@
-package controllers.users
+package controllers.application
 
 import controllers.ApiResponse
-import domain.users.UserApplicationStatus
-import javax.inject.Inject
+import domain.application.ApplicationStatus
 import io.circe.generic.auto._
-import play.api.{Logger, Logging}
+import javax.inject.Inject
 import play.api.libs.json.{JsValue, Json}
-import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
+import play.api.mvc._
+import play.api.{Logger, Logging}
+import services.application.ApplicationStatusService
 import services.login.LoginService
-import services.users.UserApplicationStatusService
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class UserApplicationStatusController @Inject()
+class ApplicationStatusController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
 
-  type DomainObject = UserApplicationStatus
+  type DomainObject = ApplicationStatus
   def className: String = "UserApplicationStatusController"
   override val logger: Logger = Logger(className)
-  def domainService: UserApplicationStatusService = UserApplicationStatusService.roach
+  def domainService: ApplicationStatusService = ApplicationStatusService.roach
   def loginService: LoginService = LoginService.apply
 
   def create: Action[JsValue] = Action.async(parse.json) {

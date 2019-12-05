@@ -1,5 +1,6 @@
 package controllers.users
 
+import controllers.application.ApplicationStatusController
 import javax.inject.Inject
 import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
@@ -12,7 +13,7 @@ class UserRouter @Inject()
  userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
  userRelativeController: UserRelativeController, userResultsController: UserResultsController,
  userRoleController: UserRoleController, userSubjectController: UserSubjectController,
- userTownController: UserTownController, userCourseController: UserCourseController, userApplicationStatusController: UserApplicationStatusController
+ userTownController: UserTownController, userCourseController: UserCourseController
 ) extends SimpleRouter {
   override def routes: Routes = {
     //USER
@@ -50,16 +51,6 @@ class UserRouter @Inject()
       userApplicationController.create
     case POST(p"/application/delete") =>
       userApplicationController.delete
-
-    // USER_APPLICATION_STATUS
-    case GET(p"/applicationstatus/all/$applicationId") =>
-      userApplicationStatusController.getEntitiesForApplication(applicationId)
-    case GET(p"/applicationstatus/getforstatus/$applicationId/$statusId") =>
-      userApplicationStatusController.getLatestForAppnStatus(applicationId, statusId)
-    case GET(p"/applicationstatus/getforapplication/$applicationId") =>
-      userApplicationStatusController.getLatestForApplication(applicationId)
-    case POST(p"/applicationstatus/create") =>
-      userApplicationStatusController.create
 
     //COMMUNICATION
     case GET(p"/communication/all") =>
