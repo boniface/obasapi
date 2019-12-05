@@ -76,4 +76,14 @@ class ApplicationStatusController @Inject()
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }
+
+  def checkIfApplicationComplete(applicationId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Check if application is complete using applicationId: " + applicationId)
+      println("Check if application is complete using applicationId: " + applicationId)
+      val response: Future[Boolean] = for {
+        results <- domainService.checkIfCompleted(applicationId)
+      } yield results
+      api.requestResponse[Boolean](response, className)
+  }
 }

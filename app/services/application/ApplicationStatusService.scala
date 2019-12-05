@@ -11,6 +11,7 @@ trait ApplicationStatusService extends CrudService[ApplicationStatus] {
   def getEntitiesForApplication(applicationId: String): Future[Seq[ApplicationStatus]]
   def getLatestForAppnStatus(applicationId: String, statusId: String): Future[Option[ApplicationStatus]]
   def getLatestForApplication(applicationId: String): Future[Option[ApplicationStatus]]
+  def checkIfCompleted(applicationId: String): Future[Boolean]
 }
 
 object ApplicationStatusService{

@@ -1,9 +1,13 @@
 package services.application.Impl.cockroachdb
 
 import domain.application.ApplicationStatus
+import domain.util.generic.GenericStatus
 import repository.application.ApplicationStatusRepository
 import services.application.ApplicationStatusService
+import services.util.generic.GenericStatusService
+import util.APPKeys
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ApplicationStatusServiceImpl extends ApplicationStatusService {
@@ -31,4 +35,26 @@ class ApplicationStatusServiceImpl extends ApplicationStatusService {
 
   override def getLatestForApplication(applicationId: String): Future[Option[ApplicationStatus]] =
     ApplicationStatusRepository.roach.getLatestForApplication(applicationId)
+
+  def getIncompleteStatus(statuses: Seq[GenericStatus]): Future[Seq[GenericStatus]] = {
+    Future.successful(statuses.filter(status => !status.name.trim.equalsIgnoreCase(APPKeys.REJECTED) && !status.name.trim.equalsIgnoreCase(APPKeys.APPROVED)))
+  }
+
+  def checkApplicationStatus(applicationStatus: Option[ApplicationStatus], incompleteStatuses: Seq[GenericStatus]) = {
+    applicationStatus match {
+      case Some(value) => Future.successful(incompleteStatuses.filter(s => s.id == value.statusId).length > 0)
+      case None => Future.successful(true)
+    }
+  }
+
+  override def checkIfCompleted(applicationId: String): Future[Boolean] = {
+    for {
+      applicationStatus <- getLatestForApplication(applicationId) if applicationStatus.isDefined
+      statuses <- GenericStatusService.roach.getEntities
+      incompleteStatuses <- getIncompleteStatus(statuses)
+      incomplete <- checkApplicationStatus(applicationStatus, incompleteStatuses)
+    } yield {
+      incomplete
+    }
+  }
 }

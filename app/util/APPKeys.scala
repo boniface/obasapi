@@ -48,8 +48,10 @@ object APPKeys {
 
   def APPROVED = "Approved"
 
-  def NOT_APPROVED = "Not Approved"
+  def REJECTED = "Rejected"
 
   def PROCESSING = "Processing..."
+
+  def INCOMPLETE = "Incomplete"
 
 }

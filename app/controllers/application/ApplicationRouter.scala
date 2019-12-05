@@ -59,6 +59,8 @@ class ApplicationRouter @Inject()(
       applicationStatusController.getLatestForApplication(applicationId)
     case POST(p"/status/create") =>
       applicationStatusController.create
+    case POST(p"/status/iscompleted/$applicationId") =>
+      applicationStatusController.checkIfApplicationComplete(applicationId)
 
   }
 }
