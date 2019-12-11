@@ -74,8 +74,8 @@ object UserInstitutionTable extends TableQuery(new UserInstitutionTable(_)) {
     db.run(UserInstitutionTable.result)
   }
 
-  def deleteEntity(userId: String): Future[Int] = {
-    db.run(this.filter(_.userId === userId).delete)
+  def deleteEntity(userId: String, institutionId: String): Future[Int] = {
+    db.run(this.filter(_.userId === userId).filter(_.institutionId === institutionId).delete)
   }
 
 }
