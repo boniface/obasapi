@@ -8,7 +8,7 @@ case class Location(
                      name: String,
                      latitude: String,
                      longitude: String,
-                     locationParentId: Option[String]
+                     locationParentId: String
                    )
 
 object Location {

@@ -21,7 +21,7 @@ class LocationTable(tag: Tag) extends Table[Location](tag, "location") {
 
   def longitude: Rep[String] = column[String]("longitude")
 
-  def locationParentId:Rep[Option[String]] = column[Option[String]]("parent_id")
+  def locationParentId:Rep[String] = column[String]("location_parent_id")
 
   def * : ProvenShape[Location] = (locationId, locationTypeId, name, latitude, longitude, locationParentId) <> ((Location.apply _).tupled, Location.unapply)
 }
@@ -47,7 +47,7 @@ object LocationTable extends TableQuery(new LocationTable(_)) {
     db.run(this.filter(_.locationId === locationId).delete)
   }
 
-  def createTable = {
+  def createTable: Boolean = {
     db.run(
       LocationTable.schema.createIfNotExists
     ).isCompleted

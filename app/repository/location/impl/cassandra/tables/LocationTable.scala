@@ -18,7 +18,7 @@ abstract class LocationTable extends Table[LocationTable, Location] {
 
   object locationTypeId extends StringColumn
 
-  object  locationParentId extends OptionalStringColumn
+  object  locationParentId extends StringColumn
 
 }
 

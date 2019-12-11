@@ -18,9 +18,11 @@ class UserInstitutionTableCreate(tag: Tag) extends Table[UserInstitution](tag, "
 
   def institutionId: Rep[String] = column[String]("institution_id")
 
+  def debtAmount: Rep[Double] = column[Double]("debt_amount")
+
   def isCurrent: Rep[Boolean] = column[Boolean]("is_current")
 
-  def * : ProvenShape[UserInstitution] = (userId, institutionId, isCurrent) <> ((UserInstitution.apply _).tupled, UserInstitution.unapply)
+  def * : ProvenShape[UserInstitution] = (userId, institutionId, debtAmount, isCurrent) <> ((UserInstitution.apply _).tupled, UserInstitution.unapply)
 
   def pk = primaryKey("pk_user_institution", (userId, institutionId))
 }
@@ -44,9 +46,11 @@ class UserInstitutionTable(tag: Tag) extends Table[UserInstitution](tag, "user_i
 
   def institutionId: Rep[String] = column[String]("institution_id", O.PrimaryKey)
 
+  def debtAmount: Rep[Double] = column[Double]("debt_amount")
+
   def isCurrent: Rep[Boolean] = column[Boolean]("is_current")
 
-  def * : ProvenShape[UserInstitution] = (userId, institutionId, isCurrent) <> ((UserInstitution.apply _).tupled, UserInstitution.unapply)
+  def * : ProvenShape[UserInstitution] = (userId, institutionId, debtAmount, isCurrent) <> ((UserInstitution.apply _).tupled, UserInstitution.unapply)
 }
 
 object UserInstitutionTable extends TableQuery(new UserInstitutionTable(_)) {
