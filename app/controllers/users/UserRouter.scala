@@ -183,7 +183,7 @@ class UserRouter @Inject()
     case POST(p"/subject/delete") =>
       userSubjectController.delete
 
-    //TOWN
+    // USER_TOWN
     case POST(p"/town/create") =>
       userTownController.create
     case GET(p"/town/get/$userId") =>

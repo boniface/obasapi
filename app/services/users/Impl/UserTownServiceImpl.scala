@@ -6,7 +6,7 @@ import services.users.UserTownService
 
 import scala.concurrent.Future
 
-class UserTownServiceImpl extends UserTownService{
+class UserTownServiceImpl extends UserTownService {
   override def saveEntity(entity: UserTown): Future[Option[UserTown]] =
     UserTownRepository.apply.saveEntity(entity)
 

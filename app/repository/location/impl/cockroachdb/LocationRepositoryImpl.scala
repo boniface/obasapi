@@ -28,6 +28,11 @@ class LocationRepositoryImpl  extends LocationRepository{
   override def createTable: Future[Boolean] = {
     Future.successful(LocationTable.createTable)
   }
+
+  override def getParentEntities: Future[Seq[Location]] = LocationTable.getParentEntities
+
+  override def getEntitiesForParent(locationParentId: String): Future[Seq[Location]] =
+    LocationTable.getEntitiesForParent(locationParentId)
 }
 
 

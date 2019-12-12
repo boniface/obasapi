@@ -33,6 +33,10 @@ class LocationRepositoryImpl extends LocationRepository{
     LocationDatabase.locationTable.create.ifNotExists().future().map(result => result.head.isExhausted())
 
   }
+
+  override def getParentEntities: Future[Seq[Location]] = ???
+
+  override def getEntitiesForParent(locationParentId: String): Future[Seq[Location]] = ???
 }
 class LocationDatabase(override val connector: KeySpaceDef) extends Database[LocationDatabase](connector) {
   object locationTable extends LocationTableImpl with connector.Connector

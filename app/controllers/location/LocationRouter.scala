@@ -18,6 +18,10 @@ class LocationRouter @Inject()
       locationController.getAllLocation
     case GET(p"/get/$locationId") =>
       locationController.getLocationById(locationId)
+    case GET(p"/parents/all") =>
+      locationController.getParentLocations
+    case GET(p"/getforparents/$locationParentId") =>
+      locationController.getLocationsForParent(locationParentId)
     case POST(p"/create") =>
       locationController.create
     case POST(p"/update") =>

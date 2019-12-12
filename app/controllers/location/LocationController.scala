@@ -63,11 +63,29 @@ class LocationController @Inject()
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
+  def getLocationsForParent(locationParentId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by locationParentId: " + locationParentId)
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getEntitiesForParent(locationParentId)
+      } yield results
+      api.requestResponse[Seq[DomainObject]](response, className)
+  }
+
   def getAllLocation: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve all requested")
       val response: Future[Seq[DomainObject]] = for {
         results <- domainService.getEntities
+      } yield results
+      api.requestResponse[Seq[DomainObject]](response, className)
+  }
+
+  def getParentLocations: Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve all parent locations requested")
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getParentEntities
       } yield results
       api.requestResponse[Seq[DomainObject]](response, className)
   }

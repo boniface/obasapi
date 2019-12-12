@@ -12,9 +12,9 @@ import scala.concurrent.Future
 class UserTownTable(tag: Tag) extends Table[UserTown](tag, "user_town") {
   def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
 
-  def townCode: Rep[String] = column[String]("town_code")
+  def locationId: Rep[String] = column[String]("location_id")
 
-  override def * : ProvenShape[UserTown] = (userId, townCode) <> ((UserTown.apply _).tupled, UserTown.unapply)
+  override def * : ProvenShape[UserTown] = (userId, locationId) <> ((UserTown.apply _).tupled, UserTown.unapply)
 }
 
 object UserTownTable extends TableQuery(new UserTownTable(_)) {
@@ -24,9 +24,9 @@ object UserTownTable extends TableQuery(new UserTownTable(_)) {
     db.run(this.filter(_.userId === userId).result).map(_.headOption)
   }
 
-  def saveEntity(userTown: UserTown): Future[Option[UserTown]] = {
+  def saveEntity(userDistrict: UserTown): Future[Option[UserTown]] = {
     db.run(
-      (this returning this).insertOrUpdate(userTown)
+      (this returning this).insertOrUpdate(userDistrict)
     )
   }
 
@@ -38,7 +38,7 @@ object UserTownTable extends TableQuery(new UserTownTable(_)) {
     db.run(this.filter(_.userId === userId).delete)
   }
 
-  def createTable = {
+  def createTable: Boolean = {
     db.run(
       UserTownTable.schema.createIfNotExists
     ).isCompleted

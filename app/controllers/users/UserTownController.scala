@@ -14,7 +14,7 @@ import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
 class UserTownController @Inject()
-(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
+(cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging  {
 
   type DomainObject = UserTown
   def className: String = "UserTownController"
@@ -22,8 +22,8 @@ class UserTownController @Inject()
   def domainService: UserTownService = UserTownService.apply
   def loginService: LoginService = LoginService.apply
 
-   def create: Action[JsValue] = Action.async(parse.json) {
-     implicit request: Request[JsValue] =>
+  def create: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither
       logger.info("Create request with body: " + entity)
       println("Create request with body: " + entity)
@@ -35,7 +35,7 @@ class UserTownController @Inject()
           api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
-   }
+  }
 
   def update: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
@@ -62,17 +62,6 @@ class UserTownController @Inject()
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }
-
-  /** Not needed here */
-//   def getAll: Action[AnyContent] = Action.async {
-//    implicit request: Request[AnyContent] =>
-//      logger.info("Retrieve all requested")
-//      println("Retrieve all requested")
-//      val response: Future[Seq[DomainObject]] = for {
-//        results <- domainService.getEntities
-//      } yield results
-//      api.requestResponse[Seq[DomainObject]](response, className)
-//  }
 
   def delete: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
