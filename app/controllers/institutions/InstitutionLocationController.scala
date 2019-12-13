@@ -61,6 +61,15 @@ class InstitutionLocationController @Inject()
       api.requestResponse[Option[DomainObject]](response, className)
   }
 
+  def getForLocation(locationId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by locationId: " + locationId)
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getEntitiesForLocation(locationId)
+      } yield results
+      api.requestResponse[Seq[DomainObject]](response, className)
+  }
+
   def getAll: Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve all requested")

@@ -21,4 +21,7 @@ class InstitutionLocationServiceImpl extends InstitutionLocationService {
 
   override def createTable: Future[Boolean] =
     InstitutionLocationRepository.apply.createTable
+
+  override def getEntitiesForLocation(locationId: String): Future[Seq[InstitutionLocation]] =
+    InstitutionLocationRepository.apply.getEntitiesForLocation(locationId)
 }

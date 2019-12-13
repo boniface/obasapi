@@ -60,6 +60,8 @@ class InstitutionRouter @Inject()(
       institutionLocationController.getAll
     case GET(p"/location/get/$institutionId") =>
       institutionLocationController.read(institutionId)
+    case GET(p"/location/getforlocation/$locationId") =>
+      institutionLocationController.getForLocation(locationId)
     case POST(p"/location/create") =>
       institutionLocationController.create
     case POST(p"/location/update") =>

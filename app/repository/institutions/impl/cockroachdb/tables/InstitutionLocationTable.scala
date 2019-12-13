@@ -32,6 +32,9 @@ object InstitutionLocationTable extends TableQuery(new InstitutionLocationTable(
   def getEntity(institutionId: String): Future[Option[InstitutionLocation]] =
     db.run(this.filter(_.institutionId === institutionId).result).map(_.headOption)
 
+  def getEntitiesInLocation(locationId: String): Future[Seq[InstitutionLocation]] =
+    db.run(this.filter(_.locationId === locationId).result)
+
   def deleteEntity(institutionId: String): Future[Int] =
     db.run(this.filter(_.institutionId === institutionId).delete)
 

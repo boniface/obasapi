@@ -4,8 +4,10 @@ import domain.institutions.InstitutionLocation
 import repository.Repository
 import repository.institutions.impl.cockroachdb.InstitutionLocationRepositoryImpl
 
-trait InstitutionLocationRepository extends Repository[InstitutionLocation] {
+import scala.concurrent.Future
 
+trait InstitutionLocationRepository extends Repository[InstitutionLocation] {
+  def getEntitiesForLocation(locationId: String): Future[Seq[InstitutionLocation]]
 }
 
 object InstitutionLocationRepository {

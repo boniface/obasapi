@@ -4,8 +4,10 @@ import domain.institutions.InstitutionLocation
 import services.CrudService
 import services.institutions.Impl.cockroachdb.InstitutionLocationServiceImpl
 
-trait InstitutionLocationService extends CrudService[InstitutionLocation] {
+import scala.concurrent.Future
 
+trait InstitutionLocationService extends CrudService[InstitutionLocation] {
+  def getEntitiesForLocation(locationId: String): Future[Seq[InstitutionLocation]]
 }
 
 object InstitutionLocationService {
