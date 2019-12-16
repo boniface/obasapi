@@ -110,7 +110,7 @@ class UserRouter @Inject()
     case GET(p"/institution/all") =>
       userInstitutionController.getAllUserInstitution
     case GET(p"/institution/get/$userInstitutionId") =>
-      userInstitutionController.getUserInstitutionById(userInstitutionId)
+      userInstitutionController.getUserInstitutions(userInstitutionId)
     case POST(p"/institution/create") =>
       userInstitutionController.create
     case POST(p"/institution/update") =>

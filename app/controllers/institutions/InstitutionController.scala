@@ -75,6 +75,15 @@ class InstitutionController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
+  def getEntitiesForInstitutionType(institutionTypeId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by institutionTypeId: " + institutionTypeId)
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getEntitiesForInstitutionTypeId(institutionTypeId)
+      } yield results
+      api.requestResponse[Seq[DomainObject]](response, className)
+  }
+
   def delete: Action[JsValue] = Action.async(parse.json) {
     implicit request: Request[JsValue] =>
       val entity = Json.fromJson[DomainObject](request.body).asEither

@@ -19,4 +19,7 @@ class InstitutionServiceImpl extends InstitutionService {
     InstitutionRepository.apply.deleteEntity(entity)
 
   override def createTable: Future[Boolean] = InstitutionRepository.apply.createTable
+
+  override def getEntitiesForInstitutionTypeId(institutionTypeId: String): Future[Seq[Institution]] =
+    InstitutionRepository.apply.getEntitiesForInstitutionTypeId(institutionTypeId)
 }

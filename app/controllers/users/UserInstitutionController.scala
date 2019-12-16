@@ -48,12 +48,12 @@ class UserInstitutionController @Inject()
       }
   }
 
-  def getUserInstitutionById(userInstitutionId: String): Action[AnyContent] = Action.async {
+  def getUserInstitutions(userId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
-      val response: Future[Option[DomainObject]] = for {
-        results <- domainService.getEntity(userInstitutionId)
+      val response: Future[Seq[DomainObject]] = for {
+        results <- domainService.getEntitiesForUser(userId)
       } yield results
-      api.requestResponse[Option[DomainObject]](response, className)
+      api.requestResponse[Seq[DomainObject]](response, className)
   }
 
   def getAllUserInstitution: Action[AnyContent] = Action.async {

@@ -21,4 +21,7 @@ class InstitutionRepositoryImpl extends InstitutionRepository {
     InstitutionTable.deleteEntity(entity.id).map(value => value.isValidInt)
 
   override def createTable: Future[Boolean] = Future.successful(InstitutionTable.createTable)
+
+  override def getEntitiesForInstitutionTypeId(institutionTypeId: String): Future[Seq[Institution]] =
+    InstitutionTable.getEntitiesForInstitutionTypeId(institutionTypeId)
 }

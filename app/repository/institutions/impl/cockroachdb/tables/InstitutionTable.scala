@@ -27,6 +27,10 @@ object InstitutionTable extends TableQuery(new InstitutionTable(_)) {
     db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
+  def getEntitiesForInstitutionTypeId(institutionTypeId:String): Future[Seq[Institution]] = {
+    db.run(this.filter(_.institutionTypeId === institutionTypeId).result)
+  }
+
   def saveEntity(institution: Institution): Future[Option[Institution]] = {
     db.run(
       (this returning this).insertOrUpdate(institution)
