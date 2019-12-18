@@ -17,11 +17,7 @@ class ApplicationTable (tag: Tag) extends Table[Application](tag, _tableName = "
 
   def applicantTypeId: Rep[String] = column[String]("applicant_type_id")
 
-  def institutionId: Rep[String] = column[String]("institution_id")
-
-  def courseId: Rep[String] = column[String]("course_id")
-
-  override def * : ProvenShape[Application] = (id, applicationTypeId, applicantTypeId, institutionId, courseId) <> ((Application.apply _).tupled, Application.unapply)
+  override def * : ProvenShape[Application] = (id, applicationTypeId, applicantTypeId) <> ((Application.apply _).tupled, Application.unapply)
 }
 
 object ApplicationTable extends TableQuery(new ApplicationTable(_)) {

@@ -83,15 +83,20 @@ class DBSetupServiceImpl extends DBSetupService {
     UserContactsService.roach.createTable
     UserDemographicsService.roach.createTable
     UserDocumentService.roach.createTable
-    UserInstitutionService.roach.createTable
     UserPasswordService.apply.createTable
     UserRelativeService.roach.createTable
     UserRoleService.roach.createTable
-    UserSubjectService.roach.createTable
     UserResultsService.roach.createTable
     UserService.apply.createTable
     UserChangePasswordService.apply.createTable
     UserTownService.apply.createTable
+    UserApplicationCourseService.apply.createTable
+    UserApplicationInstitutionService.apply.createTable
+    UserMatricInstitutionService.apply.createTable
+    UserMatricSubjectService.apply.createTable
+    UserTertiaryCourseService.apply.createTable
+    UserTertiaryInstitutionService.apply.createTable
+    UserTertiarySubjectService.apply.createTable
   }
 
   def createLoginTables(): Future[Boolean] ={

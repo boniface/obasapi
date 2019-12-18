@@ -6,15 +6,18 @@ import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
-class UserRouter @Inject()
-(userAddressController: UserAddressController, userApplicationController: UserApplicationController,
- userCommunicationController: UserCommunicationController, userContactsController: UserContactsController,
- userController: UserController, userDemographicsController: UserDemographicsController, userDocumentsController: UserDocumentController,
- userInstitutionController: UserInstitutionController, userPasswordController: UserPasswordController,
- userRelativeController: UserRelativeController, userResultsController: UserResultsController,
- userRoleController: UserRoleController, userSubjectController: UserSubjectController,
- userTownController: UserTownController, userCourseController: UserCourseController
-) extends SimpleRouter {
+class UserRouter @Inject()(
+                            userAddressController: UserAddressController, userApplicationController: UserApplicationController,
+                            userCommunicationController: UserCommunicationController, userContactsController: UserContactsController,
+                            userController: UserController, userDemographicsController: UserDemographicsController,
+                            userDocumentsController: UserDocumentController, userPasswordController: UserPasswordController,
+                            userRelativeController: UserRelativeController, userResultsController: UserResultsController,
+                            userRoleController: UserRoleController, userTownController: UserTownController,
+                            userMatricInstitutionController: UserMatricInstitutionController, userApplicationCourseController: UserApplicationCourseController,
+                            userApplicationInstitutionController: UserApplicationInstitutionController, userMatricSubjectController: UserMatricSubjectController,
+                            userTertiaryCourseController: UserTertiaryCourseController, userTertiaryInstitutionController: UserTertiaryInstitutionController,
+                            userTertiarySubjectController: UserTertiarySubjectController
+                          ) extends SimpleRouter {
   override def routes: Routes = {
     //USER
     case GET(p"/all") =>
@@ -106,18 +109,6 @@ class UserRouter @Inject()
     case POST(p"/documents/delete") =>
       userDocumentsController.deleteUserDocuments
 
-    //INSTITUTION
-    case GET(p"/institution/all") =>
-      userInstitutionController.getAllUserInstitution
-    case GET(p"/institution/get/$userInstitutionId") =>
-      userInstitutionController.getUserInstitutions(userInstitutionId)
-    case POST(p"/institution/create") =>
-      userInstitutionController.create
-    case POST(p"/institution/update") =>
-      userInstitutionController.update
-    case POST(p"/institution/delete") =>
-      userInstitutionController.deleteUserInstitution
-
     //PASSWORD
     /** Strange block starts here
      * This is not supposed to be here */
@@ -169,20 +160,6 @@ class UserRouter @Inject()
     case POST(p"/role/delete") =>
       userRoleController.deleteUserRole
 
-    //SUBJECTS
-    case GET(p"/subject/all/$userId") =>
-      userSubjectController.getSubjectsForUser(userId)
-    case GET(p"/subject/get/$userId/$institutionId/$subjectId") =>
-      userSubjectController.read(userId, institutionId, subjectId)
-    case GET(p"/subject/getforinstitution/$userId/$institutionId") =>
-      userSubjectController.getSubjectsForUserPerInstitution(userId, institutionId)
-    case POST(p"/subject/create") =>
-      userSubjectController.create
-    case POST(p"/subject/update") =>
-      userSubjectController.update
-    case POST(p"/subject/delete") =>
-      userSubjectController.delete
-
     // USER_TOWN
     case POST(p"/town/create") =>
       userTownController.create
@@ -193,17 +170,93 @@ class UserRouter @Inject()
     case GET(p"/town/delete") =>
       userTownController.delete
 
-    // COURSE
-    case GET(p"/course/all/$userId") =>
-      userCourseController.getCoursesForUser(userId)
-    case GET(p"/course/getforinstitution/$userId/$institutionId") =>
-      userCourseController.getCoursesForUserPerInstitution(userId, institutionId)
-    case GET(p"/course/get/$userId/$institutionId/$courseId") =>
-      userCourseController.read(userId, institutionId, courseId)
-    case POST(p"/course/create") =>
-      userCourseController.create
-    case POST(p"/course/delete") =>
-      userCourseController.delete
+    // APPLICATION_COURSE
+    case GET(p"/application/course/all") =>
+      userApplicationCourseController.getAll
+    case GET(p"/application/course/allforuser/$userId") =>
+      userApplicationCourseController.getEntitiesForUser(userId)
+    case GET(p"/application/course/getforapplication/$userId/$applicationId") =>
+      userApplicationCourseController.read(userId, applicationId)
+    case POST(p"/application/course/create") =>
+      userApplicationCourseController.create
+    case POST(p"/application/course/delete") =>
+      userApplicationCourseController.delete
+
+    // APPLICATION_INSTITUTION
+    case GET(p"/application/institution/all") =>
+      userApplicationInstitutionController.getAll
+    case GET(p"/application/institution/allforuser/$userId") =>
+      userApplicationInstitutionController.getEntitiesForUser(userId)
+    case GET(p"/application/institution/getforapplication/$userId/$applicationId") =>
+      userApplicationInstitutionController.read(userId, applicationId)
+    case POST(p"/application/institution/create") =>
+      userApplicationInstitutionController.create
+    case POST(p"/application/institution/delete") =>
+      userApplicationInstitutionController.delete
+
+    //INSTITUTION_MATRIC
+    case GET(p"/institution/matric/all") =>
+      userMatricInstitutionController.getAll
+    case GET(p"/institution/matric/get/$userId") =>
+      userMatricInstitutionController.read(userId)
+    case POST(p"/institution/matric/create") =>
+      userMatricInstitutionController.create
+    case POST(p"/institution/matric/update") =>
+      userMatricInstitutionController.update
+    case POST(p"/institution/matric/delete") =>
+      userMatricInstitutionController.delete
+
+    // INSTITUTION_MATRIC_SUBJECTS
+    case GET(p"/institution/matric/subject/all") =>
+      userMatricSubjectController.getAll
+    case GET(p"/institution/matric/subject/allforuser/$userId") =>
+      userMatricSubjectController.getEntitiesForUser(userId)
+    case GET(p"/institution/matric/subject/get/$userId/$subjectId") =>
+      userMatricSubjectController.read(userId, subjectId)
+    case POST(p"/institution/matric/subject/create") =>
+      userMatricSubjectController.create
+    case POST(p"/institution/matric/subject/delete") =>
+      userMatricSubjectController.delete
+
+    // INSTITUTION_TERTIARY_COURSE
+    case GET(p"/institution/tertiary/course/all") =>
+      userTertiaryCourseController.getAll
+    case GET(p"/institution/tertiary/course/allforuser/$userId") =>
+      userTertiaryCourseController.getEntitiesForUser(userId)
+    case GET(p"/institution/tertiary/course/getforapplication/$userId/$applicationId") =>
+      userTertiaryCourseController.read(userId, applicationId)
+    case POST(p"/institution/tertiary/course/create") =>
+      userTertiaryCourseController.create
+    case POST(p"/institution/tertiary/course/delete") =>
+      userTertiaryCourseController.delete
+
+    // INSTITUTION_TERTIARY
+    case GET(p"/institution/tertiary/all") =>
+      userTertiaryInstitutionController.getAll
+    case GET(p"/institution/tertiary/allforuser/$userId") =>
+      userTertiaryInstitutionController.getEntitiesForUser(userId)
+    case GET(p"/institution/tertiary/getforapplication/$userId/$applicationId") =>
+      userTertiaryInstitutionController.read(userId, applicationId)
+    case POST(p"/institution/tertiary/create") =>
+      userTertiaryInstitutionController.create
+    case POST(p"/institution/tertiary/delete") =>
+      userTertiaryInstitutionController.delete
+
+    // INSTITUTION_TERTIARY_SUBJECT
+    case GET(p"/institution/tertiary/subject/all") =>
+      userTertiarySubjectController.getAll
+    case GET(p"/institution/tertiary/subject/allforuser/$userId") =>
+      userTertiarySubjectController.getEntitiesForUser(userId)
+    case GET(p"/institution/tertiary/subject/allforapplication/$userId/$applicationId") =>
+      userTertiarySubjectController.getEntitiesForApplication(userId, applicationId)
+    case GET(p"/institution/tertiary/subject/getforapplication/$userId/$applicationId/$subjectId") =>
+      userTertiarySubjectController.read(userId, applicationId, subjectId)
+    case GET(p"/institution/tertiary/subject/deleteforapplication/$userId/$applicationId") =>
+      userTertiarySubjectController.deleteEntitiesForApplication(userId, applicationId)
+    case POST(p"/institution/tertiary/subject/create") =>
+      userTertiarySubjectController.create
+    case POST(p"/institution/tertiary/subject/delete") =>
+      userTertiarySubjectController.delete
 
   }
 }

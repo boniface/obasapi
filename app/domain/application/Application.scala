@@ -5,9 +5,7 @@ import play.api.libs.json.Json
 case class Application(
                         id: String,
                         applicationTypeId: String,
-                        applicantTypeId: String,
-                        institutionId: String,
-                        courseId: String
+                        applicantTypeId: String
                       )
 
 object Application {
