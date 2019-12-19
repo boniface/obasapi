@@ -9,6 +9,7 @@ import scala.concurrent.Future
 trait UserTertiaryInstitutionService extends CrudService[UserTertiaryInstitution] {
   def getEntity(userId: String, applicationId: String): Future[Option[UserTertiaryInstitution]]
   def getEntitiesForUser(userId: String): Future[Seq[UserTertiaryInstitution]]
+  def updateEntity(entity: UserTertiaryInstitution): Future[Option[UserTertiaryInstitution]]
 }
 
 object UserTertiaryInstitutionService {

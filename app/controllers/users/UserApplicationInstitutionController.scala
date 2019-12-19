@@ -1,14 +1,14 @@
 package controllers.users
 
 import controllers.ApiResponse
-import domain.users.UserApplicationInstitution
+import domain.users.{UserApplicationCourse, UserApplicationInstitution}
 import javax.inject.Inject
 import io.circe.generic.auto._
 import play.api.libs.json.{JsValue, Json}
 import play.api.{Logger, Logging}
 import play.api.mvc.{AbstractController, Action, AnyContent, ControllerComponents, Request}
 import services.login.LoginService
-import services.users.UserApplicationInstitutionService
+import services.users.{UserApplicationCourseService, UserApplicationInstitutionService}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -45,6 +45,22 @@ class UserApplicationInstitutionController @Inject()
         results <- domainService.getEntity(userId, applicationId)
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
+  }
+
+  def update: Action[JsValue] = Action.async(parse.json) {
+    implicit request: Request[JsValue] =>
+      val entity = Json.fromJson[DomainObject](request.body).asEither
+      logger.info("Update request with body: " + entity)
+      println("Update request with body: " + entity)
+      entity match {
+        case Right(value) =>
+          val response: Future[Option[DomainObject]] = for {
+            _ <- loginService.checkLoginStatus(request)
+            results: Option[DomainObject] <- domainService.updateEntity(value)
+          } yield results
+          api.requestResponse[Option[DomainObject]](response, className)
+        case Left(error) => api.errorResponse(error, className)
+      }
   }
 
   def getEntitiesForUser(userId: String): Action[AnyContent] = Action.async {

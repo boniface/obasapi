@@ -2,8 +2,9 @@ package services.users.Impl
 
 import domain.users.UserApplicationInstitution
 import repository.users.UserApplicationInstitutionRepository
-import services.users.UserApplicationInstitutionService
+import services.users.{UserApplicationCourseService, UserApplicationInstitutionService}
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class UserApplicationInstitutionServiceImpl extends UserApplicationInstitutionService {
@@ -25,4 +26,12 @@ class UserApplicationInstitutionServiceImpl extends UserApplicationInstitutionSe
     UserApplicationInstitutionRepository.apply.deleteEntity(entity)
 
   override def createTable: Future[Boolean] = UserApplicationInstitutionRepository.apply.createTable
+
+  override def updateEntity(entity: UserApplicationInstitution): Future[Option[UserApplicationInstitution]] = {
+    for {
+      userApplicationCourse <- UserApplicationCourseService.apply.getEntity(entity.userId, entity.applicationId)
+      updated <- if (userApplicationCourse.isEmpty) UserApplicationInstitutionRepository.apply.saveEntity(entity)
+      else Future(Some(entity))
+    } yield updated
+  }
 }

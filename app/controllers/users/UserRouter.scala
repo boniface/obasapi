@@ -179,6 +179,8 @@ class UserRouter @Inject()(
       userApplicationCourseController.read(userId, applicationId)
     case POST(p"/application/course/create") =>
       userApplicationCourseController.create
+    case POST(p"/application/course/update") =>
+      userApplicationCourseController.update
     case POST(p"/application/course/delete") =>
       userApplicationCourseController.delete
 
@@ -191,6 +193,8 @@ class UserRouter @Inject()(
       userApplicationInstitutionController.read(userId, applicationId)
     case POST(p"/application/institution/create") =>
       userApplicationInstitutionController.create
+    case POST(p"/application/institution/update") =>
+      userApplicationInstitutionController.update
     case POST(p"/application/institution/delete") =>
       userApplicationInstitutionController.delete
 
@@ -215,6 +219,8 @@ class UserRouter @Inject()(
       userMatricSubjectController.read(userId, subjectId)
     case POST(p"/institution/matric/subject/create") =>
       userMatricSubjectController.create
+    case POST(p"/institution/matric/subject/update") =>
+      userMatricSubjectController.update
     case POST(p"/institution/matric/subject/delete") =>
       userMatricSubjectController.delete
 
@@ -227,6 +233,8 @@ class UserRouter @Inject()(
       userTertiaryCourseController.read(userId, applicationId)
     case POST(p"/institution/tertiary/course/create") =>
       userTertiaryCourseController.create
+    case POST(p"/institution/tertiary/course/update") =>
+      userTertiaryCourseController.update
     case POST(p"/institution/tertiary/course/delete") =>
       userTertiaryCourseController.delete
 
@@ -239,6 +247,8 @@ class UserRouter @Inject()(
       userTertiaryInstitutionController.read(userId, applicationId)
     case POST(p"/institution/tertiary/create") =>
       userTertiaryInstitutionController.create
+    case POST(p"/institution/tertiary/update") =>
+      userTertiaryInstitutionController.update
     case POST(p"/institution/tertiary/delete") =>
       userTertiaryInstitutionController.delete
 
@@ -255,6 +265,8 @@ class UserRouter @Inject()(
       userTertiarySubjectController.deleteEntitiesForApplication(userId, applicationId)
     case POST(p"/institution/tertiary/subject/create") =>
       userTertiarySubjectController.create
+    case POST(p"/institution/tertiary/subject/update") =>
+      userTertiarySubjectController.update
     case POST(p"/institution/tertiary/subject/delete") =>
       userTertiarySubjectController.delete
 

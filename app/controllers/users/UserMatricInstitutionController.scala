@@ -46,7 +46,7 @@ class UserMatricInstitutionController @Inject()
         case Right(value) =>
           val response: Future[Option[DomainObject]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Option[DomainObject] <- domainService.saveEntity(value)
+            results: Option[DomainObject] <- domainService.updateEntity(value)
           } yield results
           api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
