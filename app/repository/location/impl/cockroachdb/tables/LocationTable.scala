@@ -45,6 +45,7 @@ object LocationTable extends TableQuery(new LocationTable(_)) {
 
   def getEntitiesForParent(locationParentId: String): Future[Seq[Location]] = {
     db.run(this.filter(_.locationParentId === locationParentId).result)
+      .map(_.sorted(Location.orderByName))
   }
 
   def getEntities: Future[Seq[Location]] = {
