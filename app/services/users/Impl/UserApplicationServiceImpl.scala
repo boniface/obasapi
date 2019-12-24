@@ -27,4 +27,7 @@ class UserApplicationServiceImpl extends  UserApplicationService {
 
   override def getLatestEntityForUser(userId: String): Future[Option[UserApplication]] =
     UserApplicationRepository.roach.getLatestEntityForUser(userId)
+
+  override def getEntityForApplication(applicationId: String): Future[Option[UserApplication]] =
+    UserApplicationRepository.roach.getEntityForApplication(applicationId)
 }

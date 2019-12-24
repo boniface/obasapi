@@ -36,6 +36,9 @@ class UserApplicationRepositoryImpl  extends UserApplicationRepository{
 
   override def getLatestEntityForUser(userId: String): Future[Option[UserApplication]] =
     UserApplicationTable.getLatestForUser(userId)
+
+  override def getEntityForApplication(applicationId: String): Future[Option[UserApplication]] =
+    UserApplicationTable.getEntityForApplication(applicationId)
 }
 
 

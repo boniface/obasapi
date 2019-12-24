@@ -66,6 +66,10 @@ object UserApplicationTable extends TableQuery(new UserApplicationTable(_)) {
     db.run(this.filter(_.userId === userId).result)
   }
 
+  def getEntityForApplication(applicationId: String): Future[Option[UserApplication]] = {
+    db.run(this.filter(_.applicationId === applicationId).result).map(_.headOption)
+  }
+
   def saveEntity(userApplication: UserApplication): Future[Option[UserApplication]] = {
     db.run(
       (this returning this).insertOrUpdate(userApplication)

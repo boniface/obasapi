@@ -56,6 +56,16 @@ class UserApplicationController @Inject()
       api.requestResponse[Seq[DomainObject]](response, className)
   }
 
+  def getEntityForApplication(applicationId: String): Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve by applicationId: " + applicationId)
+      println("Retrieve by applicationId: " + applicationId)
+      val response: Future[Option[DomainObject]] = for {
+        results <- domainService.getEntityForApplication(applicationId)
+      } yield results
+      api.requestResponse[Option[DomainObject]](response, className)
+  }
+
   def getLatestForUser(userId: String): Action[AnyContent] = Action.async {
     implicit request: Request[AnyContent] =>
       logger.info("Retrieve latest for userId: " + userId)
