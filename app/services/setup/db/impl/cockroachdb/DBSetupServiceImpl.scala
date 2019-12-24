@@ -3,7 +3,7 @@ package services.setup.db.impl.cockroachdb
 import services.academics.{CourseService, CourseSubjectService, SubjectService}
 import services.address.{AddressTypeService, ContactTypeService}
 import services.application.{ApplicantTypeService, ApplicationService, ApplicationStatusService, ApplicationTypeService}
-import services.demographics.{DistrictService, DistrictTownService, GenderService, ProvinceDistrictService, ProvinceService, RaceService, RoleService, TitleService, TownService}
+import services.demographics.{GenderService, RaceService, RoleService, TitleService}
 import services.documents.{DocumentService, DocumentStatusService, DocumentTypeService}
 import services.institutions.{InstitutionAddressService, InstitutionContactService, InstitutionCourseService, InstitutionLocationService, InstitutionService, InstitutionTypeService}
 import services.location.{LocationService, LocationTypeService}
@@ -41,11 +41,6 @@ class DBSetupServiceImpl extends DBSetupService {
     RaceService.roach.createTable
     RoleService.roach.createTable
     TitleService.roach.createTable
-    DistrictService.roach.createTable
-    ProvinceService.roach.createTable
-    TownService.roach.createTable
-    ProvinceDistrictService.apply.createTable
-    DistrictTownService.apply.createTable
   }
 
   def createDocumentTables(): Future[Boolean] = {

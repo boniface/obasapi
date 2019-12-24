@@ -12,6 +12,7 @@ import services.demographics.DistrictTownService
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+@Deprecated
 class DistrictTownController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
 

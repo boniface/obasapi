@@ -14,6 +14,7 @@ import util.HelperUtil
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+@Deprecated
 class DistrictController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging  {
   type DomainObject = District
@@ -31,10 +32,10 @@ class DistrictController @Inject()
         case Right(value) =>
           val copy = value.copy(districtCode = HelperUtil.codeGen(value.districtName))
           logger.info("Saving district: " + copy)
-          val response: Future[Option[District]] = for {
-            results: Option[District] <- domainService.saveEntity(copy)
+          val response: Future[Option[DomainObject]] = for {
+            results: Option[DomainObject] <- domainService.saveEntity(copy)
           } yield results
-          api.requestResponse[Option[District]](response, className)
+          api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }
@@ -44,11 +45,11 @@ class DistrictController @Inject()
       val entity = Json.fromJson[DomainObject](request.body).asEither
       entity match {
         case Right(value) =>
-          val response: Future[Option[District]] = for {
+          val response: Future[Option[DomainObject]] = for {
             _ <- loginService.checkLoginStatus(request)
-            results: Option[District] <- domainService.saveEntity(value)
+            results: Option[DomainObject] <- domainService.saveEntity(value)
           } yield results
-          api.requestResponse[Option[District]](response, className)
+          api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
       }
   }

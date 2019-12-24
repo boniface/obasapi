@@ -13,6 +13,7 @@ import scala.concurrent.Future
  * Used for DDL (to create table in DB) with composite key
  * @param tag
  */
+@Deprecated
 class ProvinceDistrictTableCreate(tag: Tag) extends Table[ProvinceDistrict](tag, "province_district") {
   def provinceCode: Rep[String] = column[String]("province_code")
 
@@ -23,6 +24,7 @@ class ProvinceDistrictTableCreate(tag: Tag) extends Table[ProvinceDistrict](tag,
   def pk = primaryKey("pk_province_district", (provinceCode, districtCode))
 }
 
+@Deprecated
 object ProvinceDistrictTableCreate extends TableQuery(new ProvinceDistrictTableCreate(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
@@ -35,6 +37,7 @@ object ProvinceDistrictTableCreate extends TableQuery(new ProvinceDistrictTableC
  * Used for DML
  * @param tag
  */
+@Deprecated
 class ProvinceDistrictTable(tag: Tag) extends Table[ProvinceDistrict](tag, "province_district") {
   def provinceCode: Rep[String] = column[String]("province_code", O.PrimaryKey)
 
@@ -43,6 +46,7 @@ class ProvinceDistrictTable(tag: Tag) extends Table[ProvinceDistrict](tag, "prov
   override def * : ProvenShape[ProvinceDistrict] = (provinceCode, districtCode) <> ((ProvinceDistrict.apply _).tupled, ProvinceDistrict.unapply)
 }
 
+@Deprecated
 object ProvinceDistrictTable extends TableQuery(new ProvinceDistrictTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 

@@ -28,10 +28,8 @@ class GenericStatusController @Inject()
       logger.info("Create request with body: " + entity)
       entity match {
         case Right(value) =>
-          val copy = value.copy(id = HelperUtil.codeGen(value.name))
-          logger.info("Saving application status: " + copy)
           val response: Future[Option[DomainObject]] = for {
-            results: Option[DomainObject] <- domainService.saveEntity(copy)
+            results: Option[DomainObject] <- domainService.saveEntity(value)
           } yield results
           api.requestResponse[Option[DomainObject]](response, className)
         case Left(error) => api.errorResponse(error, className)
@@ -58,6 +56,15 @@ class GenericStatusController @Inject()
       logger.info("Retrieve by id: " + id)
       val response: Future[Option[DomainObject]] = for {
         results <- domainService.getEntity(id)
+      } yield results
+      api.requestResponse[Option[DomainObject]](response, className)
+  }
+
+  def getIncompleteStatus: Action[AnyContent] = Action.async {
+    implicit request: Request[AnyContent] =>
+      logger.info("Retrieve incomplete status")
+      val response: Future[Option[DomainObject]] = for {
+        results <- domainService.getIncompleteStatus
       } yield results
       api.requestResponse[Option[DomainObject]](response, className)
   }

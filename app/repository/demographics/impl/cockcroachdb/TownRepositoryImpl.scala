@@ -7,6 +7,7 @@ import repository.demographics.impl.cockcroachdb.tables.TownTable
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+@Deprecated
 class TownRepositoryImpl extends TownRepository{
   override def saveEntity(entity: Town): Future[Option[Town]] = {
     TownTable.saveEntity(entity)

@@ -6,6 +6,7 @@ import services.demographics.DistrictTownService
 
 import scala.concurrent.Future
 
+@Deprecated
 class DistrictTownServiceImpl extends DistrictTownService {
   override def getEntity(districtCode: String, townCode: String): Future[Option[DistrictTown]] =
     DistrictTownRepository.apply.getEntity(districtCode, townCode)

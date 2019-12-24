@@ -17,6 +17,8 @@ class SetupRouter @Inject()  (cockroachSetupController: CockroachSetupController
     // Routers for Cockroach setup
     case GET(p"/db/cockroach/tables/create") =>
       cockroachSetupController.createTables
+    case GET(p"/db/cockroach/tables/loadlookup") =>
+      cockroachSetupController.loadData
     case GET(p"/security/apikey/$phrase") =>
       apiKeysController.create(phrase)
   }

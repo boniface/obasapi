@@ -9,6 +9,7 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+@Deprecated
 class ProvinceTable(tag: Tag) extends Table[Province] (tag, _tableName = "province") {
 
   def provinceCode: Rep[String] = column[String]("province_code", O.PrimaryKey)
@@ -18,6 +19,7 @@ class ProvinceTable(tag: Tag) extends Table[Province] (tag, _tableName = "provin
   override def * : ProvenShape[Province] = (provinceCode,provinceName) <> ((Province.apply _).tupled, Province.unapply)
 }
 
+@Deprecated
 object ProvinceTable extends TableQuery(new ProvinceTable(_)){
   def db: driver.api.Database =PgDBConnection.db
 

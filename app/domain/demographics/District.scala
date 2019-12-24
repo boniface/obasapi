@@ -8,6 +8,7 @@ case class District(
                      districtName: String
                    )
 
+@Deprecated
 object District {
   implicit val districFmt = Json.format[District]
 

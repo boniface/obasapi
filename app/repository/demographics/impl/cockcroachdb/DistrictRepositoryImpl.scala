@@ -8,6 +8,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
+@Deprecated
 class DistrictRepositoryImpl extends DistrictRepository{
   override def saveEntity(entity: District): Future[Option[District]] = {
     DistrictTable.saveEntity(entity)

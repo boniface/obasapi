@@ -54,4 +54,6 @@ object APPKeys {
 
   def INCOMPLETE = "Incomplete"
 
+  def COMPLETE = "Complete"
+
 }

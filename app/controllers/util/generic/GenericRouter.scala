@@ -14,6 +14,8 @@ class GenericRouter @Inject()(genericStatusController: GenericStatusController)
       genericStatusController.gatAll
     case GET(p"/status/get/$statusId") =>
       genericStatusController.read(statusId)
+    case GET(p"/status/incomplete") =>
+      genericStatusController.getIncompleteStatus
     case POST(p"/status/create") =>
       genericStatusController.create
     case POST(p"/status/update") =>

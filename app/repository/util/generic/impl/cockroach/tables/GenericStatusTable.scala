@@ -15,7 +15,7 @@ class GenericStatusTable(tag: Tag) extends Table[GenericStatus] (tag, _tableName
 
   def name: Rep[String] = column[String]("name")
 
-  def description: Rep[Option[String]] = column[Option[String]]("description")
+  def description: Rep[String] = column[String]("description")
 
   override def * : ProvenShape[GenericStatus] = (id, name, description) <> ((GenericStatus.apply _).tupled, GenericStatus.unapply)
 }
@@ -31,6 +31,10 @@ object GenericStatusTable extends TableQuery(new GenericStatusTable(_)){
     db.run(
       (this returning this).insertOrUpdate(applicationStatus)
     )
+  }
+
+  def getEntityByName(name: String): Future[Option[GenericStatus]] = {
+    db.run(this.filter(_.name.trim === name.trim).result).map(_.headOption)
   }
 
   def getEntities: Future[Seq[GenericStatus]] = {

@@ -14,6 +14,7 @@ import util.HelperUtil
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+@Deprecated
 class ProvinceController @Inject()
 (cc: ControllerComponents, api: ApiResponse) extends AbstractController(cc) with Logging {
   type DomainObject = Province

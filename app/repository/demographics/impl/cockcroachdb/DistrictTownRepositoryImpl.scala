@@ -7,6 +7,7 @@ import repository.demographics.impl.cockcroachdb.tables.{DistrictTownTable, Dist
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+@Deprecated
 class DistrictTownRepositoryImpl extends DistrictTownRepository {
   override def getEntity(districtCode: String, townCode: String): Future[Option[DistrictTown]] = DistrictTownTable.getEntity(districtCode, townCode)
 

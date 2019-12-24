@@ -6,6 +6,7 @@ import services.demographics.TownService
 
 import scala.concurrent.Future
 
+@Deprecated
 class TownServiceImpl extends TownService{
 
   override def saveEntity(entity: Town): Future[Option[Town]] =

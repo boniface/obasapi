@@ -3,6 +3,7 @@ package repository.util.generic.impl.cockroach
 import domain.util.generic.GenericStatus
 import repository.util.generic.GenericStatusRepository
 import repository.util.generic.impl.cockroach.tables.GenericStatusTable
+import util.APPKeys
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -27,5 +28,8 @@ class GenericStatusRepositoryImpl extends GenericStatusRepository{
   override def createTable: Future[Boolean] = {
     Future.successful(GenericStatusTable.createTable)
   }
+
+  override def getIncompleteStatus: Future[Option[GenericStatus]] =
+    GenericStatusTable.getEntityByName(APPKeys.INCOMPLETE)
 }
 

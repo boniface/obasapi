@@ -8,6 +8,7 @@ case class Town(
                  townName: String
                )
 
+@Deprecated
 object Town {
   implicit val townFmt = Json.format[Town]
 }
