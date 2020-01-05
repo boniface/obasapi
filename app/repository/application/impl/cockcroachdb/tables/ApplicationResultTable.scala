@@ -1,10 +1,8 @@
 package repository.application.impl.cockcroachdb.tables
 
-//import akka.http.scaladsl.model.DateTime
 import java.time.LocalDateTime
 
 import domain.application.ApplicationResult
-import org.joda.time.DateTime
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
 import util.connections.PgDBConnection
