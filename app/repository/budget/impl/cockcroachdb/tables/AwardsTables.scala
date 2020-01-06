@@ -13,20 +13,22 @@ import scala.concurrent.Future
 
 class AwardsTables(tag: Tag) extends Table[Awards] (tag, _tableName = "awards"){
 
-  def email: Rep[String] = column[String]("email", O.PrimaryKey)
+  def id: Rep[String] = column[String]("id", O.PrimaryKey)
+
+  def email: Rep[String] = column[String]("email")
 
   def amount: Rep[BigDecimal] = column[BigDecimal]("amount")
 
   def date: Rep[LocalDateTime] = column[LocalDateTime]("date")
 
-  def * : ProvenShape[Awards] = (email, amount, date) <> ((Awards.apply _).tupled, Awards.unapply)
+  def * : ProvenShape[Awards] = (id, email, amount, date) <> ((Awards.apply _).tupled, Awards.unapply)
 }
 
 object AwardsTables extends TableQuery(new AwardsTables(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(email: String): Future[Option[Awards]] = {
-    db.run(this.filter(_.email === email).result).map(_.headOption)
+  def getEntity(id: String): Future[Option[Awards]] = {
+    db.run(this.filter(_.id === id).result).map(_.headOption)
   }
 
   def saveEntity(awards: Awards): Future[Option[Awards]] = {
