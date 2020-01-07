@@ -9,43 +9,73 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
+/**
+ * Used for DDL (to create table with composite key)
+ * @param tag
+ */
+class UserAddressTableCreate(tag: Tag) extends Table[UserAddress](tag, "user_address") {
+  def userId: Rep[String] = column[String]("user_id")
 
-class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
-  def userAddressId: Rep[String] = column[String]("user_address_id", O.PrimaryKey)
+  def addressTypeId: Rep[String] = column[String]("address_type_id")
 
-  def physicalAddress: Rep[String] = column[String]("physical_address")
+  def address: Rep[String] = column[String]("address")
 
   def postalCode: Rep[String] = column[String]("postal_code")
 
-  def * : ProvenShape[UserAddress] = (userAddressId, physicalAddress, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
+  def * : ProvenShape[UserAddress] = (userId, addressTypeId, address, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
+
+  def pk = primaryKey("pk_user_address", (userId, addressTypeId))
+}
+
+object UserAddressTableCreate extends TableQuery(new UserAddressTableCreate(_)) {
+  def db: driver.api.Database = PgDBConnection.db
+
+  def createTable = {
+    db.run(
+      UserAddressTableCreate.schema.createIfNotExists
+    ).isCompleted
+  }
+}
+
+/**
+ * Used for DML
+ * @param tag
+ */
+class UserAddressTable(tag: Tag) extends Table[UserAddress](tag, "user_address") {
+  def userId: Rep[String] = column[String]("user_id", O.PrimaryKey)
+
+  def addressTypeId: Rep[String] = column[String]("address_type_id", O.PrimaryKey)
+
+  def address: Rep[String] = column[String]("address")
+
+  def postalCode: Rep[String] = column[String]("postal_code")
+
+  def * : ProvenShape[UserAddress] = (userId, addressTypeId, address, postalCode) <> ((UserAddress.apply _).tupled, UserAddress.unapply)
 }
 
 object UserAddressTable extends TableQuery(new UserAddressTable(_)) {
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(userAddressId: String): Future[Option[UserAddress]] = {
-    db.run(this.filter(_.userAddressId === userAddressId).result).map(_.headOption)
+  def getEntity(userId: String, addressTypeId: String): Future[Option[UserAddress]] = {
+    db.run(this.filter(_.userId === userId).filter(_.addressTypeId === addressTypeId).result).map(_.headOption)
+  }
+
+  def getEntityForUser(userId: String): Future[Seq[UserAddress]] = {
+    db.run(this.filter(_.userId === userId).result)
   }
 
   def saveEntity(userAddress: UserAddress): Future[Option[UserAddress]] = {
     db.run(
       (this returning this).insertOrUpdate(userAddress)
     )
-
   }
 
   def getEntities: Future[Seq[UserAddress]] = {
     db.run(UserAddressTable.result)
   }
 
-  def deleteEntity(userAddressId: String): Future[Int] = {
-    db.run(this.filter(_.userAddressId === userAddressId).delete)
-  }
-
-  def createTable = {
-    db.run(
-      UserAddressTable.schema.createIfNotExists
-    ).isCompleted
+  def deleteEntity(userId: String, addressTypeId: String): Future[Int] = {
+    db.run(this.filter(_.userId === userId).filter(_.addressTypeId === addressTypeId).delete)
   }
 
 }

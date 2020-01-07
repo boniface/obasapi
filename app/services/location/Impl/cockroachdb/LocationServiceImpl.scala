@@ -22,4 +22,8 @@ class LocationServiceImpl extends LocationService {
   override def createTable: Future[Boolean] =
     LocationRepository.roach.createTable
 
+  override def getParentEntities: Future[Seq[Location]] = LocationRepository.roach.getParentEntities
+
+  override def getEntitiesForParent(locationParentId: String): Future[Seq[Location]] =
+    LocationRepository.roach.getEntitiesForParent(locationParentId)
 }

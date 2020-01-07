@@ -1,57 +1,66 @@
 package controllers.application
 
 import javax.inject.Inject
-
 import play.api.routing.sird._
-
 import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 
-class ApplicationRouter @Inject()(applicationStatusController: ApplicationStatusController
-                                 ,applicantTypeController: ApplicantTypeController
-                                 ,applicationResultController: ApplicationResultController)
+class ApplicationRouter @Inject()(
+                                   applicantTypeController: ApplicantTypeController,
+                                   applicationController: ApplicationController,
+                                   applicationTypeController: ApplicationTypeController,
+                                   applicationStatusController: ApplicationStatusController
+                                 )
   extends SimpleRouter {
   override def routes: Routes = {
 
+    // APPLICATION
+    case GET(p"/all") =>
+      applicationController.getAll
+    case GET(p"/get/$id") =>
+      applicationController.read(id)
+    case POST(p"/create") =>
+      applicationController.create
+    case POST(p"/update") =>
+      applicationController.update
+    case POST(p"/delete") =>
+      applicationController.delete
 
-
-    //APPLICANTTYPE
-    case GET(p"/type/all") =>
+    //APPLICANT_TYPE
+    case GET(p"/applicanttype/all") =>
       applicantTypeController.getAllApplicantType
-    case GET(p"/type/get/$applicantTypeId") =>
+    case GET(p"/applicanttype/get/$applicantTypeId") =>
       applicantTypeController.getApplicantTypeById(applicantTypeId)
-    case POST(p"/type/create") =>
+    case POST(p"/applicanttype/create") =>
       applicantTypeController.create
-    case POST(p"/type/update") =>
+    case POST(p"/applicanttype/update") =>
       applicantTypeController.update
-    case POST(p"/type/delete") =>
+    case POST(p"/applicanttype/delete") =>
       applicantTypeController.deleteApplicantType
 
-    //APPLICATIONRESULT
-    case GET(p"/result/all") =>
-      applicationResultController.getAllApplicationResult
-    case GET(p"/result/get/$applicationResultId") =>
-      applicationResultController.getApplicationResultById(applicationResultId)
-    case POST(p"/result/create") =>
-      applicationResultController.create
-    case POST(p"/result/update") =>
-      applicationResultController.update
-    case POST(p"/result/delete") =>
-      applicationResultController.deleteApplicationResult
+    //APPLICATION_TYPE
+    case GET(p"/type/all") =>
+      applicationTypeController.getAll
+    case GET(p"/type/get/$id") =>
+      applicationTypeController.read(id)
+    case POST(p"/type/create") =>
+      applicationTypeController.create
+    case POST(p"/type/update") =>
+      applicationTypeController.update
+    case POST(p"/type/delete") =>
+      applicationTypeController.delete
 
-
-      //APPLICATIONSTATUS
-    case GET(p"/status/all") =>
-      applicationStatusController.getAllApplicationStatus
-    case GET(p"/status/get/$applicationStatusId") =>
-      applicationStatusController.getApplicationStatusById(applicationStatusId)
+    // APPLICATION_STATUS
+    case GET(p"/status/all/$applicationId") =>
+      applicationStatusController.getEntitiesForApplication(applicationId)
+    case GET(p"/status/getforstatus/$applicationId/$statusId") =>
+      applicationStatusController.getLatestForAppnStatus(applicationId, statusId)
+    case GET(p"/status/getforapplication/$applicationId") =>
+      applicationStatusController.getLatestForApplication(applicationId)
+    case GET(p"/status/iscompleted/$applicationId") =>
+      applicationStatusController.checkIfApplicationComplete(applicationId)
     case POST(p"/status/create") =>
       applicationStatusController.create
-    case POST(p"/status/update") =>
-      applicationStatusController.update
-    case POST(p"/status/delete") =>
-      applicationStatusController.deleteApplicationStatus
-
 
   }
 }

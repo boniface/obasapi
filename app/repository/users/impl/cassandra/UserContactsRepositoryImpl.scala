@@ -23,9 +23,7 @@ class UserContactsRepositoryImpl extends UserContactsRepository{
     UserContactsDatabase.userContactsTable.getEntity(userContactId)
   }
 
-  override def deleteEntity(entity: UserContacts): Future[Boolean] = {
-    UserContactsDatabase.userContactsTable.deleteEntity(entity.userContactId) map (result => result.isExhausted())
-  }
+  override def deleteEntity(entity: UserContacts): Future[Boolean] = ???
 
   override def createTable: Future[Boolean] = {
     implicit def keyspace: KeySpace = DataConnection.keySpaceQuery.keySpace
@@ -33,6 +31,10 @@ class UserContactsRepositoryImpl extends UserContactsRepository{
     UserContactsDatabase.userContactsTable.create.ifNotExists().future().map(result => result.head.isExhausted())
 
   }
+
+  override def getEntityForUser(id: String): Future[Seq[UserContacts]] = ???
+
+  override def getEntity(userId: String, contactTypeId: String): Future[Option[UserContacts]] = ???
 }
 class UserContactsDatabase(override val connector: KeySpaceDef) extends Database[UserContactsDatabase](connector) {
   object userContactsTable extends UserContactsTableImpl with connector.Connector

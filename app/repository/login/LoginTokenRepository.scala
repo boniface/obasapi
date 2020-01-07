@@ -2,7 +2,7 @@ package repository.login
 
 import domain.login.LoginToken
 import repository.Repository
-import repository.login.impl.cockroachdb.LoginTokenRepositoryImpl
+import repository.login.impl.cockroach.LoginTokenRepositoryImpl
 
 
 trait LoginTokenRepository extends Repository[LoginToken] {

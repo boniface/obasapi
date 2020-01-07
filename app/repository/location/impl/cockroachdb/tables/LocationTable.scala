@@ -13,19 +13,17 @@ import scala.concurrent.Future
 class LocationTable(tag: Tag) extends Table[Location](tag, "location") {
   def locationId: Rep[String] = column[String]("location_id", O.PrimaryKey)
 
+  def locationTypeId: Rep[String] = column[String]("location_type_id")
+
   def name: Rep[String] = column[String]("name")
 
   def latitude: Rep[String] = column[String]("latitude")
 
   def longitude: Rep[String] = column[String]("longitude")
 
-  def code: Rep[String] = column[String]("code")
+  def locationParentId:Rep[String] = column[String]("location_parent_id")
 
-  def locationTypeId: Rep[String] = column[String]("location_type_id")
-
-  def parentId:Rep[Option[String]] = column[Option[String]]("parent_id")
-
-  def * : ProvenShape[Location] = (locationId, name, latitude, longitude, code, locationTypeId, parentId) <> ((Location.apply _).tupled, Location.unapply)
+  def * : ProvenShape[Location] = (locationId, locationTypeId, name, latitude, longitude, locationParentId) <> ((Location.apply _).tupled, Location.unapply)
 }
 
 object LocationTable extends TableQuery(new LocationTable(_)) {
@@ -41,6 +39,15 @@ object LocationTable extends TableQuery(new LocationTable(_)) {
     )
   }
 
+  def getParentEntities: Future[Seq[Location]] = {
+    db.run(this.filter(_.locationParentId === "").result)
+  }
+
+  def getEntitiesForParent(locationParentId: String): Future[Seq[Location]] = {
+    db.run(this.filter(_.locationParentId === locationParentId).result)
+      .map(_.sorted(Location.orderByName))
+  }
+
   def getEntities: Future[Seq[Location]] = {
     db.run(LocationTable.result)
   }
@@ -49,7 +56,7 @@ object LocationTable extends TableQuery(new LocationTable(_)) {
     db.run(this.filter(_.locationId === locationId).delete)
   }
 
-  def createTable = {
+  def createTable: Boolean = {
     db.run(
       LocationTable.schema.createIfNotExists
     ).isCompleted

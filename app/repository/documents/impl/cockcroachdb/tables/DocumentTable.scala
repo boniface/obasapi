@@ -13,9 +13,7 @@ import scala.concurrent.Future
 
 class DocumentTable(tag:Tag) extends Table[Document](tag, _tableName = "document"){
 
-  def email: Rep[String] = column[String]("email", O.PrimaryKey)
-
-  def documentsId: Rep[String] = column[String]("documents_id")
+  def documentId: Rep[String] = column[String]("document_id", O.PrimaryKey)
 
   def documentTypeId: Rep[String] = column[String]("document_type_id")
 
@@ -29,15 +27,17 @@ class DocumentTable(tag:Tag) extends Table[Document](tag, _tableName = "document
 
   def permission: Rep[String] = column[String]("permission")
 
-  def * : ProvenShape[Document] = (email, documentsId, documentTypeId,description,url,mime,date,permission) <> ((Document.apply _).tupled, Document.unapply)
+  def documentStatus: Rep[String] = column[String]("document_status")
+
+  def * : ProvenShape[Document] = (documentId, documentTypeId,description,url,mime,date,permission, documentStatus) <> ((Document.apply _).tupled, Document.unapply)
   
 }
 
 object DocumentTable extends TableQuery(new DocumentTable(_)){
   def db: driver.api.Database = PgDBConnection.db
 
-  def getEntity(email: String): Future[Option[Document]] = {
-    db.run(this.filter(_.email === email).result).map(_.headOption)
+  def getEntity(documentId: String): Future[Option[Document]] = {
+    db.run(this.filter(_.documentId === documentId).result).map(_.headOption)
   }
 
   def saveEntity(document: Document): Future[Option[Document]] = {
@@ -50,8 +50,8 @@ object DocumentTable extends TableQuery(new DocumentTable(_)){
     db.run(DocumentTable.result)
   }
 
-  def deleteEntity(email: String): Future[Int] = {
-    db.run(this.filter(_.email === email).delete)
+  def deleteEntity(documentId: String): Future[Int] = {
+    db.run(this.filter(_.documentId === documentId).delete)
   }
 
   def createTable = {

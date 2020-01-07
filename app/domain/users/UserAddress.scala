@@ -3,12 +3,13 @@ package domain.users
 import play.api.libs.json.Json
 
 case class UserAddress(
-                       userAddressId:String,
-                       physicalAddress:String,
-                       postalCode:String
+                        userId: String,
+                        addressTypeId: String,
+                        address: String,
+                        postalCode: String
                       )
 
-object UserAddress{
+object UserAddress {
   implicit val userAddressFmt = Json.format[UserAddress]
 }
 

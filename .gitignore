@@ -12,3 +12,4 @@ obasapi.iml
 gradlew
 gradlew.bat
 /.gradle
+/playground.sc

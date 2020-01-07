@@ -5,9 +5,10 @@ import play.api.routing.Router.Routes
 import play.api.routing.SimpleRouter
 import play.api.routing.sird._
 
-class DemographicsRouter@Inject()
-(genderController: GenderController,raceController: RaceController,
- rolesController: RolesController,titleController: TitleController) extends SimpleRouter{
+class DemographicsRouter @Inject()(
+                                    genderController: GenderController, raceController: RaceController,
+                                    rolesController: RolesController, titleController: TitleController
+                                  ) extends SimpleRouter {
   override def routes: Routes = {
 
     //GENDER
@@ -22,7 +23,7 @@ class DemographicsRouter@Inject()
     case POST(p"/gender/delete") =>
       genderController.deleteGender
 
-     //RACE
+    //RACE
     case GET(p"/race/all") =>
       raceController.getAllRace
     case GET(p"/race/get/$raceId") =>
@@ -57,9 +58,5 @@ class DemographicsRouter@Inject()
       titleController.update
     case POST(p"/title/delete") =>
       titleController.deleteTitle
-
-
   }
-
-
 }

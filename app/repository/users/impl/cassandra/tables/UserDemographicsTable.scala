@@ -8,11 +8,13 @@ import scala.concurrent.Future
 
 abstract class UserDemographicsTable extends Table[UserDemographicsTable, UserDemographics] {
 
-  object userDemographicsId extends StringColumn with PartitionKey
+  object userId extends StringColumn with PartitionKey
 
   object genderId extends StringColumn
 
   object raceId extends StringColumn
+
+  object titleId extends StringColumn
 
 }
 
@@ -22,15 +24,16 @@ abstract class UserDemographicsTableImpl extends UserDemographicsTable with Root
 
   def saveEntity(entity: UserDemographics): Future[ResultSet] = {
     insert
-      .value(_.userDemographicsId, entity.userDemographicsId)
+      .value(_.userId, entity.userId)
       .value(_.genderId, entity.genderId)
       .value(_.raceId, entity.raceId)
+      .value(_.titleId, entity.titleId)
       .future()
   }
 
-  def getEntity(userDemographicsId: String): Future[Option[UserDemographics]] = {
+  def getEntity(userId: String): Future[Option[UserDemographics]] = {
     select
-      .where(_.userDemographicsId eqs userDemographicsId)
+      .where(_.userId eqs userId)
       .one()
   }
 
@@ -39,9 +42,9 @@ abstract class UserDemographicsTableImpl extends UserDemographicsTable with Root
       .fetchEnumerator() run Iteratee.collect()
   }
 
-  def deleteEntity(userDemographicsId: String): Future[ResultSet] = {
+  def deleteEntity(userId: String): Future[ResultSet] = {
     delete
-      .where(_.userDemographicsId eqs userDemographicsId)
+      .where(_.userId eqs userId)
       .future()
   }
 }

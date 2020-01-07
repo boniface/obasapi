@@ -24,7 +24,7 @@ class DocumentRepositoryImpl extends DocumentRepository{
   }
 
   override def deleteEntity(entity: Document): Future[Boolean] ={
-    DocumentDatabase.DocumentTable.deleteEntity(entity.email) map (result => result.isExhausted())
+    DocumentDatabase.DocumentTable.deleteEntity(entity.documentId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {

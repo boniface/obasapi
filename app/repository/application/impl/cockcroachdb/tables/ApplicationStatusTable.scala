@@ -2,7 +2,6 @@ package repository.application.impl.cockcroachdb.tables
 
 import java.time.LocalDateTime
 
-import akka.http.javadsl.model.DateTime
 import domain.application.ApplicationStatus
 import slick.jdbc.PostgresProfile.api._
 import slick.lifted.ProvenShape
@@ -12,42 +11,86 @@ import util.connections.PgDBConnection.driver
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus] (tag, _tableName = "application_status") {
+/**
+ * Used for DDL (to create table with composite key)
+ * @param tag
+ */
+class UserApplicationStatusTableCreate(tag: Tag) extends Table[ApplicationStatus](tag, "application_status") {
 
-  def applicationStatusId: Rep[String] = column[String]("application_status_id", O.PrimaryKey)
+  def applicationId: Rep[String] = column[String]("application_id")
 
-  def description: Rep[String] = column[String]("description")
+  def statusId: Rep[String] = column[String]("status_id")
 
-  def date: Rep[LocalDateTime] = column[LocalDateTime]("date")
+  def modifiedBy: Rep[String] = column[String]("modified_by")
 
-  override def * : ProvenShape[ApplicationStatus] = (applicationStatusId,description,date) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
+  def comment: Rep[Option[String]] = column[Option[String]]("comment")
+
+  def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time")
+
+  def * : ProvenShape[ApplicationStatus] = (applicationId, statusId, modifiedBy, comment, dateTime) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
+
+  def pk = primaryKey("pk_user_application_status", (applicationId, statusId, dateTime))
 }
 
-object ApplicationStatusTable extends TableQuery(new ApplicationStatusTable(_)){
-  def db: driver.api.Database =PgDBConnection.db
-  
-  def getEntity(applicationStatusId:String):Future[Option[ApplicationStatus]] ={
-    db.run(this.filter(_.applicationStatusId === applicationStatusId).result).map(_.headOption)
-  }
-
-  def saveEntity(applicationStatus: ApplicationStatus): Future[Option[ApplicationStatus]] = {
-    db.run(
-      (this returning this).insertOrUpdate(applicationStatus)
-    )
-  }
-
-  def getEntities: Future[Seq[ApplicationStatus]] = {
-    db.run(ApplicationStatusTable.result)
-  }
-
-  def deleteEntity(applicationStatusId: String): Future[Int] = {
-    db.run(this.filter(_.applicationStatusId === applicationStatusId).delete)
-  }
+object UserApplicationStatusTableCreate extends TableQuery(new UserApplicationStatusTableCreate(_)) {
+  def db: driver.api.Database = PgDBConnection.db
 
   def createTable = {
     db.run(
-      ApplicationStatusTable.schema.createIfNotExists
+      UserApplicationStatusTableCreate.schema.createIfNotExists
     ).isCompleted
   }
-  
+}
+
+/**
+ * Used for DML
+ * @param tag
+ */
+class UserApplicationStatusTable(tag: Tag) extends Table[ApplicationStatus](tag, "application_status") {
+
+  def applicationId: Rep[String] = column[String]("application_id", O.PrimaryKey)
+
+  def statusId: Rep[String] = column[String]("status_id", O.PrimaryKey)
+
+  def modifiedBy: Rep[String] = column[String]("modified_by")
+
+  def comment: Rep[Option[String]] = column[Option[String]]("comment")
+
+  def dateTime: Rep[LocalDateTime] = column[LocalDateTime]("date_time", O.PrimaryKey)
+
+  def * : ProvenShape[ApplicationStatus] = (applicationId, statusId, modifiedBy, comment, dateTime) <> ((ApplicationStatus.apply _).tupled, ApplicationStatus.unapply)
+}
+
+object UserApplicationStatusTable extends TableQuery(new UserApplicationStatusTable(_)) {
+  type DomainObject = ApplicationStatus
+  def db: driver.api.Database = PgDBConnection.db
+
+  def getEntitiesForAppnStatus(applicationId: String, statusId: String): Future[Seq[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).result)
+  }
+
+  def getLatestForAppnStatus(applicationId: String, statusId: String): Future[Option[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).filter(_.statusId === statusId).result)
+      .map(_.sorted(ApplicationStatus.orderByDateTime)).map(_.headOption)
+  }
+
+  def getEntitiesForApplication(applicationId: String): Future[Seq[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).result)
+  }
+
+  def getLatestForApplication(applicationId: String): Future[Option[DomainObject]] = {
+    db.run(this.filter(_.applicationId === applicationId).result)
+      .map(_.sorted(ApplicationStatus.orderByDateTime)).map(_.headOption)
+  }
+
+  def saveEntity(userAddress: ApplicationStatus): Future[Option[DomainObject]] = {
+    db.run(
+      (this returning this).insertOrUpdate(userAddress)
+    )
+  }
+
+  def getEntities: Future[Seq[DomainObject]] = {
+    db.run(UserApplicationStatusTable.result)
+  }
+
 }

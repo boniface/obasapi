@@ -1,18 +1,19 @@
 package services.setup.db.impl.cockroachdb
 
+import services.academics.{CourseService, CourseSubjectService, SubjectService}
 import services.address.{AddressTypeService, ContactTypeService}
-import services.application.{ApplicantTypeService, ApplicationResultService, ApplicationStatusService}
+import services.application.{ApplicantTypeService, ApplicationService, ApplicationStatusService, ApplicationTypeService}
 import services.demographics.{GenderService, RaceService, RoleService, TitleService}
-import services.documents.{DocumentService, DocumentTypeService}
-import services.institutions.{SchoolService, UniversityService}
+import services.documents.{DocumentService, DocumentStatusService, DocumentTypeService}
+import services.institutions.{InstitutionAddressService, InstitutionContactService, InstitutionCourseService, InstitutionLocationService, InstitutionService, InstitutionTypeService}
 import services.location.{LocationService, LocationTypeService}
 import services.log.LogEventService
 import services.login.LoginTokenService
 import services.mail.{EmailMessageService, MailApiService, MailConfigService, SmtpConfigService}
 import services.security.{ApiKeysService, ResetTokenService}
 import services.setup.db.DBSetupService
-import services.subjects.{MatricSubjectsService, UniversityCoursesService}
 import services.users._
+import services.util.generic.GenericStatusService
 
 import scala.concurrent.Future
 
@@ -30,7 +31,8 @@ class DBSetupServiceImpl extends DBSetupService {
 
   def createApplicationTables(): Future[Boolean] = {
     ApplicantTypeService.roach.createTable
-    ApplicationResultService.roach.createTable
+    ApplicationService.apply.createTable
+    ApplicationTypeService.apply.createTable
     ApplicationStatusService.roach.createTable
   }
 
@@ -44,11 +46,16 @@ class DBSetupServiceImpl extends DBSetupService {
   def createDocumentTables(): Future[Boolean] = {
     DocumentService.roach.createTable
     DocumentTypeService.roach.createTable
+    DocumentStatusService.apply.createTable
   }
 
   def createInstitutionTables(): Future[Boolean] = {
-    SchoolService.roach.createTable
-    UniversityService.roach.createTable
+    InstitutionTypeService.apply.createTable
+    InstitutionService.apply.createTable
+    InstitutionAddressService.apply.createTable
+    InstitutionContactService.apply.createTable
+    InstitutionLocationService.apply.createTable
+    InstitutionCourseService.apply.createTable
   }
 
   def createMailTables(): Future[Boolean] = {
@@ -58,25 +65,33 @@ class DBSetupServiceImpl extends DBSetupService {
     EmailMessageService.roach.createTable
   }
 
-  def createSubjectTables(): Future[Boolean] = {
-    MatricSubjectsService.roach.createTable
-    UniversityCoursesService.roach.createTable
+  def createAcademicsTables(): Future[Boolean] = {
+    CourseService.apply.createTable
+    SubjectService.apply.createTable
+    CourseSubjectService.apply.createTable
   }
 
   def createUserTables(): Future[Boolean] = {
     UserAddressService.apply.createTable
-    UserApplicationResultService.roach.createTable
+    UserApplicationService.roach.createTable
     UserCommunicationService.roach.createTable
     UserContactsService.roach.createTable
     UserDemographicsService.roach.createTable
-    UserDocumentsService.roach.createTable
-    UserInstitutionService.roach.createTable
+    UserDocumentService.roach.createTable
     UserPasswordService.apply.createTable
     UserRelativeService.roach.createTable
     UserRoleService.roach.createTable
-    UserSubjectsService.roach.createTable
     UserResultsService.roach.createTable
     UserService.apply.createTable
+    UserChangePasswordService.apply.createTable
+    UserTownService.apply.createTable
+    UserApplicationCourseService.apply.createTable
+    UserApplicationInstitutionService.apply.createTable
+    UserMatricInstitutionService.apply.createTable
+    UserMatricSubjectService.apply.createTable
+    UserTertiaryCourseService.apply.createTable
+    UserTertiaryInstitutionService.apply.createTable
+    UserTertiarySubjectService.apply.createTable
   }
 
   def createLoginTables(): Future[Boolean] ={
@@ -91,6 +106,10 @@ class DBSetupServiceImpl extends DBSetupService {
 
   def createLogTables(): Future[Boolean] ={
     LogEventService.apply.createTable
+  }
+
+  def createGenericUtilTables(): Future[Boolean] = {
+    GenericStatusService.roach.createTable
   }
 
   override def createTables: Future[Boolean] = {
@@ -109,7 +128,7 @@ class DBSetupServiceImpl extends DBSetupService {
 
     createMailTables()
 
-    createSubjectTables()
+    createAcademicsTables()
 
     createUserTables()
 
@@ -118,6 +137,8 @@ class DBSetupServiceImpl extends DBSetupService {
     createLogTables()
 
     createLoginTables()
+
+    createGenericUtilTables()
 
   }
 }

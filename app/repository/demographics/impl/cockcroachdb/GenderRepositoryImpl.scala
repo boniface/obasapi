@@ -4,8 +4,8 @@ import domain.demographics.Gender
 import repository.demographics.GenderRepository
 import repository.demographics.impl.cockcroachdb.tables.GenderTable
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class GenderRepositoryImpl extends GenderRepository{
   override def saveEntity(entity: Gender): Future[Option[Gender]] = {

@@ -24,7 +24,7 @@ class UserAddressRepositoryImpl extends UserAddressRepository{
   }
 
   override def deleteEntity(entity: UserAddress): Future[Boolean] = {
-    UserAddressDatabase.userAddressTable.deleteEntity(entity.userAddressId) map (result => result.isExhausted())
+    UserAddressDatabase.userAddressTable.deleteEntity(entity.userId) map (result => result.isExhausted())
   }
 
   override def createTable: Future[Boolean] = {
@@ -34,6 +34,9 @@ class UserAddressRepositoryImpl extends UserAddressRepository{
 
   }
 
+  override def getEntity(id: String, addressTypeId: String): Future[Option[UserAddress]] = ???
+
+  override def getEntityForUser(id: String): Future[Seq[UserAddress]] = ???
 }
 class UserAddressDatabase(override val connector: KeySpaceDef) extends Database[UserAddressDatabase](connector) {
   object userAddressTable extends UserAddressTableImpl with connector.Connector

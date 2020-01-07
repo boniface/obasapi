@@ -1,11 +1,11 @@
 package repository.demographics.impl.cockcroachdb
 
 import domain.demographics.Roles
-import repository.demographics.impl.cockcroachdb.tables.RolesTable
 import repository.demographics.RolesRepository
+import repository.demographics.impl.cockcroachdb.tables.RolesTable
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class RolesRepositoryImpl extends RolesRepository {
   override def saveEntity(entity: Roles): Future[Option[Roles]] = {
