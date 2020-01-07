@@ -6,3 +6,6 @@ project/project/
 project/target/
 target/
 
+# @caniksea's playground to be ignored
+/playground.sc
+
