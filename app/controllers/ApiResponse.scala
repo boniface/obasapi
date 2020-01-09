@@ -4,7 +4,6 @@ import java.io.File
 import java.nio.file.attribute.PosixFilePermission.{OWNER_READ, OWNER_WRITE}
 import java.nio.file.attribute.PosixFilePermissions
 import java.nio.file.{Files, Path}
-import java.util
 
 import akka.stream.IOResult
 import akka.stream.scaladsl.FileIO
